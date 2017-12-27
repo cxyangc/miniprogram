@@ -1,0 +1,26 @@
+<view class='container'>
+    <view class='tocoupons_get' bindtap='gotoGet'
+    style='color:{{setting.platformSetting.defaultColor}}'>前往领券中心>></view>
+    <view class='tab'>
+      <view class='{{showState == 0 ? "active":"noneUse"}}' data-id='0' bindtap='showCouponState'>未使用</view>
+      <view class='{{showState == 1 ? "active":"noneUse"}}' data-id='1' bindtap='showCouponState'>已使用</view>
+      <view class='{{showState == 2 ? "active":"noneUse"}}' data-id='2' bindtap='showCouponState'>已过期</view>
+
+    </view>
+
+    <view class='couponListContainer'>
+      <view class='couponListItem' wx:for='{{showCoupon}}' wx:for-item='cou' wx:key='{{cou.id}}'>
+          <view class='itemHead' style='background:{{setting.platformSetting.defaultColor}}'>{{cou.couponName}}</view>
+          <view class='itemBody'>
+            <text style='color:{{setting.platformSetting.defaultColor}}'>{{cou.coupon.youhuiAmount}}</text>
+            <view>
+              <view class='ccc'>满{{cou.coupon.orderAmount}}可用</view>
+              <view>{{cou.state}}</view>
+              <view bindtap='toproduct'>点击前往使用优惠券</view>
+            </view>
+          </view>
+          <view class='itemBottom'>{{cou.couponStartDate}} 至 {{cou.couponEndDate}}</view>
+      </view>
+    </view>
+    
+</view>

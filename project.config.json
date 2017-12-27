@@ -1,0 +1,35 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true
+	},
+	"compileType": "weapp",
+	"libVersion": "1.6.0",
+	"appid": "wx37b3f495891dd60c",
+	"projectname": "%E6%95%B0%E5%AD%97%E8%8F%9C%E8%B0%B1",
+	"condition": {
+		"weapp": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "带参扫码",
+					"pathName": "pages/index/index",
+					"query": "platformNo=shuiguo",
+					"scene": "1011"
+				}
+			]
+		},
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		}
+	}
+}
