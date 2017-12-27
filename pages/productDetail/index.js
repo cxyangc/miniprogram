@@ -359,15 +359,22 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  getData:function(){
+  getData:function(options){
+    let param = {}
+    if (!options){
+      param = that.dataFOr_getData
+    }else{
+      param = options
+    }
+
     wx.showLoading({
       title: 'loading',
       mask: true
     })
-    var that = this
+    let that = this
 
     wx.request({
-      url: app.clientUrl + app.clientNo + "/product_detail_" + that.dataFOr_getData.id + ".html?jsonOnly=1" + "&addShopId=" + that.dataFOr_getData.addShopId,
+      url: app.clientUrl + app.clientNo + "/product_detail_" + param.id + ".html?jsonOnly=1" + "&addShopId=" + param.addShopId,
       header: app.header,
       success: function (res) {
         console.log(res.data)
@@ -411,11 +418,10 @@ Page({
   onLoad: function (options) {
     console.log('--------product----------')
     console.log(options)
-    var id = options.id
-    var addShopId = options.addShopId
-    this.dataFOr_getData.id = id
-    this.dataFOr_getData.addShopId = addShopId
-    this.getData()
+    this.dataFOr_getData.id = options.id
+    this.dataFOr_getData.addShopId = options.addShopId
+    
+    this.getData(options)
   },
 
   showCount: function () {
