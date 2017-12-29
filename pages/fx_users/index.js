@@ -1,77 +1,78 @@
-
+// pages/fx_users/index.js
 const app = getApp()
- 
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    Data:[], 
-    moneyAmount:0
+    List:[]
   },
-  userRecharge:function(){
-    this.setData({ reflesh: 1 })
-    wx.navigateTo({
-      url: "/pages/user_recharge/index",
-    })
-  },
-  /* 获取数据 */
-  getData: function () {
-    if (!app.checkIfLogin()) {
-     
-      return
+  get_fx_users: function (options) {
+    if (!options){
+      options.fxLevel = 1
     }
     
-    var getParams = {}
-    getParams.page = this.listPage.page
-    var customIndex = app.AddClientUrl("/get_user_account_events.html", getParams)
-    var that = this
+    console.log('-------分销人--------')
+    let getParam = {}
+    getParam.fxLevel = options.fxLevel
+    getParam.page = this.listPage.page
 
+    var customIndex = app.AddClientUrl("/get_fx_tg_users.html", getParam )
+    var that = this
+    wx.showLoading({
+      title: 'loading',
+      mask: true
+    })
     wx.request({
-      url: customIndex.url ,
+      url: customIndex.url,
       header: app.header,
       success: function (res) {
         console.log(res.data)
-
         that.listPage.pageSize = res.data.pageSize
         that.listPage.curPage = res.data.curPage
         that.listPage.totalSize = res.data.totalSize
-        let dataArr = that.data.Data
-        dataArr = dataArr.concat(res.data.result)
 
-        if (!res.data.result || res.data.result.length == 0){
-          that.setData({ Data: null })
+        let data = res.data.result
+        if(!data){
+          return
         }
-        else{
-          that.setData({ moneyAmount: dataArr[0].afterAmount })
-          that.setData({ Data: dataArr })
+        if(data.length == 0){
+          that.setData({ List:null })
+        }else{
+          that.setData({ List:data})
         }
+
         
+        wx.hideLoading()
+      },
+      fail: function (res) {
+        wx.hideLoading()
+        app.loadFail()
       }
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
+  options:{},
   onLoad: function (options) {
-    this.getData();
+    this.options = options
+    this.get_fx_users(options)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.setData({ setting: app.setting })
+  
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (this.data.reflesh == 1) {
-      this.onPullDownRefresh()
-    }
+  
   },
 
   /**
@@ -92,15 +93,13 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.data.Data = []
+    this.data.favouriteList = []
 
     this.listPage.page = 1
-    this.getData();
+    this.get_fx_users(this.options);
 
-    wx.stopPullDownRefresh() 
+    wx.stopPullDownRefresh()
   },
-
-
   listPage: {
     page: 1,
     pageSize: 0,
@@ -114,7 +113,7 @@ Page({
     var that = this
     if (that.listPage.totalSize > that.listPage.curPage * that.listPage.pageSize) {
       that.listPage.page++
-      this.getData();
+      this.get_fx_users(this.options);
     }
   },
 

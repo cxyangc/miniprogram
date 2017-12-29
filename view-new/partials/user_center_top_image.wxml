@@ -7,7 +7,7 @@
       <view class='user_center_top_content' bindtap='loginOut'>
         <image src='{{loginUser.userIcon}}'></image>
         <text>{{loginUser.nickName}}</text>
-      </view> 
+      </view>  
       <view class='user_center_jifen_content'>
           <view class='user_center_jifen_content_1' data-link='user_jifen_events.html' bindtap='tolinkUrl'>
             <text>{{loginUser.platformUser.jifen}} 分</text>

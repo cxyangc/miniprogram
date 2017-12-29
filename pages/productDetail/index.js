@@ -183,7 +183,6 @@ Page({
   },
   readyPay2: function (e) {
     if (!app.checkIfLogin()) {
-
       return
     }
     let productData = this.data.productData
@@ -279,7 +278,7 @@ Page({
       header: app.headerPost,
       method: 'POST',
       success: function (res) {
-
+        wx.hideLoading()
         console.log(res)
         if (!!res.data.orderNo) {
           wx.navigateTo({

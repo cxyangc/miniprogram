@@ -21,7 +21,7 @@ Page({
     let that = this
     console.log('------------扫码-----------------')
     console.log(options)
-    let scene = 'shuiguo'
+    let scene = 'xianhua'
     let inputPlatformNo = options.platformNo;
     console.log("inputPlatformNo:" + inputPlatformNo);
     if (inputPlatformNo) {
@@ -30,7 +30,7 @@ Page({
     app.clientNo = scene
 
     app.getSetting(that)
-    app.checkSession()
+    app.wxLogin()
   },
 
   /**

@@ -250,7 +250,7 @@ App({
     }
     else {
       wx.navigateTo({
-        url: "/pages/" + urlData.url + "/index",
+        url: "/pages/" + urlData.url + "/index" + urlData.param,
       })
     }
   },
@@ -462,7 +462,9 @@ App({
                   content: '登录失败，重新登录',
                   success: function (res) {
                     if (res.confirm) {
-                      that.wxLogin()
+                      wx.navigateTo({
+                        url: '/pages/login/index'
+                      })
                     } else if (res.cancel) {
 
                     }
@@ -478,7 +480,9 @@ App({
                 content: '登录失败，重新登录',
                 success: function (res) {
                   if (res.confirm) {
-                    that.wxLogin()
+                    wx.navigateTo({
+                      url: '/pages/login/index'
+                    })
                   } else if (res.cancel) {
 
                   }
@@ -554,15 +558,16 @@ App({
   },
   //微信内部地图
   openLocation: function () {
-
+    console.log('---------打开地图-------')
     let markers = this.setting.platformSetting.defaultShopBean
     let lat = Number(markers.latitude)
     let lng = Number(markers.longitude)
     let name = markers.shopName
     let address = ''
     wx.getLocation({
-      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+      type: 'wgs84', //返回可以用于wx.openLocation的经纬度
       success: function (res) {
+        console.log('11111')
         wx.openLocation({
           latitude: Number(markers.latitude),
           longitude: Number(markers.longitude),
@@ -576,6 +581,9 @@ App({
             console.log(res)
           }
         })
+      },fail:function(res){
+        console.log('22222')
+        console.log(res)
       }
     })
   },

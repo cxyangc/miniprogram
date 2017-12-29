@@ -144,11 +144,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: 'loading',
-      mask: true
-    })
-    app.wxLogin()
+    
+    this.wxLogin()
     return
     var userSign = app.userSign
     this.setData({ userSign: userSign})
@@ -180,5 +177,103 @@ Page({
    */
   onUnload: function () {
   
+  },
+  wxLogin: function () {
+    console.log('--------------微信登录--------------')
+    wx.showLoading({
+      title: '登录中',
+      mask: true
+    })
+    var that = this
+    var customIndex = app.AddClientUrl("/wx_mini_code_login.html", {}, 'post')
+
+    wx.login({
+      success: function (res) {
+
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: customIndex.url,
+            data: {
+              code: res.code
+            },
+            header: app.headerPost,
+            method: 'POST',
+            success: function (e) {
+              console.log('----22222   success------')
+
+              console.log(e)
+              if (e.data.errcode == 0) {
+
+                let header = e.header
+                let cookie = null
+                if (!!header['Set-Cookie']) {
+                  cookie = header['Set-Cookie']
+                }
+                if (!!header['set-cookie']) {
+                  cookie = header['set-cookie']
+                }
+                let loginJson = e.data.relateObj
+
+                app.setCookie(cookie)
+                app.setloginUser(e.data.relateObj, cookie)
+                console.log('登陆成功')
+                app.loginUser = e.data.relateObj
+                app.globalData.sansanUser = e.data.relateObj
+
+                wx.hideLoading()
+
+                app.get_session_userinfo()
+
+                if (!loginJson.nickName || loginJson.nickName == loginJson.name) {
+                  app.sentWxUserInfo()
+                }
+                app.toIndex()
+              } else {
+                wx.hideLoading()
+
+                wx.showModal({
+                  title: '提示',
+                  content: '微信登录失败，账号密码登录',
+                  success: function (res) {
+                    if (res.confirm) {
+                     
+                    } else if (res.cancel) {
+                      that.wxLogin()
+                    }
+                  }
+                })
+              }
+            },
+            fail: function (e) {
+              console.log('----fail------')
+              console.log(e)
+              wx.showModal({
+                title: '提示',
+                content: '微信登录失败，账号密码登录',
+                success: function (res) {
+                  if (res.confirm) {
+
+                  } else if (res.cancel) {
+                    that.wxLogin()
+                  }
+                }
+              })
+            }
+          })
+        } else {
+          console.log('获取用户登录态失败！' + res.errMsg)
+        }
+      },
+      fail: function (res) {
+        console.log('---------111111  fail----------')
+        console.log(res)
+      },
+      complete: function (res) {
+        console.log('---------111111  complete----------')
+        console.log(res)
+        wx.hideLoading()
+      },
+    });
   },
 })

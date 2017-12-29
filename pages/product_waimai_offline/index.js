@@ -23,7 +23,7 @@ Page({
       url: '../productDetail/index?id=' + info.id + "&addShopId=" + info.belongShopId,
     })
   },
-  //跳转到订单页面
+  //跳转到订单页面 
   toOrderPage: function (e) {
     let linkUrl = e.currentTarget.dataset.link
     app.linkEvent(linkUrl)

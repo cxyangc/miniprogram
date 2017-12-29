@@ -1,35 +1,35 @@
 
 const app = getApp()
- 
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    Data:[], 
-    moneyAmount:0
+    Data: [],
+    moneyAmount: 0
   },
-  userRecharge:function(){
-    this.setData({ reflesh: 1 })
+  userRecharge: function () {
+    this.setData({ reflesh:1 })
     wx.navigateTo({
-      url: "/pages/user_recharge/index",
+      url: "/pages/req_tixian_section/index",
     })
   },
   /* 获取数据 */
   getData: function () {
     if (!app.checkIfLogin()) {
-     
+
       return
     }
-    
+
     var getParams = {}
     getParams.page = this.listPage.page
-    var customIndex = app.AddClientUrl("/get_user_account_events.html", getParams)
+    var customIndex = app.AddClientUrl("/get_tixian_list.html", getParams)
     var that = this
 
     wx.request({
-      url: customIndex.url ,
+      url: customIndex.url,
       header: app.header,
       success: function (res) {
         console.log(res.data)
@@ -40,14 +40,40 @@ Page({
         let dataArr = that.data.Data
         dataArr = dataArr.concat(res.data.result)
 
-        if (!res.data.result || res.data.result.length == 0){
+        if (!res.data.result || res.data.result.length == 0) {
           that.setData({ Data: null })
         }
-        else{
-          that.setData({ moneyAmount: dataArr[0].afterAmount })
+        else {
+          //that.setData({ moneyAmount: dataArr[0].afterAmount })
           that.setData({ Data: dataArr })
         }
-        
+
+      }
+    })
+  },
+  getAmoutMoney(){
+    if (!app.checkIfLogin()) {
+      return
+    }
+    var customIndex = app.AddClientUrl("/get_fx_yongjin_list.html")
+    var that = this
+    wx.request({
+      url: customIndex.url,
+      header: app.header,
+      success: function (res) {
+        console.log(res.data)
+
+       
+        let dataArr = res.data.result
+
+        if (!res.data.result || res.data.result.length == 0) {
+          //that.setData({ Data: null })
+        }
+        else {
+          that.setData({ moneyAmount: dataArr[0].afterAmount })
+          //that.setData({ Data: dataArr })
+        }
+
       }
     })
   },
@@ -56,6 +82,7 @@ Page({
    */
   onLoad: function (options) {
     this.getData();
+    this.getAmoutMoney()
   },
 
   /**
@@ -69,7 +96,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (this.data.reflesh == 1) {
+    if(this.data.reflesh == 1){
       this.onPullDownRefresh()
     }
   },
@@ -78,14 +105,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
@@ -97,7 +124,7 @@ Page({
     this.listPage.page = 1
     this.getData();
 
-    wx.stopPullDownRefresh() 
+    wx.stopPullDownRefresh()
   },
 
 
@@ -122,6 +149,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   }
 })
