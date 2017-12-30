@@ -10,15 +10,15 @@
 ### 公司官网 - http://www.fz33.net  官网
 ### 效果图---扫码查看
 
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/40/17_349.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/40/14_284.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/40/10_603.jpg "/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/40/07_299.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/40/03_542.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/39/59_785.jpg "/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/39/56_675.jpg "/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/39/53_516.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/39/49_490.jpg "/>
+<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/40/17_349.jpg?x-oss-process=style/preview_120"/>
+<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/40/14_284.jpg?x-oss-process=style/preview_120"/>
+<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/40/10_603.jpg?x-oss-process=style/preview_120 "/>
+<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/40/07_299.jpg?x-oss-process=style/preview_120"/>
+<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/40/03_542.jpg?x-oss-process=style/preview_120"/>
+<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/39/59_785.jpg?x-oss-process=style/preview_120 "/>
+<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/39/56_675.jpg?x-oss-process=style/preview_120 "/>
+<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/39/53_516.jpg?x-oss-process=style/preview_120"/>
+<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/29/22/39/49_490.jpg?x-oss-process=style/preview_120 "/>
 #### 功能介绍
 
 	1. 5种订单列表页面，并且可配置多种展示模型
