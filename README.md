@@ -23,7 +23,8 @@
 <img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/30/15/06/11_411.jpg"/>
 
 ### 更改项目 - 关键字 clientNo
-Tip 打开 app.js 文件，找到 clientNo 可换成任意以下的字段，即可切换项目
+
+  Tip 打开 app.js 文件，找到 clientNo 可换成任意以下的字段，即可切换项目
 
   1.naicha
   2.xianhua
