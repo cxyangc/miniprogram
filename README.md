@@ -1,11 +1,13 @@
 # 微信小程序
-##微信小程序电商源码：外卖小程序，电商小程序，门店类小程序，展示类小程序，批发商城小程序。
+## 微信小程序电商源码：外卖小程序，电商小程序，门店类小程序，展示类小程序，批发商城小程序。
 
-####项目介绍
+#### 项目介绍
+
 	1.此项目是一套完整的电商系统，并且兼容各种电商场景可以很好的运用在各个领域。
 	2.包含页面数43页，组件数14
 	3.开源前端代码供大家学习，并且有许多漂亮的页面模板。
 	
+
 ### QQ交流群 — 25013930
 ### 公司官网 - http://www.fz33.net  官网
 ### 效果图---扫码查看
@@ -20,8 +22,26 @@
 <img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/30/15/06/08_877.jpg"/>
 <img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/30/15/06/11_411.jpg"/>
 
-#### 功能介绍
+### 更改项目 - 关键字 clientNo
+Tip 打开 app.js 文件，找到 clientNo 可换成任意以下的字段，即可切换项目
 
+  1.naicha
+  2.xianhua
+  3.xingbake
+  4.zhubaoxiao
+  5.zhubaoxiao
+  6.majiangshangcheng
+  7.jiafang
+  8.huazhuan
+  9.riyong
+  10.muying
+  11.hongjiu
+  12.fuzhuan
+  13.shuiguo
+  14.haixianpifa
+  15.其他自定义...
+
+#### 功能介绍
 	1. 5种订单列表页面，并且可配置多种展示模型
 	2. 购物车
 	3. 订单
@@ -74,3 +94,5 @@
 	余额充值列表 : user_account_events
 	余额充值页面 : user_recharge
 	商品管理 : shop_manager_products
+
+  - Tip 更换页面，在app.json里面设置路径即可

@@ -21,13 +21,14 @@ Page({
     let that = this
     console.log('------------扫码-----------------')
     console.log(options)
-    let scene = 'xianhua'
+    let scene = ''
     let inputPlatformNo = options.platformNo;
     console.log("inputPlatformNo:" + inputPlatformNo);
     if (inputPlatformNo) {
       scene = inputPlatformNo;
+      app.clientNo = scene
     }
-    app.clientNo = scene
+    
 
     app.getSetting(that)
     app.wxLogin()

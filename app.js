@@ -5,8 +5,14 @@ import { dellUrl } from "/public/requestUrl.js";
 
 
 App({
-  clientUrl:'https://mini.sansancloud.com/chainalliance/',
-  clientNo:'naicha',
+ 
+  clientUrl:'https://mini.sansancloud.com/chainalliance/',  // 链接地址
+
+  /**
+   *   切换项目的开关 ↓↓↓↓↓
+   */
+  clientNo:'naicha',   //自定义的项目的名称。
+
   miniIndexPage:'',
   setting : null,
   loginUser: null,
