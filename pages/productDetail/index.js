@@ -31,6 +31,7 @@ Page({
 
   /* 删除收藏 */
   removeFavourite: function (e) {
+    var that = this
     wx.showLoading({
       title: 'loading',
       mask: true
@@ -39,10 +40,11 @@ Page({
       itemId: '',
       favoriteType: '1'
     }
+    let productData = this.data.productData
 
     postData.itemId = e.currentTarget.dataset.itemid
     console.log(postData)
-    var that = this
+    
     var customIndex = app.AddClientUrl("/remove_favorite.html", postData,'post')
     wx.request({
       url: customIndex.url,
@@ -51,7 +53,11 @@ Page({
       method: 'POST',
       success: function (res) {
         console.log(res.data)
-        that.getData()
+        if (res.data.errcode == '0'){
+          productData.productInfo.favorite = 0
+          that.setData({ productData: productData })
+          console.log('000---'+that.data.productData.productInfo.favorite)
+        }
         wx.hideLoading()
 
       },
@@ -63,6 +69,7 @@ Page({
   },
   /* 加入收藏 */
   addToFavourite:function(e){
+    var that = this
     var postData={
       itemId:'',
       favoriteType:'1'
@@ -71,9 +78,11 @@ Page({
       title: 'loading',
       mask: true
     })
+    let productData = this.data.productData
+
     postData.itemId = e.currentTarget.dataset.itemid
     console.log(postData)
-    var that = this
+    
     var customIndex = app.AddClientUrl("/add_to_favorite.html", postData,'post')
     wx.request({
       url: customIndex.url,
@@ -82,7 +91,11 @@ Page({
       method: 'POST',
       success: function (res) {
         console.log(res.data)
-        that.getData()
+        if (res.data.errcode == '0') {
+          productData.productInfo.favorite = 1
+          that.setData({ productData: productData })
+          console.log('111---' + that.data.productData.productInfo.favorite)
+        }
         wx.hideLoading()
 
       },
@@ -340,9 +353,13 @@ Page({
       header: app.headerPost,
       method: 'POST',
       success: function (res) {
+        console.log('---------------change_shopping_car_item-----------------')
         console.log(res.data)
         wx.hideLoading()
-        that.getCart()
+        if (!!res.data.totalCarItemCount || res.data.totalCarItemCount== 0){
+          that.setData({ countGood: res.data.totalCarItemCount })
+        }
+        
         if (that.data.bindway == 'cart'){
           that.setData({ showCount: false })
         }
@@ -360,6 +377,7 @@ Page({
    */
   getData:function(options){
     let param = {}
+    let that = this
     if (!options){
       param = that.dataFOr_getData
     }else{
@@ -370,14 +388,18 @@ Page({
       title: 'loading',
       mask: true
     })
-    let that = this
+    
 
     wx.request({
       url: app.clientUrl + app.clientNo + "/product_detail_" + param.id + ".html?jsonOnly=1" + "&addShopId=" + param.addShopId,
       header: app.header,
       success: function (res) {
         console.log(res.data)
+        console.log('--------------getData-------------')
+        
         that.setData({ productData: res.data })
+        console.log('res...' + res.data.productInfo.favorite)
+        console.log('data...' +that.data.productData.productInfo.favorite)
         if (!!res.data.productInfo.tags){
           let tagsStr = res.data.productInfo.tags
           let tagsStr2 = tagsStr.replace(/\[/g, '');
@@ -398,6 +420,7 @@ Page({
           postPatam.productId = info.productId
           postPatam.shopId = info.belongShopId
           that.getCommitData(postPatam)
+          that.getCart()
         }
         
 
@@ -423,67 +446,35 @@ Page({
     this.getData(options)
   },
 
-  showCount: function () {
-    var cartItemsD = this.data.cartItemsD
-    var countGood = 0
 
-    
-    for (let i = 0; i < cartItemsD.length; i++) {
-      countGood += parseInt(cartItemsD[i].count)
-    }
-
-    this.setData({
-      countGood: countGood
-    })
-  },
 
   getCart: function () {
-    var customIndex = app.AddClientUrl("Client.User.CarItemList")
-    var that = this
-    wx.showLoading({ 
-      title: 'loading',
-      mask: true
-    })
-    //拿custom_page
-    wx.request({
-      url: customIndex.url,
-      header: app.header,
-      success: function (res) {
-        console.log(res.data)
-        console.log('----刷新购物车----')
-        wx.hideLoading()
-        if (res.data.errcode == '10001') {
-          
-          that.setData({ cart: [] })
-          that.setData({ cartItemsD: [] })
-        }else{
-          if (!!res.data.result.length) {
-            that.setData({ cart: res.data.result })
-            that.setData({ cartItemsD: res.data.result[0].carItems })
-            that.showCount()
-          }
-          else {
-            that.setData({ cart: [] })
-            that.setData({ cartItemsD: [] })
-          }
-        }
-        
-        
-      },
-      fail: function (res) {
-        wx.hideLoading()
-        app.loadFail()
-      }
-    })
+
+
+    var params = {
+      cartesianId: '',
+      productId: '',
+      shopId: '',
+      count: '',
+      type: '',
+    }
+
+
+    params.productId = this.data.productData.productInfo.productId
+    params.shopId = this.data.productData.productInfo.belongShopBean.id
+    params.count = 0
+    params.type = 'add'
+
+    this.postParams(params)
+
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
     this.setData({ setting: app.setting })
-    if (!!app.loginUser){
-      this.getCart()
-    }
+    
     
   },
 
