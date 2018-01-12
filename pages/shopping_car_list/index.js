@@ -168,7 +168,7 @@ Page({
       success: function (res) {
 
         console.log(res)
-        if (!!res.data.orderNo){
+        if (res.data.orderNo){
           wx.navigateTo({
             url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
           })

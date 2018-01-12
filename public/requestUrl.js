@@ -24,6 +24,7 @@ function dellUrl(url, params, method, loginToken){
     loginToken = ''
   } 
   params.loginToken = loginToken
+  params.__ajax_random__ = 0.5499921488097008
   if(!method){
     method = "get"
   }
