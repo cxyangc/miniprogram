@@ -45,7 +45,6 @@ Page({
   },
   /* 获取地址列表 */
   showOtherArr:function() {
-   //这个url是借的，要改的
     var customIndex = app.AddClientUrl("/get_login_user_address_list.html")
     var that = this
     wx.showLoading({

@@ -23,7 +23,6 @@
     订单列表 : order_list
     订单详细 : order_detail
     编辑订单 : edit_order
-    提交订单 : submit_order
     提交订单完成与付款页面 : submit_order_result
     退货列表 : back_item_list
     退货详情 : back_item_detail
@@ -299,15 +298,238 @@
 
 
 #### 编辑订单 : edit_order
-#### 提交订单 : submit_order
+
+    页面功能 : 编辑订单-添加地址，使用优惠券，使用积分抵扣，确认订单
+    页面主要处理函数: showOtherArr --> 获取地址列表
+                    toaddress_new --> 添加新地址
+                    chooseNewAddr --> 选择地址
+                    payWayChange --> 支付方式
+                    getavailableCouponsArr --> 选择优惠券
+                    getEditOrderDetail --> 获取订单详情
+                    submitOrder --> 确认订单
+
+    使用接口：Client.User.AddressList ( get_login_user_address_list ) 
+             Client.Order.GetEditOrderDetail （ get_edit_order_detail ）
+             Client.Order.SubmitOrder （ submit_order ）
+
+    参数说明： 1.Client.User.AddressList
+              2. Client.Order.GetEditOrderDetail
+                  orderNo:  订单号
+                  gotCouponListId : 用户领取优惠券id
+                  expressNo : 快递策略号 -1 系统自动选择    0 不要策略到店自取
+              3.Client.Order.SubmitOrder
+                  orderNo:  订单号
+                  addressId:  地址ID
+                  buyerScript:  留言
+                  payType:  支付类型
+                  jifenDikou:  积分抵扣
+    返回的json说明:  1.Client.User.AddressList
+                        已添加的地址数组
+                    2. Client.Order.GetEditOrderDetail
+                        下单的详细信息
+                    3.Client.Order.SubmitOrder
+                       下单成功的返回数据 - 待付款
+
+
+
 #### 提交订单完成与付款页面 : submit_order_result
+
+    页面功能 : 付款
+    页面主要处理函数: payByYue --> 余额支付
+                    payByWechat --> 微信支付 --  统一下单
+
+    使用接口：Client.Weixin.UnifinedOrder ( unifined_order ) 
+             Client.Order.AccountPay （ order_account_pay ）
+
+    参数说明： 1.Client.Weixin.UnifinedOrder
+                  orderNo:  订单号
+                  openid : 微信用户openid
+                  app : 是否app 0 否  1 是
+              2. Client.Order.AccountPay
+                  orderNo:  订单号
+             
+    返回的json说明:  1.Client.Weixin.UnifinedOrder
+                        返回统一下单的几大字符串
+                        ---
+                          'timeStamp': wechatPayStr.timeStamp,
+                          'nonceStr': wechatPayStr.nonceStr,
+                          'package': wechatPayStr.package,
+                          'signType': wechatPayStr.signType,
+                          'paySign': wechatPayStr.paySign,
+
+                    2. Client.Order.AccountPay
+                        余额支付，返回余额支付成功失败信息
+
 #### 退货列表 : back_item_list
+
+    页面功能 : 退货列表
+    页面主要处理函数: getOrderList --> 获取订单列表
+                    tuikuan --> 去退款页面
+    使用接口： Client.User.BackItemList ( get_back_item_list ) 
+    参数说明： 1. Client.User.BackItemList
+                  platformNo:  平台号
+                  secretCode : 口令
+                  page : 页数
+             
+    返回的json说明:  1. Client.User.BackItemList
+                        可退款的订单列表
+
 #### 退货详情 : back_item_detail
-#### 评价订单 : order_shop_comment    
-#### 大师推荐 : brand_list
-#### 大师推荐详细 : brand_detail
+
+    页面功能 : 退货页面
+    页面主要处理函数: sureBackItem --> 确认退货
+                    get_back_order_item_page --> 获取退款订单信息
+    使用接口： Client.User.SendBackOrderItemReq ( send_back_order_item_req ) 
+              Client.User.BackOrderItemPage ( get_back_order_item_page ) 
+    参数说明： 1. Client.User.SendBackOrderItemReq
+                  orderItemId:  订单项ID
+                  backReason : 退款理由
+              1. Client.User.BackOrderItemPage
+                  orderItemId:  订单项ID
+                  secretCode : 口令
+                  platformNo : 平台号
+    返回的json说明:  1. Client.User.SendBackOrderItemReq
+                        发起退货-成功|失败 信息
+                    2. Client.User.BackOrderItemPage
+                        退货项信息
+
+#### 评价订单 : order_shop_comment   
+
+    页面功能 : 评价页面
+    页面主要处理函数: addCommitImage --> 添加商品评论图片
+                    addCommitScrollToData --> 把分数加到orderItem属性里面
+                    productScroll --> 商品评分
+                    commitProduct --> 商品评价
+                    readyCommit_shop --> 准备评价店铺
+                    getItem --> 获取被评价的订单数据
+
+    使用接口： Client.Order.GetOrderDetail ( get_order_detail ) 
+              Client.Order.CommentOrder ( comment_order ) 
+              Client.Order.CommentOrder ( comment_order ) 
+    参数说明： 1. Client.Order.GetOrderDetail
+                  orderNo:  订单号
+                  gotCouponListId : 领取优惠券id
+              2. Client.Order.CommentOrder
+                  orderNo:  订单号
+                  shopId : 店铺ID
+                  productId : 产品ID
+                  commentContent:  评论
+                  commentImages : 评论图片
+                  niming : 匿名
+                  pingfen:  评分
+              3. Client.Order.CommentOrder
+                  orderNo:  订单号
+                  shopId : 店铺ID
+                  shangpinfuhedu : 商品符合度
+                  dianjiafuwutaidu:  店家服务态度
+                  wuliufahuosudu : 物流发货速度
+    返回的json说明:  1. Client.Order.GetOrderDetail
+                         获取被评价的订单信息
+                    2. Client.Order.CommentOrder
+                        商品评价，
+                    3. Client.Order.CommentOrder
+                        店铺评价
+
+
+#### 推荐品牌列表 : brand_list
+
+    页面功能 : 推荐列表，关注推荐信息，取消关注
+    页面主要处理函数: guanzhuDaShi --> 关注
+                    removeGuanzhuDaShi --> 取消关注
+                    getData --> 获取推荐列表数据
+
+    使用接口： Client.Brand.GetBrandList ( get_brand_list ) 
+              Client.User.AddToFavorite ( add_to_favorite ) 
+              Client.User.RemoveFavorite ( remove_favorite ) 
+    参数说明： 1. Client.Brand.GetBrandList
+                  page:  页数
+                  brandName : 品牌名
+              2. Client.User.AddToFavorite
+                  favoriteType:  收藏类型
+                  itemId : 收藏对象Id
+              3. Client.User.RemoveFavorite
+                  favoriteType:  收藏类型
+                  itemId : 收藏对象Id
+                 
+    返回的json说明:  1. Client.Brand.GetBrandList
+                         获取推荐品牌列表
+                    2. Client.User.AddToFavorite
+                        加入收藏
+                    3. Client.User.RemoveFavorite
+                        取消收藏
+
+
+#### 推荐品牌详细 : brand_detail
+
+    页面功能 : 推荐品牌详细，关注推荐品牌，取消关注
+    页面主要处理函数: guanzhuDaShi --> 关注
+                    removeGuanzhuDaShi --> 取消关注
+                    getData --> 获取推荐详情数据
+
+    使用接口： Client.Brand.GetBrandDetail ( get_brand_detail ) 
+              Client.User.AddToFavorite ( add_to_favorite ) 
+              Client.User.RemoveFavorite ( remove_favorite ) 
+    参数说明： 1. Client.Brand.GetBrandDetail
+                  brandId : 品牌id
+              2. Client.User.AddToFavorite
+                  favoriteType:  收藏类型
+                  itemId : 收藏对象Id
+              3. Client.User.RemoveFavorite
+                  favoriteType:  收藏类型
+                  itemId : 收藏对象Id
+                 
+    返回的json说明:  1. Client.Brand.GetBrandList
+                         获取推荐品牌详情
+                    2. Client.User.AddToFavorite
+                        加入收藏
+                    3. Client.User.RemoveFavorite
+                        取消收藏
+
 #### 购物车 : shopping_car_list
+
+    页面功能 : 加载购物车，添加商品数量，减，移除，清空，准备下单
+    页面主要处理函数: getCart --> 获取购物车列表
+                    postParams --> 加减购物车内容
+    使用接口：Client.User.CarItemList  ( /get_shopping_car_list_item.html ) 
+             Client.User.ChangeCarItemCount （ change_shopping_car_item ）
+             Client.User.CarItemdDelete （ delete_shopping_car_list_item ）
+             Client.User.ListPromotionsByCarItems （ list_promotions_by_car_items ）
+             Client.User.CarItemsCreateOrder （ shopping_car_list_item_create_order ） 选种商品生成订单
+
+    参数说明： 1.Client.User.CarItemList
+              2.Client.User.ChangeCarItemCount
+                  productId:  商品ID
+                  shopId: 所属店铺
+                  count: 数量
+                  cartesionId: 规格集ID
+                  type: 类型(add dec change)
+              3.Client.User.CarItemdDelete
+                  shopId: 所属店铺
+                  selectedIds: 选中ID 以逗号分隔开
+                  type: 类型(all selected shopall)
+
+              4.Client.User.ListPromotionsByCarItems
+                  selectedIds:  选中ID 以逗号分隔开
+                  shopId: 所属店铺
+              5.Client.User.CarItemsCreateOrder
+                  selectedIds:  选中ID 以逗号分隔开
+                  shopId: 所属店铺
+                  promotionId:活动id
+
+    返回的json说明:  1.Client.User.CarItemList
+                        获取购物车信息
+                    2.Client.User.ChangeCarItemCount
+                        加减购物车数量
+                    3.Client.User.CarItemdDelete
+                        删除购物车商品或清空
+                    4.Client.User.ListPromotionsByCarItems
+                        准备下单，获取优惠商品信息
+                    5.Client.User.CarItemsCreateOrder
+                        去下单
+
 #### 登录 : login
+
+
 #### 注册 : regist
 #### 用户协议 : regist_xieyi
 #### 优惠券 : my_coupons
