@@ -53,7 +53,10 @@
 	8. 修改资料
 	9. 其他
 
+#### 页面文档，见 readPageBehaviour.md
+
 #### 页面说明
+
 	首页 : custom_page_index
 	新闻页 : news_list  news_detail
 	版权说明 : custom_page_copyright
