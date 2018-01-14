@@ -20,6 +20,7 @@
     列表页3 : product_waimai 
     列表页4 : product_waimai_offline
     二级列表 : product_type2
+    商品详情 : productDetail
     订单列表 : order_list
     订单详细 : order_detail
     编辑订单 : edit_order
@@ -285,6 +286,67 @@
                     4.Client.Order.CancelOrder
                         成功提示
 
+#### 商品详情 : productDetail
+
+    页面功能 : 商品详情展示，加入购物车，联系客服，立即购买，收藏，查看商品评论
+    页面主要处理函数: getData --> 获取订单详细信息
+                    removeFavourite --> 删除收藏
+                    lookDerection --> 查看图文详情
+                    getCommitData --> 查看评价
+                    readyPay2 --> 准备下单
+                    createOrder22 --> 创建订单
+                    addtocart --> 加入购物车
+                    submitMeasure --> 提交规格产品
+                    get_measure_cartesion --> 获取规格价格参数
+                    chooseMeasureItem --> 初始化 选规格 
+                    chooseMeasure --> 选择规格小巷---获取数据
+
+    使用接口： Client.User.RemoveFavorite ( remove_favorite ) 
+              Client.User.AddToFavorite （ add_to_favorite ）
+              Client.Order.CommentList （ get_product_comment_list ）
+              Client.User.BuyNow （ buy_now ）
+              Client.User.ChangeCarItemCount （ change_shopping_car_item ）
+              Client.Product.GetMeasureCartesion （ get_measure_cartesion ）
+
+    参数说明：1. Client.User.RemoveFavorite 
+                  favoriteType:  收藏类型
+                  itemId: 取消收藏对象Id
+              2.Client.User.AddToFavorite
+                  favoriteType:  收藏类型
+                  itemId: 收藏对象Id
+              3.Client.Order.CommentList
+                  productId:  产品ID
+                  shopId:  店铺ID
+              4.Client.User.BuyNow
+                  productId:  产品ID
+                  shopId:  店铺ID
+                  productId:  产品ID
+                  orderType:  订单类型 0 普通订单 1 服务类订单 3 预售  4充值  5租赁 6租赁消费支付
+                  itemCount:  产品数量
+              5.Client.User.ChangeCarItemCount
+                  productId:  产品ID
+                  shopId:  店铺ID
+                  type:  类型(add dec change)
+                  cartesionId: 规格集ID
+                  count:  数量
+
+              6.Client.Product.GetMeasureCartesion
+                  productId:  产品ID
+                  measureIds:  规格集ID
+             
+    返回的json说明:1. Client.User.RemoveFavorite 
+                     删除收藏
+                  2.Client.User.AddToFavorite
+                      加入收藏
+                  3.Client.Order.CommentList
+                      商品评论
+                  4.Client.User.BuyNow
+                      立即购买
+                  5.Client.User.ChangeCarItemCount
+                      加减商品数量
+                  6.Client.Product.GetMeasureCartesion
+                      规格集
+                
 #### 订单详细 : order_detail
 
     页面功能 : 查看订单详细
@@ -529,18 +591,227 @@
 
 #### 登录 : login
 
+    页面功能 : 登录
+    页面主要处理函数: loginIn --> 账号登录
+                    wxLogin --> 微信登录
+    使用接口：Client.User.Login  ( /login.html ) 
+             Client.User.wxLogin （ wx_mini_code_login ）
+
+    参数说明： 1.Client.User.Login
+                  loginType:  登录类型0 普通  1 微信  2 短信验证码
+                  telno: 绑定手机号码
+                  verifyCode: 验证码
+                  username: 用户名
+                  password: 密码
+              2.Client.User.wxLogin
+                
+
+    返回的json说明:  1.Client.User.Login
+                        登录账号的个人信息
+                    2.Client.User.wxLogin
+                        登录账号的个人信息
+                   
 
 #### 注册 : regist
+
+    页面功能 : 注册
+    页面主要处理函数: signUp --> 注册
+    使用接口：Client.User.Regist2  ( /regist2.html ) 
+
+    参数说明： 1.Client.User.Regist2
+                  username: 用户名
+                  password: 密码
+                  password2: 密码2
+                  nickname: 昵称
+                
+
+    返回的json说明:  1.Client.User.Login
+                      登录账号的个人信息
+                    
+
 #### 用户协议 : regist_xieyi
+
+    页面功能 : 用户协议
+    页面主要处理函数: 
+    使用接口：app.setting.platformSetting.agreement
+    参数说明： 
+    返回的json说明: 
+                    
+
 #### 优惠券 : my_coupons
+
+    页面功能 : 我领取的优惠券列表 - 未使用 已使用 已过期
+    页面主要处理函数: getMyCouponsList --> 获取我领取的优惠券列表
+
+    使用接口： Client.Coupon.MyCoupons ( get_my_coupons_list ) 
+    参数说明： 1. Client.Coupon.MyCoupons
+                  page:  页数
+                  couponState : 优惠券状态
+                 
+    返回的json说明:  1. Client.Coupon.MyCoupons
+                         列表数组
+
 #### 获取优惠券 : available_coupons 
+
+    页面功能 : 领取优惠券
+    页面主要处理函数: GotCoupon --> 领取优惠券
+                    getNewCouponsList --> 获取领取优惠券列表
+
+    使用接口： Client.Coupon.GainCoupon ( gain_coupon ) 
+              Client.User.AddToFavorite ( get_available_coupons ) 
+    参数说明： 1. Client.Coupon.GainCoupo
+                  couponId : 优惠券ID
+                  couponSecretCode : 优惠券码
+                  couponSecretPassword : 优惠券密码
+              2. Client.Coupon.AvailableCoupons
+                  page:  页数
+             
+                 
+    返回的json说明:  1. Client.Coupon.GainCoupo
+                        领取成功信息
+                    2. Client.Coupon.AvailableCoupons
+                        获取领取优惠券列表
+
 #### 收藏与喜欢 : my_favorite
+
+    页面功能 : 我的收藏
+    页面主要处理函数: getUserVisitList --> 获取我收藏与喜欢列表
+    使用接口： Client.Get.Favorite ( get_favorite ) 
+    参数说明： 1. Client.Coupon.MyCoupons
+                  page:  页数
+                  favoriteType : 收藏类型
+                 
+    返回的json说明:  1. Client.Coupon.MyCoupons
+                         列表数组
+
 #### 积分 	user_jifen_events
-#### 个人资料 : pre_change_user_info
+
+    页面功能 : 积分事件列表展示
+    页面主要处理函数: getJifenList --> 获取我的积分事件列表
+    使用接口： Client.User.ListJifenEvent ( get_user_jifen_events ) 
+    参数说明： 1. Client.User.ListJifenEvent
+                  page:  页数
+    返回的json说明:  1. Client.User.ListJifenEvent
+                         列表数组
+
+#### 个人资料与修改 : pre_change_user_info
+
+    页面功能 : 积分事件列表展示
+    页面主要处理函数: changeUserInfo --> 修改
+    使用接口： Client.User.ChangeUserInfo ( change_user_info ) 
+    参数说明： 1. Client.User.ChangeUserInfo
+                  headimg:  头像
+                  nickname:  昵称
+                  telno:  电话
+                  userTip:  个性签名
+                  sex:  性别
+    返回的json说明:  1. Client.User.ChangeUserInfo
+                         个人信息数据
+
+
 #### 我的消息 : message_counter2
+
+    页面功能 : 我的消息
+    页面主要处理函数: 
+    使用接口： 
+    参数说明： 
+    返回的json说明:  
+
+
 #### 地址 : address
+
+    页面功能 : 添加地址，编辑地址，删除地址，地址列表，设为默认地址
+    页面主要处理函数: getAddr --> 地址列表
+                     addNewAddr --> 新增
+                     deleteAddr --> 删除
+                     writeAddr --> 编辑修改
+                    setDefaultAddr --> 设为默认地址
+    使用接口： Client.User.AddressList ( get_login_user_address_list ) 
+              Client.User.AddressDelete ( delete_address ) 
+              Client.User.AddressSetDefault ( set_default_address ) 
+    参数说明：  1. Client.User.AddressList
+               2. Client.User.AddressDelete
+                  addressId:  地址id
+               3. Client.User.AddressSetDefault
+                  addressId:  地址id
+    返回的json说明:  1. Client.User.AddressList
+                         地址列表
+                    2. Client.User.AddressDelete
+                          删除地址
+                    3. Client.User.AddressSetDefault
+                         成功信息
+
 #### 添加新地址 : add_address
+
+    页面功能 : 添加新地址，编辑修改地址
+    页面主要处理函数: subMitArrFrom --> 确认修改
+    使用接口： Client.User.AddressAdd ( add_address ) 
+              Client.User.AddressModify ( edit_address ) 
+
+    参数说明：  1. Client.User.AddressAdd
+                    contanctName:  姓名
+                    telno:  电话号码
+                    province:  省份
+                    city:  市
+                    district:  区（县）
+                    detail:  详细地址
+                    longitude:  经度
+                    latitude:  维度
+                    defaultAddress:  默认地址
+               2. Client.User.AddressModify
+                    contanctName:  姓名
+                    telno:  电话号码
+                    province:  省份
+                    city:  市
+                    district:  区（县）
+                    detail:  详细地址
+                    longitude:  经度
+                    latitude:  维度
+                    defaultAddress:  默认地址
+                    addressId:  地址id
+    返回的json说明:  1. Client.User.AddressAdd
+                         地址信息
+                    2. Client.User.AddressModify
+                          地址信息
+
 #### 我的足迹 : user_visit_items
+
+    页面功能 : 积分事件列表展示
+    页面主要处理函数: getUserVisitList --> 获取我的足迹列表
+    使用接口： Client.User.GetVisitItems ( get_user_visit_items ) 
+    参数说明： 1. Client.User.GetVisitItems
+                  page:  页数
+                  visitType:  访问类型 1 产品 2 店铺 3 新闻 4 用户
+    返回的json说明:  1. Client.User.GetVisitItems
+                         列表数组
+
+
 #### 余额充值列表 : user_account_events
+
+    页面功能 : 余额事件列表展示
+    页面主要处理函数: getData --> 获取我的余额事件列表
+    使用接口： Client.User.ListAccountEvent ( get_user_account_events ) 
+    参数说明： 1. Client.User.ListAccountEvent
+                    page:  页数
+    返回的json说明:  1. Client.User.ListAccountEvent
+                         列表数组
+
+
 #### 余额充值页面 : user_recharge
+
+    页面功能 : 余额充值
+    页面主要处理函数: subMitButn --> 确认充值
+    使用接口： Client.User.CreateRechargeOrder ( create_recharge_order ) 
+    参数说明： 1. Client.User.CreateRechargeOrder
+                    payType:  支付方式
+                    rechargeAmount:  充值金额
+    返回的json说明:  1. Client.User.CreateRechargeOrder
+                         成功提示
+
 #### 商品管理 : shop_manager_products
+
+    页面功能 : 商品管理
+    页面主要处理函数: 
+    使用接口： 
+    参数说明：
+    返回的json说明:
