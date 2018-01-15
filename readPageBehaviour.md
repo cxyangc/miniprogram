@@ -46,15 +46,31 @@
     余额充值列表 : user_account_events
     余额充值页面 : user_recharge
     商品管理 : shop_manager_products
-
+    分销中心 : fx_center
+    分销二维码 : fx_qrcode
+    推广3级用户 : fx_users
+    佣金记录 : fx_yongjin_list
+    提现记录 : tixian_list
+    申请提现 : req_tixian_section
+    
+    
+    
+    
 ## 页面详情说明
+#### 后台接口地址 120.27.155.56:1111  （TIP -- 需要查看返回数据说明直接访问选择接口查看）
+
+
 
 #### 进入页 : pages/index/index
 
     页面功能：页面主要处理进入动画或者加载前操作，
     使用方式：放在app.json中pages的第一项
     页面主要处理函数：onload --> 判定扫码状态并且指定当前的项目名称
+                    app.getSetting()
     使用接口： 无（暂时 - 可以自定义）
+              Client.GetPlatformSetting - get_platform_setting
+    返回的json说明: 全局字段定义。 商品分类字段也在里面
+
 
 ####  首页 : custom_page_index
 
@@ -77,7 +93,37 @@
     参数说明： page( 列表页专用 -- 表示将要获取的页面  1代表第一页 2代表第二页 )
               newsTypeId ( 新闻类型ID,后台可以查看 )
     返回的json说明: 
-
+        数组单项包含字段：--> 
+        belongShopId:0
+        belongShopName:""
+        commentCount:0
+        content:""
+        contentWithImgTag:""
+        contentWithNoImg:""
+        description:""
+        enlighten:0
+        favoriteCount:0
+        fromSource:""
+        gainJifen:0
+        happenTimeShortName:""
+        id:28261
+        imagePath:"http://image1.sansancloud.com/xianhua/2017_12/18/11/54/41_358.jpg"
+        lastCommentTimeShortName:""
+        likeCount:0
+        newsImageJson:""
+        orderNumber:"20180115105331"
+        platformNo:"xianhua"
+        publicPlatformUserId:0
+        publishTime:"2018-01-15 10:53:31"
+        publishUserIcon:""
+        publishUserId:0
+        publishUserName:""
+        publishUserSex:1
+        readTime:1
+        setTop:0
+        title:"111"
+        typeId:93
+        typeName:"sss"
 
 #### 新闻详情页 : news_detail
 
@@ -87,7 +133,16 @@
                      getPartials --> 强转json
     使用接口： Client.Bbs.NewsDetail - get_news_bbs_detail
     参数说明： newsId( 新闻ID )
-    返回的json说明: 
+    返回的json说明: contentWithImgTag  --> 富文本，直接解析这个就行了
+
+
+#### 版权说明 : custom_page
+
+    页面功能 : 版权说明页 
+    页面主要处理函数: getCustomPage --> 获取此页面后台配置信息 
+    使用接口： custom_page_:id 
+    参数说明： jsonOnly=1（表示返回的数据格式为json）
+    返回的json说明: "{beanRemark:'自定义页面表',channelName:'页面名称(只允许英文数字结合)',channelTitle:'页面标题channelDescription:'页面描述',channelKeywords:'页面关键词',channelTemplate:'页面使用模板',pageType:'页面类型(弃用)',index:'是否主页 (弃用  0 否 1 是)',belongShopId:'归属店铺ID(0 平台页面  )',platformNo:'平台号',belongShopName:'归属店铺名',functionType:'页面是单独页面还是页面的某个模块  0页面 1模块',terminalType:'终端类型(弃用)',partials:'装饰  参考 List<ProductChannelPartial>' }"
 
 #### 版权说明 : custom_page_copyright
 
@@ -125,11 +180,12 @@
               endPrice: 最高价格
               orderType: 排序方式
 
-    返回的json说明: 商品的json数据
+    返回的json说明: 商品的json数据数组 -->
+      "{beanRemark:'产品Bean',imagePath:'产品缩略图',name:'产品名',tagPrice:'产品标价',price:'产品售价',price2:'价格2(弃用)',price3:'价格3(弃用)',saleCount:'销售数量',category:'产品分类',saleTime:'开售日期',hotSale:'热销(弃用)',saleStrategy:'销售策略号',disable:'是否上架 0上架    1 下架',linkUrl:'弃用',productCode:'产品编码',description:'描述',orderNumber:'编码',readCount:'访问次数',stock:'库存',belongAreaId:'弃用',belongShangquanId:'弃用',belongShopId:'上传店铺ID',belongAreaName:'弃用',belongShangquanName:'弃用',belongShopName:'上传店铺名',tags:'商品标签',promotion:'参与主活动',shopProductType:'店铺分类（与主分类不同 店铺自己对产品的分类）',phoneImg:'弃用',addTime:'添加时间',minSaleCount:'最少购买数',bigSmallUnitScale:'大小单位比例（弃用）',tip:'tip说明 弃用',unitShow:'单位名称（弃用）',remarkNumber:'备注号(后端使用 前端忽略)',categoryParent:'产品归类父类id',categoryGradparent:'产品归类祖先分类ID',newSale:'新品 (弃用)',brandId:'归属品牌id',brandName:'品牌名',brandNameEn:'品牌英文名',brandNameShort:'品牌缩写',commentCount:'评论次数',yunfei:'运费(弃用 现在使用平台设定的运费模板)',yunfeiTemplate:'运费模板id(弃用 使用平台默认设置的运费模板)',productType:'产品类型 0普通产品  1到店服务类产品 2展示类产品 3预收类产品 5租赁类产品',presalePrice:'预售价格(预售类产品可用)',distributeProfit:'产品分配利润（在二级分润系统使用）',daidingPlatformUserId:'待定平台用户id（忽略）',daidingTime:'待定时间',daidingUserLoginName:'待定用户登录名',daidingUserNickName:'待定用户昵称',remark:'备注（前端忽略 后端使用）',pingfen:'产品评分',pingfenCount:'产品参与评分数量',leaseUnitTypeStr:'租赁单位类型字符表示',leaseUnitType:'租赁单位类型 0小时 1天 2周 3月 4年 （周单位弃用）',productYear:'产品年份',attributesCombind:'属性归集 ',leaseUnitAmount:'租赁单位金额 ',leaseUnitExpireAmount:'租赁逾期单位金额 ',leaseNeedBackUnitCount:'租赁应还单位时长  如值为 10表示10个单位内应归还 单位参考  leaseUnitType ',measureItem:'是否多规格商品 0否 1是 表示有规格 如 红色 L码',saleStrategyDetails:'销售策略详情',measureTypes:'分配规格类型',promotionBean:'参与活动Bean',attrs:'属性列表',platformNo:'平台号' }"
 
 #### 三级列表 : search_product2
 
-    页面功能 : 三级导航 
+    页面功能 : 三级导航 ，查询
     页面主要处理函数: getData --> 获取商品列表信息
                     toAdverLink --> 广告图跳转
     使用接口：无
@@ -595,7 +651,7 @@
     页面主要处理函数: loginIn --> 账号登录
                     wxLogin --> 微信登录
     使用接口：Client.User.Login  ( /login.html ) 
-             Client.User.wxLogin （ wx_mini_code_login ）
+             Client.User.WxMiniCodeLogin （ wx_mini_code_login ）
 
     参数说明： 1.Client.User.Login
                   loginType:  登录类型0 普通  1 微信  2 短信验证码
@@ -603,12 +659,12 @@
                   verifyCode: 验证码
                   username: 用户名
                   password: 密码
-              2.Client.User.wxLogin
+              2.Client.User.WxMiniCodeLogin
                 
 
     返回的json说明:  1.Client.User.Login
                         登录账号的个人信息
-                    2.Client.User.wxLogin
+                    2.Client.User.WxMiniCodeLogin
                         登录账号的个人信息
                    
 
@@ -815,3 +871,65 @@
     使用接口： 
     参数说明：
     返回的json说明:
+
+#### 分销中心 : fx_center
+
+    页面功能 : 分销中心页面
+    页面主要处理函数: get_fx_center --> 获取分销中心个人数据
+    使用接口：  ( /fx_center.html ) 
+    参数说明： 1. /fx_center.html
+                    canFx:  有没有分销资格
+                    jsonOnly： 返回json
+    返回的json说明:  1. /fx_center.html
+                        返回个人分销数据佣金记录等
+
+
+#### 分销二维码 : fx_qrcode
+
+    页面功能 : 分销二维码获取
+    页面主要处理函数: get_qrcode --> 获取二维码图片和链接地址等
+    使用接口：  ( /get_qrcode.html ) 
+    参数说明： 1. /get_qrcode.html
+                    jsonOnly： 返回json
+    返回的json说明:  1. /get_qrcode.html
+                         返回个人二维码图片和链接地址等
+
+#### 推广3级用户 : fx_users
+
+    页面功能 : 推广用户
+    页面主要处理函数: get_fx_users --> 获取推广3级用户
+    使用接口：  ( /get_fx_tg_users.html ) 
+    参数说明： 1. /get_fx_tg_users.html
+                    fxLevel: 用户等级
+    返回的json说明:  1. /get_fx_tg_users.html
+                         你的下fxLevel级的数据，最多3级
+
+#### 佣金记录 : fx_yongjin_list
+
+    页面功能 : 佣金记录
+    页面主要处理函数: getData --> 获取佣金记录数据
+    使用接口：  ( /get_fx_yongjin_list.html ) 
+    参数说明： 1. /get_fx_yongjin_list.html
+                    page: 页
+    返回的json说明:  1. /get_fx_yongjin_list.html
+                         佣金事件记录。提现和收入
+
+#### 提现记录 : tixian_list
+
+    页面功能 : 佣金记录
+    页面主要处理函数: getData --> 获取提现记录数据
+    使用接口：  ( /get_tixian_list.html ) 
+    参数说明： 1. /get_tixian_list.html
+                    page: 页
+    返回的json说明:  1. /get_tixian_list.html
+                         提现事件记录。提现
+
+#### 申请提现 : req_tixian_section
+
+    页面功能 : 佣金记录
+    页面主要处理函数: subMitButn --> 确认提现
+    使用接口：  ( /req_tixian.html ) 
+    参数说明： 1. /req_tixian.html
+                    tixianAmount: 提现金额
+    返回的json说明:  1. /req_tixian.html
+                         成功返回数据

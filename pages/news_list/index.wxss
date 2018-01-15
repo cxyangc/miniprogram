@@ -53,6 +53,7 @@
 .ListDataItemImage{
   width: 30%;
   height: 100%;
+  overflow: hidden;
 }
 .ListDataItemImage image{
   width: 100%;

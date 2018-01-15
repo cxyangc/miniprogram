@@ -1,9 +1,9 @@
 <view class='flx_cenetr_content_container'>
     <view class='flx_cenetr_content_title'>一级会员推广人数 {{List.length}}</view>
 
-    
+     
     <block wx:if='{{!List}}'>
-      <view class="noproduct">
+      <view class="none">
         <image mode="widthFix" src='/images/icons/no-product.png'></image>
         <text>什么都没有</text>
       </view>

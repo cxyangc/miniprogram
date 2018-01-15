@@ -48,12 +48,12 @@ Page({
               that.setData({ fxCenter: fxCenter })
             }else{
               //没有资格
-              that.setData({ fxCenter: '10001' })
+              that.setData({ fxCenter: null })
             }
           }
         }
-        if (res.errcode == '10001'){
-          that.setData({ fxCenter: '10001' })
+        if (res.data.errcode == '10001'){
+          that.setData({ fxCenter: null })
         }
 
         console.log(res)
@@ -103,7 +103,7 @@ Page({
   onUnload: function () {
   
   },
-
+ 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

@@ -26,21 +26,21 @@
 
 	Tip 打开 app.js 文件，找到 clientNo 可换成任意以下的字段，即可切换项目
 
-  	1.naicha
+  1.naicha
  	2.xianhua
  	3.xingbake
  	4.zhubaoxiao
-  	5.zhubaoxiao
+  5.zhubaoxiao
  	6.majiangshangcheng
  	7.jiafang
  	8.huazhuan
-  	9.riyong
+  9.riyong
  	10.muying
  	11.hongjiu
-  	12.fuzhuan
+  12.fuzhuan
  	13.shuiguo
-  	14.haixianpifa
-  	15.其他自定义...
+  14.haixianpifa
+  15.其他自定义...
 
 #### 功能介绍
 	1. 5种订单列表页面，并且可配置多种展示模型

@@ -11,7 +11,7 @@ App({
   /**
    *   切换项目的开关 ↓↓↓↓↓
    */
-  clientNo:'shuiguo',   //自定义的项目的名称。
+  clientNo:'xianhua',   //自定义的项目的名称。
 
   miniIndexPage:'',
   setting : null,
