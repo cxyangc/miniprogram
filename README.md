@@ -24,25 +24,25 @@
 
 ### 更改项目 - 关键字 clientNo
 
-	Tip 打开 app.js 文件，找到 clientNo 可换成任意以下的字段，即可切换项目
-
-  1.naicha
- 	2.xianhua
- 	3.xingbake
- 	4.zhubaoxiao
-  5.zhubaoxiao
- 	6.majiangshangcheng
- 	7.jiafang
- 	8.huazhuan
-  9.riyong
- 	10.muying
- 	11.hongjiu
-  12.fuzhuan
- 	13.shuiguo
-  14.haixianpifa
-  15.其他自定义...
+    Tip 打开 app.js 文件，找到 clientNo 可换成任意以下的字段，即可切换项目
+    1.naicha
+    2.xianhua
+    3.xingbake
+    4.zhubaoxiao
+    5.zhubaoxiao
+    6.majiangshangcheng
+    7.jiafang
+    8.huazhuan
+    9.riyong
+    10.muying
+    11.hongjiu
+    12.fuzhuan
+    13.shuiguo
+    14.haixianpifa
+    15.其他自定义...
 
 #### 功能介绍
+
 	1. 5种订单列表页面，并且可配置多种展示模型
 	2. 购物车
 	3. 订单
@@ -53,8 +53,9 @@
 	8. 修改资料
 	9. 其他
 
-#### 页面文档，见 readPageBehaviour.md
-
+#### 页面文档，见 wxApp.md
+[wxApp说明了页面所用的所有接口和数据格式和说明，并且新增返回json说明和示例](wxApp.md)
+[新增常见错误类型和解决方法](一般错误.md)
 #### 页面说明
 
 	首页 : custom_page_index
@@ -65,13 +66,10 @@
 	列表页 : search_product
 	三级列表 : search_product2
 	列表页2 : product_tree_list
-	
 	列表页3 : product_waimai 
 	二级列表 : product_type2
-	
-	
+
 	订单列表 : order_list.html?easyStatus=0
-	 
 	订单详细 : order_detail
 	编辑订单 : edit_order
 	提交订单 : submit_order -->  submit_order_result
@@ -79,8 +77,8 @@
 	退货详情 : back_item_detail
 	评价订单 : order_shop_comment    
 	
-	大师推荐 : brand_list
-	大师推荐详细 : brand_detail
+	品牌 : brand_list
+	品牌详细 : brand_detail
 	购物车 : shopping_car_list
 	登录 : login
 	注册 : regist
@@ -99,4 +97,11 @@
 	余额充值页面 : user_recharge
 	商品管理 : shop_manager_products
 
+  分销中心 : fx_center
+  分销二维码 : fx_qrcode
+  推广3级用户 : fx_users
+  佣金记录 : fx_yongjin_list
+  提现记录 : tixian_list
+  申请提现 : req_tixian_section
+  
   - Tip 更换页面，在app.json里面设置路径即可
