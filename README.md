@@ -24,7 +24,6 @@
 
 ### 更改项目 - 关键字 clientNo
 
-    Tip 打开 app.js 文件，找到 clientNo 可换成任意以下的字段，即可切换项目
     1.naicha
     2.xianhua
     3.xingbake
@@ -40,7 +39,8 @@
     13.shuiguo
     14.haixianpifa
     15.其他自定义...
-
+    -Tip 打开 app.js 文件，找到 clientNo 可换成任意以下的字段，即可切换项目
+    
 #### 功能介绍
 
 	1. 5种订单列表页面，并且可配置多种展示模型
@@ -54,8 +54,11 @@
 	9. 其他
 
 #### 页面文档，见 wxApp.md
-[wxApp说明了页面所用的所有接口和数据格式和说明，并且新增返回json说明和示例](wx-API/wxApp.md)
-[新增常见错误类型和解决方法](wx-API/一般错误.md)
+|文档页|文档说明|文档地址|
+|:----|:----:|:----:|
+|wxApp.md|页面所用的所有接口和数据格式和说明，并且新增返回json说明和示例|[地址](wx-API/wxApp.md)
+|一般错误.md|新增常见错误类型和解决方法|[地址](wx-API/一般错误.md)
+
 #### 页面说明
 
 	首页 : custom_page_index
