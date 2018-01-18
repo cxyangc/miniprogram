@@ -54,8 +54,8 @@
 	9. 其他
 
 #### 页面文档，见 wxApp.md
-[wxApp说明了页面所用的所有接口和数据格式和说明，并且新增返回json说明和示例](wxApp.md)
-[新增常见错误类型和解决方法](一般错误.md)
+[wxApp说明了页面所用的所有接口和数据格式和说明，并且新增返回json说明和示例](wx-API/wxApp.md)
+[新增常见错误类型和解决方法](wx-API/一般错误.md)
 #### 页面说明
 
 	首页 : custom_page_index
@@ -103,5 +103,5 @@
   佣金记录 : fx_yongjin_list
   提现记录 : tixian_list
   申请提现 : req_tixian_section
-  
+
   - Tip 更换页面，在app.json里面设置路径即可
