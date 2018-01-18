@@ -389,19 +389,23 @@ Page({
       mask: true
     })
     
+    let postParam = {}
+    postParam.productId = param.id
+    postParam.addShopId = param.addShopId
+    let customIndex = app.AddClientUrl("/product_detail.html", postParam)
 
     wx.request({
-      url: app.clientUrl + app.clientNo + "/product_detail_" + param.id + ".html?jsonOnly=1" + "&addShopId=" + param.addShopId,
+      /* url: app.clientUrl + app.clientNo + "/product_detail_" + param.id + ".html?jsonOnly=1" + "&addShopId=" + param.addShopId, */
+      url: customIndex.url,
       header: app.header,
       success: function (res) {
         console.log(res.data)
         console.log('--------------getData-------------')
         
         that.setData({ productData: res.data })
-        console.log('res...' + res.data.productInfo.favorite)
-        console.log('data...' +that.data.productData.productInfo.favorite)
+        
         if (!!res.data.productInfo.tags){
-          let tagsStr = res.data.productInfo.tags
+          let tagsStr = res.data.p11roductInfo.tags
           let tagsStr2 = tagsStr.replace(/\[/g, '');
           let tagArr = tagsStr2.split(']')
           tagArr.length --;
@@ -412,7 +416,7 @@ Page({
         if (!!res.data.description){
           WxParse.wxParse('article', 'html', res.data.description.description, that, 0);
         }
-        {
+        if (!!res.data.productInfo){
           let info = res.data.productInfo
           let postPatam = {}
           //var paramStr = 'page=1&productId=' + info.productId+'&shopId=' + info.belongShopId

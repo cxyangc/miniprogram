@@ -12,6 +12,23 @@
 	"appid": "wx37b3f495891dd60c",
 	"projectname": "%E7%94%B5%E5%95%86%E5%B0%8F%E7%A8%8B%E5%BA%8F",
 	"condition": {
+		"weapp": {
+			"current": 0,
+			"list": [
+				{
+					"id": -1,
+					"name": "tet",
+					"pathName": "pages/index/index",
+					"query": "scene=PLATFORM_SUERID_12121"
+				},
+				{
+					"id": -1,
+					"name": "platformNo",
+					"pathName": "pages/custom_page_index/index",
+					"query": "platformNo=shuiguo"
+				}
+			]
+		},
 		"search": {
 			"current": -1,
 			"list": []

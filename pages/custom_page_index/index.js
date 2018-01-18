@@ -1,5 +1,6 @@
 
 const app = getApp()
+var timer; // 计时器
 Page({
   data: {  
     /* seeting */ 
@@ -143,6 +144,7 @@ Page({
         that.setData({ renderData: res.data })
         that.getPartials();
         wx.hideLoading()
+        
       },
       fail: function (res) {
         wx.hideLoading()
@@ -159,38 +161,26 @@ Page({
       console.log('-------------hasSetting-----------')
       this.setData({ setting: app.setting })
       console.log(this.data.setting)
+      
     }
     
-    /*wx.setNavigationBarTitle({
-      title: app.setting.platformSetting.platformName,
-    })
-    if (app.setting.platformSetting.defaultColor == '') {
-      wx.setNavigationBarColor({
-        frontColor: '#ffffff',
-        backgroundColor: '#000000',
-      })
-    } else {
-      wx.setNavigationBarColor({
-        frontColor: '#ffffff',
-        backgroundColor: app.setting.platformSetting.defaultColor,
-      })
-    }*/
+   
   },
   
   /*onload*/
   onLoad: function (options) {
    
-    this.setData({
-      sysWidth: app.globalData.sysWidth
-    });
-    this.getParac()
-    this.getData()
+   
    
 
   },
   onReady: function () {
     var that = this
-    
+    this.setData({
+      sysWidth: app.globalData.sysWidth
+    });
+    this.getParac()
+    this.getData()
    // app.wxLogin() //重新登录
 
   },
@@ -214,3 +204,15 @@ Page({
   
   }
 })
+function Countdown(page) {
+  console.log('2')
+  if (!!page.setting) {
+    
+    page.toIndex()
+  }
+  else {
+    timer = setTimeout(function () {
+      Countdown(page);
+    }, 1000);
+  }
+};

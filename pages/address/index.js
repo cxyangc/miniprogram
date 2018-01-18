@@ -91,6 +91,7 @@ Page({
               that.getAddr()
             },
             fail: function (res) {
+              console.log(res)
               wx.hideLoading()
               app.loadFail()
             }

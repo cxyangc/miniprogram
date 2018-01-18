@@ -73,7 +73,7 @@
       "text": "首页"
     },
     {
-      "pagePath": "pages/product_waimai/index",
+      "pagePath": "pages/product_waimai_offline/index",
       "iconPath": "images/icons/good1.png",
       "selectedIconPath": "images/icons/good2.png",
       "text": "产品"
@@ -99,7 +99,7 @@
     "navigationBarTextStyle":"black"
   },
   "networkTimeout": {
-    "request": 4000,
+    "request": 10000,
     "connectSocket": 10000,
     "uploadFile": 10000,
     "downloadFile": 10000

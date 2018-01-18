@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    FxImage:""
   },
   get_qrcode:function(){
     console.log('-------获取推广二维码信息--------')
@@ -20,7 +20,14 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        
+        if (res.data.errcode == '0'){
+          that.setData({
+            FxImage: res.data.relateObj
+          })
+        }
+        else{
+          
+        }
         console.log(res.data)
         wx.hideLoading()
       },

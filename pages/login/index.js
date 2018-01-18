@@ -34,6 +34,7 @@ Page({
 
   loginIn: function(data){
     console.log(data)
+    data.scene = app.more_scene
       var that = this;
       wx.showLoading({
         title: 'loading',
@@ -117,8 +118,8 @@ Page({
           }
           else { //
             wx.showToast({
-              title: '登录失败',
-              icon: 'loading',
+              title: res.data.errMsg,
+              icon: '/images/icons/tip.png',
               duration: 1500
             })
           }
@@ -185,18 +186,20 @@ Page({
       mask: true
     })
     var that = this
-    var customIndex = app.AddClientUrl("/wx_mini_code_login.html", {}, 'post')
+    
 
     wx.login({
       success: function (res) {
 
         if (res.code) {
           //发起网络请求
+          let loginParam = {}
+          loginParam.code = res.code
+          loginParam.scene = app.more_scene
+          let customIndex = that.AddClientUrl("/wx_mini_code_login.html", loginParam, 'post')
           wx.request({
             url: customIndex.url,
-            data: {
-              code: res.code
-            },
+            data: customIndex.params,
             header: app.headerPost,
             method: 'POST',
             success: function (e) {
@@ -233,8 +236,8 @@ Page({
                 wx.hideLoading()
 
                 wx.showModal({
-                  title: '提示',
-                  content: '微信登录失败，账号密码登录',
+                  title: '微信登录失败',
+                  content: '使用账号密码登录',
                   success: function (res) {
                     if (res.confirm) {
                      

@@ -11,7 +11,9 @@ App({
   /**
    *   切换项目的开关 ↓↓↓↓↓
    */
-  clientNo:'xianhua',   //自定义的项目的名称。
+  clientNo:'shuiguofenxiao',   //自定义的项目的名称。
+
+  more_scene:'', //扫码进入场景   用来分销
 
   miniIndexPage:'',
   setting : null,
@@ -38,9 +40,34 @@ App({
 
 
 
-  onLaunch: function () {
-    var that = this
-  
+  onLaunch: function (options) {
+    let that = this
+    console.log('------onlauch------')
+    console.log(options)
+    let inputPlatformNo = options.query.platformNo;
+    if (!!inputPlatformNo) {
+      this.clientNo = inputPlatformNo
+    }
+    let more_scene = decodeURIComponent(options.query.scene)
+    console.log(more_scene)
+    
+    if (!!more_scene){
+      this.more_scene = more_scene
+    }
+    
+
+      /* 第三方配置加载 clientNo */
+      wx.getExtConfig({
+        success: function (res) {
+          console.log('第三方配置')
+          console.log(res)
+          if (res.extConfig && res.extConfig.clientNo){
+            console.log(res.extConfig)
+            that.clientNo = res.extConfig.clientNo
+          }
+        }
+      })
+
    // console.log(appJson)
    // this.getSetting()
     wx.getUserInfo({
@@ -50,9 +77,17 @@ App({
         that.globalData.userInfo = userInfo
       }
     })
-    
+    this.loadFirstEnter(more_scene)
     
   
+  },
+  //第一次登录加载的函数
+  loadFirstEnter: function (more_scene){
+    this.getSetting()
+    this.wxLogin(more_scene)
+  },
+  loadScene: function (inputPlatformNo){
+    this.clientNo = inputPlatformNo
   },
   globalData: {
     userInfo: null,
@@ -409,25 +444,30 @@ App({
     })
   },
   /* 微信登录测试 */
-  wxLogin: function () {
+  wxLogin: function (more_scene) {
+    if (!more_scene || more_scene == 'undefined'){
+      more_scene = '0'
+    }
     console.log('--------------微信登录--------------')
     wx.showLoading({
       title: '登录中',
       mask: true
     })
     var that = this
-    var customIndex = that.AddClientUrl("/wx_mini_code_login.html", {}, 'post')
+    
     
     wx.login({
       success: function (res) {
         
         if (res.code) {
           //发起网络请求
+          let loginParam = {}
+          loginParam.code = res.code
+          loginParam.scene = more_scene
+          let customIndex = that.AddClientUrl("/wx_mini_code_login.html", loginParam, 'post')
           wx.request({
             url: customIndex.url,
-            data: {
-              code: res.code
-            },
+            data: customIndex.params,
             header: that.headerPost,
             method: 'POST',
             success: function (e) {
@@ -545,6 +585,7 @@ App({
 
         }else{
           self.setData({ setting: res.data })
+          self.setNavBar()
         }
         wx.hideLoading()
         return

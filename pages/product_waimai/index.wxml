@@ -1,5 +1,4 @@
  <!-- 外卖模式的点单 --> 
-<import src="../../view/partials/zhezhao.wxml"/><!-- product_search -->
 
 <view class='waimaiContainer'>
   <!-- 左边的导航 -->   

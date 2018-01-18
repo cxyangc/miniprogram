@@ -39,7 +39,7 @@ Page({
               console.log(res.data)
               if(res.data.errcode == '0'){
                 wx.showToast({
-                  title: '退款成功',
+                  title: '申请退款成功',
                   icon: 'success',
                   duration: 2000
                 })
