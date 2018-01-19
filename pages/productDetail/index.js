@@ -356,13 +356,29 @@ Page({
         console.log('---------------change_shopping_car_item-----------------')
         console.log(res.data)
         wx.hideLoading()
-        if (!!res.data.totalCarItemCount || res.data.totalCarItemCount== 0){
-          that.setData({ countGood: res.data.totalCarItemCount })
-        }
-        
-        if (that.data.bindway == 'cart'){
+        if (that.data.bindway == 'cart') {
           that.setData({ showCount: false })
         }
+        if( res.data.id && res.data.id != 0 ) {
+          if(data.count == 0){
+              console.log('通过加入购物车来确定购物车里面的商品数量')
+          }else{
+            wx.showToast({
+              title: '加入购物车成功',
+            })
+          }
+          
+           if (!!res.data.totalCarItemCount || res.data.totalCarItemCount == 0) {
+             that.setData({ countGood: res.data.totalCarItemCount })
+           }
+        }else{
+          wx.showToast({
+            title: res.data.errMsg,
+            image: '/images/icons/tip.png',
+            duration: 2000
+          })
+        }
+
         
       },
       fail: function (res) {

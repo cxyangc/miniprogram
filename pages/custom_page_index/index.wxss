@@ -10,3 +10,5 @@
 /* @import '../../view/css/footer_tab.wxss'; *//* 11 */
 
 @import '../../view/css/mofang.wxss';/* 14 */
+
+@import '../../view-new/css/detail_list_card.wxss';/*  detail_list_card  */

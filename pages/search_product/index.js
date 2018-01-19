@@ -416,19 +416,6 @@ Page({
    */
   onReady: function () {
     this.setData({ setting: app.setting })
-    if (!!this.data.setting) {
-      let categories = this.data.setting.platformSetting.categories
-      let allType = {}
-      allType.id = 'all'
-      allType.name = '全部'
-      allType.active = true
-      for (let i = 0; i < categories.length; i++) {
-        categories[i].active = false
-      }
-      categories.unshift(allType)
-    }
-    this.setData({ setting: this.data.setting })
-
 
   },
 

@@ -8,7 +8,12 @@ Page({
   data: {
     setting:{},
     loginUser:null,
-    fxCenter:null
+    
+    
+    
+    
+    
+    fxCenter:0
   },
   /* 组件事件集合 */
   tolinkUrl: function (e) {
@@ -48,12 +53,12 @@ Page({
               that.setData({ fxCenter: fxCenter })
             }else{
               //没有资格
-              that.setData({ fxCenter: null })
+              that.setData({ fxCenter: 1 })
             }
           }
         }
         if (res.data.errcode == '10001'){
-          that.setData({ fxCenter: null })
+          that.setData({ fxCenter: 1 })
         }
 
         console.log(res)

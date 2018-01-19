@@ -1,4 +1,5 @@
-<view  class='container'wx:if='{{!fxCenter}}'>
+<view wx:if='{{fxCenter == 0}}'></view>
+<view  class='container' wx:elif='{{fxCenter == 1}}'>
 
   <view  class='noFxCenter_head_container'>
       <image src='http://image1.sansancloud.com/zhouyibao/2017_01/22/19/41/28_547.jpg'></image>

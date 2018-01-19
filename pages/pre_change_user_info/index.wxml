@@ -1,7 +1,7 @@
  <view> 
   <form class='info_Form' bindsubmit="changeUserInfo">
     <view class='inputGroup' catchsubmit="changeUserInfo">
-      <image src='{{loginUser.userIcon}}' mode='aspectFill'></image><!--  bindtap='changeImage' -->
+      <image src='{{loginUser.userIcon}}' mode='aspectFill' bindtap='changeImage' ></image><!--  -->
       <input placeholder="用户昵称" name='nickname' value='{{loginUser.nickName}}'></input>
       <input placeholder="手机号码" name='telno' value='{{loginUser.telno}}'></input>
       <input placeholder="个性签名" name='userTip' value='{{loginUser.platformUser.userTip}}'></input>

@@ -9,8 +9,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.6.0",
-	"appid": "wx37b3f495891dd60c",
-	"projectname": "%E7%94%B5%E5%95%86%E5%B0%8F%E7%A8%8B%E5%BA%8F",
+	"appid": "wx42d98cf6cb1a1316",
+	"projectname": "%E4%B8%80%E6%96%B9",
 	"condition": {
 		"weapp": {
 			"current": 0,

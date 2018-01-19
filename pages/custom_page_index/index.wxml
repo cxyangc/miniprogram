@@ -12,7 +12,9 @@
 <import src="../../view/partials/help_blank.wxml"/><!-- 3 -->
 <import src="../../view/partials/detail_list.wxml"/><!-- 9 -->
 <import src="../../view/partials/footer_tab.wxml"/> <!-- 11 -->
-<import src="../../view/partials/mofang.wxml"/> <!-- 14 -->
+<import src="../../view/partials/mofang.wxml"/> <!-- 14 --> 
+
+<import src="../../view-new/partials/detail_list_card.wxml"/> <!-- detail_list_card --> 
 
 <!-- 
 方法1：把所有的组件都导入进来，然后根据传过来的partials规则里面的排序来渲染组件 
@@ -20,11 +22,11 @@
 -->
 <view class="container">
   <block wx:for="{{PaiXuPartials}}" wx:key="{{temp}}">
-    <template is="{{item.partialType}}" 
+    <!-- <template is="{{item.partialType}}" 
        data="{{...item.jsonData,...setting,sysWidth}}"></template>
-
-     <!--   <template is="{{!!item.wapTemplate}}?{{item.wapTemplate}}:{{item.partialType}}" 
-       data="{{...item.jsonData}}"></template> -->
+ -->
+        <template is="{{!!item.androidTemplate ? item.androidTemplate : item.partialType }}" 
+       data="{{...item.jsonData,...setting,sysWidth}}"></template> 
   </block>
 </view>
 

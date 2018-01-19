@@ -99,7 +99,6 @@
 	余额充值列表 : user_account_events
 	余额充值页面 : user_recharge
 	商品管理 : shop_manager_products
-
   分销中心 : fx_center
   分销二维码 : fx_qrcode
   推广3级用户 : fx_users
@@ -107,4 +106,4 @@
   提现记录 : tixian_list
   申请提现 : req_tixian_section
 
-  - Tip 更换页面，在app.json里面设置路径即可
+    - Tip 更换页面，在app.json里面设置路径即可
