@@ -9,7 +9,7 @@
 
 <view wx:else >
   <image mode="widthFix" src="{{imageUrl}}" 
-   style="width:100%;" data-link='{{linkUrl}}' bindtap='tolinkUrl'></image>
+   style="width:100%;display:block;" data-link='{{linkUrl}}' bindtap='tolinkUrl'></image>
 </view>
 
 
