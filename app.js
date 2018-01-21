@@ -3,7 +3,7 @@ import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
 
 
-
+ 
 App({
  
   clientUrl:'https://mini.sansancloud.com/chainalliance/',  // 链接地址
@@ -11,7 +11,7 @@ App({
   /**
    *   切换项目的开关 ↓↓↓↓↓
    */
-  clientNo:'yidetang',   //自定义的项目的名称。
+  clientNo:'xianhua',   //自定义的项目的名称。
 
   more_scene:'', //扫码进入场景   用来分销
 
@@ -243,8 +243,8 @@ App({
     var returnParam = "?"
     var str = [];
     for (var p in json) {
-      //str.push(p + "=" + json[p]);
-      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(json[p]));
+      str.push(p + "=" + json[p]);
+      //str.push(encodeURIComponent(p) + "=" + encodeURIComponent(json[p]));
     }
     returnParam += str.join("&")
     console.log(returnParam)
