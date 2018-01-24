@@ -4,6 +4,10 @@
 
     余额充值  Client.User.CreateRechargeOrder ( create_recharge_order )
 
+### 链接地址
+
+    余额充值  https://mini.sansancloud.com/chainalliance/xianhua/create_recharge_order.html
+
 ##  余额充值  Client.User.CreateRechargeOrder ( create_recharge_order )
 ###  Client.User.CreateRechargeOrder 请求参数
 

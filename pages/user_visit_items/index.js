@@ -28,8 +28,7 @@ Page({
     var customIndex = app.AddClientUrl("/get_user_visit_items.html", getParams)
     var that = this
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     wx.request({
       url: customIndex.url,

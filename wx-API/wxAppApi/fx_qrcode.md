@@ -4,6 +4,10 @@
 
     获取我的分销二维码  ( /get_qrcode.html )
 
+### 链接地址
+
+     获取我的分销二维码 https://mini.sansancloud.com/chainalliance/xianhua/get_qrcode.html
+
 ##  获取我的分销二维码  ( /get_qrcode.html )
 ###  /get_qrcode.html  请求参数
 

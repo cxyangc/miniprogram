@@ -4,6 +4,10 @@
 
     获取订单详细 Client.Order.GetOrderDetail ( get_order_detail )
 
+### 链接地址
+
+     获取订单详细 https://mini.sansancloud.com/chainalliance/xianhua/get_order_detail.html
+
 ##  获取订单详细 Client.Order.GetOrderDetail ( get_order_detail )
 ### Client.Order.GetOrderDetail 请求参数
 

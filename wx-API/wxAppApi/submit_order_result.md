@@ -7,6 +7,10 @@
       统一下单  Client.Weixin.UnifinedOrder ( unifined_order )
       余额支付  Client.Order.AccountPay （ order_account_pay ）
 
+### 链接地址
+
+    统一下单  https://mini.sansancloud.com/chainalliance/xianhua/unifined_order.html
+    余额支付  https://mini.sansancloud.com/chainalliance/xianhua/order_account_pay.html
 
 ## 微信统一下单  Client.Weixin.UnifinedOrder ( unifined_order )
 ###   Client.Weixin.UnifinedOrder 请求参数

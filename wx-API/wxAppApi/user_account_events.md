@@ -4,6 +4,10 @@
 
     获取余额事件列表  Client.User.ListAccountEvent ( get_user_account_events )
 
+### 链接地址
+
+    获取余额事件列表  https://mini.sansancloud.com/chainalliance/xianhua/get_user_account_events.html
+
 ##  获取余额事件列表  Client.User.ListAccountEvent ( get_user_account_events )
 ###   Client.User.ListAccountEvent 请求参数
 

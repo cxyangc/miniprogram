@@ -7,7 +7,7 @@
         autoplay="true" interval="5000" duration="1000">
         <block wx:for="{{images}}" wx:key="{{swiper}}">
           <swiper-item>
-            <image mode='aspectFit' src="{{item.imageUrl}}"/>
+            <image mode='aspectFit' data-link='{{item.linkUrl}}' bindtap='tolinkUrl' src="{{item.imageUrl}}"/>
           </swiper-item>
         </block>
       </swiper>

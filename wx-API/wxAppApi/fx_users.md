@@ -4,6 +4,10 @@
 
     获取我的推广3级用户  ( /get_fx_tg_users.html )
 
+### 链接地址
+
+     获取我的推广3级用户 https://mini.sansancloud.com/chainalliance/xianhua/get_fx_tg_users.html
+
 ##  获取我的推广3级用户  ( /get_fx_tg_users.html )
 ###  /get_fx_tg_users.html  请求参数
 

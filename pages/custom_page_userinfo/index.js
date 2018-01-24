@@ -74,8 +74,7 @@ Page({
     var customIndex = app.AddClientUrl("/custom_page_userinfo.html")
     var that = this
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     //拿custom_page
     wx.request({
@@ -142,8 +141,7 @@ Page({
     var customIndex = app.AddClientUrl(finnalUrl)
     var that = this
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     //拿custom_page
     wx.request({

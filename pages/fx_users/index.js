@@ -21,8 +21,7 @@ Page({
     var customIndex = app.AddClientUrl("/get_fx_tg_users.html", getParam )
     var that = this
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     wx.request({
       url: customIndex.url,

@@ -69,8 +69,7 @@ Page({
   loginOut: function () {
     return
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     wx.removeStorage({
       key: 'loginUser',

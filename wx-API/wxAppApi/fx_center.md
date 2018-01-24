@@ -4,6 +4,10 @@
 
     获取我的分销信息  ( /fx_center.html )
 
+### 链接地址
+
+     获取我的分销信息 https://mini.sansancloud.com/chainalliance/xianhua/fx_center.html
+
 ##  获取我的分销信息  ( /fx_center.html )
 ###  /fx_center.html  请求参数
 

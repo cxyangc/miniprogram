@@ -6,6 +6,12 @@
     评价商店 Client.Order.CommentOrder ( comment_order )
     评价商品 Client.Order.CommentOrder ( comment_order )
 
+### 链接地址
+
+     订单详情 https://mini.sansancloud.com/chainalliance/xianhua/get_order_detail.html
+     评价商店 https://mini.sansancloud.com/chainalliance/xianhua/comment_order.html
+     评价商品 https://mini.sansancloud.com/chainalliance/xianhua/comment_order.html
+
 ## 订单详情 Client.Order.GetOrderDetail ( get_order_detail )
 |名称|说明|是否必要|备注
 |:---:|:---:|:---:|:---:|

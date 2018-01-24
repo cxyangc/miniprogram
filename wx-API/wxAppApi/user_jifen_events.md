@@ -4,6 +4,10 @@
 
     获取我的积分列表   Client.User.ListJifenEvent ( get_user_jifen_events )
 
+### 链接地址
+
+    获取我的积分列表  https://mini.sansancloud.com/chainalliance/xianhua/get_user_jifen_events.html
+
 ##  获取我的积分列表   Client.User.ListJifenEvent ( get_user_jifen_events )
 ###   Client.User.ListJifenEvent 请求参数
 

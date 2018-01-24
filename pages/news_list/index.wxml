@@ -27,16 +27,20 @@
        data="{{...componentData,...item.jsonData,setting,...upData}}"></template> 
   </block>
 </view>
-
-<view class='ListDataContainer'>
+<view wx:if='{{!tabData}}'>
+    <view class='noNews'>没有相关新闻</view>
+  </view>
+<view wx:else class='ListDataContainer'>
+  
   <view class='ListDataItem' wx:for='{{tabData}}' wx:for-item='list' wx:key='{{index}}'
   data-id='{{list.id}}' bindtap='toNewsDetail'>
     <view class='ListDataItemWord'>
       <text>{{list.title}}</text>
-      <text class='word2'>{{list.commentCount}} 评</text>
+     <!--  <text class='word2'>{{list.commentCount}} 评</text> -->
     </view>
-    <view class='ListDataItemImage'><image mode='aspectFill' src='{{list.imagePath}}?x-oss-process=style/preview'></image></view>
+    <view wx:if='{{list.imagePath}}' class='ListDataItemImage'><image mode='aspectFill' src='{{list.imagePath}}?x-oss-process=style/preview'></image></view>
   </view>
+ 
 </view>
 <!-- 
 根据后台数据，动态渲染页面

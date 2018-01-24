@@ -15,6 +15,12 @@
         获取订单详情     Client.Order.GetEditOrderDetail （ get_edit_order_detail ）
         提交订单     Client.Order.SubmitOrder （ submit_order ）
 
+### 链接地址
+
+     获取用户地址列表 https://mini.sansancloud.com/chainalliance/xianhua/get_login_user_address_list.html
+     获取订单详情 https://mini.sansancloud.com/chainalliance/xianhua/get_edit_order_detail.html
+     提交订单 https://mini.sansancloud.com/chainalliance/xianhua/submit_order.html
+
 ## 获取用户地址列表   Client.User.AddressList ( get_login_user_address_list )
 ###  Client.User.AddressList 请求参数
 

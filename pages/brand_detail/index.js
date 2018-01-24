@@ -25,8 +25,7 @@ Page({
       return
     }
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
 
     var postData = {
@@ -57,8 +56,7 @@ Page({
   /* 关注 */
   guanzhuDaShi: function (e) {
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     var postData = {
       itemId: '',
@@ -88,8 +86,7 @@ Page({
   getData:function(){
     var that = this
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     var getParam = {}
     getParam.brandId = that.brandId

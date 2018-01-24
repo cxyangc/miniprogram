@@ -25,8 +25,7 @@ Page({
       return
     }
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
 
     var postData = {
@@ -64,8 +63,7 @@ Page({
       return
     }
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     var postData = {
       itemId: '',

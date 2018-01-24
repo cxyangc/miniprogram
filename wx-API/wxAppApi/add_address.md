@@ -2,9 +2,13 @@
 
 ### 使用接口
 
-     添加新地址   Client.User.AddressAdd ( add_address )
-     修改地址   Client.User.AddressModify ( edit_address )
+     添加新地址   Client.User.AddressAdd ( /add_address.html )
+     修改地址   Client.User.AddressModify ( /edit_address.html )
 
+### 链接地址
+
+     添加新地址   https://mini.sansancloud.com/chainalliance/xianhua/add_address.html?jsonOnly=1
+     修改地址   https://mini.sansancloud.com/chainalliance/xianhua/edit_address.html?jsonOnly=1
 
 ## 添加新地址   Client.User.AddressAdd ( add_address )
 ###  Client.User.AddressAdd  请求参数

@@ -4,6 +4,10 @@
 
     修改个人信息   Client.User.ChangeUserInfo ( change_user_info )
 
+### 链接地址
+
+     修改个人信息 https://mini.sansancloud.com/chainalliance/xianhua/change_user_info.html
+
 ##  修改个人信息   Client.User.ChangeUserInfo ( change_user_info )
 ###   Client.User.ListJifenEvent 请求参数
 

@@ -101,7 +101,7 @@ Page({
             console.log(res)
             wx.showToast({
               title: '支付失败',
-              icon: '/images/icons/tip.png',
+              image: '/images/icons/tip.png',
               duration: 2000
             })
           },

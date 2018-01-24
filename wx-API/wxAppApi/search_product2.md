@@ -3,6 +3,12 @@
 ### 使用接口
 
    获取全局setting  Client.GetPlatformSetting （ /get_platform_setting.html ）
+
+
+### 链接地址
+
+    获取全局setting  https://mini.sansancloud.com/chainalliance/xianhua/get_platform_setting.html
+    
 ### 主要功能
 
     主要为3级类别导航，用到的数据为 Client.GetPlatformSetting （ /get_platform_setting.html ）

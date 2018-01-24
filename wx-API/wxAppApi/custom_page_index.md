@@ -4,6 +4,10 @@
 
    获取页面配置信息 custom_page_:id （ /custom_page_:id.html ）
 
+### 链接地址
+
+     获取页面配置信息 https://mini.sansancloud.com/chainalliance/xianhua/custom_page_index.html
+
 ### custom_page_:id 请求参数
 
 |名称|说明|是否必要|备注

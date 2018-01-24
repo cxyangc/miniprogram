@@ -25,6 +25,16 @@
       获取规格集   Client.Product.GetMeasureCartesion （ /get_measure_cartesion.html ）
 
 
+### 链接地址
+
+     获取商品详情 https://mini.sansancloud.com/chainalliance/xianhua/product_detail.html
+     加入收藏 https://mini.sansancloud.com/chainalliance/xianhua/remove_favorite.html
+     删除收藏 https://mini.sansancloud.com/chainalliance/xianhua/change_user_info.html
+     获取商品评论 https://mini.sansancloud.com/chainalliance/xianhua/get_product_comment_list.html
+     立即购买 https://mini.sansancloud.com/chainalliance/xianhua/buy_now.html
+     加入购物车 https://mini.sansancloud.com/chainalliance/xianhua/change_shopping_car_item.html
+     获取规格集 https://mini.sansancloud.com/chainalliance/xianhua/get_measure_cartesion.html
+
 ## 获取商品详情    product_detail.html
 ###   product_detail:id.html 请求参数
 

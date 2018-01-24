@@ -6,10 +6,18 @@
 
     改变购物车商品数量，加入购物车 Client.User.ChangeCarItemCount（/change_shopping_car_item.html  ）
 
-    根据选中的商品获取活动列表   Client.User.ListPromotionsByCarItems（list_promotions_by_car_items）
+    根据选中的商品获取活动列表   Client.User.ListPromotionsByCarItems（ list_promotions_by_car_items ）
 
-    选中的商品生成订单   Client.User.CarItemsCreateOrder（shopping_car_list_item_create_order）
+    选中的商品生成订单   Client.User.CarItemsCreateOrder（ shopping_car_list_item_create_order ）
 
+    
+### 链接地址
+
+     获取商品列表 https://mini.sansancloud.com/chainalliance/xianhua/more_product_list.html
+     改变购物车商品数量  https://mini.sansancloud.com/chainalliance/xianhua/change_shopping_car_item.html
+     根据选中的商品获取活动列表 https://mini.sansancloud.com/chainalliance/xianhua/list_promotions_by_car_items.html
+     选中的商品生成订单 https://mini.sansancloud.com/chainalliance/xianhua/shopping_car_list_item_create_order.html
+ 
 ## 获取商品列表 Client.Get.ProductListMore ( /more_product_list.html )
 ###  Client.Get.ProductListMore 请求参数
 

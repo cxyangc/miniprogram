@@ -3,7 +3,11 @@
 ### 使用接口
 
     简单注册  Client.User.Regist2  ( /regist2.html )
+   
+### 链接地址
 
+     简单注册  https://mini.sansancloud.com/chainalliance/xianhua/regist2.html
+   
 ##  简单注册  Client.User.Regist2  ( /regist2.html )
 ###  Client.User.Regist2  请求参数
 

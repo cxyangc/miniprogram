@@ -8,7 +8,7 @@
         <swiper-item>
           <image mode='aspectFill' src="{{item.imagePath}}"/>
         </swiper-item>
-      </block> 
+      </block>  
     </swiper>
   </view>  
  

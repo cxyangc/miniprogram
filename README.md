@@ -7,20 +7,15 @@
 	2.包含页面数43页，组件数14
 	3.开源前端代码供大家学习，并且有许多漂亮的页面模板。
 	
-
 ### QQ交流群 — 25013930
 ### 公司官网 - http://www.fz33.net  官网
 ### 效果图---扫码查看
 
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/30/15/06/35_352.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/30/15/06/32_400.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/30/15/06/28_056.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/30/15/06/24_644.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/30/15/06/20_988.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/30/15/06/18_084.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/30/15/06/14_797.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/30/15/06/08_877.jpg"/>
-<img style="width:250px;margin:30px;" src="http://image1.sansancloud.com/naicha/2017_12/30/15/06/11_411.jpg"/>
+|扫码预览|扫码预览|扫码预览
+|:----|:----:|:----:|
+|![file-list](http://image1.sansancloud.com/naicha/2017_12/30/15/06/35_352.jpg)|![file-list](http://image1.sansancloud.com/naicha/2017_12/30/15/06/32_400.jpg)|![file-list](http://image1.sansancloud.com/naicha/2017_12/30/15/06/28_056.jpg)
+|![file-list](http://image1.sansancloud.com/naicha/2017_12/30/15/06/24_644.jpg)|![file-list](http://image1.sansancloud.com/naicha/2017_12/30/15/06/20_988.jpg)|![file-list](http://image1.sansancloud.com/naicha/2017_12/30/15/06/18_084.jpg)
+|![file-list](http://image1.sansancloud.com/naicha/2017_12/30/15/06/14_797.jpg)|![file-list](http://image1.sansancloud.com/naicha/2017_12/30/15/06/08_877.jpg)|![file-list](http://image1.sansancloud.com/naicha/2017_12/30/15/06/11_411.jpg)
 
 ### 更改项目 - 关键字 clientNo
 

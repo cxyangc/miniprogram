@@ -280,8 +280,7 @@ Page({
     }
     var customIndex = app.AddClientUrl("/more_product_list.html", param)
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     var that = this
 
@@ -450,7 +449,7 @@ Page({
       header: app.headerPost,
       method: 'POST',
       success: function (res) {
-
+        wx.hideLoading()
         console.log(res)
         if (!!res.data.orderNo) {
           wx.navigateTo({

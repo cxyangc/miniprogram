@@ -5,6 +5,11 @@
     账号密码登录  Client.User.Login  ( /login.html )
     微信登录  Client.User.WxMiniCodeLogin （ wx_mini_code_login ）)
 
+### 链接地址
+
+     账号密码登录 https://mini.sansancloud.com/chainalliance/xianhua/login.html
+     微信登录 https://mini.sansancloud.com/chainalliance/xianhua/wx_mini_code_login.html
+
 ##  账号密码登录  Client.User.Login  ( /login.html )
 ###  Client.User.Login  请求参数
 

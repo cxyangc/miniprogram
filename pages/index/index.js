@@ -65,7 +65,6 @@ Page({
    */
   onReady: function () {
     let that = this
-    // wx.showLoading()
    
     
     

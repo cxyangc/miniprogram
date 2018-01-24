@@ -150,8 +150,7 @@ Page({
     //param.page = this.listPage.page
     var customIndex = app.AddClientUrl("/more_product_list.html", param)
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     var that = this
 
@@ -210,8 +209,7 @@ Page({
     var customIndex = this.more_product_list_URL(this.params);
     console.log(customIndex)
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     wx.request({
       url: customIndex.url,
@@ -274,8 +272,7 @@ Page({
     var customIndex = this.more_product_list_URL(this.params);
     console.log(customIndex)
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     that.listPage.page = 1
     that.params.page = 1

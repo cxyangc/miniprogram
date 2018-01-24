@@ -3,6 +3,12 @@
 ### 使用接口
 
     获取新闻详情 Client.Bbs.NewsDetail （ /get_news_bbs_detail.html ）
+
+### 链接地址
+
+     获取新闻详情 https://mini.sansancloud.com/chainalliance/xianhua/get_news_bbs_detail.html
+
+
 ## 获取新闻详情 Client.Bbs.NewsDetail （ /get_news_bbs_detail.html ）
 ### 请求参数 Client.Bbs.NewsDetail
 

@@ -1,7 +1,7 @@
 //app.js 
 import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
-
+ 
 
  
 App({
@@ -64,7 +64,11 @@ App({
           if (res.extConfig && res.extConfig.clientNo){
             console.log(res.extConfig)
             that.clientNo = res.extConfig.clientNo
+            
           }
+        },
+        complete: function(res){
+          that.loadFirstEnter(more_scene)
         }
       })
 
@@ -77,10 +81,11 @@ App({
         that.globalData.userInfo = userInfo
       }
     })
-    this.loadFirstEnter(more_scene)
+    
     
   
   },
+
   //第一次登录加载的函数
   loadFirstEnter: function (more_scene){
     this.getSetting()
@@ -90,7 +95,7 @@ App({
     this.clientNo = inputPlatformNo
   },
   globalData: {
-    userInfo: null,
+    userInfo: null, 
     sansanUser:null,
     sysWidth: wx.getSystemInfoSync().windowWidth, //图片宽度  
   },
@@ -117,6 +122,7 @@ App({
  //加载失败处理
  loadFail:function(){
    let that = this
+   /*
    wx.showModal({
      title: '提示',
      content: '加载失败，重新加载',
@@ -128,6 +134,11 @@ App({
 
        }
      }
+   })*/
+   wx.showToast({
+     title: "加载失败",
+     image: '/images/icons/tip.png',
+     duration: 2000
    })
  },
  //检查是否已经登录

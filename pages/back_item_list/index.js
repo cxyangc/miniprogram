@@ -31,8 +31,7 @@ Page({
     var customIndex = app.AddClientUrl("/get_back_item_list.html")
     var that = this
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     wx.request({
       url: customIndex.url + '&page=' + that.listPage.page,

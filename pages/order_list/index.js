@@ -239,8 +239,7 @@ Page({
     var customIndex = app.AddClientUrl("/get_order_list.html", options)
     var that = this
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     wx.request({
       url: customIndex.url,

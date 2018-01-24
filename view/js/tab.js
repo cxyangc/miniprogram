@@ -65,6 +65,9 @@ function GetRequest(url) {
   return theResult;
 }
 function bindTabUrl(that,urlData, json2Form, app){
+  wx.showLoading({
+    title: 'loading',
+  })
   let GetParamStr = (urlData.param)
   console.log('bindTabUrl') 
   if (urlData.url == 'news_list.html'){
@@ -75,11 +78,19 @@ function bindTabUrl(that,urlData, json2Form, app){
       header: app.header,
       success: function (res) {
         console.log(res.data)
-        that.setData({tabData:res.data.result})
+        if (res.data.result.length == 0) {
+          that.setData({ tabData: null })
+        }
+        else {
+          that.setData({ tabData: res.data.result })
+        }
       },
       fail: function (res) {
         app.loadFail()
-      }
+      },
+      complete:function(){
+        wx.hideLoading()
+      },
     })
   }
 }

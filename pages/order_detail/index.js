@@ -20,8 +20,7 @@ Page({
     let customIndex = app.AddClientUrl("/get_order_detail.html", getParams)
     
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     wx.request({
       url: customIndex.url,

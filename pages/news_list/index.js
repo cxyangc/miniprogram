@@ -14,8 +14,9 @@ Page({
 
     loginUser: null,
     showState:null,
-    tabData:null,
+    tabData:[],
     componentData:{},
+    sysWidth:320
   },
    
   bindTab:function(e){
@@ -36,10 +37,7 @@ Page({
   getCusPage: function () {
     var customIndex = app.AddClientUrl("/custom_page_news.html")
     var that = this
-    wx.showLoading({
-      title: 'loading',
-      mask: true
-    })
+   
     //拿custom_page
     wx.request({
       url: customIndex.url,
@@ -47,15 +45,13 @@ Page({
       success: function (res) {
         console.log(res.data)
         that.setData({ userData: res.data })
-        if (!!res.data.partials){
+        if (!!res.data.partials && res.data.partials.length>0){
           that.getPartials();
         }
-        
-        wx.hideLoading()
       },
       fail: function (res) {
-        wx.hideLoading()
-        app.loadFail()
+        //app.loadFail()
+        that.setData({ PaiXuPartials:[]})
       }
     })
   },
@@ -110,9 +106,14 @@ Page({
         url: cusUrl.url,
         header: app.header,
         success: function (res) {
-
           console.log(res.data)
-          that.setData({ tabData: res.data.result })
+          if (res.data.result.length == 0 ){
+            that.setData({ tabData: null })
+          }
+          else{
+            that.setData({ tabData: res.data.result })
+          }
+          
 
         },
         fail: function (res) {
@@ -127,7 +128,8 @@ Page({
     this.getNewsData(options)
     this.getCusPage();
 
-    this.setData({ setting: app.setting })
+    this.setData({ setting: app.setting, sysWidth: app.globalData.sysWidth })
+    console.log(this.data.sysWidth)
   },
 
   

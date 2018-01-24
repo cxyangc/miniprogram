@@ -84,8 +84,7 @@ Page({
     }
     var customIndex = app.AddClientUrl("/more_product_list.html", param)
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     var that = this
 

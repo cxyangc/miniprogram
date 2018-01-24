@@ -17,8 +17,7 @@ Page({
     var customIndex = app.AddClientUrl("/get_news_bbs_detail.html", getParams)
    
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     //拿custom_page
     wx.request({
@@ -26,7 +25,7 @@ Page({
       header: app.header,
       success: function (res) {
         console.log(res.data)
-        WxParse.wxParse('article', 'html', res.data.content, that, 0);
+        WxParse.wxParse('article', 'html', res.data.content, that, 10);
         wx.setNavigationBarTitle({
           title: res.data.title,
         })

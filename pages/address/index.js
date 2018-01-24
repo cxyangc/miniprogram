@@ -33,8 +33,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.showLoading({
-            title: 'loading',
-            mask: true
+            title: 'loading'
           })
           var customIndex = app.AddClientUrl("/set_default_address.html", param,'post')
           wx.request({
@@ -119,8 +118,7 @@ Page({
     var customIndex = app.AddClientUrl("/get_login_user_address_list.html")
     var that = this
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     //拿custom_page 
     wx.request({

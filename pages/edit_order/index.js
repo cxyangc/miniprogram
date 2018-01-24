@@ -48,8 +48,7 @@ Page({
     var customIndex = app.AddClientUrl("/get_login_user_address_list.html")
     var that = this
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     wx.request({
       url: customIndex.url ,
@@ -157,8 +156,7 @@ Page({
     getParams.gotCouponListId = that.data.gotCouponListId
     var customIndex = app.AddClientUrl("/get_edit_order_detail.html", getParams)
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     wx.request({
       url: customIndex.url,

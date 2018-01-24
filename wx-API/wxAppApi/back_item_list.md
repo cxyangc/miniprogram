@@ -4,6 +4,9 @@
 
     获取退货列表 Client.User.BackItemList ( get_back_item_list )
 
+### 链接地址
+
+     获取退货列表 https://mini.sansancloud.com/chainalliance/xianhua/get_back_item_list.html
 
 ## 获取退货列表 Client.User.BackItemList ( get_back_item_list )
 ###  Client.User.BackItemList 请求参数

@@ -4,6 +4,10 @@
 
    获取全局设置  Client.GetPlatformSetting （ /get_platform_setting.html ）
 
+### 链接地址
+
+     获取全局设置 https://mini.sansancloud.com/chainalliance/xianhua/get_platform_setting.html
+
 ### Client.GetPlatformSetting 请求参数
 
 |名称|说明|是否必要|备注

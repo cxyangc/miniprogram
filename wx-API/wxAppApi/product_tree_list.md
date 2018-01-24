@@ -5,6 +5,13 @@
     获取商品列表 Client.Get.ProductListMore ( /more_product_list.html )
 
     改变购物车商品数量，加入购物车 Client.User.ChangeCarItemCount（/change_shopping_car_item.html  ）
+
+    
+### 链接地址
+
+     获取商品列表 https://mini.sansancloud.com/chainalliance/xianhua/more_product_list.html
+     改变购物车商品数量  https://mini.sansancloud.com/chainalliance/xianhua/change_shopping_car_item.html
+  
 ## 获取商品列表 Client.Get.ProductListMore ( /more_product_list.html )
 ###  Client.Get.ProductListMore 请求参数
 

@@ -5,6 +5,11 @@
     退货页   Client.User.BackOrderItemPage ( get_back_order_item_page )
     发送退款请求  Client.User.SendBackOrderItemReq ( send_back_order_item_req )
 
+### 链接地址
+
+     退货页 https://mini.sansancloud.com/chainalliance/xianhua/get_back_order_item_page.html
+     发送退款请求   https://mini.sansancloud.com/chainalliance/xianhua/send_back_order_item_req.html
+
 
 ## 退货页   Client.User.BackOrderItemPage ( get_back_order_item_page )
 ###  Client.User.BackOrderItemPage 请求参数

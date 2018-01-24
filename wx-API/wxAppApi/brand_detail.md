@@ -6,6 +6,12 @@
     关注品牌    Client.User.AddToFavorite ( add_to_favorite )
     取消关注    Client.User.RemoveFavorite ( remove_favorite )
 
+### 链接地址
+
+     获取品牌详情 https://mini.sansancloud.com/chainalliance/xianhua/get_brand_detail.html
+     关注品牌 https://mini.sansancloud.com/chainalliance/xianhua/add_to_favorite.html
+     取消关注 https://mini.sansancloud.com/chainalliance/xianhua/remove_favorite.html
+
 ##  获取品牌详情    Client.Brand.GetBrandDetail ( get_brand_detail )
 ###  Client.Brand.GetBrandDetail 请求参数
 

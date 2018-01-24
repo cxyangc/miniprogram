@@ -6,6 +6,12 @@
     删除地址  Client.User.AddressDelete ( delete_address )
     设为默认地址  Client.User.AddressSetDefault ( set_default_address )
 
+### 链接地址
+
+     获取用户地址列表 https://mini.sansancloud.com/chainalliance/xianhua/get_login_user_address_list.html
+     删除地址   https://mini.sansancloud.com/chainalliance/xianhua/delete_address.html
+     设为默认地址   https://mini.sansancloud.com/chainalliance/xianhua/set_default_address.html
+
 ## 获取用户地址列表   Client.User.AddressList ( get_login_user_address_list )
 ###  Client.User.AddressList 请求参数
 

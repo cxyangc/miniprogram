@@ -182,7 +182,7 @@ Page({
   wxLogin: function () {
     console.log('--------------微信登录--------------')
     wx.showLoading({
-      title: '登录中',
+      title: '微信自动登录中',
       mask: true
     })
     var that = this

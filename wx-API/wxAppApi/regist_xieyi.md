@@ -2,12 +2,15 @@
 
 ### 使用接口
 
-    app.setting.platformSetting.agreement
+    setting.platformSetting.agreement (/get_platform_setting.html)
+
+### 链接地址
+
+    获取平台设置  https://mini.sansancloud.com/chainalliance/xianhua/get_platform_setting.html
+  
 ### 说明
 
     此页的数据主要由setting的platformSetting.agreement中的协议内容决定。所以无需请求数据
-
-
 
 ### Client.GetPlatformSetting 返回字段说明
 

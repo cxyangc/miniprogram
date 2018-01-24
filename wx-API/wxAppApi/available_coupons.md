@@ -5,6 +5,11 @@
     获取领取优惠券列表  Client.Coupon.AvailableCoupons ( get_available_coupons )
     领取优惠券     Client.Coupon.GainCoupon ( gain_coupon )
 
+### 链接地址
+
+     获取领取优惠券列表 https://mini.sansancloud.com/chainalliance/xianhua/get_available_coupons.html
+     领取优惠券   https://mini.sansancloud.com/chainalliance/xianhua/gain_coupon.html
+
 ##  获取领取优惠券列表  Client.Coupon.AvailableCoupons ( get_available_coupons )
 ###   Client.Coupon.AvailableCoupons 请求参数
 

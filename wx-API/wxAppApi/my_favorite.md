@@ -4,6 +4,10 @@
 
     获取我的收藏列表   Client.Get.Favorite ( get_favorite )
 
+### 链接地址
+
+     获取我的收藏列表 https://mini.sansancloud.com/chainalliance/xianhua/get_favorite.html
+
 ##  获取我的收藏列表   Client.Get.Favorite ( get_favorite )
 ###   Client.Get.Favorite 请求参数
 

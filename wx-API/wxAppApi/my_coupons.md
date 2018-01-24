@@ -4,6 +4,10 @@
 
     获取优惠券列表   Client.Coupon.MyCoupons ( get_my_coupons_list )
 
+### 链接地址
+
+     获取优惠券列表 https://mini.sansancloud.com/chainalliance/xianhua/get_my_coupons_list.html
+
 ##  获取优惠券列表   Client.Coupon.MyCoupons ( get_my_coupons_list )
 ###   Client.Coupon.MyCoupons 请求参数
 

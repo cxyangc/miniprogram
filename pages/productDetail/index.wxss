@@ -4,7 +4,7 @@
 .SwiperContainer{
   height: 18em;
   width: 100%;
-  background: #fff;
+  background: #fff; 
 }
 .SwiperIndex{
   width: 100%; 
@@ -157,12 +157,14 @@
   align-items: center;
   font-size: small;
 }
-.attr_item text{
+.attr_item > text{
   color: #000;
+  width: 25%;
 }
-.attr_item view{
+.attr_item > view{
   margin-left: 10px;
   color: #888;
+  width: 75%;
 }
 /* //评价 */
 .pingjia_container{

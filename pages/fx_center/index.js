@@ -34,8 +34,7 @@ Page({
     var customIndex = app.AddClientUrl("/fx_center.html")
     var that = this
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     wx.request({
       url: customIndex.url,
@@ -113,7 +112,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    this.onLoad()
+    wx.stopPullDownRefresh()
   },
 
   /**

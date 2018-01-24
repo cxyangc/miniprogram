@@ -14,8 +14,7 @@ Page({
    // var postParam = this.ChangeParam(param)
     var customIndex = app.AddClientUrl("/get_product_comment_list.html", param)
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     var that = this
     wx.request({

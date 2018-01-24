@@ -4,6 +4,10 @@
 
     获取提现记录列表  ( /get_tixian_list.html )
 
+### 链接地址
+
+    获取提现记录列表  https://mini.sansancloud.com/chainalliance/xianhua/get_tixian_list.html
+
 ##  获取提现记录列表  ( /get_tixian_list.html )
 ###   /get_tixian_list.html 请求参数
 

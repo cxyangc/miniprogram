@@ -14,12 +14,19 @@
 
     获取订单列表 Client.Order.OrderList ( get_order_list )
 
-    确认收货    Client.Order.OrderReceived （order_received）
+    确认收货    Client.Order.OrderReceived （ order_received ）
 
-    删除订单   Client.Order.OrderUnshow （order_unshow）
+    删除订单   Client.Order.OrderUnshow （ order_unshow ）
 
-    取消订单   Client.Order.CancelOrder （cancel_order）
+    取消订单   Client.Order.CancelOrder （ cancel_order ）
 
+
+### 链接地址
+
+     获取订单列表 https://mini.sansancloud.com/chainalliance/xianhua/get_order_list.html
+     确认收货 https://mini.sansancloud.com/chainalliance/xianhua/order_received.html
+     删除订单 https://mini.sansancloud.com/chainalliance/xianhua/order_unshow.html
+     取消订单 https://mini.sansancloud.com/chainalliance/xianhua/cancel_order.html
 
 ## 获取订单列表 Client.Order.OrderList ( get_order_list )
 ###  Client.Order.OrderList 请求参数

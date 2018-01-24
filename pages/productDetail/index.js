@@ -33,8 +33,7 @@ Page({
   removeFavourite: function (e) {
     var that = this
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     var postData = {
       itemId: '',
@@ -58,12 +57,15 @@ Page({
           that.setData({ productData: productData })
           console.log('000---'+that.data.productData.productInfo.favorite)
         }
-        wx.hideLoading()
+       
 
       },
       fail: function (res) {
-        wx.hideLoading()
+       
         app.loadFail()
+      },
+      complete:function(res){
+        wx.hideLoading()
       }
     })
   },
@@ -75,8 +77,7 @@ Page({
       favoriteType:'1'
     }
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     let productData = this.data.productData
 
@@ -96,12 +97,13 @@ Page({
           that.setData({ productData: productData })
           console.log('111---' + that.data.productData.productInfo.favorite)
         }
-        wx.hideLoading()
 
       },
       fail: function (res) {
-        wx.hideLoading()
         app.loadFail()
+      },
+      complete: function (res) {
+        wx.hideLoading()
       }
     })
   },
@@ -129,8 +131,7 @@ Page({
     //console.log(postParam)
     var customIndex = app.AddClientUrl("/get_product_comment_list.html", param)
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     var that = this
     wx.request({
@@ -146,12 +147,13 @@ Page({
           that.setData({ commitList: res.data.result })
         }
         
-        wx.hideLoading()
       },
       fail: function (res) {
         console.log("fail")
-        wx.hideLoading()
         app.loadFail()
+      },
+      complete: function (res) {
+        wx.hideLoading()
       }
     })
   },
@@ -291,7 +293,6 @@ Page({
       header: app.headerPost,
       method: 'POST',
       success: function (res) {
-        wx.hideLoading()
         console.log(res)
         if (!!res.data.orderNo) {
           wx.navigateTo({
@@ -306,8 +307,10 @@ Page({
         }
       },
       fail: function (res) {
-        wx.hideLoading()
         app.loadFail()
+      },
+      complete: function (res) {
+        wx.hideLoading()
       }
     })
   },
@@ -356,10 +359,11 @@ Page({
         console.log('---------------change_shopping_car_item-----------------')
         console.log(res.data)
         wx.hideLoading()
+        
         if (that.data.bindway == 'cart') {
           that.setData({ showCount: false })
         }
-        if( res.data.id && res.data.id != 0 ) {
+        if (res.data.productId && res.data.productId != 0 ) {
           if(data.count == 0){
               console.log('通过加入购物车来确定购物车里面的商品数量')
           }else{
@@ -401,8 +405,7 @@ Page({
     }
 
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     
     let postParam = {}
@@ -416,6 +419,7 @@ Page({
       header: app.header,
       success: function (res) {
         console.log(res.data)
+       
         console.log('--------------getData-------------')
         
         that.setData({ productData: res.data })
@@ -444,13 +448,15 @@ Page({
         }
         
 
-        wx.hideLoading()
+        
       },
       fail: function (res) {
         console.log("fail")
-        wx.hideLoading()
         app.loadFail()
-      }
+      },
+      complete:function(res){
+        wx.hideLoading()
+      },
     })
   },
   dataFOr_getData:{
@@ -568,11 +574,13 @@ Page({
         console.log('--------add----------')
         console.log(res.data)
         that.setData({ showGuigeType: false })
-        wx.hideLoading()
+      
       },
       fail: function (res) {
-        wx.hideLoading()
         app.loadFail()
+      },
+      complete:function(){
+        wx.hideLoading()
       }
     })
   },

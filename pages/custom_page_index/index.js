@@ -148,7 +148,21 @@ Page({
       },
       fail: function (res) {
         wx.hideLoading()
-        app.loadFail()
+
+        //app.loadFail()
+        let that = this
+        wx.showModal({
+          title: '提示',
+          content: '加载失败，重新加载',
+          success: function (res) {
+
+            if (res.confirm) {
+              that.getParac()
+            } else if (res.cancel) {
+              app.toIndex()
+            }
+          }
+        })
       }
     })
   },
@@ -170,18 +184,17 @@ Page({
   /*onload*/
   onLoad: function (options) {
    
-   
-   
-
-  },
-  onReady: function () {
     var that = this
     this.setData({
       sysWidth: app.globalData.sysWidth
     });
     this.getParac()
     this.getData()
-   // app.wxLogin() //重新登录
+   
+
+  },
+  onReady: function () {
+   
 
   },
   onShow: function () {
@@ -202,7 +215,11 @@ Page({
       console.log(res.target)
     }
   
-  }
+  },
+  onPullDownRefresh: function () {
+    this.onLoad();
+    wx.stopPullDownRefresh()
+  },
 })
 function Countdown(page) {
   console.log('2')

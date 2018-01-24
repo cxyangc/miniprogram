@@ -23,8 +23,7 @@ Page({
     var customIndex = app.AddClientUrl("/get_favorite.html", getParam)
     var that = this
     wx.showLoading({
-      title: 'loading',
-      mask: true
+      title: 'loading'
     })
     wx.request({
       url: customIndex.url,

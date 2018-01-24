@@ -4,6 +4,10 @@
 
     获取我的足迹  Client.User.GetVisitItems ( get_user_visit_items )
 
+### 链接地址
+
+    获取我的足迹  https://mini.sansancloud.com/chainalliance/xianhua/get_user_visit_items.html
+
 ##  获取我的足迹  Client.User.GetVisitItems ( get_user_visit_items )
 ###   Client.User.GetVisitItems  请求参数
 

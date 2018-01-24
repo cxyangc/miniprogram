@@ -3,14 +3,18 @@
 ### 使用接口
 
     获取购物车数据  Client.User.CarItemList  ( /get_shopping_car_list_item.html )
-
     删除购物车商品 Client.User.CarItemdDelete （ delete_shopping_car_list_item ）
-
     改变购物车商品数量，加入购物车 Client.User.ChangeCarItemCount（/change_shopping_car_item.html  ）
-
     根据选中的商品获取活动列表   Client.User.ListPromotionsByCarItems（/list_promotions_by_car_items.html）
-
     选中的商品生成订单   Client.User.CarItemsCreateOrder（/shopping_car_list_item_create_order.html）
+
+### 链接地址
+
+    获取购物车数据  https://mini.sansancloud.com/chainalliance/xianhua/get_shopping_car_list_item.html
+    删除购物车商品  https://mini.sansancloud.com/chainalliance/xianhua/delete_shopping_car_list_item.html
+    改变购物车商品数量  https://mini.sansancloud.com/chainalliance/xianhua/change_shopping_car_item.html
+    根据选中的商品获取活动列表  https://mini.sansancloud.com/chainalliance/xianhua/list_promotions_by_car_items.html
+    选中的商品生成订单  https://mini.sansancloud.com/chainalliance/xianhua/shopping_car_list_item_create_order.html
 
 ## 获取购物车数据  Client.User.CarItemList  ( /get_shopping_car_list_item.html )
 ###  Client.User.CarItemList 请求参数

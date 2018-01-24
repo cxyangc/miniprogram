@@ -4,6 +4,10 @@
 
     佣金记录  ( /get_fx_yongjin_list.html )
 
+### 链接地址
+
+     佣金记录 https://mini.sansancloud.com/chainalliance/xianhua/get_fx_yongjin_list.html
+
 ##  佣金记录   ( /get_fx_yongjin_list.html )
 ###   /get_fx_yongjin_list.html  请求参数
 

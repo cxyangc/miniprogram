@@ -4,6 +4,10 @@
 
     获取新闻列表 Client.Get.NewsBbsList （ /more_news_bbs_list.html ）
 
+### 链接地址
+
+     获取新闻列表 https://mini.sansancloud.com/chainalliance/xianhua/more_news_bbs_list.html
+
 ## 获取新闻列表 Client.Get.NewsBbsList （ /more_news_bbs_list.html ）
 ###  请求参数 Client.Get.NewsBbsList
 
