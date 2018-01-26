@@ -12,8 +12,8 @@
         <radio name="sex1" value='0' color='{{setting.platformSetting.defaultColor}}' checked='{{!loginUser.sex}}'>女</radio>
       </radio-group>
     </view>
-    <button class='signIn' formType="submit" style='color:#fff;background:{{setting.platformSetting.defaultColor}}'>修改用户资料</button>
-    <button class='login_out' bindtap='loginOut'
-     style='color:{{setting.platformSetting.defaultColor}};border:1px solid {{setting.platformSetting.defaultColor}}'>退出登录</button>
+    <button loading='{{butn_show_loading}}' class='signIn' formType="submit" style='color:#fff;background:{{setting.platformSetting.defaultColor}}'>修改用户资料</button>
+  <!--   <button class='login_out' bindtap='loginOut'
+     style='color:{{setting.platformSetting.defaultColor}};border:1px solid {{setting.platformSetting.defaultColor}}'>退出登录</button> -->
   </form>
 </view>

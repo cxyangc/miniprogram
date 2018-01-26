@@ -242,7 +242,7 @@ Page({
                     if (res.confirm) {
                      
                     } else if (res.cancel) {
-                      that.wxLogin()
+                      //that.wxLogin()
                     }
                   }
                 })

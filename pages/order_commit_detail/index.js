@@ -93,7 +93,7 @@ Page({
         method: 'POST',
         success: function (res) {
           console.log(res.data)
-            wx.hideLoading()
+            
             wx.showToast({
               title: '评价成功',
               icon: 'success',
@@ -105,8 +105,11 @@ Page({
          
         },
         fail: function (res) {
-          wx.hideLoading()
+          
           app.loadFail()
+        },
+        complete:function(){
+          wx.hideLoading()
         }
       })
        

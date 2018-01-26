@@ -11,7 +11,7 @@ App({
   /**
    *   切换项目的开关 ↓↓↓↓↓
    */
-  clientNo:'xianhua',   //自定义的项目的名称。
+  clientNo:'jianzhan',   //自定义的项目的名称。
 
   more_scene:'', //扫码进入场景   用来分销
 
@@ -514,7 +514,7 @@ App({
               }else{
                 wx.hideLoading()
                
-                wx.showModal({
+                /* wx.showModal({
                   title: '提示',
                   content: '登录失败，重新登录',
                   success: function (res) {
@@ -526,13 +526,18 @@ App({
 
                     }
                   }
+                }) */
+                wx.showToast({
+                  title: '登录失败',
+                  image: '/images/icons/tip.png',
+                  duration: 2000
                 })
               }
             },
             fail: function (e) {
               console.log('----fail------')
               console.log(e)
-              wx.showModal({
+              /* wx.showModal({
                 title: '提示',
                 content: '登录失败，重新登录',
                 success: function (res) {
@@ -544,6 +549,11 @@ App({
 
                   }
                 }
+              }) */
+              wx.showToast({
+                title: '登录失败',
+                image: '/images/icons/tip.png',
+                duration: 2000
               })
             }
           })

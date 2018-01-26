@@ -19,6 +19,12 @@
       "text": "产品"
     },
     {
+      "pagePath": "pages/fx_center2/index",
+      "iconPath": "images/icons/fx.png",
+      "selectedIconPath": "images/icons/fx2.png",
+      "text": "分销"
+    },
+    {
       "pagePath": "pages/shopping_car_list/index",
       "iconPath": "images/icons/cart1.png",
       "selectedIconPath": "images/icons/cart2.png",

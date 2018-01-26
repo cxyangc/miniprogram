@@ -8,7 +8,8 @@ Page({
    */
   data: {
     success:null,
-    setting:null
+    setting:null,
+    butn_show_loading:false
   },
   /* 去充值 */
   toAccount:function(){
@@ -18,7 +19,8 @@ Page({
   },
   /* 立即支付 */
   payNow:function(e){
-  
+
+   
     var orderNo = e.currentTarget.dataset.orderno
     var orderItem = this.data.success
 
@@ -42,6 +44,8 @@ Page({
       orderNo: '',
       app:3
     }
+    this.setData({ butn_show_loading: true })
+
     wxChatPayParam.openid = loginUser.platformUser.miniOpenId
     wxChatPayParam.orderNo = orderNo
     console.log(wxChatPayParam)
@@ -74,8 +78,11 @@ Page({
           'complete':function(){
             console.log('------complete--------')
             console.log(res)
+            that.setData({ butn_show_loading: false })
           }
         })
+      },complete:function(){
+        
       }
     })
   },
@@ -92,7 +99,7 @@ Page({
           let param_post = {}
           param_post.orderNo = orderNo
           var customIndex = app.AddClientUrl("/order_account_pay.html", param_post,'post')
-
+          that.setData({ butn_show_loading: true })
           wx.request({
             url: customIndex.url,
             data: customIndex.params,
@@ -121,11 +128,16 @@ Page({
             },
             fail: function (res) {
               app.loadFail()
+            },
+            complete:function(res){
+              that.setData({ butn_show_loading: false })
             }
           })
         } else if (res.cancel) {
 
         }
+      }, complete: function () {
+        
       }
     })
   },

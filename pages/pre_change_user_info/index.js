@@ -4,7 +4,8 @@ const app = getApp()
 Page({ 
  
   data: {
-    loginUser:null 
+    loginUser:null,
+    butn_show_loading:false
   },
   imageUrl:"",
   /* 图片 */
@@ -34,6 +35,7 @@ Page({
       username: "",
       passworld:""
     }
+    this.setData({ butn_show_loading:true })
     var loginUser = this.data.loginUser
     reLoginData.username = loginUser.name
     reLoginData.password = loginUser.passworld
@@ -60,6 +62,9 @@ Page({
       },
       fail: function (res) {
         app.loadFail()
+      },
+      complete:function(){
+        that.setData({ butn_show_loading: false })
       }
     })
   },
@@ -103,7 +108,7 @@ Page({
     
     //app.wxLogin()
     app.get_session_userinfo()
-    setTimeout(function () { wx.navigateBack() },200)
+    // setTimeout(function () { wx.navigateBack() },200)
     
 
     return

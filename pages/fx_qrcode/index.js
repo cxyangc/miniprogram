@@ -10,10 +10,14 @@ Page({
   },
   saveImageToLocal:function(e){
     let imgSrc = e.currentTarget.dataset.imageurl
+    console.log(imgSrc)
+    let PostImageSrc = imgSrc.replace(/http/, "https")
+    // let PostImageSrc = imgSrc
+    console.log(PostImageSrc)
+   
     wx.downloadFile({
-      url: imgSrc,
-      success:
-      function (res) {
+      url: PostImageSrc,
+      success:function (res) {
         console.log(res);
         //图片保存到本地
         wx.saveImageToPhotosAlbum({
@@ -50,6 +54,10 @@ Page({
             }
           }
         })
+      },
+      fail:function(res){
+        console.log('url就错了')
+        console.log(res)
       }
     })
   },

@@ -1,7 +1,7 @@
 
 const app = getApp()
 
-Page({
+Page({ 
 
   /**
    * 页面的初始数据
@@ -19,7 +19,6 @@ Page({
   /* 获取数据 */
   getData: function () {
     if (!app.checkIfLogin()) {
-
       return
     }
 
@@ -27,7 +26,7 @@ Page({
     getParams.page = this.listPage.page
     var customIndex = app.AddClientUrl("/get_tixian_list.html", getParams)
     var that = this
-
+    
     wx.request({
       url: customIndex.url,
       header: app.header,
@@ -48,6 +47,9 @@ Page({
           that.setData({ Data: dataArr })
         }
 
+      },
+      complete:function(res){
+        
       }
     })
   },
@@ -55,6 +57,9 @@ Page({
     if (!app.checkIfLogin()) {
       return
     }
+    wx.showLoading({
+      title: 'loading',
+    })
     var customIndex = app.AddClientUrl("/get_fx_yongjin_list.html")
     var that = this
     wx.request({
@@ -74,6 +79,8 @@ Page({
           //that.setData({ Data: dataArr })
         }
 
+      },complete: function (res) {
+        wx.hideLoading()
       }
     })
   },

@@ -7,7 +7,7 @@ Page({
    */
   data: {
     money: 10,
-   
+    butn_show_loading:false
   },
   
   getBuyerScript: function (e) {
@@ -25,30 +25,42 @@ Page({
     }
 
     wxChatPayParam.amount = Number(money) 
+    this.setData({ butn_show_loading:true })
     let customIndex = app.AddClientUrl("/req_tixian.html", wxChatPayParam, 'post')
-    wx.request({
-      url: customIndex.url,
-      data: customIndex.params,
-      header: app.headerPost,
-      method: 'POST',
+    wx.showModal({
+      title: '提示',
+      content: '确认提现？',
       success: function (res) {
-        console.log(res)
-        if (!!res.data.id){
-          wx.showToast({
-            title: '提交成功',
-            icon: 'success',
-            duration: 2000
+        if (res.confirm) {
+          wx.request({
+            url: customIndex.url,
+            data: customIndex.params,
+            header: app.headerPost,
+            method: 'POST',
+            success: function (res) {
+              console.log(res)
+              if (!!res.data.id) {
+                wx.showToast({
+                  title: '提交成功',
+                  icon: 'success',
+                  duration: 2000
+                })
+              }
+              setTimeout(function () { wx.navigateBack() }, 2000)
+            },
+            fail: function () {
+            },
+            complete: function () {
+              that.setData({ butn_show_loading: false })
+            }
           })
+        } else if (res.cancel) {
+
+          console.log('用户点击取消')
         }
-        
-
-      },
-      fail: function () {
-
-      },
-
-
+      }
     })
+
   },
  
   /**

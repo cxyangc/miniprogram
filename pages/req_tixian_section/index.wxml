@@ -4,6 +4,6 @@
     <input value='{{money}}' bindinput='getBuyerScript'  placeholder=''></input>
   </view>
   
-  <button bindtap='subMitButn' class='subMitButn' style='background:{{setting.platformSetting.defaultColor}}'>立即提现</button>
+  <button loading='{{butn_show_loading}}' bindtap='subMitButn' class='subMitButn' style='background:{{setting.platformSetting.defaultColor}}'>立即提现</button>
 
 </view>

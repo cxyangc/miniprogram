@@ -19,10 +19,11 @@ Page({
   /* 获取数据 */
   getData: function () {
     if (!app.checkIfLogin()) {
-     
       return
     }
-    
+    wx.showLoading({
+      title: 'loading',
+    })
     var getParams = {}
     getParams.page = this.listPage.page
     var customIndex = app.AddClientUrl("/get_user_account_events.html", getParams)
@@ -48,6 +49,9 @@ Page({
           that.setData({ Data: dataArr })
         }
         
+      },
+      complete:function(){
+        wx.hideLoading()
       }
     })
   },

@@ -8,7 +8,8 @@ Page({
 
   data: {
     partials:null,
-    richPage:null
+    richPage:null,
+    sysWidth: 320,//图片大小
   },
   
   chan:function(){
@@ -36,11 +37,12 @@ Page({
         if (!partials[i].jsonData.bgColor) {
           partials[i].jsonData.bgColor = '#ffffff'
         }
-        wx.setNavigationBarColor({
+        console.log('setTitle-' + typeof (partials[i].jsonData.titleColor))
+         wx.setNavigationBarColor({
           frontColor: partials[i].jsonData.titleColor,
           backgroundColor: partials[i].jsonData.bgColor,
-          
-        })
+        }) 
+     
       }else{
         PaiXuPartials.push(partials[i]);
       }
@@ -76,6 +78,10 @@ Page({
       }
     })
   },
+  tolinkUrl: function (e) {
+    let linkUrl = e.currentTarget.dataset.link
+    app.linkEvent(linkUrl)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -88,6 +94,9 @@ Page({
       return
     }
     this.getCustomPage(options.Cpage, options)    
+    this.setData({
+      sysWidth: app.globalData.sysWidth
+    });
   },
 
   /**

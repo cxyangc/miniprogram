@@ -20,5 +20,5 @@
   </view>
 
   <view ></view>
-  <button bindtap='subMitButn' class='subMitButn' style='background:{{setting.platformSetting.defaultColor}}'>立即充值</button>
+  <button loading='{{butn_show_loading}}' bindtap='subMitButn' class='subMitButn' style='background:{{setting.platformSetting.defaultColor}}'>立即充值</button>
 </view>

@@ -8,6 +8,7 @@ Page({
   data: {
     money:100,
     payway:3,
+    butn_show_loading:false
   },
   getBuyerScript:function(e){
     this.setData({ money:e.detail.value })
@@ -30,6 +31,7 @@ Page({
     wxChatPayParam.rechargeAmount = money
     wxChatPayParam.payType = payWay
     console.log(wxChatPayParam)
+    this.setData({ butn_show_loading:true })
     let customIndex = app.AddClientUrl("/create_recharge_order.html", wxChatPayParam, 'post')
     wx.request({
       url: customIndex.url,
@@ -53,7 +55,9 @@ Page({
       fail:function () {
 
       },
-
+      complete:function(){
+        that.setData({ butn_show_loading: true })
+      }
 
     })
   },

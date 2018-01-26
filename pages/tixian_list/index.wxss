@@ -2,14 +2,13 @@
 
 /* 钱 */
 .moneyContainer{
-  height: 4em;
+  height: 6em;
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size:xx-large;
-  color: green; 
+  color: #333333; 
   z-index: 2;
   border-bottom: 1px solid #ccc;
 }
@@ -30,7 +29,7 @@
   padding: 10px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content:flex-start;
   align-items: center;
 }
 .eventDerection{

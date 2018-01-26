@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -9,7 +9,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.6.0",
-	"appid": "wx37b3f495891dd60c",
+	"appid": "wx05aa47cb52364049",
 	"projectname": "%E4%BA%BF%E5%BE%B7%E5%A0%82",
 	"condition": {
 		"weapp": {

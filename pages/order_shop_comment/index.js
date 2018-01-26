@@ -132,12 +132,15 @@ Page({
           console.log(res.data)
           overCommit++;
           if (overCommit == readySentArr.length){
-            wx.hideLoading()
+            
             that.commitShop()
           }
         },
         fail: function (res) {
           console.log('---fail----product----')
+        },
+        complete:function(res){
+          wx.hideLoading()
         }
       })
     }

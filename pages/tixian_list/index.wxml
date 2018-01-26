@@ -1,21 +1,26 @@
 <view class='container'>
 
-  <view class='moneyContainer'  style='color:{{setting.platformSetting.defaultColor}}'>￥{{moneyAmount}}</view>
+  <view class='moneyContainer'  >
+    <text>可提现金额：</text>
+    <text style='color:{{setting.platformSetting.defaultColor}};font-size:xx-large;'>￥{{moneyAmount}}</text>
+  </view>
   <view class='product_page_container2'>
         <block wx:if = "{{!!Data}}">
           <view class='moneyitem' wx:for='{{Data}}'
            wx:for-item='pay' wx:key='{{pay.id}}' >
             
             <view class='eventTypeName'>
-              <block >
-                <text>提现申请： ￥{{pay.requestAmount}}</text>
-              </block>
-              <text></text>
+              
+                <text wx:if='{{pay.requestStatus == 0}}'>申请提现 </text>
+                <text wx:if='{{pay.requestStatus == 1}}'>申请-通过 </text>
+                <text wx:if='{{pay.requestStatus == 2}}'>申请-拒绝 </text>
+                <text>：￥{{pay.requestAmount}}</text>
+              
             </view>
             <view class='eventDerection'>
               <view class='left'>
-                <text class='derection' wx:if='{{pay.fangkuanStatus == 0}}'>待审核</text>
-                 <text class='derection' wx:if='{{pay.fangkuanStatus == 1}}'>已完成</text>
+                <text class='derection' wx:if='{{pay.fangkuanStatus == 0}}'>未放款</text>
+                <text class='derection' wx:if='{{pay.fangkuanStatus == 1}}'>已放款</text>
                  
               </view>
               <view class='right' >

@@ -14,6 +14,6 @@
 
 
 
-  <button class='butn' data-orderNo='{{success.orderNo}}' bindtap='payNow' style="background:{{setting.platformSetting.defaultColor}}">立即支付</button>
+  <button class='butn' loading='{{butn_show_loading}}' data-orderNo='{{success.orderNo}}' bindtap='payNow' style="background:{{setting.platformSetting.defaultColor}}">立即支付</button>
   <button class='butn' bindtap='toIndex' style="background:{{setting.platformSetting.defaultColor}}">返回首页</button>
 </view>
