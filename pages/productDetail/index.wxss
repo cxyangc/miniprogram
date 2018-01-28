@@ -2,7 +2,6 @@
 
 /* swiper */
 .SwiperContainer{
-  height: 18em;
   width: 100%;
   background: #fff; 
 }

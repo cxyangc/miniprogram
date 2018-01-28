@@ -2,7 +2,7 @@
 <view class='container'>
 
 <view class='SwiperContainer'>
-    <swiper class='SwiperIndex' indicator-dots="true"
+    <swiper class='SwiperIndex' style='height:{{sysWidth}}px' indicator-dots="true"
       autoplay="true" interval="5000" duration="1000">
       <block wx:for="{{productData.images}}"  wx:key="{{swiper}}">
         <swiper-item>

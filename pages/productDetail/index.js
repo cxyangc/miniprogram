@@ -12,7 +12,7 @@ Page({
     productData: null, // 商品数据 
     cart:null,
     countGood:0,
-
+    sysWidth: 320,//图片大小
     showCount:false,
     byNowParams:{},
     targs:null,
@@ -465,6 +465,9 @@ Page({
   },
   onLoad: function (options) {
     console.log('--------product----------')
+    this.setData({
+      sysWidth: app.globalData.sysWidth
+    });
     console.log(options)
     this.dataFOr_getData.id = options.id
     this.dataFOr_getData.addShopId = options.addShopId
