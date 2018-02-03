@@ -9,8 +9,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.6.0",
-	"appid": "wx05aa47cb52364049",
-	"projectname": "%E4%BA%BF%E5%BE%B7%E5%A0%82",
+	"appid": "touristappid",
+	"projectname": "222",
 	"condition": {
 		"weapp": {
 			"current": -1,

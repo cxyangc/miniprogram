@@ -20,7 +20,7 @@
 方法1：把所有的组件都导入进来，然后根据传过来的partials规则里面的排序来渲染组件 
 <template is="{{index%2 === 0 ? 'courseLeft' : 'courseRight'}}" data="{{...item}}"></template>
 -->
-<view class="container">
+<view wx:if='{{PaiXuPartials}}' class="container">
   <block wx:for="{{PaiXuPartials}}" wx:key="{{temp}}">
     <!-- <template is="{{item.partialType}}" 
        data="{{...item.jsonData,...setting,sysWidth}}"></template>
@@ -29,7 +29,14 @@
        data="{{...item.jsonData,...setting,sysWidth}}"></template> 
   </block>
 </view>
+<view wx:else class="blankPage">
+   <view class='blankPage_image'>
 
+   </view>
+   
+   <text>网络异常，请刷新本页</text>
+   <button></button>
+</view>
 
 <!-- 
 根据后台数据，动态渲染页面

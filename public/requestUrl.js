@@ -26,6 +26,7 @@ function dellUrl(url, params, method, loginToken){
    let Rand = Math.random();
   params.loginToken = loginToken
   params.__ajax_random__ = Rand
+  params.mini = 1
   if(!method){
     method = "get"
   }

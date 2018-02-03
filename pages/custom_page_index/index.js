@@ -6,7 +6,7 @@ Page({
     /* seeting */ 
     setting:null,
     renderData:null,
-    PaiXuPartials:null, 
+    PaiXuPartials:[], 
     sysWidth: 320,//图片大小
     topName: {
       SearchProductName: "",//头部搜索的
@@ -139,21 +139,29 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
+        wx.hideLoading()
         app.renderData = res.data
         console.log(res.data)
         that.setData({ renderData: res.data })
-        that.getPartials();
-        wx.hideLoading()
+        if (res.data.partials.length == 0 ){
+          that.setData({ PaiXuPartials:null })
+        }else{
+          that.getPartials();
+        }
+        
+     
         
       },
       fail: function (res) {
+        console.log('------------2222222-----------')
+        console.log(res)
         wx.hideLoading()
 
         //app.loadFail()
-        let that = this
+        
         wx.showModal({
           title: '提示',
-          content: '加载失败，重新加载',
+          content: '加载失败，点击【确定】重新加载' ,
           success: function (res) {
 
             if (res.confirm) {
@@ -175,10 +183,7 @@ Page({
       console.log('-------------hasSetting-----------')
       this.setData({ setting: app.setting })
       console.log(this.data.setting)
-      
     }
-    
-   
   },
   
   /*onload*/

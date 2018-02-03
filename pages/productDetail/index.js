@@ -57,8 +57,6 @@ Page({
           that.setData({ productData: productData })
           console.log('000---'+that.data.productData.productInfo.favorite)
         }
-       
-
       },
       fail: function (res) {
        
@@ -263,7 +261,6 @@ Page({
     }
     
     if (!app.checkIfLogin()) {
-     
       return
     }
     let bindway = this.data.bindway
@@ -295,22 +292,25 @@ Page({
       success: function (res) {
         console.log(res)
         if (!!res.data.orderNo) {
+          wx.hideLoading()
           wx.navigateTo({
             url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
           })
         } else {
+          wx.hideLoading()
           wx.showToast({
             title: res.data.errMsg,
             image: '/images/icons/tip.png',
-            duration: 1000
+            duration: 2000
           })
         }
       },
       fail: function (res) {
+        wx.hideLoading()
         app.loadFail()
       },
       complete: function (res) {
-        wx.hideLoading()
+        
       }
     })
   },
