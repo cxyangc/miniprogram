@@ -4,7 +4,7 @@
       <view class='couponListItem' wx:for='{{showCoupon}}' wx:for-item='cou' wx:key='{{cou.id}}'>
           <view class='itemHead' style='background:{{setting.platformSetting.defaultColor}}'>{{cou.name}}</view>
           <view class='itemBody'>
-            <text>{{cou.zhekou}}</text>
+            <text>￥{{cou.youhuiAmount}}</text>
             <view>
               <view class='ccc'>满{{cou.orderAmount}}可用</view>
               
