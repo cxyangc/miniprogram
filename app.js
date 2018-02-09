@@ -11,7 +11,7 @@ App({
   /**
    *   切换项目的开关 ↓↓↓↓↓
    */
-  clientNo:'jianzhan',   //自定义的项目的名称。
+  clientNo:'naicha',   //自定义的项目的名称。
 
   more_scene:'', //扫码进入场景   用来分销
 
@@ -36,14 +36,35 @@ App({
       'content-type': 'application/x-www-form-urlencoded'
   },
 
-
-
-
-
+  successOnlaunch:false,
   onLaunch: function (options) {
     let that = this
     console.log('------onlauch------')
     console.log(options)
+    /* 第三方配置加载 clientNo */
+    /*
+    wx.getExtConfig({
+      success: function (res) {
+        console.log('第三方配置')
+        console.log(res)
+        if (res.extConfig && res.extConfig.clientNo) {
+          console.log(res.extConfig)
+          that.clientNo = res.extConfig.clientNo
+        }
+        that.clientNo = 'xianhua'
+      },
+      complete: function (res) {
+        
+      }
+    })*/
+
+    let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
+    if (extConfig.clientNo) {
+      that.clientNo = res.extConfig.clientNo
+    } 
+    console.log('==='+this.clientNo+'====')
+    console.log(wx.getExtConfigSync())
+
     let inputPlatformNo = options.query.platformNo;
     if (!!inputPlatformNo) {
       this.clientNo = inputPlatformNo
@@ -54,36 +75,26 @@ App({
     if (!!more_scene){
       this.more_scene = more_scene
     }
-    
 
-      /* 第三方配置加载 clientNo */
-      wx.getExtConfig({
-        success: function (res) {
-          console.log('第三方配置')
-          console.log(res)
-          if (res.extConfig && res.extConfig.clientNo){
-            console.log(res.extConfig)
-            that.clientNo = res.extConfig.clientNo
-            
-          }
-        },
-        complete: function(res){
-          that.loadFirstEnter(more_scene)
-        }
-      })
+    
+    that.loadFirstEnter(more_scene)
+  },
 
-   // console.log(appJson)
-   // this.getSetting()
-    wx.getUserInfo({
-      withCredentials: false,
-      success: function (res) {
-        let userInfo = res.userInfo
-        that.globalData.userInfo = userInfo
-      }
-    })
-    
-    
-  
+   timer: 0,
+  // 确保onLaunch事件完成后再开始调用其他函数
+  promiseonLaunch:function(self){
+    let that = this
+    console.log('promiseonLaunch')
+    if (!!this.setting) {
+      console.log('promiseonLaunch ------- 1')
+      self.onLoad()
+    }
+    else {
+      console.log('promiseonLaunch ------- 0')
+      that.timer = setTimeout(function () {
+        that.promiseonLaunch(self);
+      }, 500);
+    }
   },
 
   //第一次登录加载的函数
@@ -411,48 +422,58 @@ App({
   sentWxUserInfo:function(){
     let that = this
     let userInfo = this.globalData.userInfo
-    let infoParam = {
-      headimg:'',
-      nickname:'',
-      sex:''
-    }
-    infoParam.headimg = userInfo.avatarUrl
-    infoParam.nickname = userInfo.nickName
-    infoParam.sex = userInfo.gender
-    
-    let customIndex = this.AddClientUrl("/change_user_info.html", infoParam, 'post')
-    wx.request({
-      url: customIndex.url,
-      data: customIndex.params,
-      header: that.headerPost,
-      method: 'POST',
+    wx.getUserInfo({
+      withCredentials: false,
       success: function (res) {
-        
-        console.log(res.data)
-        if (res.errcode == 0){
-          {
-            that.loginUser.nickName = userInfo.nickName;
-            that.loginUser.sex = userInfo.sex;
-            that.loginUser.userIcon = userInfo.avatarUrl;
-          }
-          
-
-          console.log('-----第一次登录   传头像成功 --------')
-          //that.wxLogin()
-          that.get_session_userinfo()
-        }else{
-          console.log('-----第一次登录   传头像失败 --------')
+        let userInfo = res.userInfo
+        let infoParam = {
+          headimg: '',
+          nickname: '',
+          sex: ''
         }
-        
-      },
-      fail: function(res){
-        console.log('-----第一次登录   传头像失败 --------')
-        console.log()
-      },
-      complete:function(res){
-        
-      },
+        infoParam.headimg = userInfo.avatarUrl
+        infoParam.nickname = userInfo.nickName
+        infoParam.sex = userInfo.gender
+        let customIndex = that.AddClientUrl("/change_user_info.html", infoParam, 'post')
+        wx.request({
+          url: customIndex.url,
+          data: customIndex.params,
+          header: that.headerPost,
+          method: 'POST',
+          success: function (res) {
+
+            console.log(res.data)
+            if (res.errcode == 0) {
+              {
+                that.loginUser.nickName = userInfo.nickName;
+                that.loginUser.sex = userInfo.sex;
+                that.loginUser.userIcon = userInfo.avatarUrl;
+              }
+
+
+              console.log('-----第一次登录   传头像成功 --------')
+              //that.wxLogin()
+              that.get_session_userinfo()
+            } else {
+              console.log('-----第一次登录   传头像失败 --------')
+            }
+
+          },
+          fail: function (res) {
+            console.log('-----第一次登录   传头像失败 --------')
+            console.log()
+          },
+          complete: function (res) {
+
+          },
+        })
+      }
     })
+    
+
+   
+    
+   
   },
   /* 微信登录测试 */
   wxLogin: function (more_scene) {
@@ -469,8 +490,11 @@ App({
     
     wx.login({
       success: function (res) {
-        
-        if (res.code) {
+        console.log(res.code)
+        if (res.code && res.code.indexOf('mock') == -1) {
+          console.log('---------------------')
+          console.log(res)
+          console.log('---------------------')
           //发起网络请求
           let loginParam = {}
           loginParam.code = res.code
@@ -615,7 +639,8 @@ App({
 
         }
         
-    
+        // 完成初次加载
+        that.successOnlaunch = true
         
       },
       fail: function (res) {
