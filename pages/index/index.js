@@ -44,20 +44,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this
-    console.log('------------扫码-----------------')
-    console.log(options)
-    let inputScene = options.shareScene
     
-    if (!!inputScene){
-      console.log('扫码带参 ------- shareScene')
-      console.log(inputScene)
-      this.loadFromScene(inputScene)
-    }
-   
-    
-    //app.getSetting(that)
-    //app.wxLogin()
   },
 
   /**

@@ -188,18 +188,12 @@ Page({
     })
   },
   /* 加入購物車 */
-  /* "cartesianId":"0","userId":47446,"platformNo":"jianzhan","productId":"8023","shopId":"236","secretCode":"sansan","count":"1","type":"add"},"method":"POST"} */
   subNum: function (e) {
-    var that = this
-    var focusCartItem = null
-    var cartId = e.currentTarget.dataset.id
-    for (let i = 0; i < this.data.cartData[0].carItems.length; i++) {
-      if (cartId == this.data.cartData[0].carItems[i].id) {
-        focusCartItem = this.data.cartData[0].carItems[i]
-        focusCartItem.count--;
-      }
-    }
-    var params = {
+    let that = this
+    let index = e.currentTarget.dataset.id
+    let focusCartItem = this.data.cartData[0].carItems[index]
+
+    let params = {
       cartesianId: '0',
       productId: '',
       shopId: '',
@@ -212,7 +206,7 @@ Page({
     params.shopId = focusCartItem.belongShop
     params.secretCode = "sansan"
 
-    if (focusCartItem.count == 0){
+    if (focusCartItem.count == 1){
       console.log(focusCartItem)
       params.count = 0
       params.type = 'change'
@@ -221,21 +215,17 @@ Page({
       params.count = 1
       params.type = 'dec'
     }
-   
-    this.postParams(params)
+    
+    this.postParams(params,focusCartItem)
   },
 
   addNum: function (e) {
-    var that = this
-    var focusCartItem = null
-    var cartId = e.currentTarget.dataset.id
-    for (let i = 0; i < this.data.cartData[0].carItems.length; i++){
-      if (cartId == this.data.cartData[0].carItems[i].id ){
-        focusCartItem = this.data.cartData[0].carItems[i]
-        focusCartItem.count ++;
-      }
-    }
-    var params = {
+    let that = this
+    let index = e.currentTarget.dataset.id
+    let focusCartItem = this.data.cartData[0].carItems[index]
+
+   
+    let params = {
       cartesianId:'0',
       productId: '',
       shopId: '',
@@ -250,11 +240,18 @@ Page({
     params.secretCode = "sansan"
     params.count = 1
     params.type = 'add'
-    this.postParams(params)
+    this.postParams(params, focusCartItem)
 
   },
-  postParams: function (data) {
+  postParams: function (data, focusCartItem) {
     var that = this
+
+    if (!focusCartItem){
+      focusCartItem = 0
+    }
+    if (data.count == 0){
+      that.getCart()
+    }
     var customIndex = app.AddClientUrl("/change_shopping_car_item.html", data,'post')
     wx.request({
       url: customIndex.url,
@@ -262,10 +259,17 @@ Page({
       header: app.headerPost,
       method: 'POST',
       success: function (res) {
-        console.log(res)
+        
         console.log(res.data)
         wx.hideLoading()
-        that.getCart()
+        if (res.data.id){
+          if (focusCartItem) {
+            focusCartItem.count = res.data.count
+            that.setData({
+              cartData: that.data.cartData
+            })
+          }
+        }
       },
       fail: function (res) {
         wx.hideLoading()
@@ -443,6 +447,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    /*
+    return {
+      title: '福州三三',
+      desc: '说明!',
+      path: '/page/index/index?id=123'
+    }*/
   }
 })

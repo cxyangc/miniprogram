@@ -175,6 +175,7 @@ Page({
     })
   },
   getData: function () {
+    console.log('---------------index - getsetting --------------')
     var that = this
     if (!app.setting) {
       console.log('-------------hasNoneSetting-----------')
@@ -188,13 +189,32 @@ Page({
   
   /*onload*/
   onLoad: function (options) {
-   
-    var that = this
-    this.setData({
+    console.log('--------------- custom_index --------------')
+    
+    if(!app.setting){
+      app.promiseonLaunch(this)
+    }else{
+       this.setData({
       sysWidth: app.globalData.sysWidth
     });
     this.getParac()
-    this.getData()
+    //this.getData()
+    if (!!app.setting) {
+      this.setNavBar()
+    }
+     
+    }
+   
+
+    /* this.setData({
+      sysWidth: app.globalData.sysWidth
+    });
+    this.getParac()
+    //this.getData()
+    if (!!app.setting) {
+      this.setNavBar()
+    } */
+    
    
 
   },
@@ -203,9 +223,7 @@ Page({
 
   },
   onShow: function () {
-    if(!!app.setting){
-      this.setNavBar()
-    }
+    
   },
 
   /* 组件事件集合 */

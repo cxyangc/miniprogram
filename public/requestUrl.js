@@ -11,7 +11,7 @@ function jsonToStr (json) {
   return returnParam
 }
 
-function dellUrl(url, params, method, loginToken){
+function dellUrl(url, params, method, loginToken,random){
   var post = {
     url: "",
     method: "", 
@@ -20,12 +20,17 @@ function dellUrl(url, params, method, loginToken){
   if (!params) {
     params = {}
   }
-   if (!loginToken){
+  if (!loginToken){
     loginToken = ''
   } 
-   let Rand = Math.random();
+
+  let Rand = Math.random();
   params.loginToken = loginToken
-  params.__ajax_random__ = Rand
+  if (!random){
+    params.__ajax_random__ = Rand
+  }
+  
+  params.mini = 1
   params.mini = 1
   if(!method){
     method = "get"

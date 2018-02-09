@@ -11,7 +11,9 @@
         </label> 
 
         <view class='item_infomation'>
-          <view class='item_infomation_name' data-info='{{cart}}' catchtap='toProductDetail'>{{cart.item.name}}</view>
+          <view class='item_infomation_name' data-info='{{cart}}'
+            wx:if='{{cart.count}}'
+           catchtap='toProductDetail'>{{cart.item.name}}</view>
           <view wx:if='{{cart.count > cart.stock}}' class='cart_stock_warn'>
              库存不足，剩余库存（{{cart.stock}}） 
           </view>
@@ -25,9 +27,9 @@
             <image src='/images/icons/x.png' ></image>
           </view>
           <view class='item_infomation_nums'> 
-            <image src='/images/icons/add2.png' data-id='{{cart.id}}' catchtap='subNum'></image>
+            <image src='/images/icons/add2.png' data-id='{{index}}' catchtap='subNum'></image>
             <text class='flexCenter font1'>{{cart.count}}</text>
-            <image src='/images/icons/add.png' data-id='{{cart.id}}' catchtap='addNum' ></image>
+            <image src='/images/icons/add.png' data-id='{{index}}' catchtap='addNum' ></image>
           </view>
           <view  class='item_infomation_money'>￥ {{cart.carItemPrice}}</view>
         </view>
