@@ -3,17 +3,19 @@ import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
  
 
- 
+  
 App({
  
-  clientUrl:'https://mini.sansancloud.com/chainalliance/',  // 链接地址
+  clientUrl: 'https://mini.sansancloud.com/chainalliance/',  // 链接地址
+  // clientUrl:'https://mini.sansancloud.com/chainalliance/',  // 链接地址
 
   /**
    *   切换项目的开关 ↓↓↓↓↓
    */
   clientNo:'xianhua',   //自定义的项目的名称。
-
+  clientName:'',
   more_scene:'', //扫码进入场景   用来分销
+  shareParam:null,//分享页面参数
 
   miniIndexPage:'',
   setting : null,
@@ -27,6 +29,7 @@ App({
   payItem:null, //下单的时候传过去的
   userSign:null, //账号密码
   EditAddr:null,//传值的
+  richTextHtml:'',
   productParam:null,//传值的
     //  customPageJson:null,//page的动态组件json
   header: {
@@ -37,7 +40,25 @@ App({
   },
 
   successOnlaunch:false,
+  /* 页面影藏 */
+  appHide:false,
+  onHide:function(e){
+    console.log('hide')
+    console.log(e)
+    this.appHide  = true
+  },
+  onShow:function(e){
+    console.log('show')
+    console.log(e)
+    /* let pagePath = e.path
+    if(this.appHide){
+      this.appHide = false
+    } */
+  },
+  onLaunchOptions:{},
+  /* 第一次加载 */
   onLaunch: function (options) {
+    this.onLaunchOptions = options
     let that = this
     console.log('------onlauch------')
     console.log(options)
@@ -72,7 +93,7 @@ App({
     let more_scene = decodeURIComponent(options.query.scene)
     console.log(more_scene)
     
-    if (!!more_scene){
+    if (more_scene){
       this.more_scene = more_scene
     }
 
@@ -86,11 +107,9 @@ App({
     let that = this
     console.log('promiseonLaunch')
     if (!!this.setting) {
-      console.log('promiseonLaunch ------- 1')
       self.onLoad()
     }
     else {
-      console.log('promiseonLaunch ------- 0')
       that.timer = setTimeout(function () {
         that.promiseonLaunch(self);
       }, 500);
@@ -109,17 +128,16 @@ App({
     userInfo: null, 
     sansanUser:null,
     sysWidth: wx.getSystemInfoSync().windowWidth, //图片宽度  
+    sysHeight: wx.getSystemInfoSync().windowHeight, 
   },
  toIndex:function(){
-   console.log(this.miniIndexPage)
-   let miniIndexPage = this.getSpaceStr(this.miniIndexPage,'.')
-   console.log(miniIndexPage)
+   console.log('首页叫做：'+this.miniIndexPage)
 
    //这个需要注意  switchTab  和  redirectTo
    
-   if (!!this.miniIndexPage){
+   if (this.miniIndexPage){
      wx.switchTab({
-       url: '/pages/' + miniIndexPage.str1+'/index',
+       url: '/pages/' + this.miniIndexPage+'/index',
      })
    }else{
      wx.switchTab({
@@ -213,14 +231,14 @@ App({
     }
   },
 /* 处理url的函数，放到app里吧 */
-  AddClientUrl: function (url, params, method){
+  AddClientUrl: function (url, params, method, random){
     let loginToken = ''
-    if (!this.loginUser){
+    if (!this.loginUser || !this.loginUser.platformUser || !this.loginUser.platformUser.loginToken){
       loginToken = ''
     }else{
       loginToken = this.loginUser.platformUser.loginToken
     }
-    var returnUrl = dellUrl(url, params, method, loginToken)
+    var returnUrl = dellUrl(url, params, method, random, loginToken )
     returnUrl.url = this.clientUrl + this.clientNo + returnUrl.url
     return returnUrl;
   },
@@ -260,7 +278,7 @@ App({
     }
     return theResult
   },
-/* 转换成str */
+/* 转换成str 带？*/
   jsonToStr: function (json) {
     var returnParam = "?"
     var str = [];
@@ -272,6 +290,21 @@ App({
     console.log(returnParam)
     return returnParam
   },
+  // 不带问号 过滤loginTocken
+  jsonToStr2: function (json) {
+    var returnParam = ""
+    var str = [];
+    for (var p in json) {
+      if(p != 'loginToken'){
+        str.push(p + "=" + json[p]);
+      }
+    }
+    returnParam += str.join("&")
+    console.log(returnParam)
+    return returnParam
+  },
+
+
   //link事件   绑定导向对应的控件上
   linkEvent: function (linkUrl) {
     if (!linkUrl){
@@ -299,7 +332,7 @@ App({
     }
     else if (If_Order_url == 'order_list') {
       wx.navigateTo({
-        url: '/pages/' + If_Order_url + '/index' + urlData.param,
+        url: '/pages/' + 'order_list_tab' + '/index' + urlData.param,
       })
     }
     else if (linkUrl.substr(0, 15) == 'product_detail_') {
@@ -397,8 +430,8 @@ App({
 
   //获取已经登录了的用户信息和login时一样
   get_session_userinfo: function () {
-    var customIndex = this.AddClientUrl("/get_session_userinfo.html", {}, 'post')
-    var that = this
+    let customIndex = this.AddClientUrl("/get_session_userinfo.html", {}, 'post')
+    let that = this
     wx.request({
       url: customIndex.url, //仅为示例，并非真实的接口地址
       data: customIndex.params,
@@ -425,7 +458,7 @@ App({
     wx.getUserInfo({
       withCredentials: false,
       success: function (res) {
-        let userInfo = res.userInfo
+        userInfo = res.userInfo
         let infoParam = {
           headimg: '',
           nickname: '',
@@ -441,7 +474,7 @@ App({
           header: that.headerPost,
           method: 'POST',
           success: function (res) {
-
+            console.log('---change_user_info----- success-')
             console.log(res.data)
             if (res.errcode == 0) {
               {
@@ -456,11 +489,12 @@ App({
               that.get_session_userinfo()
             } else {
               console.log('-----第一次登录   传头像失败 --------')
+              that.get_session_userinfo()
             }
 
           },
           fail: function (res) {
-            console.log('-----第一次登录   传头像失败 --------')
+            console.log('-----第一次登录   传头像失败 回调fail--------')
             console.log()
           },
           complete: function (res) {
@@ -534,7 +568,7 @@ App({
                 if (!loginJson.nickName || loginJson.nickName == loginJson.name) {
                   that.sentWxUserInfo()
                 }
-                 that.toIndex()
+                // that.toIndex()
               }else{
                 wx.hideLoading()
                
@@ -609,8 +643,9 @@ App({
       url: settUrl.url, //仅为示例，并非真实的接口地址
       header: that.header,
       success: function (res) {
-        
-        if (!!res.data) {
+        console.log(res.data)
+        if (res.data.platformSetting) {
+          that.clientName = res.data.platformSetting.platformName
           let categories = res.data.platformSetting.categories
           let allType = {}
           allType.id = 'all'
@@ -622,8 +657,11 @@ App({
           categories.unshift(allType)
         }
         that.setting = res.data
-        if (!!res.data.platformSetting.miniIndexPage){
-          that.miniIndexPage = res.data.platformSetting.miniIndexPage
+        if (res.data.platformSetting.miniIndexPage){
+          let miniIndexPage = that.getSpaceStr(res.data.platformSetting.miniIndexPage, '.')
+          that.miniIndexPage = miniIndexPage.str1
+        }else{
+          that.miniIndexPage = 'custom_page_index'
         }
 
         if (!self){
@@ -679,5 +717,75 @@ App({
         console.log(res)
       }
     })
+  },
+
+  //带参转发
+  shareForFx: function (pageName, pageTitle, pageCode) {
+    let that = this
+    let AllCode = ''
+    let fxCode = ''  //userId
+    if (this.loginUser){
+      fxCode = 'scene=MINI_PLATFORM_USER_ID_' + this.loginUser.platformUser.id
+    }else{
+      fxCode = 'scene=MINI_PLATFORM_USER_ID_' + this.more_scene
+    }
+    if (!pageName) {
+      pageName = 'index'
+    }
+    if (!pageTitle) {
+      pageTitle = that.clientName
+    }
+    if (!pageCode) {
+      pageCode = ''
+      AllCode = fxCode
+    } else {
+      AllCode = fxCode + '&' + pageCode
+    }
+    return {
+      title: pageTitle,
+      path: '/pages/' + pageName + '/index?' + AllCode,
+      success: function (res) {
+      },
+      fail: function (res) {
+      }
+    }
+  },
+
+  shareForFx2: function (pageName, pageTitle, pageCode, imageUrl) {
+    //组合参数，交给custompage_index 解析
+      // 组合参数所带
+     
+    let that = this
+
+
+    let AllCode = ''
+    let fxCode = ''  //userId
+    if (this.loginUser) {
+      fxCode = 'scene=MINI_PLATFORM_USER_ID_' + this.loginUser.platformUser.id
+    }
+    if (!pageName) {
+      pageName = 'custom_page_index'
+    }
+    if (!pageTitle) {
+      pageTitle = that.clientName
+    }
+    if (!pageCode) {
+      pageCode = {}
+    }
+    pageCode.scene = 'MINI_PLATFORM_USER_ID_' + this.loginUser.platformUser.id
+    pageCode.pageName = pageName
+
+    AllCode = that.jsonToStr2(pageCode)
+
+    console.log('转发出去的参数集合：   '+AllCode)
+    return {
+      title: pageTitle,
+      path: '/pages/index/index?' + AllCode,
+      imageUrl:imageUrl,
+      success: function (res) {
+      },
+      fail: function (res) {
+      }
+    }
   },
 })
