@@ -1,0 +1,84 @@
+ 
+<view class='container'>
+    <view class='tongji_container' >
+      
+      <view class='tongji_mid font_24'>{{mendianZhanghu.account}}</view>
+      <view class='tongji_top'>账户余额（￥）</view>
+    </view>
+  <view class='tongjiContainer_form'>
+      <view class='tongji_bottom'>
+        <view class='tongji_bottom_item'>
+          <view  style='color:{{setting.platformSetting.defaultColor}};'>
+            <text>￥</text>
+            <text>520.12</text>
+          </view> 
+          <text>本月收入</text>
+           <view class='borderRight2'></view>
+        </view>
+        <view class='tongji_bottom_item'>
+          <view style='color:{{setting.platformSetting.defaultColor}};'>
+            <text>￥</text>
+            <text>232.12</text>
+          </view>
+          <text>本年收入</text>
+           <view class='borderRight2'></view>
+        </view>
+        <view class='tongji_bottom_item'>
+          <view style='color:{{setting.platformSetting.defaultColor}};'>
+            <text>￥</text>
+            <text>214.12</text>
+          </view>
+          <text>总收入</text>
+        </view>
+      </view>
+
+    <view class='mendian_menu_container' >
+        <view class='mendian_menu_item' data-link='mendian_zijin.html'   bindtap='tolinkUrl'>
+            <view class='imageContainer'>
+                <image src='http://image1.sansancloud.com/aikucun/2018_03/15/10/16/40_720.jpg?x-oss-process=style/preview_120'></image>
+            </view>
+            <view class='item_text'>
+                <text>资金记录</text>
+            </view>
+            <view class='borderRight'></view>
+        </view>
+        <view class='mendian_menu_item' data-link='mendian_order.html'   bindtap='tolinkUrl'>
+            <view class='imageContainer'>
+                <image src='http://image1.sansancloud.com/aikucun/2018_03/15/10/16/35_479.jpg?x-oss-process=style/preview_120'></image>
+            </view>
+            <view class='item_text'>
+                <text>订单列表</text>
+            </view>
+            <view class='borderRight'></view>
+        </view>
+        <view class='mendian_menu_item' data-link='mendian_user.html?fxLevel=1'   bindtap='tolinkUrl'>
+            <view class='imageContainer'>
+                <image src='http://image1.sansancloud.com/aikucun/2018_03/15/10/17/07_890.jpg?x-oss-process=style/preview_120'></image>
+            </view>
+            <view class='item_text'>
+                <text>我的客户</text>
+            </view>
+        </view>
+        
+        <view class='mendian_menu_item' data-link='mendian_back_item.html'   bindtap='tolinkUrl'>
+            <view class='imageContainer'>
+                <image src='http://image1.sansancloud.com/aikucun/2018_03/15/10/16/47_478.jpg?x-oss-process=style/preview_120'></image>
+            </view>
+            <view class='item_text'>
+                <text>售后服务</text>
+            </view>
+            <view class='borderRight'></view>
+        </view>
+        <view class='mendian_menu_item' data-link='mendian_will_order.html'   bindtap='tolinkUrl'>
+            <view class='imageContainer'>
+                <image src='http://image1.sansancloud.com/aikucun/2018_03/15/10/16/26_403.jpg?x-oss-process=style/preview_120'></image>
+            </view>
+            <view class='item_text'>
+                <text>待实现收入</text>
+            </view>
+        </view>
+    </view>
+  </view>
+    
+  
+</view>

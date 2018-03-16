@@ -1,0 +1,9 @@
+
+
+
+<template name="userinfo_mendian">
+  <view wx:if='{{loginUser.platformUser.managerMendianId}}' class='userinfo_mendian' data-link='{{linkUrl}}' bindtap='tolinkUrl'>
+      <image mode='aspectFit' src="{{iconPath}}"></image>
+      <view  class="userinfo_mendian_text  " >{{text}} </view>
+  </view>
+</template>  

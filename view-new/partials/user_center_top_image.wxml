@@ -5,8 +5,8 @@
     </view>
     <block wx:if="{{loginUser}}">
       <view class='user_center_top_content' bindtap='loginOut'>
-        <image src='{{loginUser.userIcon}}'></image>
-        <text>{{loginUser.nickName}}</text>
+        <image src='{{loginUser.platformUser.headimgurl}}'></image>
+        <text>{{loginUser.platformUser.nickName}}</text>
       </view>  
       <view class='user_center_jifen_content'>
           <view class='user_center_jifen_content_1' data-link='user_jifen_events.html' bindtap='tolinkUrl'>

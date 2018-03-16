@@ -4,7 +4,7 @@
   
     
 
-<template name="9">
+<template name="9"> 
 <block wx:if="{{model == 0}}" >
     <view class='detail_list_mode0' style='background: {{borderColor}};'>
       <view class="mode0_items"   wx:for="{{items}}" wx:for-item="items" wx:key="{{index}}" 

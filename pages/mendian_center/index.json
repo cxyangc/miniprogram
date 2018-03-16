@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我的店铺",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#f1f1f1",
+  "navigationBarBackgroundColor": "#ffc73e",
+  "navigationBarTextStyle": "#ffffff"
+}

@@ -1,0 +1,19 @@
+
+.userinfo_mendian{
+  padding:1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size:0.8em;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+}
+.userinfo_mendian image{
+  width: 1.2em;
+  height:1.2em;
+}
+.userinfo_mendian_text{
+  margin-left: 1em;
+  color: #555;
+}

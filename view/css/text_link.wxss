@@ -13,7 +13,7 @@
   width: 100%;
 }
 .text_link_text{
-   margin-left: 10px;
+   margin-left: 10px; 
 }
 .text_link_text2{
   width: 100%;

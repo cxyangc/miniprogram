@@ -1,0 +1,219 @@
+
+/* 爆款推荐 */
+/* 
+.hot_product_area{
+    display: flex;
+    flex-direction: column;
+    background: #cccccc;
+}
+.hot_product_list{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 10px 10px 10px;
+    background: #f9f9f9;
+}
+
+.hot_product_list .hot_product_item:nth-child(2n){
+    margin-left: 10px;
+}
+
+.hot_product_item{
+    margin-bottom: 10px;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    padding: 5px;
+}
+.hot_product_item image{
+
+    width: 100%;
+    height: 150px;
+}
+.hot_product_item_text{
+    background: #fff;
+    width:100%;
+    overflow: hidden;
+}
+.hot_product_item_text view{
+    text-align: left;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    padding: 5px 10px 8px 5px;
+    font-size: 13px;
+    color: #333;
+    line-height: 21px;
+    height:36px;
+}
+.hot_product_item_text text{
+    text-align: left;
+    overflow: hidden;
+    padding: 5px 10px 8px 5px;
+    font-size: 20px;
+    color: #FF3D3D;
+    line-height: 28px;
+} */
+
+
+.hot_product_area2{
+  display: flex;
+  flex-direction: column;
+  background: #f9f9f9;
+}
+.hot_product_list2{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 0 10px 10px 10px;
+  background: #f9f9f9;
+}
+.hot_product_item2{
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+}
+.hot_product_item2_title{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  color: #555;
+}
+.hot_product_item2_derection{
+  margin-top: 10px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  color: #999;
+  text-indent:5px;
+}
+.hot_product_item2_image_container{
+  margin-top:10px; 
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+.hot_product_item2_image_area{
+  background: #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-left: 10px;
+}
+.hot_product_item2_image_area:nth-child(1){
+  background: #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-left:0;
+
+}
+
+.hot_product_item2_image_area image{
+  width: 100%;
+  height: 100%;
+}
+.hot_product_item2_bottom{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+.hot_product_item2_priceInfoContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  line-height: 2em;
+}
+.hot_product_item2_bottom_butn{
+  width: 5em;
+  height: 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #333;
+  color: #eee;
+  border-radius: 5px;
+}
+.hot_product_item2_price{
+  color: red;
+}
+.hot_product_item2_price_old{
+  color: #aaa;
+  text-decoration: line-through;
+  margin-left: 5px;
+}
+
+
+
+
+/* 分享组件 */
+.share_view{
+  position: absolute;
+  right: 0.8em;
+  top: 0.6em;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sharePoint{
+  height: 1.4em;
+  width: 1.4em;
+  overflow: hidden;
+}
+.sharePoint > image{
+  height: 100%;
+  width: 100%;
+}
+.share_box{
+  background: #fff;
+  opacity: 0.9;
+  width: 5em;
+  height: 6em;
+  border: 1px solid #ccc;
+  border-radius: 0.2em;
+}
+
+.share_box_item{
+  border-bottom: 1px solid #ccc;
+  height: 50%;
+  font-size: 0.8em;
+  background: white;
+  margin-left:0;
+  margin-right:0;
+  padding-left:0;
+  padding-right:0;
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+  box-sizing:content-box;
+  border-radius: 0 !important;
+  line-height: 1.2em;
+  color: #555;
+}
+button::after{
+  box-sizing:content-box;
+  border: 0px !important;
+  border-radius: 0 !important;
+}
+.share_box_item > image{
+  width:1.4em;
+  height: 1.4em;
+  margin-right: 0.6em;
+}

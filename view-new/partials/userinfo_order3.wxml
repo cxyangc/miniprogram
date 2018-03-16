@@ -1,0 +1,16 @@
+<template name="userinfo_order3"> 
+  <view class='userinfo_order3_container'>
+    <view class='userinfo_order3_topView' data-link='order_list_0.html?easyStatusName=全部订单&easyStatus=0' bindtap='tolinkUrl'>
+      <view class='font_08'>我的订单</view>
+      <text class='font_08'>查看全部订单</text>
+    </view>
+    <view  class="userinfo_order3_list_container" wx:if="{{showType == 0}}">
+        <view class="userinfo_order3_list_item font_08" style="width:{{100/ column}}%;"  wx:for="{{cells}}" wx:for-item="cells" wx:key="{{index}}" data-link='{{cells.linkUrl}}' bindtap='tolinkUrl'>
+          <image  src="{{cells.iconPath}}?x-oss-process=style/preview"></image>
+          <view class='userinfo_order3_list_item_text'  site_url="{{cells.linkUrl}}"  targetType="{{cells.targetType}}">
+            {{cells.text}}
+          </view>
+        </view>
+    </view>
+  </view>
+</template>

@@ -10,6 +10,7 @@
  * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
  */-->
 
+
  <!--基础元素-->
 <template name="wxParseVideo">
     <!--增加video标签支持，并循环添加-->
@@ -926,3 +927,4 @@
     </block>
 
 </template>
+

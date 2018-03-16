@@ -4,7 +4,7 @@
     "pages/product_waimai_offline/index",
     "pages/product_waimai/index",
     "pages/custom_page_index/index",
-    "pages/news_list/index",
+    "pages/news_list/index", 
     "pages/news_detail/index",
     "pages/custom_page_copyright/index",
     "pages/custom_page_userinfo/index",
@@ -21,13 +21,14 @@
     "pages/product_tree_list/index",
     "pages/product_type2/index",
     "pages/search_product2/index",
-    "pages/productDetail/index",
+    "pages/productDetail/index", 
 
     "pages/edit_order/index",
     "pages/order_list/index",
     "pages/order_detail/index",
     "pages/back_item_list/index",
     "pages/back_item_detail/index",
+    "pages/back_item_wuliu/index",
     "pages/order_commit_detail/index",
     "pages/order_shop_comment/index",
     "pages/submit_order_result/index",
@@ -59,8 +60,24 @@
     "pages/user_bank_info_setting/index",
 
     "pages/productDetail_derection/index",
-    "pages/productDetail_comment_list/index"
+    "pages/productDetail_comment_list/index",
+    "pages/order_list_tab/index",
+    
+    "pages/richText/index",
+    "pages/yijian_fankui/index", 
+    "pages/aikucun_index/index",
+    "pages/promotion_products/index",
+    "pages/aikucun_activity_list/index",
+    "pages/shopping_car_list2/index",
+    "pages/aikucun_car_list/index",
+    "pages/aikucun_userinfo/index",
 
+    "pages/mendian_center/index",
+    "pages/mendian_will_order/index",
+    "pages/mendian_order/index",
+    "pages/mendian_user/index",
+    "pages/mendian_zijin/index",
+    "pages/mendian_back_item/index"
   ],
 
 "tabBar": {
@@ -70,25 +87,19 @@
   "backgroundColor": "#ffffff",
   "list": [
     {
-      "pagePath": "pages/custom_page_index/index",
+      "pagePath": "pages/aikucun_index/index",
       "iconPath": "images/icons/home1.png",
       "selectedIconPath": "images/icons/home2.png",
       "text": "首页"
     },
     {
-      "pagePath": "pages/product/index",
-      "iconPath": "images/icons/good1.png",
-      "selectedIconPath": "images/icons/good2.png",
-      "text": "产品"
-    },
-    {
-      "pagePath": "pages/shopping_car_list/index",
+      "pagePath": "pages/aikucun_car_list/index",
       "iconPath": "images/icons/cart1.png",
       "selectedIconPath": "images/icons/cart2.png",
       "text": "购物车"
     },
     {
-      "pagePath": "pages/custom_page_userinfo/index",
+      "pagePath": "pages/aikucun_userinfo/index",
       "iconPath": "images/icons/me1.png",
       "selectedIconPath": "images/icons/me2.png",
       "text": "我的"

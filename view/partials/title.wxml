@@ -1,7 +1,7 @@
 <!-- swiper轮播图 -->
 
 <template name="4">
-    <!-- 头部类型  无 --> 
+    <!-- 头部类型  无 -->  
   <block wx:if='{{showSearch == 0}}'>
     <block wx:if='{{headIconType == 0}}'>
       <block wx:if='{{rightIconType == 0}}'>

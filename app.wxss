@@ -1,13 +1,27 @@
 
+@import 'app_font.wxss';/*6 */
 /* background: #8B572A;
  */
 /**app.wxss**/
+.freshView{
+  height: 10em;
+  position: fixed;
+  top: 0;
+  left:0;
+  right:0;
+  background:#000;
+
+}
+
 image{
   width:320px;
   height:0px;
   display:inline-block;
   overflow:hidden;
-
+  
+}
+page{
+  font-size: 1em;
 }
 .container {
   max-height: 100%;
@@ -15,7 +29,7 @@ image{
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  font-size: 1em;
+  
 } 
 /*布局样式*/
 .coluContainer{
@@ -38,7 +52,9 @@ image{
   justify-content: center;
 }
 
-
+.flex{
+  display: flex;
+}
 /*float*/
 
 .fl{
@@ -65,11 +81,12 @@ image{
 }
 
 
+.smollFont{
+  font-size: small;
+}
 
 
 
-
-/*font*/
 .price{
   color: red;
 }
@@ -179,3 +196,21 @@ image{
   align-items: center;
   overflow: hidden;
 }
+
+/* //底线 */
+.dixian{
+  height: 3em;
+  font-size: 0.8em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+}
+
+/* 富文本全局设置 */
+ .wxParseHtmlContainer{
+  padding: 10px;
+  overflow: hidden;
+}
+
+ 

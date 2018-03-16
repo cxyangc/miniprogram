@@ -1,0 +1,56 @@
+
+
+<template name="aikucun_activity_will">
+ <!-- 活动预告 -->
+  <!--   <view class='activity_will_area'>
+        <view class='activity_list'>
+            <view class='activity_list_item'  wx:for='{{activityWill}}' wx:key='{{index}}' wx:for-item="items">
+                <image src='{{items.iconPath}}'></image>
+                <view class='will_active'></view>
+                <view class='activity_list_item_card_will'>
+                    <view class='activity_list_item_card_date font_08' style='{{items.subTitleColor}}'>
+                      3天
+                    <text class='activity_list_item_card_stop font_08'>开始</text>
+                </view>
+            </view>
+        </view>
+    </view> -->
+
+
+  <view class='activity_will_area'>
+      <view class='activity_list'> 
+          <view class='activity_list_item' wx:for='{{indexData.unactivityPromotion}}' wx:key='{{index}}' wx:for-item="items" >
+              <image mode='scaleToFill' style='height:{{sysWidth*0.9*0.55}}px;'  src='{{items.promotionBanner}}' data-name='{{items.name}}' data-content='{{items.content}}' bindtap='toActvityRichText'></image>
+              <!-- <view class='will_active'></view> -->
+              <view class='activity_list_item_card_bg '></view>
+              <view class='activity_list_item_card '>
+                  <view class='activity_list_item_card_date font_08' >
+                     <image src='http://image1.sansancloud.com/aikucun/2018_03/07/18/37/56_228.jpg'></image> 
+                    
+                    <view class='date_title1'> 开始时间 </view>
+                  </view>
+                      <view class='date_container font_08' >
+                        <view class='date_hour_s' wx:if='{{items.resultTime.lever == 1}}'>
+                          <text wx:if='{{items.resultTime.Time.second > 1}}'> {{items.resultTime.Time.second}} </text>
+                          <text class='over_text' wx:else> 已开始 </text>
+                        </view>
+                        <view class='date_hour_s' wx:elif='{{items.resultTime.lever == 2}}'>
+                          <text> {{items.resultTime.Time.minute}} </text>:
+                          <text> {{items.resultTime.Time.second}} </text>
+                        </view>
+                        <view class='date_hour_s' wx:elif='{{items.resultTime.lever == 3}}'>
+                          <text> {{items.resultTime.Time.hour}} </text>:
+                          <text> {{items.resultTime.Time.minute}} </text>:
+                          <text> {{items.resultTime.Time.second}} </text>
+                        </view>
+
+                        <view class='date_hour_s' wx:elif='{{items.resultTime.lever == 4}}'>
+                          <text> {{items.resultTime.Time.day}} </text> 天
+                        </view>
+                      </view>
+
+              </view>
+          </view>
+      </view> 
+    </view>
+</template>

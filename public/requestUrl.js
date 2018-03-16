@@ -5,13 +5,13 @@ function jsonToStr (json) {
   var returnParam = ""
   var str = ["jsonOnly=1"];
   for (var p in json) {
-    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(json[p]));
+    str.push((p) + "=" + (json[p]));
   }
   returnParam += str.join("&")
   return returnParam
 }
 
-function dellUrl(url, params, method, loginToken,random){
+function dellUrl(url, params, method, random, loginToken){
   var post = {
     url: "",
     method: "", 
@@ -24,10 +24,9 @@ function dellUrl(url, params, method, loginToken,random){
     loginToken = ''
   } 
 
-  let Rand = Math.random();
   params.loginToken = loginToken
-  if (!random){
-    params.__ajax_random__ = Rand
+  if (!random || method == 'post'){
+    params.__ajax_random__ = Math.random();
   }
   
   params.mini = 1

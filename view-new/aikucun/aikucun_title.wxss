@@ -1,0 +1,32 @@
+/* aikucun_title */
+
+.aikucun_title{
+  padding: 0.8em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; 
+  background: #f9f9f9;
+}
+.aikucun_title_container{
+   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; 
+}
+
+.border_style_sanjiao{
+    width:0; 
+    height:0;
+    border-top-width:6px;
+    border-bottom-width: 6px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-style:solid;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5rpx;
+}
+.aikucun_title_text{
+  font-family: '宋体' ,Cambria, Cochin, Georgia, Times, Times New Roman, serif,
+}

@@ -1,0 +1,27 @@
+.userinfo_list_container{
+
+}
+
+.userinfo_list{
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #ddd;
+}
+.userinfo_list_item{
+  padding:1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+}
+.userinfo_list_item image{
+  width: 1.2em;
+  height:1.2em;
+}
+.userinfo_list_item_text{
+  margin-left: 1em;
+  color: #555;
+}

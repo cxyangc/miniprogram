@@ -1,0 +1,37 @@
+ 
+<template name="aikucun_activity_ing">
+  <view class='activity_area'>
+    <view class='activity_list'> 
+        <view class='activity_list_item' wx:for='{{indexData.activityPromotion}}' wx:key='{{index}}' wx:for-item="items" >
+            <image mode='scaleToFill' style='height:{{sysWidth*0.9*0.55}}px;' src='{{items.promotionBanner}}' data-description='{{items.description}}' data-name='{{items.name}}' data-id='{{items.id}}' bindtap='toPromotionList'></image>
+            <view class='activity_list_item_over' wx:if='{{items.second < 1 }}'>活动已结束</view>
+            <view class='activity_list_item_card_bg '></view>
+            <view class='activity_list_item_card '>
+                <view class='activity_list_item_card_date font_08' >
+                   <image src='http://image1.sansancloud.com/aikucun/2018_03/07/18/37/51_175.jpg'></image> 
+                  <view class='date_title1'> 结束时间 </view>
+                </view>
+                    <view class='date_container font_08' >
+                      <view class='date_hour_s' wx:if='{{items.resultTime.lever == 1}}'>
+                        <text wx:if='{{items.resultTime.Time.second > 1}}'> {{items.resultTime.Time.second}} </text>
+                        <text class='over_text' wx:else> 已结束 </text>
+                      </view>
+                      <view class='date_hour_s' wx:elif='{{items.resultTime.lever == 2}}'>
+                        <text> {{items.resultTime.Time.minute}} </text>:
+                        <text> {{items.resultTime.Time.second}} </text>
+                      </view>
+                      <view class='date_hour_s' wx:elif='{{items.resultTime.lever == 3}}'>
+                        <text> {{items.resultTime.Time.hour}} </text>:
+                        <text> {{items.resultTime.Time.minute}} </text>:
+                        <text> {{items.resultTime.Time.second}} </text>
+                      </view>
+
+                      <view class='date_hour_s' wx:elif='{{items.resultTime.lever == 4}}'>
+                        <text> {{items.resultTime.Time.day}} </text> 天
+                      </view>
+                    </view>  
+            </view>
+        </view>
+    </view> 
+  </view>
+</template>

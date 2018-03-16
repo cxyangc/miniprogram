@@ -1,0 +1,24 @@
+<!-- 头部服务商 -->
+<template name="aikucun_index_head">
+    <view class='headerContainer'>
+        <view class='{{loginUser.platformUser.mendian? "header_bg_banner":"header_bg_banner_2"}}'>
+            <image  data-name='{{loginUser.platformUser.mendian.name}}' data-content='{{loginUser.platformUser.mendian.content}}' bindtap='showMendianHtml' style='height:{{(sysWidth-20)*0.45}}px;' src='http://image1.sansancloud.com/aikucun/2018_03/09/10/01/08_327.jpg' mode='aspectFill' ></image>
+        </view>
+         <view class='server_area' wx:if='{{loginUser.platformUser.mendian}}'>
+            <view class='server_area_icon'>
+                <block wx:if='{{loginUser.platformUser.mendian.logo}}'>
+                  <image data-url='{{loginUser.platformUser.mendian.logo}}' bindtap='lookBigWxCode' src='{{loginUser.platformUser.mendian.logo}}' ></image>
+                </block>
+                <block wx:else>
+                </block>
+            </view>
+            <block wx:if='{{loginUser.platformUser.mendian.name}}'>
+                  <view class='server_area_text font_1' data-name='{{loginUser.platformUser.mendian.name}}' data-content='{{loginUser.platformUser.mendian.content}}' bindtap='showMendianHtml'>{{loginUser.platformUser.mendian.name}}</view>
+            </block>
+            <block wx:else>
+                  <view class='server_area_text font_1'></view>
+            </block>
+        </view>
+    </view>
+    
+</template>
