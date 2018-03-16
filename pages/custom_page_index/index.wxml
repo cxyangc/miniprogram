@@ -16,6 +16,18 @@
 
 <import src="../../view-new/partials/detail_list_card.wxml"/> <!-- detail_list_card --> 
 
+<import src="../../view-new/aikucun/aikucun_index_head.wxml"/>
+<import src="../../view-new/aikucun/aikucun_index_report.wxml"/>
+<import src="../../view-new/aikucun/aikucun_activity_ing.wxml"/>
+<import src="../../view-new/aikucun/aikucun_activity_will.wxml"/>
+<import src="../../view-new/aikucun/aikucun_hot_product.wxml"/>
+<import src="../../view-new/aikucun/aikucun_title.wxml"/>
+
+
+
+
+
+
 <!-- 
 方法1：把所有的组件都导入进来，然后根据传过来的partials规则里面的排序来渲染组件 
 <template is="{{index%2 === 0 ? 'courseLeft' : 'courseRight'}}" data="{{...item}}"></template>
@@ -26,7 +38,7 @@
        data="{{...item.jsonData,...setting,sysWidth}}"></template>
  -->
         <template is="{{!!item.androidTemplate ? item.androidTemplate : item.partialType }}" 
-       data="{{...item.jsonData,...setting,sysWidth}}"></template> 
+       data="{{...item.jsonData,...setting,sysWidth,loginUser:loginUser,reportText:reportText}}"></template> 
   </block>
 </view>
 <view wx:else class="blankPage">

@@ -94,24 +94,32 @@ Page({
   },
   
   /* 获取新闻列表数据 */
-  getNewsData: function (param){
+  getNewsData: function (param,ifAdd){
     var that = this
     if (!param){
       param = ''
     }
-    //let urlData = app.getUrlParams(url)
-    //console.log(urlData)
+    param.page = that.listPage.page
     let cusUrl = app.AddClientUrl('/more_news_bbs_list.html', param)
       wx.request({
         url: cusUrl.url,
         header: app.header,
         success: function (res) {
           console.log(res.data)
+          that.listPage.pageSize = res.data.pageSize
+          that.listPage.curPage = res.data.curPage
+          that.listPage.totalSize = res.data.totalSize
+
+          let tabData = []
+          if (ifAdd){
+            tabData = that.data.tabData
+          }
           if (res.data.result.length == 0 ){
             that.setData({ tabData: null })
           }
           else{
-            that.setData({ tabData: res.data.result })
+            tabData = tabData.concat(res.data.result)
+            that.setData({ tabData: tabData })
           }
           
 
@@ -127,11 +135,16 @@ Page({
   onLoad: function (options) {
     this.getNewsData(options)
     this.getCusPage();
-
+    this.opt = options
     this.setData({ setting: app.setting, sysWidth: app.globalData.sysWidth })
     console.log(this.data.sysWidth)
   },
-
+  listPage: {
+    page: 1,
+    pageSize: 0,
+    totalSize: 0,
+    curpage: 1
+  },
   
   onReady: function () {
     var that = this
@@ -161,20 +174,18 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.stopPullDownRefresh() 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    var that = this
+    if (that.listPage.totalSize > that.listPage.curPage * that.listPage.pageSize) {
+      that.listPage.page++
+      this.getNewsData(this.opt)
+    }
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

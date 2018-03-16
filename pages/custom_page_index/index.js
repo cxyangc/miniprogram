@@ -1,4 +1,5 @@
 
+var util = require('../../utils/util.js');
 const app = getApp()
 var timer; // 计时器
 Page({
@@ -11,6 +12,19 @@ Page({
     topName: {
       SearchProductName: "",//头部搜索的
     },
+    loginUser:null,
+
+    reportText: [
+      {
+        title:'abbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaaaaaaccccccccc'
+      },
+      {
+        title: 'bsssss'
+      },
+      {
+        title: 'caa'
+      },
+    ]
   },
 
   
@@ -133,7 +147,7 @@ Page({
   },
   getParac:function(){
     var that = this
-    var customIndex = app.AddClientUrl("/custom_page_index.html")
+    var customIndex = app.AddClientUrl("/custom_page_index.html",{},'get','1')
     //拿custom_page
     wx.request({
       url: customIndex.url,
@@ -195,35 +209,44 @@ Page({
       app.promiseonLaunch(this)
     }else{
        this.setData({
-      sysWidth: app.globalData.sysWidth
-    });
-    this.getParac()
-    //this.getData()
-    if (!!app.setting) {
-      this.setNavBar()
+          sysWidth: app.globalData.sysWidth
+        });
+        this.getParac()
+        //this.getData()
+        if (!!app.setting) {
+          this.setNavBar()
+        }
     }
-     
-    }
-   
-
-    /* this.setData({
-      sysWidth: app.globalData.sysWidth
-    });
-    this.getParac()
-    //this.getData()
-    if (!!app.setting) {
-      this.setNavBar()
-    } */
-    
-   
-
   },
   onReady: function () {
-   
+    if (app.shareParam && app.shareParam.pageName){
+      this.jumpToPage(app.shareParam)
+    }
+    
+    // Countdown(app,this);
+  },
+  jumpToPage: function (shareParam){
+    if (shareParam.pageName == 'custom_page_index'){
+      return
+    } else if (shareParam.pageName == 'shopping_car_list') {
+      return
+    } else if (shareParam.pageName == 'custom_page_userinfo') {
+      return
+    } else{
+      let paramStr = app.jsonToStr(shareParam)
+      wx.navigateTo({
+        url: '/pages/' + shareParam.pageName + '/index' + paramStr,
+      })
+    }
 
   },
   onShow: function () {
-    
+    console.log('-----------------a---------------')
+    let Time2 = util.formatTime(new Date())  //当前时间
+    let OldTime = '2018-3-1 15:20:33'
+    let result = util.GetDateDiff(OldTime, Time2,'second') 
+    let sss = util.timeStamp(result)
+    console.log(sss)
   },
 
   /* 组件事件集合 */
@@ -232,27 +255,24 @@ Page({
     app.linkEvent(linkUrl)
   },
   /* 分享 */
-  onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
-  
+  onShareAppMessage: function () {
+    return app.shareForFx2(app.miniIndexPage)
   },
   onPullDownRefresh: function () {
     this.onLoad();
     wx.stopPullDownRefresh()
   },
 })
-function Countdown(page) {
+function Countdown(page,that) {
   console.log('2')
-  if (!!page.setting) {
-    
-    page.toIndex()
+  if (page.loginUser) {
+    that.setData({
+      loginUser: page.loginUser
+    })
   }
   else {
     timer = setTimeout(function () {
-      Countdown(page);
+      Countdown(page,that);
     }, 1000);
   }
 };

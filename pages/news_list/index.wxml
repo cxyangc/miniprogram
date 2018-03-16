@@ -35,8 +35,8 @@
   <view class='ListDataItem' wx:for='{{tabData}}' wx:for-item='list' wx:key='{{index}}'
   data-id='{{list.id}}' bindtap='toNewsDetail'>
     <view class='ListDataItemWord'>
-      <text>{{list.title}}</text>
-     <!--  <text class='word2'>{{list.commentCount}} 评</text> -->
+      <text class='font_1'>{{list.title}}</text>
+      <text class='word2 font_08'>{{list.description}} </text> 
     </view>
     <view wx:if='{{list.imagePath}}' class='ListDataItemImage'><image mode='aspectFill' src='{{list.imagePath}}?x-oss-process=style/preview'></image></view>
   </view>

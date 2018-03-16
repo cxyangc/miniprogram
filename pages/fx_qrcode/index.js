@@ -8,14 +8,38 @@ Page({
   data: {
     FxImage:""
   },
+  lookBigImage:function(e){
+    let imgSrc = e.currentTarget.dataset.imageurl
+    console.log(imgSrc)
+    let PostImageSrc = imgSrc.replace(/http/, "https")
+    // let PostImageSrc = imgSrc
+    console.log(PostImageSrc)
+    if (!imgSrc) {
+      return
+    }
+    let urls = []
+    urls.push(imgSrc)
+    wx.previewImage({
+      current: imgSrc, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    })
+  },
   saveImageToLocal:function(e){
     let imgSrc = e.currentTarget.dataset.imageurl
     console.log(imgSrc)
     let PostImageSrc = imgSrc.replace(/http/, "https")
     // let PostImageSrc = imgSrc
     console.log(PostImageSrc)
-   
-    wx.downloadFile({
+    if (!imgSrc) {
+        return
+      }
+      let urls = []
+      urls.push(imgSrc)
+      wx.previewImage({
+        current: imgSrc, // 当前显示图片的http链接
+        urls: urls // 需要预览的图片http链接列表
+      })
+    /* wx.downloadFile({
       url: PostImageSrc,
       success:function (res) {
         console.log(res);
@@ -59,7 +83,7 @@ Page({
         console.log('url就错了')
         console.log(res)
       }
-    })
+    }) */
   },
   get_qrcode:function(){
     console.log('-------获取推广二维码信息--------')
@@ -142,10 +166,5 @@ Page({
   
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
   
-  }
 })

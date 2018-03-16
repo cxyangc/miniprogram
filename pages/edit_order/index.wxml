@@ -16,7 +16,7 @@
         </view>
       </block>
       
-    </view>
+    </view> 
     <image mode='aspectFill' src='/images/icons/right.png'></image>
   </view> 
 
@@ -75,20 +75,24 @@
     <!-- 留言 -->
     <view class='butn_container2'>
       <text>留言</text>
-      <input placeholder='选填，给卖家留言' value='{{orderData.buyerScript}}' bindinput='getBuyerScript'></input>
+      <input placeholder='选填，给卖家留言' maxlength='200' value='{{orderData.buyerScript}}' bindinput='getBuyerScript'></input>
     </view>
   </view>
 
   <!-- 支付方式 -->
   <view class='payName'>支付方式</view>
-  <radio-group bindchange="payWayChange">
-    <label class='payWay'>
-      <radio color="{{setting.platformSetting.defaultColor}}" checked='{{true}}' value='2'></radio>
-      <text>余额支付</text>
-    </label>
-    <label class='payWay'>
-      <radio color="{{setting.platformSetting.defaultColor}}"  value='3'></radio>
+  <radio-group class='radioGroup' bindchange="payWayChange">
+    
+    <label class='{{checkedRadio == 0?"payChecked":"payWay"}}' data-index='0' bindtap='radioChance'
+      wx:if='{{setting.platformSetting.zfWxzfEnable && setting.platformSetting.zfWxzfOn}}'><!--  -->
+      <radio hidden='true' color="{{setting.platformSetting.defaultColor}}" checked='{{checkedRadio == 0}}' value='3'></radio>
       <text>微信支付</text>
+    </label>
+
+    <label  class='{{checkedRadio == 1?"payChecked":"payWay"}}' data-index='1' bindtap='radioChance'
+      wx:if='{{setting.platformSetting.zfYezfEnable && setting.platformSetting.zfYezfOn}}'><!--  -->
+      <radio hidden='true' color="{{setting.platformSetting.defaultColor}}" checked='{{checkedRadio == 1}}' value='2'></radio>
+      <text>余额支付</text>
     </label>
   </radio-group>
 </view>

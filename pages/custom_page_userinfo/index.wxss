@@ -15,3 +15,10 @@
 @import '../../view-new/css/user_center_top_image.wxss';/* user_center_top_image */
 @import '../../view-new/css/user_center_order.wxss';/* user_center_order */
 @import '../../view-new/css/user_center_order2.wxss';/* user_center_order2 */
+
+@import '../../view-new/css/userinfo_header2.wxss';/* user_center_order2 */
+
+@import '../../view-new/css/userinfo_order3.wxss';/* user_center_order2 */
+@import '../../view-new/css/userinfo_list.wxss';/* user_center_order2 */
+@import '../../view-new/css/userinfo_mendian.wxss';/* user_center_order2 */
+

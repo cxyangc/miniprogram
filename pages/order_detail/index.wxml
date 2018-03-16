@@ -1,18 +1,40 @@
-<view class='container'>
-  <view class='orderSateContainer'>
-  <view class='oooo'>
-    <image mode='aspectFill' src='/images/icons/page.png'></image>
-    <view class='oooo_view'> 
-      <text class='font5'>订单号: {{orderDetailData.orderNo}}</text>
-      <text>订单金额: {{orderDetailData.goodsAmount}}</text>
-      <text>运费: {{orderDetailData.yunfeiAmount}}</text>
-      <text>{{orderDetailData.payTypeStr}}: {{orderDetailData.payAmount}}</text>
-    </view>
-  </view>
-   
-    <text style='color:{{setting.platformSetting.defaultColor}}'>{{orderDetailData.easyStatusStr}}</text>
-  </view>
+<view class='container font_08'>
+  <view class='orderSateContainer '>
+    <view class='oooo ' >
+      <image mode='aspectFill' src='/images/icons/page.png'></image>
+      <view class='oooo_view'> 
+        <text class='font5'>订单号: {{orderDetailData.orderNo}}</text>
+        <text>订单金额: {{orderDetailData.goodsAmount}}</text>
+        <text>运费: {{orderDetailData.yunfeiAmount}}</text>
+        <text>{{orderDetailData.payTypeStr}}: {{orderDetailData.payAmount}}</text>
+        <block wx:if='{{orderDetailData.payStatus == 0}}'> <text>支付状态: 未支付</text>  </block>
+          <block wx:if='{{orderDetailData.payStatus == 1}}'> <text>支付状态: 已支付</text>  </block>
+          <block wx:if='{{orderDetailData.payStatus == 2}}'> <text>支付状态: 已退款</text>  </block>
 
+      </view>
+    </view> 
+  
+    <block wx:if='{{orderDetailData.easyStatusStr == "作废"}}'> 
+          <text style='color:{{setting.platformSetting.defaultColor}}'>已作废</text>
+        </block>
+        <block wx:elif='{{orderDetailData.easyStatusStr == "完成"}}'> 
+          <text style='color:{{setting.platformSetting.defaultColor}}'>交易成功</text>
+        </block>
+        <block wx:elif='{{orderDetailData.easyStatusStr == "待评价"}}'> 
+          <text style='color:{{setting.platformSetting.defaultColor}}'>待完成</text>
+        </block>
+        <block wx:else>
+           <text style='color:{{setting.platformSetting.defaultColor}}'>{{orderDetailData.easyStatusStr}}</text>
+        </block>
+  </view>
+  <view class='orderKuaidi' wx:if='{{orderDetailData.orderStatus == 4}}'>
+      <view> 
+         <text>快递名：</text> <text style='color:{{setting.platformSetting.defaultColor}}'>{{orderDetailData.kuaidiName}}</text> 
+      </view>
+      <view class='orderKuaidi_no'>
+        <text>快递单号：</text> <text style='color:{{setting.platformSetting.defaultColor}}'>{{orderDetailData.invoiceNo}}</text>
+      </view>
+  </view>
   <view class='addrItems2'>
       <image mode="aspectFill" src='/images/icons/addr.png?x-oss-process=style/preview'></image>
       <view class='addrInfo'>

@@ -1,55 +1,29 @@
 const app = getApp()
-var timer; // 计时器
+var timer11; // 计时器
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    circle:{}
+    
   },
   
   toIndex:function(){
-    console.log('-------s-------')
     wx.reLaunch({
       url: '/pages/custom_page_index/index',
     })
   },
 
-  //定时刷新
-  freshLoading: function () {
-    let setting  =  app.setting
-   
-  },
-
-  //扫推荐码码进入
-  loadFromScene: function (inputScene){
-    let postParam = {}
-    postParam.inputScene = inputScene
-    var that = this
-    var customIndex = that.AddClientUrl("/wx_mini_code_login.html", postParam, 'post')
-
-          //发起网络请求
-          wx.request({
-            url: customIndex.url,
-            data: customIndex.param,
-            header: app.headerPost,
-            method: 'POST',
-            success: function (e) {
-              console.log(e)
-            }
-          })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  opt:{},
   onLoad: function (options) {
-    
+    console.log('---------index - onload ---------')
+    console.log(options) 
+    app.shareParam = options
+    //转发的数据都在这里，   这时候的scene已经被app.unlunch使用了。   
+    ///我们这里只需要把参数解析一下？放全局，等跳到首页的时候再做跳转
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
   onReady: function () {
     let that = this
    
@@ -57,21 +31,39 @@ Page({
     
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
-    
+    if (app.appHide) {
+      app.appHide = false
+      app.onLaunch(app.onLaunchOptions)
+    }
   },
-
+  count:10,
   Countdown:function(){
     let that = this
-    console.log('***')
-    if (!!app.setting) {
+    --this.count;
+    console.log('-------a--------')
+    if (app.setting ) {
+      clearTimeout(timer11)
       app.toIndex()
+      return false;
+    }
+    if (this.count < 1){
+      wx.showModal({
+        title: '网络错误',
+        content: '当前网络不通畅，初始化场景失败。请确认你的网络正常',
+        success: function (res) {
+          if (res.confirm) {
+
+          } else if (res.cancel) {
+            app.toIndex()
+          }
+        }
+      })
+      clearTimeout(timer11)
+      return false;
     }
     else {
-      timer = setTimeout(function () {
+      timer11 = setTimeout(function () {
         that.Countdown();
       }, 1000);
     }

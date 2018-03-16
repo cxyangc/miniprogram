@@ -8,6 +8,7 @@ Page({
   data: { 
     orderData:{},
     orderNo:'',
+    checkedRadio:0,
     //优惠券 
     getEditOrderDetailData:null,
     coupon:[],
@@ -24,14 +25,19 @@ Page({
     addrArr:null,
     hasAddnewAddr:false,
   },
+  radioChance:function(e){
+    var index = e.currentTarget.dataset.index
+    this.setData({
+      checkedRadio:index
+    })
+  },
   //will sent
   orderMessage:{
     platformNo:'',
     gotCouponListId:'',
     userId:'', 
-
     orderNo: '',
-    payType: '2',
+    payType: '3',
     buyerScript: '',
     addressId: '',
     jifenDikou: '0',
@@ -317,10 +323,5 @@ Page({
   
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
   
-  }
 })

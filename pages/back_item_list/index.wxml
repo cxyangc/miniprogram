@@ -21,14 +21,27 @@
           </block>
           <block wx:if='{{list.backItem == 1}}'>
             <text class='flexCenter butnForTuiKuan' style='color:{{setting.platformSetting.defaultColor}}'>退款处理中</text>
-            </block>
+          </block>
+
+          <block wx:if='{{list.backItem == 2}}'>
+            <text class='flexCenter butnForTuiKuan' data-id='{{list.id}}' bindtap='backWuLiu' style='color:#fff;background:{{setting.platformSetting.defaultColor}};'>填写发货单</text>
+            <text class='flexCenter butnForTuiKuan' style='color:{{setting.platformSetting.defaultColor}}'>同意退款</text>
+          </block>
+
+          <block wx:if='{{list.backItem == 6}}'>
+            <text class='flexCenter butnForTuiKuan' style='color:{{setting.platformSetting.defaultColor}}'>已填写发货单</text>
+          </block>
+
+          <block wx:if='{{list.backItem == 7}}'>
+            <text class='flexCenter butnForTuiKuan' style='color:{{setting.platformSetting.defaultColor}}'>商家已收到货</text>
+          </block>
+
           <block wx:if='{{list.backItem == 3}}'>
             <text class='flexCenter butnForTuiKuan' style='color:{{setting.platformSetting.defaultColor}}'>退款成功</text>
             </block>
           <block wx:if='{{list.backItem == 5}}'>
-          <text class='flexCenter butnForTuiKuan' data-orderNo='{{list.id}}' bindtap='tuikuan' style='color:#fff;background:{{setting.platformSetting.defaultColor}};'>申请退款</text>
+            <text class='flexCenter butnForTuiKuan' data-orderNo='{{list.id}}' bindtap='tuikuan' style='color:#fff;background:{{setting.platformSetting.defaultColor}};'>申请退款</text>
             <text class='flexCenter butnForTuiKuan' style='color:{{setting.platformSetting.defaultColor}}'>拒绝退款</text>
-
           </block>
           </view>
           <view class='item_infomation_money'>

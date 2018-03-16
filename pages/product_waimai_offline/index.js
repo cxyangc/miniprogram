@@ -82,7 +82,7 @@ Page({
     if (!ifAdd) {
       ifAdd = 1
     }
-    var customIndex = app.AddClientUrl("/more_product_list.html", param)
+    var customIndex = app.AddClientUrl("/more_product_list.html", param, 'get', '1')
     wx.showLoading({
       title: 'loading'
     })
@@ -659,9 +659,6 @@ Page({
       }, 300);
     }
 
-  },
-  onShareAppMessage: function () {
-    
   },
 
 

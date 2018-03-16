@@ -424,7 +424,7 @@ Page({
         
         that.setData({ productData: res.data })
         
-        if (!!res.data.productInfo.tags){
+        if (res.data.productInfo && res.data.productInfo.tags){
           let tagsStr = res.data.p11roductInfo.tags
           let tagsStr2 = tagsStr.replace(/\[/g, '');
           let tagArr = tagsStr2.split(']')
@@ -433,8 +433,8 @@ Page({
             targs: tagArr
           })
         }
-        if (!!res.data.description){
-          WxParse.wxParse('article', 'html', res.data.description.description, that, 0);
+        if (res.data.description && res.data.description.description){
+          WxParse.wxParse('article', 'html', res.data.description.description, that, 10);
         }
         if (!!res.data.productInfo){
           let info = res.data.productInfo
@@ -541,14 +541,18 @@ Page({
   onReachBottom: function () {
   
   },
-
+ 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
-  },
 
+  onShareAppMessage: function (res) {
+    console.log(res)
+    let that = this
+    let params = that.dataFOr_getData
+    console.log('params:' + params)
+    return app.shareForFx2('productDetail', '', params)
+  },
 
 
   /* 

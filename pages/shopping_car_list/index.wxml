@@ -4,26 +4,30 @@
     <view class='cartContainer' wx:for='{{cartData}}' wx:for-item='cartshop' wx:key='{{index}}'>
       <view class='cartShopName'>{{cartshop.shopName}}</view>
       
-      <view class='cartItems' wx:for='{{cartshop.carItems}}' wx:for-item='cart' wx:key='{{cart.id}}'>
+      <view class='cartItems' wx:for='{{cartshop.carItems}}' wx:for-item='cart' wx:key='{{cart.id}}' wx:if='{{cart.count}}'>
         <label class='itemCheckbox'>
           <checkbox  checked='{{allchecked}}' color='{{setting.platformSetting.defaultColor}}' value='{{cart.id}}'></checkbox>
           <image mode='aspectFill' src='{{cart.item.imagePath}}?x-oss-process=style/preview'></image>
         </label> 
 
         <view class='item_infomation'>
-          <view class='item_infomation_name' data-info='{{cart}}'
+          <view class='item_infomation_name' data-info='{{cart}}' 
             wx:if='{{cart.count}}'
            catchtap='toProductDetail'>{{cart.item.name}}</view>
-          <view wx:if='{{cart.count > cart.stock}}' class='cart_stock_warn'>
-             库存不足，剩余库存（{{cart.stock}}） 
+          <view wx:if='{{cart.count > cart.stock}}' class='cart_stock_warn font_red'>
+             库存不足，剩余库存（{{cart.stock}}）  
           </view>
 
           <view class='cart_infoMeasure'>
             <view wx:for='{{cart.measureCartensian.measurements}}'
              wx:for-item='mesure' wx:key='{{index}}'>{{mesure.measureName}}</view>
           </view>
+          
+          <view class='cart_infoMeasure font_red' wx:if='{{cart.item.promotion}}'>
+            <view >{{cart.item.promotionBean.name}}</view>
+          </view>
 
-          <view class='xxx' data-info='{{cart}}' catchtap='deleById'> 
+          <view class='xxx' data-info='{{cart}}' catchtap='deleById'>
             <image src='/images/icons/x.png' ></image>
           </view>
           <view class='item_infomation_nums'> 
@@ -63,5 +67,20 @@
     </view>
     <view class='toJieSuan_butn' bindtap='createOrder'
      style='background:{{setting.platformSetting.defaultColor}}'>去结算</view>
+  </view>
+</view>
+
+
+<view class='kefu_wx' wx:if='{{showHongDong}}'>
+  <view class='kefu_bg_zhezhao' bindtap='closeHuodong'></view>
+  <view class='kefu_wx_card'>
+     <view class='name'>你想要结算的活动</view>
+        <view class='code_container'>
+          <!-- <image class='{{loginUser.platformUser.mendian.kefuQrcode}}'></image> -->
+          <view class='code_item' wx:for='{{chooseArr}}' wx:key='{{item.id}}' data-id='{{item.id}}' bindtap='chooseActive'>{{item.name}}</view>
+        </view>
+        <view class='tips'>点击活动下单</view>
+        <view class='tips'>（购买该活动下的商品）</view>
+      
   </view>
 </view>

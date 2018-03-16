@@ -1,4 +1,35 @@
 /* pages/my_pages/my_coupons/index.wxss */
+
+.tab{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+}
+.tab view{
+  width: 33.33%;
+  height: 36px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: small;
+  color: #454545;
+}
+.tab_page_list_container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.Tab_page{
+  font-size: small;
+}
+.tab_page_list{
+  width: 100%;
+ 
+}
+
 /* 头部 */
 .active{
   border-bottom: 2px solid #8B572A;
@@ -10,21 +41,7 @@
   color: #8B572A;
   border-bottom: 1px solid #dddddd;
 }
-.tab{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-}
-.tab view{
-  width: 33.33%;
-  height: 3em;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  font-size: small;
-  color: #454545;
-}
+
 /* item */
 .couponListContainer{
   display: flex;
@@ -33,6 +50,7 @@
   width: 100%;
 }
 .couponListItem{
+  text-align: center;
   width: 90%;
   display: flex;
   flex-direction: column;

@@ -1,13 +1,25 @@
 <view class='container'>
- <block wx:if='{{!orderList}}'> 
+ <block wx:if='{{!orderList}}'>  
     <view class='none'>没有相关订单</view>
  </block>
  <block wx:else> 
     <view class='cartContainer' wx:for='{{orderList}}' wx:for-item='list' wx:key='{{index}}'>
       <view class='cartShopName'> 
         <text class='font1'>{{list.belongShopName}}</text>
-        <text class='' style='color:{{setting.platformSetting.defaultColor}}'>{{list.easyStatusStr}}</text>
+        <block wx:if='{{list.easyStatusStr == "作废"}}'> 
+          <text class='' style='color:{{setting.platformSetting.defaultColor}}'>已作废</text>
+        </block>
+        <block wx:elif='{{list.easyStatusStr == "完成"}}'> 
+          <text class='' style='color:{{setting.platformSetting.defaultColor}}'>交易成功</text>
+        </block>
+        <block wx:elif='{{list.easyStatusStr == "待评价"}}'> 
+          <text class='' style='color:{{setting.platformSetting.defaultColor}}'>待完成</text>
+        </block>
+        <block wx:else>
+           <text class='' style='color:{{setting.platformSetting.defaultColor}}'>{{list.easyStatusStr}}</text>
+        </block>
       </view>
+
       <view class='cartItems' wx:for='{{list.orderItems}}' 
         wx:for-item='orderItem' wx:key='{{orderItem.itemId}}' 
         data-orderNo='{{list.orderNo}}' bindtap='lookMore'>
@@ -17,7 +29,7 @@
         <view class='item_infomation'>
           <view class='item_infomation_name font1'>{{orderItem.itemName}}</view>
 
-          <view class='item_infomation_name' wx:if='{{!!orderItem.measureCartesianId}}'>{{orderItem.measures}}</view>
+          <view class='item_infomation_name2' wx:if='{{!!orderItem.measureCartesianId}}'>{{orderItem.measures}}</view>
           <view class='item_infomation_nums'> 
             <text class='flexCenter'>x {{orderItem.itemCount}}</text>
           </view>
@@ -43,11 +55,13 @@
         <text data-orderNo='{{list.orderNo}}' bindtap='cancelOrder'>取消订单</text>
       </view>
       <view wx:if='{{list.easyStatus == 4}}' class='butn_container2'>
-          <text data-orderNo='{{list.orderNo}}' bindtap='arriverOrder'>订单到货</text>
+          <text data-orderNo='{{list.orderNo}}' bindtap='arriverOrder'>确认收货</text>
       </view>
-      <view wx:if='{{list.easyStatus == 5}}' class='butn_container2'>
+
+      <!-- <view wx:if='{{list.easyStatus == 5}}' class='butn_container2'>
           <text data-orderNo='{{list.orderNo}}' bindtap='pingjiaOrder'>评价</text>
-      </view>
+      </view> -->
+
     </view>
  </block>
   

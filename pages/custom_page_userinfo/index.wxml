@@ -16,7 +16,10 @@
 <import src="../../view-new/partials/user_center_order.wxml"/><!-- user_center_order -->
 <import src="../../view-new/partials/user_center_order2.wxml"/><!-- user_center_order -->
 
-
+<import src="../../view-new/partials/userinfo_header2.wxml"/><!-- user_center_order -->
+<import src="../../view-new/partials/userinfo_order3.wxml"/><!-- user_center_order -->
+<import src="../../view-new/partials/userinfo_list.wxml"/><!-- user_center_order -->
+<import src="../../view-new/partials/userinfo_mendian.wxml"/><!-- user_center_order -->
 
 
 <!-- 

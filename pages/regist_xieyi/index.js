@@ -28,7 +28,7 @@ Page({
     this.setData({ setting: app.setting })
     var that = this
     var article = app.setting.platformSetting.agreement;
-    WxParse.wxParse('article', 'html', article, that, 5);
+    WxParse.wxParse('article', 'html', article, that, 10);
     /**
     * WxParse.wxParse(bindName , type, data, target,imagePadding)
     * 1.bindName绑定的数据名(必填)
@@ -75,10 +75,4 @@ Page({
   
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

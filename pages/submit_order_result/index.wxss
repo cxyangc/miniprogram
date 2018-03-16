@@ -1,6 +1,9 @@
 /* 头部的线 */
+.container{
+  font-size: 0.8em;
+}
 .addrtop{
-  padding: 5px;
+  padding: 0.4em;
   background: #8B572A;
   opacity: 0.5;
 }
@@ -13,7 +16,7 @@
 } 
 /* success */
 .successIcon{
-  padding: 15px;
+  padding: 1.4em;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,10 +24,9 @@
 }
 
 .Items{
-  padding: 10px;
+  padding: 1em;
   border-bottom: 1rpx solid #ddd;
   text-align: left;
-  font-size: small;
 }
 
 .butn{

@@ -1,15 +1,17 @@
 /* 购物车列表 */
+.container {
+  font-size:0.9em;
+}
 .cartContainer{
   width: 100%; 
   display: flex;
   flex-direction: column;
   color: #888;
   background: #fff;
-  font-size: small;
-  border-bottom: 1em solid #f2f2f2;
+  border-bottom: 1em solid #f2f2f2; 
 }
 .cartShopName{
-  padding: 15px 10px;
+  padding: 1em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -19,7 +21,7 @@
 .cartItems{
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  padding: 1em;
   overflow: hidden;
   border-bottom: 1px solid #dddddd;
   height: 5em;
@@ -41,7 +43,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 10px;
+  margin-left: 1em;
 }
 .item_infomation_name{
   width: 12em;
@@ -49,8 +51,14 @@
   text-overflow:ellipsis;
   white-space: nowrap;
 }
+.item_infomation_name2{
+  width: 9em;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
 .item_infomation_money{
-  font-size: xx-small;
+  font-size: 0.8em;
   display: flex;
   flex-direction: column;
 }
@@ -67,11 +75,10 @@
 
 .item_infomation_nums text{
   padding: 5px;
-  font-size: small;
   color: #aaa;
 }
 .butn_container{
-  padding: 10px;
+  padding: 1em;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -79,13 +86,13 @@
   border-bottom: 1px solid #dddddd;
 }
 .butn_container2{
-   padding: 10px;
+   padding: 1em;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   border-bottom: 1px solid #dddddd;
-  font-size: xx-small;
+  font-size: 0.8em;
 }
 .butn_container2 text{
   margin-left: 5px;
@@ -94,7 +101,7 @@
   border-radius: 3px;
 }
 .none{
-  font-size: small;
+  font-size: 1em;
   color: #777;
   position: absolute;
   top: 0;

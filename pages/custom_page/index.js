@@ -54,7 +54,7 @@ Page({
   getCustomPage: function (Cpage,pageParam) {
     var finnalUrl = "/custom_page_" + Cpage + ".html"
     console.log(finnalUrl)
-    var customIndex = app.AddClientUrl(finnalUrl, pageParam)
+    var customIndex = app.AddClientUrl(finnalUrl, pageParam,'get',1)
     var that = this
     wx.showLoading({
       title: 'loading'
@@ -85,6 +85,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  onloadOpt:{},
   onLoad: function (options) {
     if (!options){
       console.log('-------noOption------')
@@ -93,6 +94,7 @@ Page({
     if (!options.Cpage) {
       return
     }
+    this.onloadOpt = options
     this.getCustomPage(options.Cpage, options)    
     this.setData({
       sysWidth: app.globalData.sysWidth
@@ -151,10 +153,5 @@ Page({
   
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
+
 })

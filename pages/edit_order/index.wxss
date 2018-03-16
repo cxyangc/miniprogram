@@ -1,7 +1,7 @@
  /* pages/cart/index.wxss */
 .container{
-    background: #fff;
-    font-size: small;
+    background: #f3f3f3;
+    font-size: 0.8em;
 }
 /* 地址模块 */ 
 
@@ -10,15 +10,17 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom:1em solid #f2f2f2;
+  margin: 1em 0.6em;
+  background: #fff;
+  border-radius: 0.2em;
 }
 .addrItems > image{
-  width: 1em;
-  height: 1em;
-  margin-right: 15px;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 1.5em;
 }
 .addrItems > .addrItems_info{
-  padding: 10px;
+  padding: 1em;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -31,30 +33,29 @@
 
 }
 .addrItems_info view{
-  margin-left: 10px;
-  font-size: small;
+  margin-left: 1em;
   display: flex;
   flex-direction: column;
 }
 .addrName{
-  padding-bottom: 5px;
+  padding-bottom: 0.4em;
 }
 .font2{
-  font-size: xx-small;
+  font-size: 0.9em;
   width: 100%;
 }
 
 /* 购物车列表 */
 .cartContainer{
-  width: 100%;
+  margin: 0 0.6em;
   display: flex;
   flex-direction: column;
   color: #888;
   background: #fff;
-  font-size: small;
+  border-radius: 0.2em;
 }
 .cartShopName{
-  padding: 15px 10px;
+  padding: 1.4em 1em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -64,7 +65,7 @@
 .cartItems{
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  padding: 1em;
   overflow: hidden;
   border-bottom: 1px solid #dddddd;
   height: 5em;
@@ -79,13 +80,14 @@
 .itemCheckbox image{
   width: 5em;
   height: 5em;
+  border-radius: 0.2em;
 }
 
 .item_infomation{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 10px;
+  margin-left: 1em;
 }
 .item_infomation_name{
   width: 12em;
@@ -108,15 +110,14 @@
 }
 
 .item_infomation_nums text{
-  padding: 5px;
-  font-size: small;
+  padding: 0.4em;
   color: #aaa;
 }
 
 /* 横向显示 */
 
 .butn_container{
-  padding: 10px;
+  padding: 1em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -133,10 +134,10 @@
   margin-left: 5px;
   border: 1px solid #ddd;
   border-radius: 3px;
-  padding: 5px 30px 5px 10px;
+  padding: 0.4em 3em 0.4em 1em;
 }
 .butn_container2{
-  padding: 10px;
+  padding: 1em;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -144,15 +145,15 @@
   border-bottom: 1px solid #dddddd;
 }
 .butn_container2 input{
-  margin-left: 5px;
+  margin-left: 0.4em;
   width: 70%;
   border: 1px solid #ddd;
   border-radius: 3px;
-  padding: 5px 5px 5px 5px;
+  padding: 0.4em;
 }
 /* 积分抵扣 */
 .jifenContainer{
-  padding: 15px 10px;
+  padding: 1.4em 1em;
   display: flex;
   background: #fff;
   color: #333;
@@ -168,46 +169,65 @@
 }
 /* 支付方式 */
 .payName{
-  padding: 10px;
+  margin: 0 0.6em;
+  padding: 1em;
   display: flex;
-  background: #f2f2f2;
+  background: #fff;
   color: #aaa;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  border-bottom: 1px solid #dddddd;
 }
+.radioGroup{
+  display: flex;
+  flex-direction: row;
+  margin: 0 0.6em;
+  background: #fff;
+  padding:1em 0.6em;
 
+}
 .payWay{
-  padding: 15px 10px;
+  padding: 0.4em 1em;
   display: flex;
   background: #fff;
-  color: #333;
+  color: #000;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #dddddd;
-  
+  border: 1px solid #000;
+  margin-left: 0.8em;
+  border-radius: 0.2em;
 }
-.payWay text{
-  margin-left: 3em;
+.payChecked{
+  padding: 0.4em 1em;
+  display: flex;
+  background: #000;
+  color: #fff;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+  margin-left: 0.8em;
+  border-radius: 0.2em;
 }
 
+
 .height{
-  height: 4em;
+  height: 3.6em;
+  background: #f3f3f3;
 }
 .fottButn{
   position: fixed;
   bottom: 0;
+  z-index: 1;
   width: 100%;
-  height: 3.6em;
+  height: 3em;
   display: flex;
   flex-direction: row;
   justify-content: center; 
   align-items: center;
   background: #8B572A;
   color: #fff;
-  font-size: small;
 }
 
 /* 地址框框 */
@@ -221,10 +241,9 @@
   background: #f1f1f1;
   display: flex;
   flex-direction: column;
-  font-size: small;
 }
 .addnewarr{
-  padding: 10px;
+  padding: 1em;
   text-align: center;
   color: #8B572A;
   background: #fff;
@@ -236,7 +255,7 @@
   align-items: center;
   border-bottom: 1px dashed rgb(240,240,240);
   background: #fff;
-  padding: 10px;
+  padding: 1em;
 }
 .addrItems2 image{
   width: 1.4em;
@@ -244,11 +263,10 @@
 
 }
 .addrItems2 view{
-  margin-left: 10px;
-  font-size: small;
+  margin-left: 1em;
   display: flex;
   flex-direction: column;
 }
 .addrItems2 .font2{
-  margin-top: 5px;
+  margin-top: 0.4em;
 }

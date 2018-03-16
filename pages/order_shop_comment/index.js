@@ -11,9 +11,9 @@ Page({
     Data: null,
     //Reason: '',
     /* 分数 */
-    scoll_1: 1, //商品符合度
-    scoll_2: 1, //服务态度
-    scoll_3: 1, //发货速度
+    scoll_1: 5, //商品符合度
+    scoll_2: 5, //服务态度
+    scoll_3: 5, //发货速度
     getScore: 2, //评分
  
     checked: 2, //checkBox
@@ -303,11 +303,4 @@ Page({
   onReachBottom: function () {
 
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

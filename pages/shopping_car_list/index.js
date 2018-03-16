@@ -1,4 +1,4 @@
-
+ 
 import { json2Form } from "../../public/json2Form.js";
 const app = getApp()
 Page({
@@ -14,7 +14,11 @@ Page({
     countPrice:0,
     countGood:0,
     pushItem:[],
-    checkedItem: []
+    checkedItem: [],
+
+    maskLoad: false, //按钮loading
+
+    showHongDong:false, //活动
   },
   toProductDetail: function (e) {
     let info = e.currentTarget.dataset.info
@@ -107,11 +111,14 @@ Page({
     if (!app.checkShopOpenTime()) {
       return
     }
+    if (this.data.maskLoad) {
+      console.log('mask')
+      return
+    }
     var listPro = {
       shopId : '',
       selectedIds : ''
     }
-    
     
     var pushItem = this.data.pushItem
     if (pushItem.length == 0){
@@ -121,36 +128,63 @@ Page({
       listPro.shopId = pushItem[i].belongShop
       listPro.selectedIds += pushItem[i].id+ ','
     }
-    
+    this.setData({
+      maskLoad: true
+    })
     var that = this
     var customIndex = app.AddClientUrl(" /list_promotions_by_car_items.html", listPro,'post')
     wx.request({
       url: customIndex.url,
       data: customIndex.params,
       header: app.headerPost,
-      method: 'POST',
+      method: 'post',
       success: function (res) {
         console.log('------这里应该有promotionId数组--------')
-        console.log(res)
+        console.log(res.data)
         
         wx.hideLoading()
-        if (!!res.data.promotionId){
-          listPro.promotionId = res.data.promotionId
-        }else{
+       
+        
+        if (res.data.length && res.data[0].id) {
+
+          if (res.data.length == 1) {
+            listPro.promotionId = res.data[0].id
+            that.createOrder22_car(listPro)
+          } else {
+            that.listPro_passActive = listPro
+            that.setData({
+              showHongDong: true,
+              chooseArr: res.data
+            })
+          }
+        } else {
           listPro.promotionId = '0'
+          that.createOrder22_car(listPro)
         }
-        console.log(res.data)
-        console.log(listPro)
-        that.createOrder22(listPro)
       },
       fail: function (res) {
         wx.hideLoading()
+        that.setData({
+          maskLoad: false
+        })
         app.loadFail()
       }
     })
-    
-   
-
+  },
+  /* 选择活动 */
+  closeHuodong:function(){
+    this.setData({
+      showHongDong: false,
+    })
+  },
+  listPro_passActive:{},
+  chooseActive:function(e){
+    let id = e.currentTarget.dataset.id;
+    console.log(id)
+    let listPro = this.listPro_passActive
+    listPro.promotionId = id
+    console.log(listPro)
+    this.createOrder22(listPro)
   },
   /* 创建订单 */
   createOrder22: function (o) {
@@ -178,12 +212,19 @@ Page({
             image: '/images/icons/tip.png',
             duration: 2000
           })
+          that.setData({
+            maskLoad: false
+          })
         }
         
       },
       fail: function (res) {
         wx.hideLoading()
+        that.setData({
+          maskLoad: false
+        })
         app.loadFail()
+        
       }
     })
   },
@@ -249,9 +290,7 @@ Page({
     if (!focusCartItem){
       focusCartItem = 0
     }
-    if (data.count == 0){
-      that.getCart()
-    }
+    
     var customIndex = app.AddClientUrl("/change_shopping_car_item.html", data,'post')
     wx.request({
       url: customIndex.url,
@@ -269,6 +308,9 @@ Page({
               cartData: that.data.cartData
             })
           }
+        }
+        if ((data.count == 1 || data.count == 0) && data.type == 'change') {
+          that.getCart()
         }
       },
       fail: function (res) {
@@ -304,12 +346,13 @@ Page({
           })
         }
         else{
+          
           if (!res.data.result||res.data.result.length == 0){
             that.setData({ cartData: null })
           }else{
             that.setData({ cartData: res.data.result })
           }
-          
+          that.showPrice()
           
         }
         
@@ -326,12 +369,23 @@ Page({
     console.log('--------checkBox------')
     console.log(e.detail.value)
     var checkedItem = e.detail.value
+    console.log(checkedItem)
+    
+    let cartData = this.data.cartData[0].carItems
+    if (checkedItem.length == cartData.length){
+      this.setData({
+        allchecked:true
+      })
+    }
     this.setData({
       checkedItem: checkedItem
     })
     this.showPrice()
   },
   chooseAll:function () {
+    if (!this.data.cartData){
+      return
+    }
     var checkedItem=[]
     if (!this.data.allchecked){
       for (let i = 0; i < this.data.cartData[0].carItems.length; i++) {
@@ -350,6 +404,13 @@ Page({
   },
  
   showPrice: function () {
+    if (!this.data.cartData){
+      this.setData({
+        countGood: 0,
+        countPrice: 0
+      })
+      return
+    }
     var checkedItem = this.data.checkedItem
     var cartDataItem = this.data.cartData[0].carItems
 
@@ -368,7 +429,7 @@ Page({
       countGood += parseInt(pushItem[i].count)
       countPrice += parseInt(pushItem[i].count) * pushItem[i].carItemPrice
     }
-   
+    countPrice = countPrice.toFixed(2)
     this.setData({
       pushItem: pushItem,
       countGood: countGood,
@@ -383,8 +444,10 @@ Page({
    */
   onLoad: function (options) {
 
-    this.setData({ setting: app.setting })
-    this.setData({ loginUser: app.loginUser })
+    this.setData({ 
+      setting: app.setting ,
+      loginUser: app.loginUser
+    })
 
     this.getCart()
     
@@ -395,13 +458,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    /* if (!!app.loginUser) {
-      this.setData({ loginUser: app.loginUser })
-    } else {
-      wx.navigateTo({
-        url: '../login/index',
-      })
-    } */
+   
+   
   },
 
   /**
@@ -411,6 +469,9 @@ Page({
     if (!!app.loginUser) {
       this.setData({ loginUser: app.loginUser })
     }
+    this.setData({
+      maskLoad: false
+    })
     this.getCart()
   },
 
@@ -435,7 +496,10 @@ Page({
     this.getCart()
     wx.stopPullDownRefresh()
   },
-
+  /* 分享 */
+  onShareAppMessage: function () {
+    return app.shareForFx2(app.miniIndexPage)
+  },
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -443,15 +507,5 @@ Page({
   
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    /*
-    return {
-      title: '福州三三',
-      desc: '说明!',
-      path: '/page/index/index?id=123'
-    }*/
-  }
+
 })

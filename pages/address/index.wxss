@@ -3,10 +3,11 @@
 .container{
   background: #fff;
   margin-bottom: 4em;
+  font-size: 0.8em;
 }
 /* 头部的线 */
 .addrtop{
-  padding: 5px;
+  padding: 0.4em;
   background: #8B572A;
   opacity: 0.5;
 }
@@ -35,13 +36,12 @@
   height: 1.4em;
 }
 .addrItems_info view{
-  margin-left: 10px;
-  font-size: small;
+  margin-left: 1em;
   display: flex;
   flex-direction: column;
 }
 .font2{
-  margin-top: 5px;
+  margin-top: 0.4em;
 }
 
 .addrItems_deel{
@@ -49,13 +49,12 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  font-size: x-small;
   color: #aaa;
 }
 .addrItems_deel image{
   width: 1.4em;
   height: 1.4em;
-  margin-right: 10px;
+  margin-right: 1em;
   border-radius: 50%;
 }
 .addrItems_deel .tomoren{
@@ -72,10 +71,9 @@
 }
 .addrItems_deel_botton view{
   border: 1rpx solid #aaa;
-  padding: 6px 8px;
-  margin-left: 5px;
-  border-radius: 3px;
-  font-size: small;
+  padding: 0.4em 0.6em;
+  margin-left: 0.4em;
+  border-radius: 0.4em;
 }
 
 
@@ -91,9 +89,8 @@
   align-items: center;
   color: #fff;
   background: #8B572A;
-  font-size: x-small;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
 }
 .addnewAddr image{
   width: 1.6em;

@@ -23,6 +23,13 @@ Page({
     totalSize: 0,
     curpage: 1
   },
+  backWuLiu:function(e){
+    var id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/back_item_wuliu/index?shopBackAmountId=' + id,
+    })
+    this.setData({ IfbackTo: true })
+  },
   /* 获取订单列表 */
   getOrderList: function (options) {
     if (!app.checkIfLogin()) {
@@ -123,10 +130,5 @@ Page({
       this.getOrderList(that.GloOption)
     }
   },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
+  
 })

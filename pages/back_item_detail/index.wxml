@@ -1,7 +1,7 @@
 <view class='container'>
 
 
-    <view class='cartContainer'>
+    <view class='cartContainer'> 
       <view class='cartShopName'>
         <text>订单号：{{Data.belongOrderNo}}</text>
         <!-- <text class='color'>{{list.easyStatusStr}}</text> --> 
@@ -21,6 +21,20 @@
         </view>
       </view>
     </view>
+
+    <view class='backTextContainer'>
+      <view >选择问题类型</view>
+        <radio-group class='backTags_container' name='tag' bindchange='chooseTag'>
+          <label class='font_08' wx:for='{{tags}}' wx:for-item='tag' wx:for-index="i" wx:key='{{i}}'
+          data-index='{{i}}' catchtap='radioChange'>
+            <view class='{{chooseTag == i? "activeTag":""}}'>{{tag.tagName }}</view>
+            <radio checked='{{chooseTag == i}}' value='{{tag.id }}' hidden='true'></radio>
+          </label>
+        </radio-group>
+    </view>  
+
+   
+
 
     <view class='backTextContainer'>
       <view >退款原因</view>

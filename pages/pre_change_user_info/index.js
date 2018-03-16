@@ -18,6 +18,42 @@ Page({
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths[0]
+        let imageParam = {}
+        imageParam.imageUrl = tempFilePaths
+        var customIndex = app.AddClientUrl("/imageToBase64A.html",  imageParam ,'post')
+        /*wx.request({
+          url: customIndex.url,
+          data: customIndex.params,
+          header: app.headerPost,
+          method: 'POST',
+          success: function (res) {
+            console.log(res.data)
+           
+          },
+          fail: function (res) {
+            app.loadFail()
+          },
+          complete: function () {
+            
+          }
+        })*/
+        /*
+        wx.uploadFile({
+          url: '127.0.0.1:3000/chainalliance/imageToBase64A.html', //仅为示例，非真实的接口地址
+          filePath: tempFilePaths,
+          name: 'file',
+          formData: {
+            'user': 'test'
+          },
+          success: function (res) {
+            var data = res.data
+            console.log(res)
+            //do something
+          },
+          fail:function(res){
+            console.log(res)
+          },
+        })*/
         console.log(tempFilePaths)
         //console.log(that.data.loginUser)
         that.data.loginUser.userIcon = tempFilePaths
@@ -27,6 +63,7 @@ Page({
       }
     })
   },
+  
   /* 提交 */
   //提交成功，重新登陆
   changeUserInfo: function (e) {
@@ -40,6 +77,20 @@ Page({
     reLoginData.username = loginUser.name
     reLoginData.password = loginUser.passworld
     var userInfo = e.detail.value
+
+    //检测手机号
+    var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+    
+    let phoneNo = userInfo.telno
+    if (!myreg.test(phoneNo)) {
+      wx.showToast({
+        title: "号码格式错误",
+        image: '/images/icons/tip.png',
+        duration: 2000
+      })
+      return;
+    } 
+
     userInfo.headimg = this.imageUrl
     var that = this
     var customIndex = app.AddClientUrl("/change_user_info.html", userInfo,'post')
@@ -232,10 +283,4 @@ Page({
   
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

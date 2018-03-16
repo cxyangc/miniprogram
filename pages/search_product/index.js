@@ -387,7 +387,7 @@ Page({
    */
   onLoad: function (options) {
 
-    if (!!options.productTypeId) {
+    if (options.productTypeId) {
       options.categoryId = options.productTypeId
     }
     if (!!options.forceSearch && options.forceSearch == 2) {
@@ -465,10 +465,4 @@ Page({
     }
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

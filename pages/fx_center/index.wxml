@@ -18,7 +18,7 @@
 </view>  
 <view wx:else class='container'>
  
-   <view  class='fx_head_container' style='background:{{setting.platformSetting.defaultColor}}'>
+   <view  class='fx_head_container' >
     <view class='fx_userInfo'>
       <view class='headImageContainer'>
         <image src='{{fxCenter.headimgurl}}'></image>

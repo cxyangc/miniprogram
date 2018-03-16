@@ -148,7 +148,7 @@ Page({
     }
     //var postParam = this.ChangeParam(param)
     //param.page = this.listPage.page
-    var customIndex = app.AddClientUrl("/more_product_list.html", param)
+    var customIndex = app.AddClientUrl("/more_product_list.html", param, 'get', '1')
     wx.showLoading({
       title: 'loading'
     })
@@ -467,10 +467,4 @@ Page({
     }
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

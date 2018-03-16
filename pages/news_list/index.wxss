@@ -28,15 +28,20 @@
   display: flex;
   flex-direction: column;
   border-top: 1px solid #ddd;
+  font-size: 1em;
+  padding: 0.8em;
+  background: #f3f3f3;
 }
 .ListDataItem{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 0.8em;
   height: 4em;
-  border-bottom: 1px solid #ddd;
+  border-radius: 0.4em;
+  margin-bottom: 0.8em;
+  background: #fff;
 }
 .ListDataItemWord{
   width: 70%;
@@ -54,13 +59,12 @@
 }
 .ListDataItemWord .word2 {
   color: #aaa;
-  margin-left: 10px;
-  font-size: small;
 }
 .ListDataItemImage{
   width: 30%;
   height: 100%;
   overflow: hidden;
+  border-radius: 0.2em;
 }
 .ListDataItemImage image{
   width: 100%;

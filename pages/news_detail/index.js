@@ -42,7 +42,9 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  onloadOpt:{},
   onLoad: function (options) {
+    this.onloadOpt = options
     this.getData(options)
   },
 
@@ -92,6 +94,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    let that = this
+    let params = app.jsonToStr2(that.onloadOpt)
+    console.log('params:' + params)
+    return app.shareForFx('news_detail', '', params)
   }
 })

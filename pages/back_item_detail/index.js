@@ -8,20 +8,37 @@ Page({
   data: {
     setting:null,
     Data:null,
-    Reason:''
+    Reason:'',
+    sentTagId:'',
+
+    tags:[],
+    chooseTag:0,
   },
   getReason:function(e){
     this.setData({
       Reason:e.detail.value
     })
   },
+  radioChange: function (e) {
+    let index = e.currentTarget.dataset.index
+    this.setData({ chooseTag: index })
+  },
+  chooseTag: function (e) {
+    console.log(e.detail.value)
+    this.setData({
+      sentTagId: e.detail.value
+    })
+    
+  },
+  // 上传
   sureBackItem:function(){
     let Reason = this.data.Reason
     let Data = this.data.Data
+    let tag = this.data.sentTagId
     let param = {}
       param.orderItemId = Data.id,
       param.backReason =  Reason
-    
+      param.tags = tag
     var that = this
     wx.showModal({
       title: '提示',
@@ -73,20 +90,21 @@ Page({
     param.orderItemId = orderItemId
     console.log(orderItemId)
     var customIndex = app.AddClientUrl("/get_back_order_item_page.html", param ,'get')
-          wx.request({
-            url: customIndex.url ,
-            header: app.header,
-            success: function (res) {
-              that.setData({
-                Data:res.data
-              })
-              console.log(res.data)
-              
-            },
-            fail: function (res) {
-              app.loadFail()
-            }
-          })
+    wx.request({
+      url: customIndex.url ,
+      header: app.header,
+      success: function (res) {
+        // if(res.data.errcode)
+        that.setData({
+          Data:res.data
+        })
+        console.log(res.data)
+        
+      },
+      fail: function (res) {
+        app.loadFail()
+      }
+    })
        
   },
 
@@ -95,14 +113,21 @@ Page({
    */
   onLoad: function (options) {
     this.getItem(options.orderItemId)
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    let setting = app.setting
+    let tags = setting.platformSetting.tagsMap['售后']
+      
+    console.log(tags)
     this.setData({
-      setting:app.setting
+      setting:app.setting,
+      tags: tags,
+      sentTagId : tags[0].id
     })
   },
 
@@ -141,10 +166,4 @@ Page({
   
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

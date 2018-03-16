@@ -1,29 +1,24 @@
 /* pages/back_item_detail/index.wxss */
-.butnForTuiKuan{
-  padding: 8px 8px;
-  border-radius: 5px;
-}
-
 
 /* 购物车列表 */
 .cartContainer{
-  width: 100%;
+  width: 100%; 
   display: flex;
   flex-direction: column;
   background: #fff;
+  font-size: 0.8em;
 }
 .cartShopName{
-  padding: 10px;
+  padding: 1em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  font-size: small;
 }
 .cartItems{
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  padding: 1em;
   overflow: hidden;
   position: relative;
   background-color: #fff;
@@ -43,40 +38,62 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-left: 10px;
+  margin-left: 1em;
 }
 .item_infomation_name{
+  width: 14em;
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+
 }
 .item_infomation_money{
-  font-size: small;
   display: flex;
   flex-direction: column;
   color: #888;
 }
 .item_infomation_money text{
-  margin-top: 10px;
+  margin-top: 0.4em;
 }
 
 /* 返回的text */
 .backTextContainer{
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  font-size: small;
+  padding:0.4em 1em
 }
 .backTextContainer textarea{
-  margin-top: 5px;
+  margin-top: 0.4em;
   width: 100%;
   height: 5em;
   border: 1px solid #ddd; 
-  border-radius: 5px;
+  border-radius: 0.4em;
 }
 .backTextContainer button{
   margin-top: 1em;
   width: 100%;
   color: #fff;
   background: green;
+}
+
+
+/* 退款标签 */
+.backTags_container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top:0.4em ;
+}
+.backTags_container view{
+  margin-right: 1em;
+  padding: 0.4em 0.8em;
+  border-radius: 0.6em;
+  color: #000;
+  border: 1px solid #ddd;
+  margin-bottom: 0.8em;
+}
+.activeTag{
+   border: 1px solid red !important;
 }

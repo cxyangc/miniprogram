@@ -1,6 +1,6 @@
- <view class='container'>  
-  <view class='addrtop' style='background:{{setting.platformSetting.defaultColor}}'><view></view></view>
-  
+<view class='container'>  
+<!--   <view class='addrtop' style='background:{{setting.platformSetting.defaultColor}}'><view></view></view>
+   -->
   <view class='addrItems' wx:for='{{addrData}}' wx:for-item='addr' wx:key="{{addr.id}}">
     <view class='addrItems_info'>
       

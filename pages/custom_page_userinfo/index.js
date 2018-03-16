@@ -71,7 +71,7 @@ Page({
   },
   /*  */
   getData: function () {
-    var customIndex = app.AddClientUrl("/custom_page_userinfo.html")
+    var customIndex = app.AddClientUrl("/custom_page_userinfo.html", {}, 'get', '1')
     var that = this
     wx.showLoading({
       title: 'loading'
@@ -104,7 +104,7 @@ Page({
         partials[i].jsonData = JSON.parse(partials[i].jsonData)
       } 
       if (partials[i].partialType == 1) {
-        WxParse.wxParse('article', 'html', partials[i].jsonData.content, that, 5);
+        WxParse.wxParse('article', 'html', partials[i].jsonData.content, that, 10);
       } 
       PaiXuPartials.push(partials[i]);
     }
@@ -231,8 +231,9 @@ Page({
   /**
    * 用户点击右上角分享
    */
+  /* 分享 */
   onShareAppMessage: function () {
-  
+    return app.shareForFx2(app.miniIndexPage)
   },
 
   /* 组件事件集合 */

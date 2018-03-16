@@ -18,7 +18,7 @@ Page({
   
   /* 获取数据 */
   getData: function () {
-    var customIndex = app.AddClientUrl("/custom_page_fx.html")
+    var customIndex = app.AddClientUrl("/custom_page_fx.html", {}, 'get', '1')
     var that = this
     wx.showLoading({
       title: 'loading'
@@ -53,7 +53,7 @@ Page({
       }
       if (partials[i].partialType == 1) {
 
-        WxParse.wxParse('article', 'html', partials[i].jsonData.content, that, 5);
+        WxParse.wxParse('article', 'html', partials[i].jsonData.content, that, 10);
       }
       if (partials[i].partialType == 12) {
         wx.setNavigationBarTitle({
@@ -188,7 +188,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return app.shareForFx('custom_page_fx')
   },
 
   /* 组件事件集合 */

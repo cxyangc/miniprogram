@@ -39,14 +39,21 @@ Page({
             method: 'POST',
             success: function (res) {
               console.log(res)
-              if (!!res.data.id) {
+              if (res.data.id) {
                 wx.showToast({
                   title: '提交成功',
                   icon: 'success',
                   duration: 2000
                 })
+                setTimeout(function () { wx.navigateBack() }, 2000)
+              }else{
+                wx.showToast({
+                  title: res.data.errMsg,
+                  image: '/images/icons/tip.png',
+                  duration: 2000
+                })
               }
-              setTimeout(function () { wx.navigateBack() }, 2000)
+              
             },
             fail: function () {
             },
@@ -55,7 +62,7 @@ Page({
             }
           })
         } else if (res.cancel) {
-
+          that.setData({ butn_show_loading: false })
           console.log('用户点击取消')
         }
       }
@@ -113,10 +120,5 @@ Page({
 
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
 
-  }
 })
