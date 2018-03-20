@@ -13,6 +13,7 @@
     "pages/brand_list/index",
     "pages/brand_detail/index",
     "pages/login/index",
+    "pages/login_wx/index",
     "pages/regist/index",
     "pages/regist_xieyi/index",
 
@@ -29,6 +30,8 @@
     "pages/back_item_list/index",
     "pages/back_item_detail/index",
     "pages/back_item_wuliu/index",
+    "pages/back_item_more/index",
+    
     "pages/order_commit_detail/index",
     "pages/order_shop_comment/index",
     "pages/submit_order_result/index",
@@ -75,8 +78,10 @@
     "pages/mendian_center/index",
     "pages/mendian_will_order/index",
     "pages/mendian_order/index",
+    "pages/mendian_order_detail/index",
     "pages/mendian_user/index",
     "pages/mendian_zijin/index",
+    "pages/mendian_tixian/index",
     "pages/mendian_back_item/index"
   ],
 
@@ -87,19 +92,25 @@
   "backgroundColor": "#ffffff",
   "list": [
     {
-      "pagePath": "pages/aikucun_index/index",
+      "pagePath": "pages/custom_page_index/index",
       "iconPath": "images/icons/home1.png",
       "selectedIconPath": "images/icons/home2.png",
       "text": "首页"
     },
     {
-      "pagePath": "pages/aikucun_car_list/index",
+      "pagePath": "pages/product/index",
+      "iconPath": "images/icons/good1.png",
+      "selectedIconPath": "images/icons/good2.png",
+      "text": "产品"
+    },
+    {
+      "pagePath": "pages/shopping_car_list/index",
       "iconPath": "images/icons/cart1.png",
       "selectedIconPath": "images/icons/cart2.png",
       "text": "购物车"
     },
     {
-      "pagePath": "pages/aikucun_userinfo/index",
+      "pagePath": "pages/custom_page_userinfo/index",
       "iconPath": "images/icons/me1.png",
       "selectedIconPath": "images/icons/me2.png",
       "text": "我的"
