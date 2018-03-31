@@ -1,0 +1,46 @@
+.userinfo_head3{
+  width: 100%;
+  height: 11em;
+  background: #eee;
+  position: relative;
+}
+.userinfo_head3_bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  overflow: hidden;
+}
+.userinfo_head3_bg > image{
+  width: 100%;
+  height: 100%;
+  
+}
+
+.userinfo_head3_content{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.userinfo_head3_content > image{
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  border: 1rpx solid #ccc;
+}
+.userinfo_head3_content text{
+  margin-top: 1em;
+  color: #000;
+
+}
+
