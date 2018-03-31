@@ -5,9 +5,14 @@ Page({
  
   data: {
     loginUser:null,
-    butn_show_loading:false
+    butn_show_loading:false,
+    hasNoScope:false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  imageUrl:"",
+  imageUrl:"", 
+  bindgetuserinfo(e){
+    console.log(e)
+  },
   /* 图片 */
   changeImage: function () {
     var that = this
@@ -70,7 +75,7 @@ Page({
     console.log(e.detail)
     var reLoginData = {
       username: "",
-      passworld:""
+      passworld:"" 
     }
     this.setData({ butn_show_loading:true })
     var loginUser = this.data.loginUser
@@ -79,7 +84,7 @@ Page({
     var userInfo = e.detail.value
 
     //检测手机号
-    var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+    var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1})|(19[0-9]{1})|(16[0-9]{1})|(14[0-9]{1}))+\d{8})$/;
     
     let phoneNo = userInfo.telno
     if (!myreg.test(phoneNo)) {
@@ -88,6 +93,7 @@ Page({
         image: '/images/icons/tip.png',
         duration: 2000
       })
+      this.setData({ butn_show_loading: false })
       return;
     } 
 
@@ -230,8 +236,19 @@ Page({
   onLoad: function (options) {
     
     this.setData({
-      loginUser: app.loginUser
+      loginUser: app.loginUser,
+      hasNoScope: app.hasNoScope
     })
+    if (this.data.canIUse){
+      app.userInfoReadyCallback = res => {
+        console.log(res)
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    }
+    
     this.setData({ setting: app.setting })
   },
 
@@ -245,7 +262,7 @@ Page({
     }
     console.log(".............")
     console.log(this.data.loginUser)
-    this.imageUrl = this.data.loginUser.userIcon
+    this.imageUrl = this.data.loginUser.platformUser.headimgurl
   },
 
   /**

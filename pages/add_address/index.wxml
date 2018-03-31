@@ -2,14 +2,14 @@
 <form class='container' >
   <label class='inputContainer'>
     <view class='InputName'>姓名</view>
-    <input class='InputContent' bindinput='getName' value='{{needParam.contactName}}' placeholder='请输入姓名'></input>
+    <input class='InputContent' bindinput='getName' maxlength='20' value='{{needParam.contactName}}' placeholder='请输入姓名'></input>
   </label>
   <label class='inputContainer'>
     <view class='InputName'>手机</view>
     <input class='InputContent' bindinput='getPhone'  value='{{needParam.telno}}' placeholder='请输入手机号'></input>
   </label>
 
-  <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+  <picker mode="region" bindchange="bindRegionChange"  value="{{region}}" custom-item="{{customItem}}">
     <view>
      <label class='inputContainer'>
         <view class='InputName'>省份</view>
@@ -28,17 +28,17 @@
 
   <label class='inputContainer'>
     <view class='InputName'>详细地址</view>
-    <input class='InputContent' value='{{needParam.detail}}' bindblur='getAddr' placeholder='请输入详细地址'></input>
+    <input class='InputContent'  maxlength='50' value='{{needParam.detail}}' bindblur='getAddr' placeholder='请输入详细地址'></input>
   </label>
 
-  <label class='inputContainer'>
+   <label class='inputContainer'>
     <view class='InputName'>经度</view>
     <view class='InputContent'>{{needParam.longitude}}</view>
   </label>
   <label class='inputContainer'>
     <view class='InputName'>纬度</view>
     <view class='InputContent'>{{needParam.latitude}}</view>
-  </label>
+  </label> 
   <checkbox-group bindchange="defaultAddressChange">
   <label class='inputContainer'>
     <view class='InputName'>设为默认地址</view>

@@ -11,14 +11,14 @@
 
     <view class='report_area'>
       <view class='report_area_s'>
-            <image class='report_icon' src='http://image1.sansancloud.com/aikucun/2018_03/07/18/37/42_124.jpg' mode='aspectFit'></image>
+            <image class='report_icon' src='http://image1.sansancloud.com/aikucun/2018_03/21/15/29/30_038.jpg?x-oss-process=style/preview_120' mode='aspectFit'></image>
             <swiper class='report_list2' autoplay="{{true}}" interval="5000" duration="500" vertical='{{true}}'>
-              <block wx:for="{{indexData.newsList}}" wx:key='{{index}}'>
+              <block wx:for="{{newsList}}" wx:key='{{index}}'>
                 <swiper-item class='reportText'>
-                  <text class='font_08'  data-id='{{item.id}}' bindtap='toNewsList'>{{item.title}}</text>
+                  <text class='font_08' style='color:#d28a4c;' data-id='{{item.id}}' bindtap='toNewsList'>{{item.title}}</text>
                 </swiper-item>
               </block>
-            </swiper> 
+            </swiper>  
       </view>
 
       

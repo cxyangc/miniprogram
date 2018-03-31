@@ -184,10 +184,10 @@ Page({
     let listPro = this.listPro_passActive
     listPro.promotionId = id
     console.log(listPro)
-    this.createOrder22(listPro)
+    this.createOrder22_car(listPro)
   },
   /* 创建订单 */
-  createOrder22: function (o) {
+  createOrder22_car: function (o) {
     var customIndex = app.AddClientUrl("/shopping_car_list_item_create_order.html", o,'post')
     var that = this
     wx.showLoading({
@@ -331,19 +331,7 @@ Page({
         console.log(res.data)
         if (res.data.errcode == '10001'){
           that.setData({ cartData: null })
-          wx.showModal({
-            title: '提示',
-            content: '用户未登录',
-            success: function (res) {
-              if (res.confirm) {
-                wx.navigateTo({
-                  url: '/pages/login/index'
-                })
-              } else if (res.cancel) {
-
-              }
-            }
-          })
+          app.loadLogin()
         }
         else{
           

@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -9,32 +9,18 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.6.0",
-	"appid": "touristappid",
-	"projectname": "222",
+	"appid": "wx37b3f495891dd60c",
+	"projectname": "%E5%B0%8F%E5%B0%8F%E4%BB%93",
 	"condition": {
-		"weapp": {
-			"current": -1,
-			"list": [
-				{
-					"id": -1,
-					"name": "tet",
-					"pathName": "pages/index/index",
-					"query": "scene=PLATFORM_SUERID_12121"
-				},
-				{
-					"id": 1,
-					"name": "platformNo",
-					"pathName": "pages/custom_page_index/index",
-					"query": "platformNo=majiang"
-				}
-			]
-		},
 		"search": {
 			"current": -1,
 			"list": []
 		},
 		"conversation": {
 			"current": -1,
+			"list": []
+		},
+		"game": {
 			"list": []
 		},
 		"miniprogram": {
@@ -46,6 +32,13 @@
 					"pathName": "pages/index/index",
 					"query": "platformNo=shuiguo",
 					"scene": "1011"
+				},
+				{
+					"id": 1,
+					"name": "page2222",
+					"pathName": "pages/index/index",
+					"query": "scene=MINI_PLATFORM_USER_ID_14308",
+					"scene": "1071"
 				}
 			]
 		}

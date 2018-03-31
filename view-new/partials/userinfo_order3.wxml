@@ -6,11 +6,15 @@
     </view>
     <view  class="userinfo_order3_list_container" wx:if="{{showType == 0}}">
         <view class="userinfo_order3_list_item font_08" style="width:{{100/ column}}%;"  wx:for="{{cells}}" wx:for-item="cells" wx:key="{{index}}" data-link='{{cells.linkUrl}}' bindtap='tolinkUrl'>
-          <image  src="{{cells.iconPath}}?x-oss-process=style/preview"></image>
+          
+          <view class='imageContainer_order'>
+            <view class='red_poient_num' wx:if='{{cells.showCountNum > 0}}'>{{cells.showCountNum}}</view>
+            <image  src="{{cells.iconPath}}?x-oss-process=style/preview"></image>
+          </view>
           <view class='userinfo_order3_list_item_text'  site_url="{{cells.linkUrl}}"  targetType="{{cells.targetType}}">
             {{cells.text}}
           </view>
         </view>
-    </view>
+    </view> 
   </view>
 </template>

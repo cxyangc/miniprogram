@@ -38,5 +38,35 @@
     }
   ]
 },
+
+
+
+
+"tabBar": {
+  "color": "#7A7E83",
+  "selectedColor": "#e24148",
+  "borderStyle": "black",
+  "backgroundColor": "#ffffff",
+  "list": [
+    {
+      "pagePath": "pages/aikucun_index/index",
+      "iconPath": "images/tab/home.png",
+      "selectedIconPath": "images/tab/home_focus.png",
+      "text": "首页"
+    },
+    {
+      "pagePath": "pages/aikucun_car_list/index",
+      "iconPath": "images/tab/cart.png",
+      "selectedIconPath": "images/tab/cart_focus.png",
+      "text": "购物车"
+    },
+    {
+      "pagePath": "pages/aikucun_userinfo/index",
+      "iconPath": "images/tab/me.png",
+      "selectedIconPath": "images/tab/me_focus.png",
+      "text": "我的"
+    }
+  ]
+},
  */
 

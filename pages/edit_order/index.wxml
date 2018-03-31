@@ -19,10 +19,15 @@
     </view> 
     <image mode='aspectFill' src='/images/icons/right.png'></image>
   </view> 
-
+  <view class='server_container'>
+     <view>{{orderData.storageName}}</view>
+  </view>
   <view class='cartContainer'>
     <view class='cartShopName'>
-      <text class='font1'>{{orderData.belongShopName}}</text>
+      <view class='font1' class='cart_star'>
+         <text>{{orderData.belongShopName}}</text>
+         <view class='marginleft' wx:if='{{orderData.promotionName}}'>{{orderData.promotionName}}</view> 
+      </view>
       <text class='color'  style='color:{{setting.platformSetting.defaultColor}}'>合计:￥ {{orderData.goodsAmount  - couponMoney}}</text>
     </view>
     <view class='cartItems' wx:for='{{orderData.orderItems}}' 
@@ -75,7 +80,7 @@
     <!-- 留言 -->
     <view class='butn_container2'>
       <text>留言</text>
-      <input placeholder='选填，给卖家留言' maxlength='200' value='{{orderData.buyerScript}}' bindinput='getBuyerScript'></input>
+      <input placeholder='给卖家留言' maxlength='200' value='{{orderData.buyerScript}}' bindinput='getBuyerScript'></input>
     </view>
   </view>
 
@@ -95,9 +100,11 @@
       <text>余额支付</text>
     </label>
   </radio-group>
+
+<view class='fottButn' bindtap='submitOrder'  style='background:{{setting.platformSetting.defaultColor}}'>提交订单</view>
 </view>
 <view class='height'></view>
-<view class='fottButn' bindtap='submitOrder'  style='background:{{setting.platformSetting.defaultColor}}'>提交订单</view>
+
 
 <view wx:if='{{showArr}}' class='zhezhao' bindtap='closeShowArr'></view>
 <view wx:if='{{showArr}}' class='OtherArrContainer'>

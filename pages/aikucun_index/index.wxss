@@ -9,3 +9,8 @@
 
 @import '../../view-new/aikucun/measure_card.wxss';/*  detail_list_card  */ 
 @import '../../view-new/aikucun/kefu.wxss';/*  detail_list_card  */ 
+.container{
+  padding:0 10px;
+  background:#f9f9f9;
+
+}

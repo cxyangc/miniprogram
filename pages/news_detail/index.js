@@ -95,8 +95,8 @@ Page({
    */
   onShareAppMessage: function () {
     let that = this
-    let params = app.jsonToStr2(that.onloadOpt)
+    let params = that.onloadOpt
     console.log('params:' + params)
-    return app.shareForFx('news_detail', '', params)
+    return app.shareForFx2('news_detail', '', params)
   }
 })

@@ -51,14 +51,22 @@
   justify-content: space-around;
   align-items: flex-start;
 }
-.ListDataItemWord text{
-  margin-right:10px;
+.lineheight_title{
+  height:2em;
+  line-height:2em;
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.ListDataItemWord text{ 
+  margin-right:10px;
+}
 .ListDataItemWord .word2 {
   color: #aaa;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 .ListDataItemImage{
   width: 30%;

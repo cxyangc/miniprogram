@@ -6,59 +6,93 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    showLoadFail:false,
+    showLoading:false
   },
   
   toIndex:function(){
     wx.reLaunch({
-      url: '/pages/custom_page_index/index',
+      url: '/pages/' + app.miniIndexPage + '/index',
     })
   },
-
+  reloadJs:function(){
+    this.setData({
+      showLoading: true
+    })
+    app.loadFirstEnter(app.more_scene)
+    clearTimeout(timer11)
+    this.count = 5
+    this.Countdown(app);
+    
+  },
   opt:{},
+  setNav:function(){
+    wx.setNavigationBarTitle({
+      title: '加载失败',
+    })
+  },
   onLoad: function (options) {
-    console.log('---------index - onload ---------')
-    console.log(options) 
+    let that = this
+    wx.getNetworkType({
+      success: function (res) {
+        if (res.networkType == 'none'){
+            //无网络
+            console.error('无网络')
+            that.setNav()
+            that.setData({
+              showLoadFail:true
+            })
+        }
+      }
+    }) 
     app.shareParam = options
     //转发的数据都在这里，   这时候的scene已经被app.unlunch使用了。   
     ///我们这里只需要把参数解析一下？放全局，等跳到首页的时候再做跳转
+    if (app.setting && options.pageName && app.shareParam && app.shareParam.pageName) {
+      setTimeout(function(){
+        wx.reLaunch({
+          url: '/pages/' + app.miniIndexPage + '/index',
+        })
+      },100)
+      
+
+    }else{
+      this.Countdown(app);
+    }
+    
   },
 
   onReady: function () {
-    let that = this
-   
-    this.Countdown(app);
     
   },
 
   onShow: function () {
+    
+    
     if (app.appHide) {
       app.appHide = false
       app.onLaunch(app.onLaunchOptions)
+      this.onReady()
     }
+
   },
-  count:10,
+  count:8,
   Countdown:function(){
     let that = this
     --this.count;
-    console.log('-------a--------')
+    console.log('-------获取 setting 中--------')
     if (app.setting ) {
       clearTimeout(timer11)
       app.toIndex()
       return false;
     }
     if (this.count < 1){
-      wx.showModal({
-        title: '网络错误',
-        content: '当前网络不通畅，初始化场景失败。请确认你的网络正常',
-        success: function (res) {
-          if (res.confirm) {
-
-          } else if (res.cancel) {
-            app.toIndex()
-          }
-        }
+      app.echoErr('获取setting数据失败')
+      this.setData({
+        showLoadFail: true,
+        showLoading: false
       })
+      this.setNav()     
       clearTimeout(timer11)
       return false;
     }

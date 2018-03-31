@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    List: []
+    List: [],
+    count:0,
   },
   get_fx_users: function (options,fresh) {
  
@@ -24,24 +25,31 @@ Page({
       header: app.headerPost,
       method: 'POST',
       success: function (res) {
+        wx.hideLoading()
         console.log(res.data)
-        that.listPage.pageSize = res.data.relateObj.pageSize
-        that.listPage.curPage = res.data.relateObj.curPage
-        that.listPage.totalSize = res.data.relateObj.totalSize
-        let result = res.data.relateObj.result  
-        let List = that.data.List
-        if (fresh){
-          List = []
+        if(res.data.errcode == 0){
+          that.listPage.pageSize = res.data.relateObj.pageSize
+          that.listPage.curPage = res.data.relateObj.curPage
+          that.listPage.totalSize = res.data.relateObj.totalSize
+          that.setData({
+            count: res.data.relateObj.totalSize
+          })
+          let result = res.data.relateObj.result
+          let List = that.data.List
+          if (fresh) {
+            List = []
+          }
+
+          if (!result || result.length == 0) {
+            that.setData({ List: null })
+          } else {
+            List = List.concat(result)
+            that.setData({ List: List })
+          }
         }
         
-        if (!result || result.length == 0) {
-          that.setData({ List: null })
-        } else {
-          List = List.concat(result)
-          that.setData({ List: List })
-        }
 
-        wx.hideLoading()
+        
       },
       fail: function (res) {
         wx.hideLoading()

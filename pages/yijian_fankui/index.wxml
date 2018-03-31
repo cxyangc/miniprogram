@@ -8,7 +8,7 @@
           <label class='font_08' wx:for='{{tags}}' wx:for-item='tag' wx:for-index="i" wx:key='{{i}}'
           data-index='{{i}}' catchtap='radioChange'>
             <view class='{{chooseTag == i? "activeTag":""}}'>{{tag.tagName }}</view>
-            <radio checked='{{chooseTag == i}}' value='{{tag.id }}' hidden='true'></radio>
+            <radio checked='{{chooseTag == i}}' value='{{tag.tagName }}' hidden='true'></radio>
           </label>
         </radio-group>
     </view>  

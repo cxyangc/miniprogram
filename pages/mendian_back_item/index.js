@@ -17,6 +17,13 @@ Page({
     showKefu:false,
     butnText:'是否同意'
   },
+  /* 去详情页面 */
+  lookMore: function (e) {
+    var id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/back_item_more/index?orderItemId=' + id,
+    })
+  },
   /* 点击tab */
   bindTab: function (e) {
 

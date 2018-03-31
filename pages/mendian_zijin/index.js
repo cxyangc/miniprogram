@@ -126,7 +126,7 @@ Page({
 
     this.listPage.page = 1
     this.getData();
-
+    this.get_mendian_center()
     wx.stopPullDownRefresh()
   },
 

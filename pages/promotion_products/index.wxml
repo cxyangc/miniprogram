@@ -16,7 +16,7 @@
       <view class='promotionItem' wx:for='{{productData}}' wx:for-item="result" wx:key='item_{{index}}'>
         <view class='share_view '> 
           <view  wx:if='{{!result.showShare}}' class='sharePoint' data-index='{{index}}' catchtap='showCardShare'>
-            <image src='http://image1.sansancloud.com/aikucun/2018_03/12/10/32/15_652.jpg'></image>
+            <image src='http://image1.sansancloud.com/aikucun/2018_03/21/16/44/04_645.jpg'></image>
           </view>  
           <view class='share_box' wx:if='{{result.showShare}}'>
             <button class='share_box_item' open-type='share' data-index='{{index}}' >
@@ -50,7 +50,7 @@
                   <view class='promotionItem_imageArea_item' wx:for="{{imageList}}" wx:for-item='imageItem' wx:for-index='n' wx:key='image_{{n}}'
                   data-urls='{{result.imageListWatcher}}'  data-me='{{imageItem.imagePath}}' bindtap='watchBigImage'
                   style='height:{{((sysWidth*0.95)-20)/2 -5}}px;  width:{{((sysWidth*0.95)-20)/2 -5}}px;'>
-                    <image  src='{{imageItem.imagePath}}' mode='aspectFill'></image>
+                    <image  src='{{imageItem.imagePath}}?imageMogr2/thumbnail/400x/interlace/0' mode='aspectFill'></image>
                   </view>
                 </view>
               </swiper-item> 
@@ -69,14 +69,14 @@
             <text class='price'>￥{{result.price}}</text>
 
             <view>
-            <text >原价</text>
-            <text class='tagprice'>￥{{result.tagPrice}}</text>
+              <text >原价</text>
+              <text class='tagprice'>￥{{result.tagPrice}}</text>
             </view>
             
           </view>
           <view class='promotionItem_addtocart'>
-              <view class='add font_06' data-index='{{index}}' bindtap='bindAddtocart'>加入购物车</view>
-              <view class=' buy font_06' data-index='{{index}}' bindtap='bindBuy'>立即购买</view>
+              <view class='add font_06' style='color:{{setting.platformSetting.defaultColor}}; border-color:{{setting.platformSetting.defaultColor}}' data-index='{{index}}' bindtap='bindAddtocart'>加入购物车</view>
+              <view class=' buy font_06' style='background:{{setting.platformSetting.defaultColor}}; border-color:{{setting.platformSetting.defaultColor}}' data-index='{{index}}' bindtap='bindBuy'>立即抢购</view>
           </view>
         </view>
       </view>
@@ -89,13 +89,15 @@
 
  <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template> 
 
-
+ 
 <view class='cartButn' style='background:{{setting.platformSetting.defaultColor}}'  bindtap='toCart'>
    <image src='http://image1.sansancloud.com/aikucun/2018_03/12/10/32/19_625.jpg?x-oss-process=style/preview_120'></image> 
+   <view class='carCount'  wx:if='{{carCount > 0}}'
+   style='border-color:{{setting.platformSetting.defaultColor}};color:{{setting.platformSetting.defaultColor}};' >{{carCount}}</view>
 </view>
 
 <!-- wx:if='{{loginUser.platformUser.mendian.kefuQrcode}}' -->
-<view class='kefu_wx' wx:if='{{showKefu}}'>
+<view class='kefu_wx' wx:if='{{showKefu}}' catchtouchmove='doNothing'>
   <view class='kefu_bg_zhezhao' bindtap='closeKefu'></view>
   <view class='kefu_wx_card'>
     <view class='kefu_info'>

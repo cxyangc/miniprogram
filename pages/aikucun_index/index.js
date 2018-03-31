@@ -3,16 +3,21 @@ var util = require('../../utils/util.js');
 const app = getApp()
 var timer; // 计时器
 var timerACT;
+var timerACTWill;
 Page({
   data: { 
     /* seeting */
     setting: null,
     indexData: null,
-    
+    //四个数据源
+    newsList: null,
+    activityPromotion: null,
+    unactivityPromotion: null,
+    products: null,
+
     sysWidth: 320,//图片大小 
     loginUser: null,
 
-    activityList:null, //活动相关
 
     /* 热销数据 */
     //规格信息
@@ -24,6 +29,7 @@ Page({
     bindType: 'addto', //加入购物车or直接下单
     focusIndex:0,
     showKefu: false,
+
   },
 
   getUserInfo: function (e) {
@@ -33,6 +39,9 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  doNothing:function(e){
+    console.log(e)
   },
   toPromotionList:function(e){
     console.log(e.currentTarget.dataset)
@@ -59,7 +68,7 @@ Page({
   toNewsList:function(e){
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/news_list/index?promotionId=' + id,
+      url: '/pages/news_list/index?newsTypeId=1&pageNage=新闻公告',//?newsTypeId=1
     })
   },
   //查看大图
@@ -99,30 +108,27 @@ Page({
         title: app.setting.platformSetting.siteTitle,
       })
     }
-
-    if (app.setting.platformSetting.defaultColor == '') {
-      wx.setNavigationBarColor({
-        frontColor: '#ffffff',
-        backgroundColor: '#000000',
-      })
+    wx.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: '#ffffff',
+    })
+    /* if (app.setting.platformSetting.defaultColor == '') {
+     
     } else {
       wx.setNavigationBarColor({
         frontColor: '#ffffff',
         backgroundColor: app.setting.platformSetting.defaultColor,
       })
-    }
+    } */
   },
   //处理活动
-  deelActivityPromotion:function(data){
-    let activityIng = data.activityPromotion
-    let activityWill = data.unactivityPromotion
-    let activityList = {}
-    activityList.activityPromotion = data.activityPromotion
-    activityList.unactivityPromotion = data.unactivityPromotion
+  deelActivityPromotion: function (activityPromotion, unactivityPromotion){
     let that = this
     console.log('-----计时开始-----')
-    CountdownActivity(activityList, that,0)
+    CountdownActivity(activityPromotion, that,0)
+    CountdownActivityWill(unactivityPromotion, that, 0)
   },
+
 
   /* 处理热销 */
   //切割数组
@@ -138,6 +144,9 @@ Page({
   //获取图片数组 用来预览用
   getImageUrlList: function (array) {
     let result = [];
+    if (!array){
+      return result;
+    }
     for (let x = 0; x < array.length; x++) {
       result.push(array[x].imagePath);
     }
@@ -145,6 +154,9 @@ Page({
   },
   sliceProductImageList: function (arr) {
     let that = this
+    if(!arr){
+      return arr
+    }
     for (let i = 0; i < arr.length; i++) {
       arr[i].imageListArr = that.sliceArray(arr[i].itemImages, 4)
       arr[i].imageListWatcher = that.getImageUrlList(arr[i].itemImages)
@@ -153,12 +165,11 @@ Page({
     return arr
   },
   //处理图片，只要四张
-  dellProductImage:function(data){
-    let products = data.products
-    this.sliceProductImageList(products)
-    console.log(data)
+  dellProductImage: function (products){
+    let productResult = this.sliceProductImageList(products)
+    console.log(productResult)
     this.setData({
-      indexData: data
+      products: productResult
     })
   },
   /* 热销操作 */
@@ -166,8 +177,8 @@ Page({
   showCardShare: function (e) {
     let oldIndex = this.data.focusIndex
     let index = e.currentTarget.dataset.index;
-    let productData = this.data.indexData
-    let focusData = this.data.indexData.products[index]
+    let products = this.data.products
+    let focusData = products[index]
 
     console.log(focusData)
     if (oldIndex == index) {
@@ -179,7 +190,7 @@ Page({
 
     console.log('--------1--------' + index)
     this.setData({
-      indexData: productData,
+      products: products,
       focusIndex: index
     })
   },
@@ -195,15 +206,15 @@ Page({
       return
     }
 
-    let productData = this.data.indexData
-    let focusData = productData.products[index]
+    let products = this.data.products
+    let focusData = products[index]
 
     if (focusData.showShare == false) {
       return
     }
     focusData.showShare = false
     this.setData({
-      indexData: productData
+      products: products
     })
   },
   //开关显示客服的
@@ -233,7 +244,15 @@ Page({
       showKefu: false
     })
   },
-
+  _watchBigImage:function(e){
+    let urls = e.currentTarget.dataset.urls;
+    let _url = e.currentTarget.dataset.url;
+    let url = urls[0];
+    if (!urls){
+      url = _url
+    }
+    app.lookBigImage(url, urls)
+  },
   //看大图
   watchBigImage: function (e) {
     let urls = e.currentTarget.dataset.urls;
@@ -247,7 +266,7 @@ Page({
 
   getData: function () {
     var that = this
-    var customIndex = app.AddClientUrl("/aikucun_index.html", {}, 'get',1)
+    var customIndex = app.AddClientUrl("/aikucun_index.html", {}, 'get')
     //拿custom_page
     wx.request({
       url: customIndex.url,
@@ -255,14 +274,28 @@ Page({
       success: function (res) {
         console.log(res.data)
         that.setData({
-          indexData : res.data
+          newsList: res.data.newsList,
+          activityPromotion: res.data.activityPromotion,
+          unactivityPromotion: res.data.unactivityPromotion
         })
-        if (res.data.activityPromotion){
-          that.deelActivityPromotion(res.data)
+
+        if (res.data.activityPromotion || res.data.activityPromotion){
+          that.deelActivityPromotion(res.data.activityPromotion, res.data.unactivityPromotion)
         }
+
         if(res.data.products){
-          that.dellProductImage(res.data)
+          that.dellProductImage(res.data.products)
+          that.setData({
+            products: res.data.products,
+          })
+        }else{
+          that.setData({
+            products: [],
+          })
         }
+
+    
+
         wx.hideLoading()
 
       },
@@ -314,7 +347,7 @@ Page({
     }
     
     this.setData({ setting: app.setting })
-   Countdown(app,this);
+    Countdown(app,this);
   },
   // 点击转发的链接获取参数后跳转
   jumpToPage: function (shareParam) {
@@ -332,38 +365,45 @@ Page({
     }
   },
   getArrSecond:function(data){
+    //已开始活动
     let nowTime = util.formatTime(new Date())  //当前时间
-    
-      for (let i = 0; i < data.activityPromotion.length;i++){
-        let second = util.GetDateDiff(nowTime, data.activityPromotion[i].endDate, 'second')
+      for (let i = 0; i < data.length;i++){
+        let second = util.GetDateDiff(nowTime, data[i].endDate, 'second')
         if( second <=1){
           second = 0
         }
-        data.activityPromotion[i].second = second
-        data.activityPromotion[i].resultTime = util.timeStamp(second)
+        data[i].second = second
+        data[i].resultTime = util.timeStamp(second)
       }
-    
-    
-      for (let i = 0; i < data.unactivityPromotion.length; i++) {
-        let second = util.GetDateDiff(nowTime, data.unactivityPromotion[i].startDate, 'second')
-        if (second <= 1) {
-          second = 0
-        }
-        data.unactivityPromotion[i].second = second
-        data.unactivityPromotion[i].resultTime = util.timeStamp(second)
-      }
-    
     return data
   },
-  getArrTimeStap:function(){
-
+  getStartSecond:function(data){
+    //活动预告
+    let nowTime = util.formatTime(new Date())  //当前时间
+    for (let i = 0; i < data.length; i++) {
+      let second = util.GetDateDiff(nowTime, data[i].startDate, 'second')
+      if (second <= 1) {
+        second = 0
+      }
+      data[i].second = second
+      data[i].resultTime = util.timeStamp(second)
+    }
+    return data
   },
   onShow: function () {
     if (app.appHide){
       app.appHide = false
-      this.onLoad()
+      CountdownActivity(0, this, 1)
+      CountdownActivityWill(0, this, 1)
+      let that = this
+      setTimeout(function () {
+        that.onLoad();
+      }, 1000)
     }
 
+    this.setData({
+      loginUser: app.loginUser
+    })
   },
   /**
     * 页面上拉触底事件的处理函数
@@ -384,8 +424,8 @@ Page({
     console.log(res)
     if (res.from == "button") {
       let index = res.target.dataset.index
-      let productData = this.data.indexData
-      let focusData = this.data.indexData.products[index]
+      let products = this.data.products
+      let focusData = products[index]
       let imageUrl = focusData.imagePath
       let shareName = focusData.brandName + focusData.name + '原价：￥' + focusData.tagPrice + '活动价：￥' + focusData.price
       let shareParams = {}
@@ -404,8 +444,12 @@ Page({
   onPullDownRefresh: function () {
     let that = this
     let data = this.data.activityList
-    CountdownActivity(data,that,1)
-    this.onLoad();
+    CountdownActivity(0,that,1)
+    CountdownActivityWill(0, that, 1)
+    setTimeout(function(){
+      that.onLoad();
+    },1000)
+    
    // app.StartRefresh()
     
   },
@@ -427,17 +471,25 @@ Page({
     this.byNowParams.itemCount--;
     this.setData({ byNowParams: this.byNowParams })
   },
-  addNum: function () {
-    this.byNowParams.itemCount++;
-    this.setData({ byNowParams: this.byNowParams })
+  addNum: function (e) {
+    let cantadd = e.currentTarget.dataset.cantadd;
+    if (cantadd == 1){
+      return
+    }else{
+      this.byNowParams.itemCount++;
+      this.setData({ byNowParams: this.byNowParams })
+    }
+    
   },
 
   //点击加入购物车或立即下单
  
   bindBuy: function (e) {
-    var index = e.currentTarget.dataset.index;
-    let productData = this.data.indexData.products
-    let focusData = productData[index]
+    let index = e.currentTarget.dataset.index;
+    let bindBuy = e.currentTarget.dataset.bindbuy;
+
+    let products = this.data.products
+    let focusData = products[index]
     this.byNowParams.productId = focusData.id
     this.byNowParams.shopId = focusData.belongShopId
     this.byNowParams.orderType = 0
@@ -447,6 +499,7 @@ Page({
       focusData: focusData,
       showCount: true,
       byNowParams: this.byNowParams,
+      bindBuy: bindBuy
     })
   },
   buyNow: function () {
@@ -459,10 +512,98 @@ Page({
       return
     }
       //立即购买
+    if (this.data.bindBuy == 'addto'){
+      console.log('加入购物车')
+        //addto
+      this.addtocart()
+    } else{
       console.log('立即购买')
       this.createOrder22(this.byNowParams)
-    
+    }
 
+  },
+  /* 加入購物車 */
+  addtocart: function () {
+
+    if (!app.checkIfLogin()) {
+
+      return
+    }
+    var params = {
+      cartesianId: '',
+      productId: '',
+      shopId: '',
+      count: '',
+      type: '',
+    }
+
+    if (!this.data.focusData.measureItem || this.data.focusData.measureTypes.length == 0) {
+      params.cartesianId = '0'
+    }
+    else {
+      params.cartesianId = this.data.measurementJson.id
+    }
+
+    params.productId = this.data.focusData.id
+    params.shopId = this.data.focusData.belongShopId
+    params.count = this.byNowParams.itemCount
+    params.type = 'add'
+
+    this.postParams(params)
+
+  },
+
+  getCart: function () {
+    let focusProduct = this.data.products[0]
+    var params = {}
+    params.productId = focusProduct.id
+    params.shopId = focusProduct.belongShopId
+    params.count = 0
+    params.type = 'add'
+    this.postParams(params)
+  },
+  postParams: function (data) {
+    var that = this
+    var customIndex = app.AddClientUrl("/change_shopping_car_item.html", data, 'post')
+    wx.request({
+      url: customIndex.url,
+      data: customIndex.params,
+      header: app.headerPost,
+      method: 'POST',
+      success: function (res) {
+        console.log('---------------change_shopping_car_item-----------------')
+        console.log(res.data)
+        wx.hideLoading()
+
+        if (that.data.bindType == 'addto') {
+          that.setData({ showCount: false })
+        }
+        if (res.data.productId && res.data.productId != 0) {
+          that.setData({
+            carCount: res.data.totalCarItemCount
+          })
+          if (data.count == 0) {
+            console.log('通过加入购物车来确定购物车里面的商品数量')
+          } else {
+            wx.showToast({
+              title: '加入购物车成功',
+            })
+          }
+        } else {
+          wx.showToast({
+            title: res.data.errMsg,
+            image: '/images/icons/tip.png',
+            duration: 3000
+          })
+        }
+
+
+      },
+      fail: function (res) {
+        wx.hideLoading()
+        app.loadFail()
+      }
+    })
   },
 
 
@@ -506,9 +647,12 @@ Page({
     })
   },
   closeZhezhao: function () {
-    this.setData({ showCount: false, focusData: null })
+    this.MeasureParams = []
+    this.setData({ 
+      showCount: false, 
+      focusData: null,
+    })
   },
-
 
   /* 
      规格操作
@@ -550,7 +694,7 @@ Page({
 
     let productId = this.data.focusData.id
     let postStr = ''
-    if (this.MeasureParams.length == 0) {
+    if (!this.data.focusData.measureItem||this.MeasureParams.length == 0) {
       this.byNowParams.cartesianId = '0'
       return
     }
@@ -570,7 +714,10 @@ Page({
         if (!res.data.id) {
           // 没有这个参数
           //......
-          console.log('error')
+          
+          console.error('error')
+          console.log(that.MeasureParams)
+          console.log(res.data)
           //.....
         }
         console.log(res.data)
@@ -590,7 +737,9 @@ Page({
   /* 初始化 选规格 */
   chooseMeasureItem: function (focusData) {
     console.log('----------初始化规格参数-----------')
-
+    if (!focusData.measureItem){
+      return
+    }
     for (let i = 0; i < focusData.measureTypes.length; i++) {
       focusData.measureTypes[i].checkedMeasureItem = 0
       //初始化选择的数据
@@ -605,6 +754,7 @@ Page({
       focusData: focusData
     })
     this.get_measure_cartesion()
+    console.log(this.MeasureParams)
   },
   //选择规格小巷的---显示
   radioChange: function (e) {
@@ -619,6 +769,7 @@ Page({
   //选择规格小巷---获取数据
   chooseMeasure: function (e) {
     console.log(e.detail.value)
+    console.log(this.MeasureParams)
     let chooseMeasureJson = app.getSpaceStr(e.detail.value, '-')
     console.log(chooseMeasureJson)
 
@@ -632,32 +783,52 @@ Page({
 })
 
 function CountdownActivity(data, that ,over) {
-  if (over){
-    console.log('干掉定时器')
+  if (over || data == 0){
+    console.log('干掉定时器Now')
     clearTimeout(timerACT)
     console.log(timerACT)
     return false;
   }else{
     let returnData = that.getArrSecond(data)
     that.setData({
-      activityList: returnData
+      activityPromotion: returnData
     })
-
     timerACT = setTimeout(function () {
       CountdownActivity(data, that, over);
     }, 1000);
   }
-  
-  
 };
 
+function CountdownActivityWill(data, that, over) {
+  if (over || data == 0) {
+    console.log('干掉定时器will')
+    clearTimeout(timerACTWill)
+    console.log(timerACTWill)
+    return false;
+  } else {
+    let returnData = that.getStartSecond(data)
+    that.setData({
+      unactivityPromotion: returnData
+    })
+    timerACTWill = setTimeout(function () {
+      CountdownActivityWill(data, that, over);
+    }, 1000);
+  }
+};
 
 function Countdown(page, that) {
   console.log('2')
   if (page.loginUser) {
+    
+    /* if (!app.loginUser.platformUser.mendian && app.more_scene.indexOf("PLATFORM_USER_ID") > 0) {
+      console.error('more_scene', app.more_scene)
+      app.changeUserBelong(app.more_scene)
+    } */
     that.setData({
       loginUser: page.loginUser
     })
+    console.log('干掉定时器timer')
+    clearTimeout(timer)
   }
   else {
     timer = setTimeout(function () {

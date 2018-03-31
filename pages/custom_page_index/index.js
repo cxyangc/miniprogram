@@ -269,6 +269,9 @@ function Countdown(page,that) {
     that.setData({
       loginUser: page.loginUser
     })
+    
+  
+
   }
   else {
     timer = setTimeout(function () {

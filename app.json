@@ -84,7 +84,6 @@
     "pages/mendian_tixian/index",
     "pages/mendian_back_item/index"
   ],
-
 "tabBar": {
   "color": "#7A7E83",
   "selectedColor": "#000000",

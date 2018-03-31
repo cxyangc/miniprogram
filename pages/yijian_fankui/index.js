@@ -25,7 +25,7 @@ Page({
   },
 
 
-  // 上传
+  // 上传 
   sureBackItem: function (e) {
     let formResult = e.detail.value
 
@@ -37,6 +37,18 @@ Page({
         duration: 2000
       })
       return
+    }
+    
+    if (formResult.telno) {
+      let phoneTest = new RegExp('^1[3|4|5|7|8][0-9]{9}$', 'g');
+      if (!phoneTest.test(formResult.telno)) {
+            wx.showToast({
+              title: "号码格式错误",
+              image: '/images/icons/tip.png',
+              duration: 2000
+            })
+            return;
+          } 
     }
     console.log(formResult)
 

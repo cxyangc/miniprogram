@@ -50,9 +50,12 @@
           <text data-order='{{list}}' bindtap='editOrder'>编辑订单</text>
           <text data-order='{{list}}' bindtap='pay'>立即付款</text>
           <text data-orderNo='{{list.orderNo}}' bindtap='delectOrder'>删除订单</text>
-      </view>
+      </view><!-- 
       <view wx:if='{{list.easyStatus == 3}}' class='butn_container2'>
         <text data-orderNo='{{list.orderNo}}' bindtap='cancelOrder'>取消订单</text>
+      </view> -->
+      <view wx:if='{{list.payStatus == 1 && list.orderStatus  == 1}}' class='butn_container2'>
+        <text data-orderNo='{{list.orderNo}}' data-index='{{index}}' bindtap='cancelOrder'>取消订单</text>
       </view>
       <view wx:if='{{list.easyStatus == 4}}' class='butn_container2'>
           <text data-orderNo='{{list.orderNo}}' bindtap='arriverOrder'>确认收货</text>

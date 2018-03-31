@@ -14,7 +14,7 @@ Page({
     sysHeight: 568,
 
     tab: [],
-
+    refreshText:'下拉刷新',
   },
   /* 点击tab */
   bindTab: function (e) {
@@ -31,11 +31,12 @@ Page({
   },
   /* 滑动事件 */
   changeIndex:function(e){
+    
     var index = e.detail.current
     let tab = this.data.tab
     let focusTab = tab[index]
     if (!focusTab.List || focusTab.List.length == 0) {
-      this.getOrderList(focusTab, index)
+      this.getOrderList(focusTab, index, 1)
     }
     this.setData({
       showTabIndex: index
@@ -82,21 +83,30 @@ Page({
       },
       complete:function(){
         setTimeout(function () {
-          that.FreshIng = false
+          that.loading = false
+          
         }, 2000)
+        that.setData({
+          refreshText: '下拉刷新'
+        })
+        
       },
     })
   },
   loading:false,
   /* 下拉刷新 */
   scrollTopToReflesh:function(e){
+   
     console.log('粗发下拉事件')
+    this.setData({
+      refreshText: '松开手指即可刷新'
+    })
+    
     let index = e.currentTarget.dataset.index
     let tab = this.data.tab
     let focusTab = tab[index]
     if (!this.FreshIng){
       this.FreshIng = true
-      this.freshList(focusTab,index)
     }else{
       return;
     }
@@ -104,11 +114,26 @@ Page({
   },
   //刷新数据
   freshList(focusTab,index){
-    console.log('mmmmmmmmmm   加载数据中   mmmmmmm')
-    let that = this
-    this.getOrderList(focusTab, index , 1)
+    
+    if (this.FreshIng){
+      this.FreshIng = false
+      console.log('mmmmmmmmmm   加载数据中   mmmmmmm')
+      let that = this
+      focusTab.params.page = 1
+      this.getOrderList(focusTab, index, 1)
+    }
     
   },
+  scrollEvent:function(e){
+    let index = e.currentTarget.dataset.index
+    let tab = this.data.tab
+    let focusTab = tab[index]
+    if (this.FreshIng && e.detail.scrollTop > -10){
+      console.log('mmmmmmmmmm   1   mmmmmmm')
+      this.freshList(focusTab, index)
+    }
+  },
+
   FreshIng:false,
   /* 加载更多 */
   scrollBottomToLoadMore:function(e){
@@ -124,6 +149,12 @@ Page({
     if (focusTab.params.totalSize > focusTab.params.page * focusTab.params.pageSize) {
       ++focusTab.params.page;
       this.getOrderList(focusTab,index)
+    }else{
+      console.log('noMore')
+      focusTab.state.listEnd = true
+      this.setData({
+        tab: tab
+      })
     }
     setTimeout(function () {
       that.loading = false
@@ -145,7 +176,10 @@ Page({
         index = i
       }
     }
-    this.getOrderList(tab[index], index)
+    
+    if (index == 0){
+      this.getOrderList(tab[index], index)
+    }
     this.setData({
       showTabIndex:index
     })
@@ -384,6 +418,9 @@ Page({
         easyStatus: '0',
         page: 1
       },
+      state: {
+        scrollTop:0,
+      },
       List: []
     },
     {
@@ -393,6 +430,9 @@ Page({
         easyStatusName: "待付款",
         easyStatus: '2',
         page: 1
+      },
+      state: {
+        scrollTop: 0,
       },
       List: []
     },
@@ -404,6 +444,9 @@ Page({
         easyStatus: '3',
         page: 1
       },
+      state: {
+        scrollTop: 0,
+      },
       List: []
     },
     {
@@ -414,6 +457,9 @@ Page({
         easyStatus: '4',
         page: 1
       },
+      state: {
+        scrollTop: 0,
+      },
       List: []
     },
     {
@@ -423,6 +469,9 @@ Page({
         easyStatusName: "已完成",
         easyStatus: '6',
         page: 1
+      },
+      state: {
+        scrollTop: 0,
       },
       List: []
     },

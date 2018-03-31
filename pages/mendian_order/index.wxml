@@ -1,7 +1,7 @@
 
 <view class='container'>
     <view class='tab'>
-      <view wx:for='{{tab}}' wx:key='{{index}}' style='width:{{(100/(tab.length))}}%;'  class='{{showTabIndex == index ? "active":"noneUse"}}'  
+      <view wx:for='{{tab}}' wx:key='{{index}}' style='width:{{(100/(tab.length))}}%;'  class='{{showTabIndex == index ? "activeTab":"noneUse"}}'  
         data-id='{{index}}' bindtap='bindTab'>{{item.name}}</view>        
     </view>
 
@@ -16,7 +16,7 @@
                 <block wx:else> 
                     <view class='cartContainer' wx:for='{{tab.List}}' wx:for-item='list' wx:for-index='i' wx:key='{{i}}'>
                       <view class='cartShopName'> 
-                        <text class='font1'>{{list.belongShopName}}</text>
+                        <text class='font1'>客户名：{{list.buyerName}}</text>
                         <block wx:if='{{list.easyStatusStr == "作废"}}'> 
                           <text class='' style='color:{{setting.platformSetting.defaultColor}}'>已作废</text>
                         </block>
@@ -31,7 +31,7 @@
                         </block>
                       </view>
 
-                      <view class='cartItems' wx:for='{{list.orderItems}}' 
+                      <view class='cartItems' wx:for='{{list.orderItems}}' data-orderno='{{list.orderNo}}' bindtap='toOrderDetail'
                         wx:for-item='orderItem' wx:key='{{orderItem.itemId}}' >
                         <view class='itemCheckbox'>
                           <image mode='aspectFill' src='{{orderItem.itemIcon}}?x-oss-process=style/preview'></image>

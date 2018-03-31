@@ -19,10 +19,6 @@
   font-size: 0.8em;
   color: #454545;
 }
-.active{
-  border-bottom: 2px solid #8B572A;
-  color: #000 !important;
-}
 .Tab_page{
 
 }
@@ -153,6 +149,17 @@
   justify-content: flex-end;
   align-items: center;
   border-bottom: 1px solid #eee;
+}
+.butn_container3{
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+.butn_container3 > text{
+  word-break: break-all;
 }
 .butn_container2{
    padding: 1em;

@@ -6,11 +6,10 @@ import { dellUrl } from "/public/requestUrl.js";
   
 App({
  
-  clientUrl: 'https://mini.sansancloud.com/chainalliance/',  // 链接地址
-  // clientUrl:'https://mini.sansancloud.com/chainalliance/',  // 链接地址
+  clientUrl: 'https://mini.sansancloud.com/chainalliance/',  // 链接地址   
 
   /**
-   *   切换项目的开关 ↓↓↓↓↓
+   *   切换项目的开关 ↓↓↓↓↓ 
    */
   clientNo:'xianhua',   //自定义的项目的名称。
   clientName:'',
@@ -45,11 +44,14 @@ App({
   onHide:function(e){
     console.log('hide')
     console.log(e)
-    this.appHide  = true
+   
   },
   onShow:function(e){
     console.log('show')
     console.log(e)
+    if (e.scene){
+      // this.appHide = true
+    }
     /* let pagePath = e.path
     if(this.appHide){
       this.appHide = false
@@ -60,6 +62,7 @@ App({
   onLaunch: function (options) {
     this.onLaunchOptions = options
     let that = this
+
     console.log('------onlauch------')
     console.log(options)
     /* 第三方配置加载 clientNo */
@@ -148,6 +151,13 @@ App({
 
  },
 
+ echoErr:function(errMessage){
+   wx.showToast({
+     title: errMessage,
+     image: '/images/icons/tip.png',
+     duration: 2000
+   })
+ },
  //加载失败处理
  loadFail:function(){
    let that = this
@@ -170,6 +180,21 @@ App({
      duration: 2000
    })
  },
+ loadLogin:function(e){
+   wx.showModal({
+     title: '提示',
+     content: '用户未登录',
+     success: function (res) {
+       if (res.confirm) {
+         wx.navigateTo({
+           url: '/pages/login_wx/index'
+         })
+       } else if (res.cancel) {
+
+       }
+     }
+   })
+ },
  //检查是否已经登录
  checkIfLogin:function(){
   
@@ -185,7 +210,7 @@ App({
        success: function (res) {
          if (res.confirm) {
            wx.navigateTo({
-             url: '/pages/login/index'
+             url: '/pages/login_wx/index'
            })
          } else if (res.cancel) {
 
@@ -231,9 +256,10 @@ App({
     }
   },
 /* 处理url的函数，放到app里吧 */
-  AddClientUrl: function (url, params, method, random){
+  AddClientUrl: function (url, params, method, random, noToken){
     let loginToken = ''
-    if (!this.loginUser || !this.loginUser.platformUser || !this.loginUser.platformUser.loginToken){
+
+    if (noToken || (!this.loginUser || !this.loginUser.platformUser || !this.loginUser.platformUser.loginToken)){
       loginToken = ''
     }else{
       loginToken = this.loginUser.platformUser.loginToken
@@ -452,17 +478,22 @@ App({
   },
 
   //sentWxUserInfo 第一次登录给他设置头像
-  sentWxUserInfo:function(){
+  sentWxUserInfo: function (loginJson){
     let that = this
     let userInfo = this.globalData.userInfo
     wx.getUserInfo({
-      withCredentials: false,
       success: function (res) {
+        console.warn('--获取用户信息--')
+        console.log(res.userInfo)
         userInfo = res.userInfo
         let infoParam = {
           headimg: '',
           nickname: '',
           sex: ''
+        }
+        if (loginJson){
+          infoParam.telNo =  loginJson.platformUser.telNo
+          infoParam.telNo =  loginJson.platformUser.userTip
         }
         infoParam.headimg = userInfo.avatarUrl
         infoParam.nickname = userInfo.nickName
@@ -476,22 +507,16 @@ App({
           success: function (res) {
             console.log('---change_user_info----- success-')
             console.log(res.data)
-            if (res.errcode == 0) {
-              {
+            if (res.data.errcode == 0) {
                 that.loginUser.nickName = userInfo.nickName;
                 that.loginUser.sex = userInfo.sex;
                 that.loginUser.userIcon = userInfo.avatarUrl;
-              }
-
-
               console.log('-----第一次登录   传头像成功 --------')
-              //that.wxLogin()
-              that.get_session_userinfo()
             } else {
               console.log('-----第一次登录   传头像失败 --------')
-              that.get_session_userinfo()
+              
             }
-
+            that.get_session_userinfo()
           },
           fail: function (res) {
             console.log('-----第一次登录   传头像失败 回调fail--------')
@@ -509,6 +534,39 @@ App({
     
    
   },
+  getCaption:function (str1){
+    var str2 = (str1.match(/MINI_PLATFORM_USER_ID_(\S*)/))[1];
+    return str2;
+  },
+  hasNoScope:false,
+  changeUserBelong: function (more_scene){
+    let that = this
+    console.error(more_scene)
+    
+    let parentPlatformUserId = this.getCaption(more_scene)
+    console.error(parentPlatformUserId)
+    let param_post = {}
+    param_post.parentPlatformUserId = parentPlatformUserId
+    var customIndex = that.AddClientUrl("/change_fx_user.html", param_post, 'post')
+
+    wx.request({
+      url: customIndex.url,
+      data: customIndex.params,
+      header: that.headerPost,
+      method: 'POST',
+      success: function (res) {
+        console.warn('修改分销 -- 返回')
+        console.log(res.data)
+        if(res.data.errcode == 0){
+          let loginUser = that.loginUser
+          loginUser.platformUser.mendian = res.data.relateObj.mendian
+        }
+      },
+      fail: function (res) {
+        that.loadFail()
+      }
+    })
+  },
   /* 微信登录测试 */
   wxLogin: function (more_scene) {
     if (!more_scene || more_scene == 'undefined'){
@@ -522,6 +580,7 @@ App({
     var that = this
     
     
+     
     wx.login({
       success: function (res) {
         console.log(res.code)
@@ -562,29 +621,31 @@ App({
                 that.globalData.sansanUser = e.data.relateObj
              
                 wx.hideLoading()
-
-                that.get_session_userinfo()
+                wx.getSetting({ 
+                  success(res) {
+                    if (!res.authSetting['scope.userInfo']) {
+                      console.error('没有授权')
+                      that.hasNoScope = res.authSetting['scope.userInfo']
+                      that.sentWxUserInfo(loginJson)
+                    }
+                  }
+                })
+                //that.get_session_userinfo()
                 
-                if (!loginJson.nickName || loginJson.nickName == loginJson.name) {
-                  that.sentWxUserInfo()
+                if (!loginJson.platformUser.nickname) {
+                  console.error('没有昵称调用上传接口')
+                  that.sentWxUserInfo(loginJson)
                 }
+                //console.error(loginJson.platformUser.mendian)
+                 console.error('more_scene', more_scene)
+                if (!loginJson.platformUser.mendian && more_scene.indexOf("PLATFORM_USER_ID") > 0 ){
+                  console.error('more_scene',more_scene)
+                  that.changeUserBelong(more_scene)
+                } 
                 // that.toIndex()
               }else{
                 wx.hideLoading()
                
-                /* wx.showModal({
-                  title: '提示',
-                  content: '登录失败，重新登录',
-                  success: function (res) {
-                    if (res.confirm) {
-                      wx.navigateTo({
-                        url: '/pages/login/index'
-                      })
-                    } else if (res.cancel) {
-
-                    }
-                  }
-                }) */
                 wx.showToast({
                   title: '登录失败',
                   image: '/images/icons/tip.png',
@@ -595,19 +656,7 @@ App({
             fail: function (e) {
               console.log('----fail------')
               console.log(e)
-              /* wx.showModal({
-                title: '提示',
-                content: '登录失败，重新登录',
-                success: function (res) {
-                  if (res.confirm) {
-                    wx.navigateTo({
-                      url: '/pages/login/index'
-                    })
-                  } else if (res.cancel) {
-
-                  }
-                }
-              }) */
+              
               wx.showToast({
                 title: '登录失败',
                 image: '/images/icons/tip.png',
@@ -636,7 +685,7 @@ App({
       self = 0
     }
     console.log('**************************************')
-    var settUrl = this.AddClientUrl("/get_platform_setting.html")
+    var settUrl = this.AddClientUrl("/get_platform_setting.html",{},'get',1,1)
     var that = this
     //拿setting
     wx.request({
@@ -763,9 +812,13 @@ App({
     if (this.loginUser) {
       fxCode = 'scene=MINI_PLATFORM_USER_ID_' + this.loginUser.platformUser.id
     }
-    if (!pageName) {
-      pageName = 'custom_page_index'
-    }
+    if (!pageName && !this.miniIndexPage) {
+      if (!this.miniIndexPage){
+        pageName = 'custom_page_index'
+      } else {
+        pageName = this.miniIndexPage
+      }
+    } 
     if (!pageTitle) {
       pageTitle = that.clientName
     }
@@ -787,5 +840,22 @@ App({
       fail: function (res) {
       }
     }
+  },
+  toFix:function(money){
+    money = money.toFixed(2)
+    return money
+  },
+  lookBigImage: function (url,urls) {
+    if (!url) {
+      return
+    }
+    if (!urls){
+      urls = []
+      urls.push(url)
+    } 
+    wx.previewImage({
+      current: url, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    })
   },
 })

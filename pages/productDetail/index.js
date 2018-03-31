@@ -199,6 +199,7 @@ Page({
       return
     }
     let productData = this.data.productData
+    console.log(productData)
     let way = e.currentTarget.dataset.way
     if (way == 'cart'){
       if (productData.measures.length == 0) {
@@ -353,7 +354,7 @@ Page({
     wx.request({
       url: customIndex.url,
       data: customIndex.params,
-      header: app.headerPost,
+      header: app.headerPost, 
       method: 'POST',
       success: function (res) {
         console.log('---------------change_shopping_car_item-----------------')
@@ -363,25 +364,34 @@ Page({
         if (that.data.bindway == 'cart') {
           that.setData({ showCount: false })
         }
-        if (res.data.productId && res.data.productId != 0 ) {
-          if(data.count == 0){
+
+        if (data.productId == 0) {
+          console.log('购物车里面的商品数量')
+          that.setData({
+            countGood: res.data.totalCarItemCount
+          })
+        } else {
+          if (res.data.productId && res.data.productId != 0) {
+            if (data.count == 0) {
               console.log('通过加入购物车来确定购物车里面的商品数量')
-          }else{
+            } else {
+              wx.showToast({
+                title: '加入购物车成功',
+              })
+            }
+
+            if (!!res.data.totalCarItemCount || res.data.totalCarItemCount == 0) {
+              that.setData({ countGood: res.data.totalCarItemCount })
+            }
+          } else {
             wx.showToast({
-              title: '加入购物车成功',
+              title: res.data.errMsg,
+              image: '/images/icons/tip.png',
+              duration: 2000
             })
           }
-          
-           if (!!res.data.totalCarItemCount || res.data.totalCarItemCount == 0) {
-             that.setData({ countGood: res.data.totalCarItemCount })
-           }
-        }else{
-          wx.showToast({
-            title: res.data.errMsg,
-            image: '/images/icons/tip.png',
-            duration: 2000
-          })
         }
+        
 
         
       },
@@ -480,19 +490,11 @@ Page({
   getCart: function () {
 
 
-    var params = {
-      cartesianId: '',
-      productId: '',
-      shopId: '',
-      count: '',
-      type: '',
-    }
-
-
-    params.productId = this.data.productData.productInfo.productId
-    params.shopId = this.data.productData.productInfo.belongShopBean.id
+    var params = {}
+    params.productId = 0
     params.count = 0
     params.type = 'add'
+
 
     this.postParams(params)
 

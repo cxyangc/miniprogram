@@ -14,18 +14,17 @@
           </view>
         </view>
         <view class='commitProduct_item_info_commit_images'> 
-          
-            
-            <block wx:for='{{good.commitImages}}' wx:for-item='image' wx:key='{{index}}'>
+            <block wx:for='{{good.ImageList}}' wx:for-item='image' wx:key='{{index}}'>
               <image mode='scaleToFill' src='{{image}}'
                 style='width:{{(sysWidth/4) - 15 }}px;height:{{(sysWidth/4) - 15}}px'></image>
             </block>
-            <view class='crameContainer' data-productId='{{good.itemId}}' bindtap='addCommitImage'
+            <view class='crameContainer' bindtap='addCommitImage'
              style='width:{{(sysWidth/4) - 15 }}px;height:{{(sysWidth/4) - 15}}px'>
               <image class='crame' src='/images/icons/crame.png' mode='widthFix'
              ></image>
             </view>
         </view>
+
       </view>
       <!-- 评分模块 -->
       <view class='scollViews2'>

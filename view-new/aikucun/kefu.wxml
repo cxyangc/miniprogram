@@ -1,7 +1,7 @@
 
 
-<template name="kefu">
-  <view class='kefu_wx' wx:if='{{showKefu}}'>
+<template name="kefu" >
+  <view class='kefu_wx' wx:if='{{showKefu}}' catchtouchmove='doNothing'>
     <view class='kefu_bg_zhezhao' bindtap='closeKefu'></view>
     <view class='kefu_wx_card'>
       <view class='kefu_info'>

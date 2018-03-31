@@ -4,6 +4,10 @@
  </block>
  <block wx:else> 
     <view class='cartContainer' wx:for='{{List}}' wx:for-item='list' wx:key='{{index}}'>
+      <view class='cartbannerName'> 
+        <text class='font1'>客户名：</text>
+        <text class='marginleft' style='color:{{setting.platformSetting.defaultColor}}'>{{list.buyerName}}</text>
+      </view>
       <view class='cartShopName'> 
         <text class='font1'>{{list.addTime}}</text>
         <text class='' style='color:{{setting.platformSetting.defaultColor}}'>{{list.orderStatusStr }}</text>

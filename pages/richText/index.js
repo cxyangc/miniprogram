@@ -16,7 +16,9 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  opt:null,
   onLoad: function (options) {
+    this.opt = options
     let navName = options.navName
     if (navName){
       wx.setNavigationBarTitle({
@@ -70,5 +72,10 @@ Page({
   onReachBottom: function () {
   
   },
-
+  onShareAppMessage: function () {
+    let that = this
+    let params = that.opt
+    console.log('params:' + params)
+    return app.shareForFx2('richText', '', params)
+  }
 })

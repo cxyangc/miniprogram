@@ -20,16 +20,19 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 .cartItems{
   display: flex;
   flex-direction: row;
   padding: 1em;
   overflow: hidden;
-  border-bottom: 1px solid #dddddd;
   height: 5em;
   position: relative;
-  background-color: #fff;
+  background-color:#f6f6f6;
 }
 .itemCheckbox{
   display: flex;
@@ -49,10 +52,7 @@
   margin-left: 10px;
 }
 .item_infomation_name{
-  width: 8em;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
+  word-break: break-all;
 }
 .item_infomation_money{
   font-size:0.8em;
@@ -65,9 +65,8 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  position: absolute;
-  right: 2em;
-  top: 2.2em;
+  padding:0.6em 1em;
+  border-top: 1px solid #eee;
 }
 
 .item_infomation_nums text{

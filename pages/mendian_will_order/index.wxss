@@ -10,20 +10,28 @@
   background: #fff;
   border-bottom: 1em solid #f2f2f2; 
 }
+.cartbannerName{
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1rpx dashed #eee;
+}
 .cartShopName{
   padding: 1em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1rpx solid #eee;
 }
 .cartItems{
   display: flex;
   flex-direction: row;
   padding: 1em;
   overflow: hidden;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1rpx solid #eee;
   height: 5em;
   position: relative;
   background-color: rgb(250,250,250);
@@ -91,7 +99,7 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1rpx solid #eee;
   font-size: 0.8em;
 }
 .butn_container2 text{

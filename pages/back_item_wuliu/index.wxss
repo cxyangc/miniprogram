@@ -20,10 +20,18 @@
   background: #fff;
   border-radius: 0.4em;
 }
-.textAreaContainer textarea{
+.textAreaContainer_textArea{
   margin-top: 0.8em;
   width: 80%;
-  height: 5em;
+  height: 3em;
+  border: 1px solid #ddd; 
+  border-radius: 0.4em;
+  padding: 0.8em;
+}
+.textAreaContainer_textArea2{
+  margin-top: 0.8em;
+  width: 80%;
+  height: 2em;
   border: 1px solid #ddd; 
   border-radius: 0.4em;
   padding: 0.8em;

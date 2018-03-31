@@ -17,8 +17,15 @@
 @import '../../view-new/css/user_center_order2.wxss';/* user_center_order2 */
 
 @import '../../view-new/css/userinfo_header2.wxss';/* user_center_order2 */
-
+@import '../../view-new/css/userinfo_head3.wxss';/* user_center_order2 */
 @import '../../view-new/css/userinfo_order3.wxss';/* user_center_order2 */
 @import '../../view-new/css/userinfo_list.wxss';/* user_center_order2 */
 @import '../../view-new/css/userinfo_mendian.wxss';/* user_center_order2 */
 
+.container{
+  position:absolute;
+  width:100%;
+  background:#f9f9f9;
+  height:100%;
+
+}

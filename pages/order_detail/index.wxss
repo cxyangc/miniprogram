@@ -12,6 +12,40 @@
 .orderTime text{
   padding: 2px;
 }
+.server_container{
+  margin: 0.4em 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #888;
+  background: #fff;
+  border-radius: 0.2em;
+  padding:0.8em;
+
+}
+/* 订单生成时间 */
+.orderTime2{
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.4em;
+} 
+.wuliuItem{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  border-bottom: 1rpx solid #eee;
+}
+.wuliuItem > .time{
+  color: #aaa;
+  font-size: 0.9em;
+}
+
+.orderTime2 text{
+  padding: 2px;
+}
 /* 订单状态 */
 .orderSateContainer{
   display: flex;
@@ -70,7 +104,23 @@
 .orderKuaidi_no{
   margin-top: 0.4em;
 }
+
+
+
 /* 地址 */
+.editAddr{
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background:#fff;
+  border-bottom:1rpx dashed #ddd;
+}
+.editAddr > image{
+  width: 1.2em;
+  height: 1.2em;
+}
 
 .addrItems2{
   display: flex;
@@ -93,10 +143,10 @@
   width:100%;
 
 }
-.addrInfo view{
+.addrInfo > view{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   width:100%;
 
 }
@@ -183,4 +233,52 @@
 }
 .butn_container2 .Input{
   margin-left: 5px;
+}
+
+
+
+
+
+/* 地址框框 */
+.OtherArrContainer{
+  position: fixed;
+  z-index: 12;
+  right: 0;
+  top: 0; 
+  bottom: 0;
+  left: 20%;
+  background: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+}
+.addnewarr{
+  padding: 1em;
+  text-align: center;
+  color: #8B572A;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+.addrItems2_now{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px dashed rgb(240,240,240);
+  background: #fff;
+  padding: 1em;
+}
+
+.addrItems2_now image{
+  width: 1.4em;
+  height: 1.4em;
+}
+
+.addrItems2_now view{
+  margin-left: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.addrItems2_now .font2{
+  margin-top: 0.4em;
 }

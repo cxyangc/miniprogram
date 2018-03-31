@@ -23,6 +23,13 @@ Page({
     totalSize: 0,
     curpage: 1
   },
+  /* 去详情页面 */
+  lookMore:function(e){
+    var id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/back_item_more/index?orderItemId=' + id,
+    })
+  },
   backWuLiu:function(e){
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
@@ -31,7 +38,7 @@ Page({
     this.setData({ IfbackTo: true })
   },
   /* 获取订单列表 */
-  getOrderList: function (options) {
+  getOrderList: function (options, fresh) {
     if (!app.checkIfLogin()) {
       return
     }
@@ -51,6 +58,9 @@ Page({
         that.listPage.totalSize = res.data.totalSize
 
         let dataArr = that.data.orderList
+        if (fresh){
+          dataArr = []
+        }
         dataArr = dataArr.concat(res.data.result)
 
         if (!res.data.result || res.data.result.length == 0) {
@@ -115,7 +125,7 @@ Page({
     this.data.orderList = []
 
     this.listPage.page = 1
-    this.getOrderList(this.GloOption);
+    this.getOrderList(this.GloOption,1);
 
     wx.stopPullDownRefresh() 
   },

@@ -16,6 +16,12 @@ Page({
     tab: [],
 
   },
+  toOrderDetail:function(e){
+    let orderNo = e.currentTarget.dataset.orderno
+    wx.navigateTo({
+      url: '/pages/mendian_order_detail/index?orderNo=' + orderNo,
+    })
+  },
   /* 点击tab */
   bindTab: function (e) {
 

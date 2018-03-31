@@ -126,8 +126,14 @@ Page({
       header: app.header,
       success: function (res) {
         console.log('-------地址---------')
-        console.log(res.data.result)
-        that.setData({ addrData: res.data.result })
+        console.log(res.data)
+        if (res.data.result.errcode == '-1'){
+          console.log('err')
+          app.echoErr(res.data.result.errMsg)
+        }else{
+          that.setData({ addrData: res.data.result })
+        }
+        
         wx.hideLoading()
       },
       fail: function (res) {

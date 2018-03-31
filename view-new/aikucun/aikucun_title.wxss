@@ -6,7 +6,9 @@
   flex-direction: row;
   justify-content: center;
   align-items: center; 
-  background: #f9f9f9;
+  background: #fff;
+  border-top-left-radius: 0.4em;
+  border-top-right-radius: 0.4em;
 }
 .aikucun_title_container{
    display: flex;
@@ -15,6 +17,21 @@
   align-items: center; 
 }
 
+.leftLine{
+  width: 1em;
+  height: 1px;
+  border-bottom: 2px solid #e24e24;
+  margin: 0 1em;
+}
+.leftImage{
+  width: 1em;
+  height: 1em;
+  margin: 0 1em;
+}
+.leftImage > image{
+  width: 100%;
+  height: 100%;
+}
 .border_style_sanjiao{
     width:0; 
     height:0;
@@ -28,5 +45,6 @@
     margin-top: 5rpx;
 }
 .aikucun_title_text{
-  font-family: '宋体' ,Cambria, Cochin, Georgia, Times, Times New Roman, serif,
+  color: #e24148;
+  font-size: 1.1em;
 }

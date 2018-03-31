@@ -2,14 +2,13 @@
 
 <!-- title -->
 <template name="aikucun_title">
-    <view class='aikucun_title' style='text-align:{{align}};background:{{bgColor}};'>
-      <view class='border_style_sanjiao' style='border-color:  transparent #000 #000 transparent;'></view>
+    <view class='aikucun_title' >
+      <!-- <view class='border_style_sanjiao' style='border-color:  transparent #000 #000 transparent;'></view> -->
+      <view class='leftLine'></view>
        <view class='aikucun_title_container'>
-          <view class='aikucun_title_text font_1' style='color:{{titleColor}}; ' >{{title}}</view>
-          <block wx:if='{{subTitle}}'>
-            <view class='aikucun_title_text' style='color:{{subTitleColor}}; margin-left:5px; font-size:{{subTitleSize}}px;'>{{subTitle}}</view>
-          </block>
+          <view class='aikucun_title_text' style='color:{{titleColor}}; ' >{{title}}</view>
        </view>
-      <view class='border_style_sanjiao' style='border-color:transparent transparent #000 #000;'></view>    
+       <view class='leftLine'></view>
+      <!-- <view class='border_style_sanjiao' style='border-color:transparent transparent #000 #000;'></view>     -->
     </view>
 </template>

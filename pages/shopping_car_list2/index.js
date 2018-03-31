@@ -20,7 +20,7 @@ Page({
 
     showHongDong: false, //活动购买的时候
     /* 热销数据 */
-    indexData: null,
+    products: null,
     //规格信息
     showCount: false,
     focusData: null,
@@ -30,6 +30,7 @@ Page({
     bindType: 'addto', //加入购物车or直接下单
     focusIndex: 0,
     showKefu: false,
+    hasMore: false
   },
   toProductDetail: function (e) {
     let info = e.currentTarget.dataset.info
@@ -38,14 +39,84 @@ Page({
     })
 
   },
+  oldEditIndex: -1,
+  /* 编辑购物车 */
+  closeOldEdit: function (index) {
+    let cartData = this.data.cartData
+    let focusCart = cartData[0].carItems[index]
+    focusCart.showEditView = false
+    this.setData({
+      cartData: cartData
+    })
+  },
+  editCart: function (e) {
+    let index = e.currentTarget.dataset.index;
+
+    if (this.oldEditIndex == -1) {
+
+    } else {
+      this.closeOldEdit(this.oldEditIndex)
+    }
+    this.oldEditIndex = index
+
+
+    let cartData = this.data.cartData
+    let focusCart = cartData[0].carItems[index]
+    focusCart.showEditView = true
+    focusCart.count2 = focusCart.count
+
+    this.CartParamWaitPost.cartesianId = focusCart.measureCartesianId
+    this.CartParamWaitPost.productId = focusCart.productId
+    this.CartParamWaitPost.shopId = focusCart.belongShop
+    this.CartParamWaitPost.count = focusCart.count
+    this.CartParamWaitPost.type = 'change'
+
+    this.setData({
+      cartData: cartData
+    })
+  },
+  sureChange: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let cartData = this.data.cartData
+    let focusCart = cartData[0].carItems[index]
+    focusCart.showEditView = false
+    console.log(this.CartParamWaitPost)
+    this.postParams(this.CartParamWaitPost)
+    this.setData({
+      cartData: cartData
+    })
+
+  },
+  _watchBigImage: function (e) {
+    let urls = e.currentTarget.dataset.urls;
+    let _url = e.currentTarget.dataset.url;
+    let url = urls[0];
+    if (!urls) {
+      url = _url
+    }
+    app.lookBigImage(url, urls)
+  },
   /* 右上删除 */
   deleById: function (e) {
+    let that = this
     let info = e.currentTarget.dataset.info
     let listPro = {}
     listPro.shopId = info.belongShop
     listPro.selectedIds = info.id
 
-    this.delectCart(listPro);
+    wx.showModal({
+      title: '提示',
+      content: '删除该商品',
+      success: function (res) {
+        if (res.confirm) {
+          that.delectCart(listPro);
+        } else if (res.cancel) {
+          return
+        }
+      }
+    })
+
+
   },
   /* 全部删除 */
   delectAll: function (e) {
@@ -149,7 +220,7 @@ Page({
       maskLoad: true
     })
     var that = this
-    var customIndex = app.AddClientUrl(" /list_promotions_by_car_items.html", listPro, 'post')
+    var customIndex = app.AddClientUrl("/list_promotions_by_car_items.html", listPro, 'post')
     wx.request({
       url: customIndex.url,
       data: customIndex.params,
@@ -167,10 +238,12 @@ Page({
             that.createOrder22_car(listPro)
           } else {
             that.listPro_passActive = listPro
+            that.checkedActive = res.data[0].id
             that.setData({
               showHongDong: true,
               chooseArr: res.data
             })
+
           }
         } else {
           listPro.promotionId = '0'
@@ -191,15 +264,23 @@ Page({
   closeHongDong: function () {
     this.setData({
       showHongDong: false,
-    })
-    this.setData({
       maskLoad: false
     })
   },
+
   listPro_passActive: {},
+  checkedActive: -1,  //选择的活动radio
+  chooseHuodong: function (e) {
+    this.checkedActive = e.detail.value
+  },
   chooseActive: function (e) {
-    let id = e.currentTarget.dataset.id;
-    console.log(id)
+    if (this.checkedActive == -1) {
+      return
+    }
+
+    let id = this.checkedActive;
+
+    console.log('选择的id', id)
     let listPro = this.listPro_passActive
     listPro.promotionId = id
     console.log(listPro)
@@ -219,13 +300,22 @@ Page({
       header: app.headerPost,
       method: 'POST',
       success: function (res) {
-
         console.log(res)
-        if (res.data.orderNo) {
+        if (res.data && res.data.orderNo) {
           wx.navigateTo({
             url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
           })
-        } else {
+        } else if (!res.data) {
+          wx.showToast({
+            title: '出错了,请刷新后重试',
+            image: '/images/icons/tip.png',
+            duration: 2000
+          })
+          that.setData({
+            maskLoad: false
+          })
+        }
+        else {
           wx.showToast({
             title: res.data.errMsg,
             image: '/images/icons/tip.png',
@@ -235,7 +325,7 @@ Page({
             maskLoad: false
           })
         }
-
+        wx.hideLoading()
       },
       fail: function (res) {
         wx.hideLoading()
@@ -253,56 +343,51 @@ Page({
   subCarNum: function (e) {
     let that = this
     let index = e.currentTarget.dataset.id
-    let focusCartItem = this.data.cartData[0].carItems[index]
-
-    let params = {
-      cartesianId: '0',
-      productId: '',
-      shopId: '',
-      secretCode: '',
-      count: '',
-      type: '',
+    let count = e.currentTarget.dataset.count
+    let cantadd = e.currentTarget.dataset.cantadd
+    console.log(cantadd)
+    if (cantadd) {
+      console.log(1)
+      return
     }
-    params.cartesianId = focusCartItem.measureCartesianId
-    params.productId = focusCartItem.productId
-    params.shopId = focusCartItem.belongShop
-    params.secretCode = "sansan"
-
-    if (focusCartItem.count == 1) {
-      console.log(focusCartItem)
-      params.count = 0
-      params.type = 'change'
+    let cartData = this.data.cartData
+    let focusCartItem = cartData[0].carItems[index]
+    if (count == 1) {
+      return
     }
-    else {
-      params.count = 1
-      params.type = 'dec'
-    }
+    focusCartItem.count2 = --count
+    this.CartParamWaitPost.count = count
 
-    this.postParams(params, focusCartItem)
+    that.setData({
+      cartData: cartData
+    })
   },
-
+  CartParamWaitPost: {
+    cartesianId: '0',
+    productId: '',
+    shopId: '',
+    count: '',
+    type: 'change',
+  },
   addCarNum: function (e) {
     let that = this
     let index = e.currentTarget.dataset.id
-    let focusCartItem = this.data.cartData[0].carItems[index]
-
-
-    let params = {
-      cartesianId: '0',
-      productId: '',
-      shopId: '',
-      secretCode: '',
-      count: '',
-      type: '',
+    let count = e.currentTarget.dataset.count
+    let cantadd = e.currentTarget.dataset.cantadd
+    console.log(cantadd)
+    if (cantadd) {
+      console.log(1)
+      return
     }
-    params.cartesianId = focusCartItem.measureCartesianId
 
-    params.productId = focusCartItem.productId
-    params.shopId = focusCartItem.belongShop
-    params.secretCode = "sansan"
-    params.count = 1
-    params.type = 'add'
-    this.postParams(params, focusCartItem)
+    let cartData = this.data.cartData
+    let focusCartItem = cartData[0].carItems[index]
+    focusCartItem.count2 = ++count
+    this.CartParamWaitPost.count = count
+
+    that.setData({
+      cartData: cartData
+    })
 
   },
   postParams: function (data, focusCartItem) {
@@ -325,14 +410,11 @@ Page({
         if (res.data.id) {
           if (focusCartItem) {
             focusCartItem.count = res.data.count
-            that.setData({
-              cartData: that.data.cartData
-            })
           }
         }
-        if ((data.count == 1 || data.count == 0) && data.type == 'change') {
-          that.getCart()
-        }
+
+        that.getCart()
+
       },
       fail: function (res) {
         wx.hideLoading()
@@ -343,34 +425,31 @@ Page({
   /* 加载购物车内容 */
 
   getCart: function () {
-    var customIndex = app.AddClientUrl("Client.User.CarItemList")
+    var customIndex = app.AddClientUrl("/get_shopping_car_list_item.html")
     var that = this
     wx.request({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
+        console.log('------error-------')
         console.log(res.data)
         if (res.data.errcode == '10001') {
           that.setData({ cartData: null })
-          wx.showModal({
-            title: '提示',
-            content: '用户未登录',
-            success: function (res) {
-              if (res.confirm) {
-                wx.navigateTo({
-                  url: '/pages/login/index'
-                })
-              } else if (res.cancel) {
-
-              }
-            }
-          })
+          app.loadLogin()
+        }
+        else if (res.data.result.errcode == '-1') {
+          that.setData({ cartData: null })
+          app.echoErr(res.data.result.errMsg)
         }
         else {
-
           if (!res.data.result || res.data.result.length == 0) {
             that.setData({ cartData: null })
-          } else {
+          }
+          else if (res.data.result.errcode) {
+            that.setData({ cartData: null })
+            app.echoErr(res.data.result.errMsg)
+          }
+          else {
             that.setData({ cartData: res.data.result })
           }
           that.showPrice()
@@ -473,9 +552,7 @@ Page({
       success: function (res) {
         console.log(res.data)
         if (res.data.result) {
-          let indexData = {}
-          indexData.products = res.data.result
-          that.dellProductImage(indexData)
+          that.dellProductImage(res.data.result)
         }
       },
       fail: function (res) {
@@ -516,7 +593,7 @@ Page({
     this.setData({
       maskLoad: false
     })
-    this.getCart()
+    //this.getCart()
   },
 
   /**
@@ -538,14 +615,17 @@ Page({
    */
   onPullDownRefresh: function () {
     this.getCart()
+    this.setData({
+      hasMore: false
+    })
     wx.stopPullDownRefresh()
   },
   /* 分享 */
   onShareAppMessage: function (res) {
     if (res.from == "button") {
       let index = res.target.dataset.index
-      let productData = this.data.indexData
-      let focusData = this.data.indexData.products[index]
+      let products = this.data.products
+      let focusData = products[index]
       let imageUrl = focusData.imagePath
       let shareName = focusData.brandName + focusData.name + '原价：￥' + focusData.tagPrice + '活动价：￥' + focusData.price
       let shareParams = {}
@@ -569,6 +649,9 @@ Page({
   //切割数组
   sliceArray: function (array, size) {
     var result = [];
+    if (!array) {
+      return result;
+    }
     for (let x = 0; x < Math.ceil(array.length / size); x++) {
       let start = x * size;
       let end = start + size;
@@ -579,6 +662,9 @@ Page({
   //获取图片数组 用来预览用
   getImageUrlList: function (array) {
     let result = [];
+    if (!array) {
+      return result;
+    }
     for (let x = 0; x < array.length; x++) {
       result.push(array[x].imagePath);
     }
@@ -594,12 +680,11 @@ Page({
     return arr
   },
   //处理图片，只要四张
-  dellProductImage: function (data) {
-    let products = data.products
-    this.sliceProductImageList(products)
-    console.log(data)
+  dellProductImage: function (products) {
+
+    let productsResult = this.sliceProductImageList(products)
     this.setData({
-      indexData: data
+      products: productsResult
     })
   },
   /* 热销操作 */
@@ -607,8 +692,8 @@ Page({
   showCardShare: function (e) {
     let oldIndex = this.data.focusIndex
     let index = e.currentTarget.dataset.index;
-    let productData = this.data.indexData
-    let focusData = this.data.indexData.products[index]
+    let products = this.data.products
+    let focusData = products[index]
 
     console.log(focusData)
     if (oldIndex == index) {
@@ -620,7 +705,7 @@ Page({
 
     console.log('--------1--------' + index)
     this.setData({
-      indexData: productData,
+      products: products,
       focusIndex: index
     })
   },
@@ -636,15 +721,15 @@ Page({
       return
     }
 
-    let productData = this.data.indexData
-    let focusData = productData.products[index]
+    let products = this.data.products
+    let focusData = products[index]
 
     if (focusData.showShare == false) {
       return
     }
     focusData.showShare = false
     this.setData({
-      indexData: productData
+      products: products
     })
   },
   //开关显示客服的
@@ -702,17 +787,24 @@ Page({
     this.byNowParams.itemCount--;
     this.setData({ byNowParams: this.byNowParams })
   },
-  addNum: function () {
-    this.byNowParams.itemCount++;
-    this.setData({ byNowParams: this.byNowParams })
+  addNum: function (e) {
+    let cantadd = e.currentTarget.dataset.cantadd;
+    if (cantadd == 1) {
+      return
+    } else {
+      this.byNowParams.itemCount++;
+      this.setData({ byNowParams: this.byNowParams })
+    }
   },
 
   //点击加入购物车或立即下单
 
   bindBuy: function (e) {
-    var index = e.currentTarget.dataset.index;
-    let productData = this.data.indexData.products
-    let focusData = productData[index]
+    let index = e.currentTarget.dataset.index;
+    let bindBuy = e.currentTarget.dataset.bindbuy;
+
+    let products = this.data.products
+    let focusData = products[index]
     this.byNowParams.productId = focusData.id
     this.byNowParams.shopId = focusData.belongShopId
     this.byNowParams.orderType = 0
@@ -722,6 +814,7 @@ Page({
       focusData: focusData,
       showCount: true,
       byNowParams: this.byNowParams,
+      bindBuy: bindBuy
     })
   },
   buyNow: function () {
@@ -734,13 +827,93 @@ Page({
       return
     }
     //立即购买
-    console.log('立即购买')
-    this.createOrder22(this.byNowParams)
+    if (this.data.bindBuy == 'addto') {
+      console.log('加入购物车')
+      //addto
+      this.addtocart()
+    } else {
+      console.log('立即购买')
+      this.createOrder22(this.byNowParams)
+    }
 
+  },
+  /* 加入購物車 */
+  addtocart: function () {
+
+    if (!app.checkIfLogin()) {
+
+      return
+    }
+    var params = {
+      cartesianId: '',
+      productId: '',
+      shopId: '',
+      count: '',
+      type: '',
+    }
+
+    if (!this.data.focusData.measureItem || this.data.focusData.measureTypes.length == 0) {
+      params.cartesianId = '0'
+    }
+    else {
+      params.cartesianId = this.data.measurementJson.id
+    }
+
+    params.productId = this.data.focusData.id
+    params.shopId = this.data.focusData.belongShopId
+    params.count = this.byNowParams.itemCount
+    params.type = 'add'
+
+    this.postParams_hot(params)
 
   },
 
+  postParams_hot: function (data) {
+    var that = this
+    var customIndex = app.AddClientUrl("/change_shopping_car_item.html", data, 'post')
+    wx.request({
+      url: customIndex.url,
+      data: customIndex.params,
+      header: app.headerPost,
+      method: 'POST',
+      success: function (res) {
+        console.log('---------------change_shopping_car_item-----------------')
+        console.log(res.data)
+        wx.hideLoading()
 
+        if (that.data.bindType == 'addto') {
+          that.setData({ showCount: false })
+        }
+        if (res.data.productId && res.data.productId != 0) {
+          that.setData({
+            carCount: res.data.totalCarItemCount
+          })
+          if (data.count == 0) {
+            console.log('通过加入购物车来确定购物车里面的商品数量')
+          } else {
+            wx.showToast({
+              title: '加入购物车成功',
+            })
+            that.setData({
+              hasMore: true
+            })
+          }
+        } else {
+          wx.showToast({
+            title: res.data.errMsg,
+            image: '/images/icons/tip.png',
+            duration: 3000
+          })
+        }
+
+
+      },
+      fail: function (res) {
+        wx.hideLoading()
+        app.loadFail()
+      }
+    })
+  },
 
   /* 创建订单 */
   createOrder22: function (o) {
@@ -781,6 +954,7 @@ Page({
     })
   },
   closeZhezhao: function () {
+    this.MeasureParams = []
     this.setData({ showCount: false, focusData: null })
   },
 
@@ -825,7 +999,8 @@ Page({
 
     let productId = this.data.focusData.id
     let postStr = ''
-    if (this.MeasureParams.length == 0) {
+
+    if (!this.data.focusData.measureItem || this.MeasureParams.length == 0) {
       this.byNowParams.cartesianId = '0'
       return
     }
@@ -865,7 +1040,9 @@ Page({
   /* 初始化 选规格 */
   chooseMeasureItem: function (focusData) {
     console.log('----------初始化规格参数-----------')
-
+    if (!focusData.measureItem) {
+      return
+    }
     for (let i = 0; i < focusData.measureTypes.length; i++) {
       focusData.measureTypes[i].checkedMeasureItem = 0
       //初始化选择的数据

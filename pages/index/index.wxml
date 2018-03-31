@@ -1,3 +1,8 @@
-<view class='welcome'>
-  <!-- <image mode='widthFix' src='http://image1.sansancloud.com/naicha/2017_12/13/10/16/37_583.jpg'></image> -->
+<view class='welcome' wx:if='{{showLoadFail}}'>
+  <image mode='widthFix' src='/images/icons/404.png'></image>
+  <button bindtap='reloadJs' loading='{{showLoading}}' >重新加载</button>
+</view>
+
+<view wx:else>
+  
 </view>

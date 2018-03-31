@@ -1,12 +1,13 @@
 <import src="../../view-new/aikucun/aikucun_hot_product.wxml"/>
 <import src="../../view-new/aikucun/measure_card.wxml"/>
 <import src="../../view-new/aikucun/kefu.wxml"/>
-<import src="../../view-new/aikucun/aikucun_title.wxml"/>
+<import src="../../view-new/aikucun/aikucun_title2.wxml"/>
  
 
 
 <view class='container'> 
-<block wx:if="{{!!cartData}}">
+<view wx:if='{{hasMore}}' class='hasMoreCart'>刷新购物车查看商品</view> 
+<block wx:if="{{cartData}}">
   <checkbox-group bindchange="checkboxChange">
     <view class='cartContainer' wx:for='{{cartData}}' wx:for-item='cartshop' wx:key='{{index}}'>
       <view class='cartShopName'>{{cartshop.shopName}}</view>
@@ -16,34 +17,58 @@
           <checkbox  checked='{{allchecked}}' color='{{setting.platformSetting.defaultColor}}' value='{{cart.id}}'></checkbox>
           <image mode='aspectFill' src='{{cart.item.imagePath}}?x-oss-process=style/preview'></image>
         </label> 
-
-        <view class='item_infomation'>
+        <view wx:if='{{cart.showEditView}}' class='editCart_item_container'>
+          <view class='dellCart_butn_container'>
+            <view class='dellCart_butn_container_1'>
+              <image src='/images/icons/add2.png' class='{{cart.count2 == 1? "cantAdd":""}}' 
+                  data-id='{{index}}' data-cantadd='{{cart.count2 == 1}}' data-count='{{cart.count2}}' catchtap='subCarNum'></image>
+              <text class='flexCenter font1'>{{cart.count2}}</text>
+              <image src='/images/icons/add.png' class='{{cart.count2 == cart.stock ? "cantAdd":""}}' 
+                  data-id='{{index}}' data-cantadd='{{cart.count2 == cart.stock}}' data-count='{{cart.count2}}' catchtap='addCarNum' ></image>
+            </view>
+            <view class='dellCart_butn_container_mesure'>
+                 <text wx:for='{{cart.measureCartensian.measurements}}'
+              wx:for-item='mesure' wx:key='{{index}}'>{{mesure.measureName}}</text>
+              <text>库存：{{cart.stock}}</text>
+            </view>
+          </view>
+          <view class='sureCart_butn_container' style='background:{{setting.platformSetting.defaultColor}}'
+            data-index='{{index}}' bindtap='sureChange'>
+             完成
+          </view>
+        </view>
+         
+        <view class='item_infomation' wx:else>
           <view class='item_infomation_name' data-info='{{cart}}' 
             wx:if='{{cart.count}}'
            >{{cart.item.name}}</view>
           <view wx:if='{{cart.count > cart.stock}}' class='cart_stock_warn font_red'>
              库存不足，剩余库存（{{cart.stock}}）  
           </view>
-
           <view class='cart_infoMeasure'>
             <view wx:for='{{cart.measureCartensian.measurements}}'
              wx:for-item='mesure' wx:key='{{index}}'>{{mesure.measureName}}</view>
           </view>
-          
-          <view class='cart_infoMeasure font_red' wx:if='{{cart.item.promotion}}'>
-            <view >{{cart.item.promotionBean.name}}</view>
+          <view class='cart_star' wx:if='{{cart.item.promotion}}'>
+            <view>{{cart.item.promotionBean.name}}</view>
           </view>
-
-          <view class='xxx' data-info='{{cart}}' catchtap='deleById'>
-            <image src='/images/icons/x.png' ></image>
+          <view class='dellCart_butn'>
+              <view class='xxx_edit' data-index='{{index}}' catchtap='editCart'>
+                <image src='http://image1.sansancloud.com/aikucun/2018_03/21/16/00/16_502.jpg' ></image>
+              </view>
+               <view class='xxx' data-info='{{cart}}' catchtap='deleById'>
+                <image src='http://image1.sansancloud.com/aikucun/2018_03/21/19/33/25_702.jpg' ></image>
+              </view>
           </view>
-          <view class='item_infomation_nums_cart'> 
-            <image src='/images/icons/add2.png' data-id='{{index}}' catchtap='subCarNum'></image>
+          <view class='item_infomation_nums_cart_not_add'> 
+            <text class='x_butn'>x</text>
             <text class='flexCenter font1'>{{cart.count}}</text>
-            <image src='/images/icons/add.png' data-id='{{index}}' catchtap='addCarNum' ></image>
           </view>
           <view  class='item_infomation_money'>￥ {{cart.carItemPrice}}</view>
         </view>
+
+
+         
       </view>
       <view class='butn_container'>
         <view class='de' bindtap='delectChecked'>删除选中</view>
@@ -61,8 +86,8 @@
 </block>
 </view>
   <view class='hotProductContainer' bindtap='closeCardShare'>
-    <template is="aikucun_title" data="{{...setting,sysWidth,loginUser:loginUser,title:'爆款推荐'}}"></template> 
-    <template is="aikucun_hot_product" data="{{...setting,sysWidth,loginUser:loginUser,indexData:indexData,listEnd}}"></template> 
+    <template is="aikucun_title2" data="{{...setting,sysWidth,loginUser:loginUser,title:'爆款推荐'}}"></template> 
+    <template is="aikucun_hot_product" data="{{...setting,sysWidth,loginUser:loginUser,products:products,listEnd}}"></template> 
     <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template> 
     <template is="kefu" data="{{loginUser:loginUser,showKefu}}"></template> 
   </view>
@@ -76,7 +101,7 @@
   </label>
   <view class='toJieSuan'>
     <view class='toJieSuan_money'>
-      <view>本次支付: <text class='color'>￥  {{countPrice}}</text></view>
+      <view>本次支付: <text class='price'>￥ {{countPrice}}</text></view>
       <text>商品数: <text>  {{countGood}}</text></text>
     </view>
     <view class='toJieSuan_butn' bindtap='createOrder_car'
@@ -85,16 +110,22 @@
 </view>
 
 
-<view class='kefu_wx' wx:if='{{showHongDong}}'>
+<view class='kefu_wx_huodong' wx:if='{{showHongDong}}' catchtouchmove='doNothing'>
   <view class='kefu_bg_zhezhao' bindtap='closeHongDong'></view>
-  <view class='kefu_wx_card'>
-     <view class='name'>你想要结算的活动</view>
-        <view class='code_container'>
-          <!-- <image class='{{loginUser.platformUser.mendian.kefuQrcode}}'></image> -->
-          <view class='code_item' wx:for='{{chooseArr}}' wx:key='{{item.id}}' data-id='{{item.id}}' bindtap='chooseActive'>{{item.name}}</view>
+  <view class='kefu_wx_card_hongdong'>
+     <view class='name'>请分开结算以下商品</view>
+        <radio-group class='code_container' bindchange='chooseHuodong'>
+          <label class='radioItems'  wx:for='{{chooseArr}}' wx:key='{{item.id}}' data-id='{{item.id}}'>
+            <radio checked='{{index == 0}}' value='{{item.id}}' color='{{setting.platformSetting.defaultColor}}'></radio>
+            <view class='code_item' >{{item.name}}商品</view>
+          </label>
+        </radio-group>
+        
+        <view class='tips_buy_butn_container'>
+           <view class='backtoCart_butn' bindtap='closeHongDong'>返回购物车</view>
+           <view style='background:{{setting.platformSetting.defaultColor}}' class='go_to_pay_butn' bindtap='chooseActive'>去结算</view>
         </view>
-        <view class='tips'>点击活动下单</view>
-        <view class='tips'>（购买该活动下的商品）</view>
-      
+
+      <!-- bindtap='chooseActive' -->
   </view>
 </view>

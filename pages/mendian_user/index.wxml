@@ -8,10 +8,13 @@
     </block>
 
     <view wx:else class='flx_user_container'>
+      <view class='countUser'>
+        <view>共{{count}}人</view>
+      </view>
       <view class='flx_user_item' wx:for='{{List}}' wx:key='{{index}}'>
         <image  src='{{item.headimgurl ? item.headimgurl : "/images/icons/me1.png"}}'></image>
         <view class='flx_user_item_info'>
-          <text>{{item.nickname}}</text>
+          <text>{{item.nickname ? item.nickname : "无昵称"}}</text>
            <view>直接推广人数: {{item.levelOneFxUserCount}}</view>
         </view>
       </view>

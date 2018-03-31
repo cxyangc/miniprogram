@@ -218,19 +218,7 @@ Page({
           console.log(res)
           console.log(res.data)
           if(res.data.errcode == '10001'){
-            wx.showModal({
-              title: '提示',
-              content: '用户未登录',
-              success: function (res) {
-                if (res.confirm) {
-                  wx.navigateTo({
-                    url: '/pages/login/index'
-                  })
-                } else if (res.cancel) {
-
-                }
-              }
-            })
+            app.loadLogin()
           }else{
             app.payItem = res.data  /* 全局传过去吧... */
             wx.hideLoading()

@@ -14,10 +14,10 @@ Page({
     componentData: {}, //组件的data
 
     headData:null,
-    headData: null,
-    headData: null,
-    headData: null,
-    headData: null,
+    blankData: null,
+    orderData: null,
+    ListData: null,
+    serverData: null,
   },
   loginOut: function () {
     wx.navigateTo({
@@ -26,11 +26,11 @@ Page({
   },
   login: function () {
     wx.navigateTo({
-      url: '../login/index',
+      url: '../login_wx/index',
     })
   },
   headData:{
-    imageUrl:' http://image1.sansancloud.com/jianzhan/2017_09/24/16/07/23_193.jpg'
+    imageUrl:' http://image1.sansancloud.com/aikucun/2018_03/22/10/58/49_233.jpg'
   },
   
   blankData:{
@@ -38,28 +38,33 @@ Page({
     height: 12
   },
 
-  orderData:{
+  orderData: {
+    
     cells:[
       {
-        iconPath: "http://image1.sansancloud.com/taoditongzhuang/2017_04/05/10/07/13_757.jpg",
+        iconPath: "http://image1.sansancloud.com/aikucun/2018_03/21/15/59/45_177.jpg",
         linkUrl: "order_list_2.html?easyStatus=2&easyStatusName=待付款",
         text: "待付款",
-        color: "#777777"
+        color: "#777777",
+        showCountNum:0,
+        
       },
       {
-        iconPath: "http://image1.sansancloud.com/taoditongzhuang/2017_04/05/10/07/11_765.jpg",
+        iconPath: "http://image1.sansancloud.com/aikucun/2018_03/21/15/59/43_013.jpg",
         linkUrl: "order_list_3.html?easyStatus=3&easyStatusName=待发货" ,
         text: "待发货",
-        color: "#777777"
+        color: "#777777",
+        showCountNum:0,
       },
       {
-        iconPath: "http://image1.sansancloud.com/taoditongzhuang/2017_04/05/10/07/12_765.jpg",
+        iconPath: "http://image1.sansancloud.com/aikucun/2018_03/21/15/59/47_657.jpg",
         linkUrl: "order_list_4.html?easyStatus=4&easyStatusName=待收货",
         text: "待收货" ,
-        color: "#777777"
+        color: "#777777",
+        showCountNum:0,
       },
       {
-        iconPath: "http://image1.sansancloud.com/taoditongzhuang/2017_04/05/10/07/04_738.jpg",
+        iconPath: "http://image1.sansancloud.com/aikucun/2018_03/21/15/59/54_984.jpg",
         linkUrl: "back_item_list.html",
         text: "售后",
         color: "#777777"
@@ -85,7 +90,7 @@ Page({
       },
       {
         iconPath: "http://image1.sansancloud.com/jianzhan/2017_11/08/20/44/32_860.jpg",
-        linkUrl: "news_detail.html?id=12",
+        linkUrl: "news_list.html?newsTypeId=5&pageNage=关于我们",
         text: "关于我们",
         color: "#777777"
       }
@@ -109,16 +114,61 @@ Page({
       serverData: this.serverData,
     })
   },
+  getSessionUserInfo: function () {
+    var that = this;
+    var postParamUserBank = app.AddClientUrl("/get_session_userinfo.html")
+    wx.request({
+      url: postParamUserBank.url,
+      data: postParamUserBank.params,
+      header: app.headerPost,
+      success: function (res) {
+        console.log(res.data)
+
+        if (res.data.errcode == '0') {
+          let UserInfo = res.data.relateObj.platformUser
+          let orderData = that.orderData
+          orderData.cells[0].showCountNum = UserInfo.unpayedCount
+          orderData.cells[1].showCountNum = UserInfo.unsendedCount
+          orderData.cells[2].showCountNum = UserInfo.unreceivedCount
+
+          that.setData({
+            orderData: orderData,
+            loginUser: res.data.relateObj
+          })
+          app.loginUser = res.data.relateObj
+        } else {
+          wx.showToast({
+            title: res.data.errMsg,
+            image: '/images/icons/tip.png',
+            duration: 1000
+          })
+        }
+      },
+      fail: function (res) {
+
+       // unsendedCount //待发货
+       // unreceivedCount //待收货
+       // unpayedCount //逮住款
+
+        console.log(res.data)
+      },
+      complete: function (res) {
+        wx.stopPullDownRefresh()
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.dellSData()
+    this.getSessionUserInfo()
     this.setData({
       loginUser: app.loginUser,
       userInfo: app.globalData.userInfo,
       setting: app.setting
     })
+    
   },
 
   /**
@@ -131,11 +181,14 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
+  openShow:false,
   onShow: function () {
-
-    this.setData({ loginUser: app.loginUser })
-
-
+    if (this.openShow){
+      this.setData({ loginUser: app.loginUser })
+      this.getSessionUserInfo();
+    }
+    this.openShow = true
+    
   },
 
   /**
@@ -156,7 +209,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getSessionUserInfo();
+    
   },
 
   /**

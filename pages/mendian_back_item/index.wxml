@@ -1,7 +1,7 @@
 
 <view class='container'>
     <view class='tab'>
-      <view wx:for='{{tab}}' style='width:{{(100/(tab.length))}}%;' wx:key='{{index}}'  class='{{showTabIndex == index ? "active":"noneUse"}}'  
+      <view wx:for='{{tab}}' style='width:{{(100/(tab.length))}}%;' wx:key='{{index}}'  class='{{showTabIndex == index ? "activeTab":"noneUse"}}'  
         data-id='{{index}}' bindtap='bindTab'>{{item.name}}</view>        
     </view>
 
@@ -23,7 +23,7 @@
                         <text class='font_09' style='color:{{setting.platformSetting.defaultColor}}'>{{list.backTime  }}</text>
                       </view>
 
-                      <view class='cartItems'>
+                      <view class='cartItems'data-id='{{list.orderItemId}}' bindtap='lookMore'>
                         <view class='itemCheckbox'>
                           <image mode='aspectFill' src='{{list.orderItem.itemIcon}}?x-oss-process=style/preview'></image>
                         </view>
@@ -41,9 +41,15 @@
                         </view>
                       </view>
                       <view class='cartItems_count'>—— 共{{list.backCount}}件商品 ——</view>
+                      <view  class='butn_container3 font_08'>
+                          <text>退款原因：</text>
+                          <text class='tip_tags'>{{list.tags}}</text>
+                          <text style='color:{{setting.platformSetting.defaultColor}}'>{{list.userRemark }}</text>
+                      </view>
                       <view  class='butn_container'>
                           <text style='color:{{setting.platformSetting.defaultColor}}'>退款金额：￥{{list.backAmount }}</text>
                       </view>
+                      
                       <!-- 订单类型不同，按钮不一样 -->
                       <view wx:if='{{list.backStatus  == 1}}' class='butn_container2'>
                           <text data-index='{{index}}' data-id='{{list.id}}' data-accept='1' bindtap='dellBackButnAgree'>同意</text>
@@ -67,7 +73,7 @@
     </swiper>
 </view>
 
-<view class='kefu_wx' wx:if='{{showKefu}}'>
+<view class='kefu_wx' catchtouchmove='true' wx:if='{{showKefu}}'>
     <view class='kefu_bg_zhezhao' bindtap='closeKefu'></view>
     <view class='kefu_wx_card'>
       <view class='inputContainer'>

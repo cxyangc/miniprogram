@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */ 
   data: { 
-    setting: null, // setting   
+    setting: null, // setting           
     loginUser: null,
     productData: [], // 商品数据  
     sysWidth: 320,//图片大小
@@ -128,6 +128,7 @@ Page({
       this.closeCardShare(oldIndex)
       focusData.showShare = !focusData.showShare
     }
+
 
     console.log('--------1--------' + index)
     this.setData({
@@ -253,7 +254,7 @@ Page({
           dataArr = dataArr.concat(result2)
           that.setData({ productData: dataArr })
           console.log(that.data.productData)
-          //that.getCart()
+          
         }
        
         wx.hideLoading()
@@ -288,9 +289,14 @@ Page({
     this.byNowParams.itemCount--;
     this.setData({ byNowParams: this.byNowParams })
   },
-  addNum: function () {
-    this.byNowParams.itemCount++;
-    this.setData({ byNowParams: this.byNowParams })
+  addNum: function (e) {
+    let cantadd = e.currentTarget.dataset.cantadd;
+    if (cantadd == 1) {
+      return
+    } else {
+      this.byNowParams.itemCount++;
+      this.setData({ byNowParams: this.byNowParams })
+    }
   },
 
   //点击加入购物车或立即下单
@@ -354,7 +360,7 @@ Page({
       type: '',
     }
 
-    if (this.data.focusData.measureTypes.length == 0) {
+    if (!this.data.focusData.measureItem || this.data.focusData.measureTypes.length == 0) {
       params.cartesianId = '0'
     }
     else {
@@ -371,10 +377,9 @@ Page({
   },
 
   getCart: function () {
-    let focusProduct = this.data.productData[0]
+    
     var params = {}
-    params.productId = focusProduct.id
-    params.shopId = focusProduct.belongShopId
+    params.productId = 0
     params.count = 0
     params.type = 'add'
     this.postParams(params)
@@ -395,24 +400,32 @@ Page({
         if (that.data.bindType == 'addto') {
           that.setData({ showCount: false })
         }
-        if (res.data.productId && res.data.productId != 0) {
+        if (data.productId == 0){
+          console.log('购物车里面的商品数量')
           that.setData({
-            carCount:res.data.totalCarItemCount
+            carCount: res.data.totalCarItemCount
           })
-          if (data.count == 0) {
-            console.log('通过加入购物车来确定购物车里面的商品数量')
+        }else{
+          if (res.data.productId && res.data.productId != 0) {
+            that.setData({
+              carCount: res.data.totalCarItemCount
+            })
+            if (data.count == 0) {
+              console.log('通过加入购物车来确定购物车里面的商品数量')
+            } else {
+              wx.showToast({
+                title: '加入购物车成功',
+              })
+            }
           } else {
             wx.showToast({
-              title: '加入购物车成功',
+              title: res.data.errMsg,
+              image: '/images/icons/tip.png',
+              duration: 3000
             })
           }
-        } else {
-          wx.showToast({
-            title: res.data.errMsg,
-            image: '/images/icons/tip.png',
-            duration: 3000
-          })
         }
+        
 
 
       },
@@ -462,6 +475,7 @@ Page({
     })
   },
   closeZhezhao: function () {
+    this.MeasureParams = []
     this.setData({ showCount: false, focusData:null })
   },
   
@@ -487,7 +501,7 @@ Page({
   },
   onLoad: function (options) {
     console.log(options)
-    
+    this.getCart()
 
     this.opt = options
     this.loadOpt(options)
@@ -554,7 +568,15 @@ Page({
       })
     }
   },
-
+  _watchBigImage: function (e) {
+    let urls = e.currentTarget.dataset.urls;
+    let _url = e.currentTarget.dataset.url;
+    let url = urls[0];
+    if (!urls) {
+      url = _url
+    }
+    app.lookBigImage(url, urls)
+  },
   /**
    * 用户点击右上角分享
    */
@@ -665,7 +687,9 @@ Page({
   /* 初始化 选规格 */
   chooseMeasureItem: function (focusData) {
     console.log('----------初始化规格参数-----------')
-    
+    if (!focusData.measureItem) {
+      return
+    }
     for (let i = 0; i < focusData.measureTypes.length; i++) {
       focusData.measureTypes[i].checkedMeasureItem = 0
       //初始化选择的数据

@@ -2,6 +2,29 @@
 @import 'app_font.wxss';/*6 */
 /* background: #8B572A;
  */
+.tip_tags{
+  padding: 0.2em 0.4em;
+  background: #e24148;
+  color: #fff;
+  border-radius: 0.4em;
+  margin-right: 0.4em;
+}
+.vity_tag{
+  margin-right: 10px;
+  background: #7fdb8a;
+  padding: 0 0.4em;
+  border-radius: 0.4em;
+  color: #fff;
+  max-width:10em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+/* 激活的tab */
+ .activeTab{
+  border-bottom: 2px solid #e24148;
+  color: #000 !important;
+}
 /**app.wxss**/
 .freshView{
   height: 10em;
@@ -9,8 +32,20 @@
   top: 0;
   left:0;
   right:0;
-  background:#000;
-
+  background:#ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.freshView > .freshView_text{
+  margin-top: 0.4em;
+  color: #999;
+  font-size: 0.8em;
+}
+.freshView > image{
+  margin-top: 0.8em;
+  width: 1.2em;
+  height: 1.2em;
 }
 
 image{
@@ -24,12 +59,9 @@ page{
   font-size: 1em;
 }
 .container {
-  max-height: 100%;
-  min-height:100%;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  
+  display:flex;
+flex-direction:column;
+
 } 
 /*布局样式*/
 .coluContainer{
@@ -213,4 +245,9 @@ page{
   overflow: hidden;
 }
 
- 
+ .marginleft{
+   margin-left: 0.6em;
+ }
+ .noadd{
+   background: #eee;
+ }

@@ -7,22 +7,46 @@ Page({
    */
   data: {
     setting: null,
+    shopBackAmountId:''
   },
-
+  getwuliuNo(e){
+    //console.log(e.detail.value)
+    this.wuliuNo = e.detail.value
+  },
+  getwuliuCom(e){
+    this.wuliuCom = e.detail.value
+  },
+  getwuliuAmount(e) {
+    this.wuliuAmount = e.detail.value
+  },
+  wuliuCom:'',
+  wuliuNo:'',
+  wuliuAmount:'',
   getValues(e){
-    console.log(e.detail.value)
+    // console.log(e.detail.value)
     let postParam = {}
     postParam.wuliuCom = e.detail.value.wuliuCom
+    if (!postParam.wuliuCom){
+      postParam.wuliuCom = this.wuliuCom
+    }
     postParam.wuliuNo = e.detail.value.wuliuNo
+    if (!postParam.wuliuNo) {
+      postParam.wuliuNo = this.wuliuNo
+    }
+    postParam.wuliuAmount = e.detail.value.wuliuAmount
+    if (!postParam.wuliuAmount) {
+      postParam.wuliuAmount = this.wuliuAmount
+    }
+    if (postParam.wuliuAmount){
+      if (isNaN(postParam.wuliuAmount)){
+        app.echoErr('运费请填写数字')
+        return
+      }
+    }
     postParam.shopBackAmountId = this.data.shopBackAmountId
     console.log(postParam)
     if (!postParam.wuliuCom || !postParam.wuliuNo){
-      wx.showToast({
-        title: "请填写完整",
-        image: '/images/icons/tip.png',
-        duration: 2000
-      })
-      return
+      app.echoErr('请填写完整的物流信息')
     }else{
       this.sureBackItem(postParam)
     }
@@ -32,7 +56,7 @@ Page({
     var that = this
     wx.showModal({
       title: '提示',
-      content: '确认以上填写信息正确',
+      content: '确认以上填写信息正确，若没有可填无',
       success: function (res) {
         if (res.confirm) {
           var customIndex = app.AddClientUrl("/send_back_order_item_wuliu.html", postParam, 'post')

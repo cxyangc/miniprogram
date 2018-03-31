@@ -70,16 +70,17 @@ Page({
           'success': function (res) {
             console.log('------成功--------')
             console.log(res)
-            wx.showToast({
+            /* wx.showToast({
               title: '付款成功',
               icon: 'success',
               duration: 2000
+            }) */
+            wx.redirectTo({
+              url: '/pages/order_list_tab/index',
             })
-            setTimeout(function () {
-              wx.redirectTo({
-                url: '/pages/order_list_tab/index',
-              })
-            }, 2000)
+            /* setTimeout(function () {
+              
+            }, 2000) */
           },
           'fail': function (res) {
             console.log('------fail--------')

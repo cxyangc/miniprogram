@@ -220,19 +220,7 @@ Page({
   /* 获取订单列表 */
   getOrderList: function (options){
     if (!app.loginUser) {
-      wx.showModal({
-        title: '提示',
-        content: '用户未登录',
-        success: function (res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/login/index'
-            })
-          } else if (res.cancel) {
-
-          }
-        }
-      })
+      app.loadLogin()
       return
     }
     options.page = this.listPage.page

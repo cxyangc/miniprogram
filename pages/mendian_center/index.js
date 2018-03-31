@@ -7,9 +7,8 @@ Page({
    */
   data: {
     setting: {},
-    mendianInfo: null,
     loginUser: null,
-    mendianZhanghu:null
+    mendian:null
   },
   /* 组件事件集合 */
   tolinkUrl: function (e) {
@@ -17,13 +16,12 @@ Page({
     app.linkEvent(linkUrl)
   },
   
-
-  get_mendian_center: function (setting) {
-    console.log('-------门店--------')
+  getMendianInfo:function(){
+    console.log('-------门店-1-------')
     let params = {
 
     }
-    var customIndex = app.AddClientUrl("/get_manager_mendian_account_admin_mendian_json.html", params, 'post')
+    var customIndex = app.AddClientUrl("/ge_manager_mendian_info_admin_mendian_json.html", params, 'post')
     var that = this
     wx.showLoading({
       title: 'loading'
@@ -36,14 +34,15 @@ Page({
       success: function (res) {
         console.log(res.data)
         if (res.data.errcode == '0') {
-          let mendianZhanghu = res.data.relateObj
+          let mendian = res.data.relateObj
+          mendian = that.dellMoney(mendian)
           //account 账户余额
-          that.setData({
-            mendianZhanghu: mendianZhanghu
-          })
-         
+           that.setData({
+             mendian: mendian
+          }) 
+           that.setNav(mendian)
         }
-       
+
 
         wx.hideLoading()
       },
@@ -51,6 +50,18 @@ Page({
         wx.hideLoading()
         app.loadFail()
       }
+    })
+  },
+  dellMoney:function(mendian){
+    mendian.account.account = app.toFix(mendian.account.account)
+    mendian.totalEarningAmount = app.toFix(mendian.totalEarningAmount)
+    mendian.totalTixianAmount = app.toFix(mendian.totalTixianAmount)
+    mendian.waitCompleteOrderDistributeAmount = app.toFix(mendian.waitCompleteOrderDistributeAmount)
+    return mendian
+  },
+  setNav:function(mendian){
+    wx.setNavigationBarTitle({
+      title: mendian.name,
     })
   },
   /**
@@ -63,8 +74,7 @@ Page({
       loginUser: app.loginUser 
       })
  
-
-    this.get_mendian_center(app.setting)
+    this.getMendianInfo()
   },
 
   /**
@@ -100,7 +110,10 @@ Page({
    */
   onPullDownRefresh: function () {
     this.onLoad()
-    wx.stopPullDownRefresh()
+    setTimeout(function(){
+      wx.stopPullDownRefresh()
+    },2000)
+    
   },
 
   /**

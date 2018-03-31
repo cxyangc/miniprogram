@@ -4,12 +4,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 10px;
-    background: #f9f9f9;
+    margin-bottom:10px;
 }
 .report_area_s{
   width: 100%;
-  background: #fff;
+  background: #e0e0e0;
   border-radius: 0.4em;
   display: flex;
   flex-direction: row;
@@ -19,9 +18,9 @@
 }
 
  .report_icon {
-    width: 2.4em;
-    height: 2.4em;
-    margin-left: 10px;
+    width: 1.4em;
+    height: 1.4em;
+    margin-left: 1em;
 }
 .report_area .report_list{
     padding-left: 10px;
@@ -34,7 +33,7 @@
 }
 
 .report_list2{
-    padding-left: 10px;
+    padding-left: 1em;
     width: 80%;
     color: #999;
   

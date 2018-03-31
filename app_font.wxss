@@ -48,6 +48,9 @@
 .font_1{
   font-size: 1em;
 }
+.font_11{
+  font-size: 1.1em;
+}
 .font_12{
   font-size: 1.2em;
 }

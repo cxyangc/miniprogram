@@ -8,9 +8,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #efefef;
+  
 }
+
+
 .welcome image{
-  min-width: 320px;
-  width: 100%;
-  height: 100%;
+  width: 40%;
+}
+.welcome button{
+  width: 90%;
+  margin-top: 5em;
+  background: #e24148;
+  color: #fff;
+  height: 2.2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

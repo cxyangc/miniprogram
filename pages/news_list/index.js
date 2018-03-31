@@ -136,6 +136,11 @@ Page({
     this.getNewsData(options)
     this.getCusPage();
     this.opt = options
+    if (options.pageNage){
+      wx.setNavigationBarTitle({
+        title: options.pageNage
+      })
+    }
     this.setData({ setting: app.setting, sysWidth: app.globalData.sysWidth })
     console.log(this.data.sysWidth)
   },

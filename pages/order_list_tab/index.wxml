@@ -1,18 +1,21 @@
 
 <view class='container'>
     <view class='tab'>
-      <view wx:for='{{tab}}' style='width:{{(100/(tab.length))}}%;' wx:key='{{index}}'  class='{{showTabIndex == index ? "active":"noneUse"}}'  
+      <view wx:for='{{tab}}' style='width:{{(100/(tab.length))}}%;' wx:key='{{index}}'  class='{{showTabIndex == index ? "activeTab":"noneUse"}}'  
         data-id='{{index}}' bindtap='bindTab'>{{item.name}}</view>        
     </view>
 
     <swiper class='Tab_page' current='{{showTabIndex}}' style='height: {{sysHeight-50}}px;' bindchange='changeIndex'> 
       <swiper-item wx:for='{{tab}}' wx:key='{{index}}' wx:for-item='tab'>
         <view class='swiperPageContainer'>
-          <view class='freshView'></view>
-           <scroll-view  style='height: {{sysHeight-40}}px;' class='tab_page_list' scroll-y upper-threshold='-50' lower-threshold='10' 
-            data-index='{{index}}' bindscrolltoupper='scrollTopToReflesh' bindscrolltolower='scrollBottomToLoadMore'>
+          <view class='freshView'>
+            <view class='freshView_text'>{{refreshText}}</view>
+            <image src='http://image1.sansancloud.com/aikucun/2018_03/16/15/36/57_988.jpg?x-oss-process=style/preview_120'></image>
+          </view>
+           <scroll-view  style='height: {{sysHeight-40}}px;' class='tab_page_list' scroll-y upper-threshold='-60' lower-threshold='10' 
+            data-index='{{index}}' bindscroll='scrollEvent'  bindscrolltoupper='scrollTopToReflesh' bindscrolltolower='scrollBottomToLoadMore'>
             
-            <view class='tab_page_list_container' style='background: #eee;'>
+            <view class='tab_page_list_container' >
                 <block wx:if='{{!tab.List}}'>  
                     <view class='noneList'>没有相关订单</view>
                 </block>
@@ -65,7 +68,7 @@
                           <text data-order='{{list}}' bindtap='pay'>立即付款</text>
                           <text data-orderNo='{{list.orderNo}}' data-index='{{index}}' bindtap='delectOrder'>删除订单</text>
                       </view>
-                      <view wx:if='{{list.easyStatus == 3}}' class='butn_container2'>
+                      <view wx:if='{{list.payStatus == 1 && list.orderStatus  == 1}}' class='butn_container2'>
                         <text data-orderNo='{{list.orderNo}}' data-index='{{index}}' bindtap='cancelOrder'>取消订单</text>
                       </view>
                       <view wx:if='{{list.easyStatus == 4}}' class='butn_container2'>
@@ -77,7 +80,7 @@
                       </view> -->
 
                     </view>
-                     <view wx:if='{{tab.listEnd}}' class='dixian'> 我是有底线的 ~</view> 
+                     <view wx:if='{{tab.state.listEnd}}' class='dixian'> 我是有底线的 ~</view> 
                 </block>
             </view>
           </scroll-view>

@@ -71,7 +71,7 @@
 </view>
 
 
-<view class='kefu_wx' wx:if='{{showHongDong}}'>
+<view class='kefu_wx' wx:if='{{showHongDong}}' catchtouchmove='doNothing'>
   <view class='kefu_bg_zhezhao' bindtap='closeHuodong'></view>
   <view class='kefu_wx_card'>
      <view class='name'>你想要结算的活动</view>

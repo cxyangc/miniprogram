@@ -97,3 +97,52 @@
 .activeTag{
    border: 1px solid red !important;
 }
+
+
+.marginbottom{
+  margin-bottom: 0.4em;
+}
+/* 上传图片 */
+.commitProduct_item_info_commit_images{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.commitProduct_item_info_commit_images > .imageContainers{
+  border-radius: 3px;
+  overflow: hidden;
+  margin-right: 0.8em;
+  margin-bottom: 0.8em;
+  background: #eee;
+  position: relative;
+}
+.imageContainers > .deleImageView{
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+.deleImageView > icon{
+  width: 100%;
+  height: 100%;
+}
+.imageContainers > Image{
+  width: 100%;
+  height: 100%;
+}
+.crameContainer{
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right:0.8em;
+  margin-bottom:0.8em;
+}
+.crame{
+  width: 2em;
+  height: 2em;
+}

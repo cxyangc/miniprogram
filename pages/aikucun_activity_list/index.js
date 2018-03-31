@@ -157,13 +157,7 @@ Page({
   
   },
 
-  onShareAppMessage: function (res) {
-    console.log(res)
-    let that = this
-    let params = app.jsonToStr2(that.optParam)
-    console.log('params:' + params)
-    return app.shareForFx('aikucun_activity_list', '', params)
-  },
+  
 
   onPullDownRefresh: function () {
     

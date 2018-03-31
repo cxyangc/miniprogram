@@ -2,33 +2,33 @@
 <view class='container'>
     <view class='tongji_container' >
       
-      <view class='tongji_mid font_24'>{{mendianZhanghu.account}}</view>
+      <view class='tongji_mid font_24'>{{mendian.account.account}}</view>
       <view class='tongji_top'>账户余额（￥）</view>
     </view>
   <view class='tongjiContainer_form'>
       <view class='tongji_bottom'>
-        <view class='tongji_bottom_item'>
+        <view data-link='mendian_zijin.html'   bindtap='tolinkUrl'  class='tongji_bottom_item'>
           <view  style='color:{{setting.platformSetting.defaultColor}};'>
             <text>￥</text>
-            <text>520.12</text>
+            <text>{{mendian.totalEarningAmount}}</text>
           </view> 
-          <text>本月收入</text>
-           <view class='borderRight2'></view>
-        </view>
-        <view class='tongji_bottom_item'>
-          <view style='color:{{setting.platformSetting.defaultColor}};'>
-            <text>￥</text>
-            <text>232.12</text>
-          </view>
-          <text>本年收入</text>
-           <view class='borderRight2'></view>
-        </view>
-        <view class='tongji_bottom_item'>
-          <view style='color:{{setting.platformSetting.defaultColor}};'>
-            <text>￥</text>
-            <text>214.12</text>
-          </view>
           <text>总收入</text>
+           <view class='borderRight2'></view>
+        </view>
+        <view data-link='mendian_tixian.html'   bindtap='tolinkUrl'  class='tongji_bottom_item'>
+          <view style='color:{{setting.platformSetting.defaultColor}};'>
+            <text>￥</text>
+            <text>{{mendian.totalTixianAmount}}</text>
+          </view>
+          <text>总提现</text>
+           <view class='borderRight2'></view>
+        </view>
+        <view data-link='mendian_will_order.html'   bindtap='tolinkUrl'  class='tongji_bottom_item'>
+          <view style='color:{{setting.platformSetting.defaultColor}};'>
+            <text>￥</text>
+            <text>{{mendian.waitCompleteOrderDistributeAmount}}</text>
+          </view>
+          <text>待实现</text>
         </view>
       </view>
 
@@ -68,6 +68,7 @@
                 <text>售后服务</text>
             </view>
             <view class='borderRight'></view>
+             <view class='red_poient_num' wx:if='{{mendian.waitHandleBackItem}}'>{{mendian.waitHandleBackItem}}</view>
         </view>
         <view class='mendian_menu_item' data-link='mendian_will_order.html'   bindtap='tolinkUrl'>
             <view class='imageContainer'>
@@ -75,6 +76,15 @@
             </view>
             <view class='item_text'>
                 <text>待实现收入</text>
+            </view>
+            <view class='borderRight'></view>
+        </view>
+        <view class='mendian_menu_item' data-link='news_list.html?newsTypeId=6&pageNage=帮助中心'   bindtap='tolinkUrl'>
+            <view class='imageContainer'>
+                <image src='http://image1.sansancloud.com/aikucun/2018_03/28/17/14/19_051.jpg?x-oss-process=style/preview_120'></image>
+            </view>
+            <view class='item_text'>
+                <text>帮助</text>
             </view>
         </view>
     </view>

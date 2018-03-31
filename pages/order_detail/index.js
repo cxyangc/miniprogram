@@ -11,8 +11,103 @@ Page({
     loginUser: null,
 
     orderNo:null,
-    orderDetailData:null
+    orderDetailData:null,
+    showArr: false,
+    addrArr: null,
+    hasAddnewAddr: false,
   },
+  /* 获取地址列表 */
+  showOtherArr: function () {
+    var customIndex = app.AddClientUrl("/get_login_user_address_list.html")
+    var that = this
+    wx.showLoading({
+      title: 'loading'
+    })
+    wx.request({
+      url: customIndex.url,
+      header: app.header,
+      success: function (res) {
+        console.log(res.data)
+        wx.hideLoading()
+        that.setData({ addrArr: res.data.result, showArr: true })
+      },
+      fail: function (res) {
+        wx.hideLoading()
+        app.loadFail()
+      }
+    })
+
+  },
+  
+  chooseNewAddr: function (e) {
+    wx.showLoading()
+    var addrArr = this.data.addrArr
+    var index = e.currentTarget.dataset.index
+    var selectAddr = addrArr[index]
+    console.log(selectAddr)
+    let addrParam = {}
+    addrParam.addressId = selectAddr.id
+    addrParam.orderNo = this.data.orderDetailData.orderNo
+    let customIndex = app.AddClientUrl("/change_order_address.html", addrParam, 'post')
+    wx.request({
+      url: customIndex.url,
+      data: customIndex.params,
+      header: app.headerPost,
+      method: 'POST',
+      success: function (res) {
+        console.log(res.data)
+        /*
+        if (res.data.errcode == '0') {
+          
+          that.listPage.page = 1
+          wx.showToast({
+            title: '取消订单成功',
+            icon: 'success',
+            duration: 1000
+          })
+          setTimeout(function () {
+            that.getOrderList(that.GloOption)
+          }, 1000)
+        }
+        else {
+          wx.showToast({
+            title: res.data.errMsg,
+            image: '/images/icons/tip.png',
+            duration: 1000
+          })
+        }*/
+      },
+      fail: function (res) {
+        app.loadFail()
+      }
+    })
+
+
+    let orderDetailData = this.data.orderDetailData
+    orderDetailData.buyerName = selectAddr.contactName
+    orderDetailData.buyerTelno = selectAddr.telNo
+    orderDetailData.buyerProvince = selectAddr.province
+    orderDetailData.buyerCity = selectAddr.city
+    orderDetailData.buyerArea = selectAddr.area
+    orderDetailData.buyerAddress = selectAddr.address
+    
+    this.setData({
+      orderDetailData: orderDetailData,
+      showArr: false
+    })
+    wx.hideLoading()
+  },
+  closeShowArr: function () {
+    this.setData({ showArr: false })
+  },
+
+  toaddress_new: function () {
+    this.setData({ hasAddnewAddr: true })
+    wx.navigateTo({
+      url: '/pages/add_address/index',
+    })
+  },
+  
   getOrderDetail:function(id){
     let that = this
     let getParams = {}
@@ -37,6 +132,7 @@ Page({
       }
     })
   },
+  
   /**
    * 生命周期函数--监听页面加载
    */
@@ -68,7 +164,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    if (this.data.hasAddnewAddr) {
+      this.showOtherArr()
+    }
   },
 
   /**

@@ -2,6 +2,27 @@
 .container{
     background: #f3f3f3;
     font-size: 0.8em;
+    position:absolute;
+    width:100%;
+
+}
+.cart_star{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  word-break: break-all;
+}
+.cart_star > view{
+  margin-right: 10px;
+  background: #7fdb8a;
+  padding: 0 0.4em;
+  border-radius: 0.4em;
+  color: #fff;
+  max-width:10em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+
 }
 /* 地址模块 */ 
 
@@ -44,7 +65,17 @@
   font-size: 0.9em;
   width: 100%;
 }
+.server_container{
+  margin: 0em 0.6em 0.4em 0.6em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #888;
+  background: #fff;
+  border-radius: 0.2em;
+  padding:0.8em;
 
+}
 /* 购物车列表 */
 .cartContainer{
   margin: 0 0.6em;
@@ -147,7 +178,7 @@
 .butn_container2 input{
   margin-left: 0.4em;
   width: 70%;
-  border: 1px solid #ddd;
+  background: #eee;
   border-radius: 3px;
   padding: 0.4em;
 }
@@ -201,26 +232,21 @@
 .payChecked{
   padding: 0.4em 1em;
   display: flex;
-  background: #000;
+  background: green;
   color: #fff;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border: 1px solid #000;
+  border: 1px solid green;
   margin-left: 0.8em;
   border-radius: 0.2em;
 }
-
-
 .height{
-  height: 3.6em;
-  background: #f3f3f3;
+  height: 3em;
 }
 .fottButn{
-  position: fixed;
+  margin: 1em ;
   bottom: 0;
-  z-index: 1;
-  width: 100%;
   height: 3em;
   display: flex;
   flex-direction: row;
@@ -228,6 +254,7 @@
   align-items: center;
   background: #8B572A;
   color: #fff;
+  border-radius: 0.4em;
 }
 
 /* 地址框框 */
