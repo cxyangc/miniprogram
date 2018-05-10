@@ -1,9 +1,9 @@
 <template name="userinfo_head3">
   <view class='userinfo_head3'>
     <view class='userinfo_head3_bg'>
-      <image mode='aspectFill' src='http://image1.sansancloud.com/aikucun/2018_03/22/10/58/49_233.jpg'></image> 
+      <image mode='aspectFill' src='{{imageUrl}}'></image> 
     </view>
-    <block wx:if="{{loginUser}}">
+    <block wx:if="{{loginUser}}"> 
       <view class='userinfo_head3_content'>
 
         <image wx:if='{{loginUser.platformUser.headimgurl}}' src='{{loginUser.platformUser.headimgurl}} '  bindtap='loginOut'></image>

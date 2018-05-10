@@ -41,6 +41,7 @@ Page({
   
   chooseNewAddr: function (e) {
     wx.showLoading()
+    let that = this
     var addrArr = this.data.addrArr
     var index = e.currentTarget.dataset.index
     var selectAddr = addrArr[index]
@@ -56,26 +57,25 @@ Page({
       method: 'POST',
       success: function (res) {
         console.log(res.data)
-        /*
-        if (res.data.errcode == '0') {
-          
-          that.listPage.page = 1
-          wx.showToast({
-            title: '取消订单成功',
-            icon: 'success',
-            duration: 1000
+        if(res.data.errcode == 0){
+          let orderDetailData = that.data.orderDetailData
+          orderDetailData.buyerName = selectAddr.contactName
+          orderDetailData.buyerTelno = selectAddr.telNo
+          orderDetailData.buyerProvince = selectAddr.province
+          orderDetailData.buyerCity = selectAddr.city
+          orderDetailData.buyerArea = selectAddr.area
+          orderDetailData.buyerAddress = selectAddr.address
+          that.setData({
+            orderDetailData: orderDetailData,
+            showArr: false
           })
-          setTimeout(function () {
-            that.getOrderList(that.GloOption)
-          }, 1000)
+          wx.showToast({
+            title: '地址修改成功',
+          })
         }
-        else {
-          wx.showToast({
-            title: res.data.errMsg,
-            image: '/images/icons/tip.png',
-            duration: 1000
-          })
-        }*/
+        
+
+
       },
       fail: function (res) {
         app.loadFail()
@@ -83,18 +83,7 @@ Page({
     })
 
 
-    let orderDetailData = this.data.orderDetailData
-    orderDetailData.buyerName = selectAddr.contactName
-    orderDetailData.buyerTelno = selectAddr.telNo
-    orderDetailData.buyerProvince = selectAddr.province
-    orderDetailData.buyerCity = selectAddr.city
-    orderDetailData.buyerArea = selectAddr.area
-    orderDetailData.buyerAddress = selectAddr.address
-    
-    this.setData({
-      orderDetailData: orderDetailData,
-      showArr: false
-    })
+   
     wx.hideLoading()
   },
   closeShowArr: function () {
@@ -129,6 +118,24 @@ Page({
       fail: function (res) {
         wx.hideLoading()
         app.loadFail()
+      }
+    })
+  },
+  //物流单号 一键复制的事件
+  copyTBL:function(){
+    var that=this;
+    wx.setClipboardData({
+      data: that.data.orderDetailData.invoiceNo,
+      success: function (res) {
+        wx.getClipboardData({
+          success: function (res) {            
+            wx.showToast({
+              title: '复制成功',
+              icon: 'success',
+              duration: 2000
+            })
+          }
+        })
       }
     })
   },

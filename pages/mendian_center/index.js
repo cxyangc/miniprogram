@@ -8,7 +8,14 @@ Page({
   data: {
     setting: {},
     loginUser: null,
-    mendian:null
+    mendian:{
+      account:{
+        account:0,
+      },
+      totalEarningAmount:0.00,
+      totalTixianAmount:0.00,
+      waitCompleteOrderDistributeAmount:0.00
+    }
   },
   /* 组件事件集合 */
   tolinkUrl: function (e) {
@@ -41,6 +48,12 @@ Page({
              mendian: mendian
           }) 
            that.setNav(mendian)
+        }else{
+          wx.showModal({
+            title: '失败了',
+            content: '请求失败了，请下拉刷新！',
+          })
+         
         }
 
 

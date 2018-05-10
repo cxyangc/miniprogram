@@ -2,7 +2,7 @@
 const app = getApp()
 
 Page({ 
- 
+  
   data: {
     loginUser:null,
     butn_show_loading:false,
@@ -11,7 +11,46 @@ Page({
   },
   imageUrl:"", 
   bindgetuserinfo(e){
-    console.log(e)
+    
+    let that = this
+    wx.getUserInfo({
+      success: function (res) {
+        console.warn('--获取用户信息--')
+        console.log(res.userInfo)
+        let userInfo = res.userInfo
+        let loginUser = that.data.loginUser
+        loginUser.nickName = userInfo.nickName
+        loginUser.platformUser.headimgurl = userInfo.avatarUrl
+        that.imageUrl = userInfo.avatarUrl
+        
+        that.setData({
+          loginUser: loginUser
+        })
+      },
+      fail:function(e){
+        console.log(e)
+        wx.showModal({
+          title: '授权提示',
+          content: '取消用户授权可能导致部分功能不可用，请确认授权！',
+          cancelText:'拒绝',
+          confirmText:'去授权',
+          success: function (res) {
+            if (res.confirm) {
+              wx.openSetting({
+                success: (res) => {
+                  res.authSetting = {
+                    "scope.userInfo": true,
+                  }
+                 that.bindgetuserinfo()
+                }
+              })
+            } else if (res.cancel) {
+
+            }
+          }
+        })
+      }
+    })
   },
   /* 图片 */
   changeImage: function () {

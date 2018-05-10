@@ -177,7 +177,6 @@
   padding: 1em;
   overflow: hidden;
   border-bottom: 1px solid #dddddd;
-  height: 5em;
   position: relative;
 }
 .itemCheckbox{
@@ -189,6 +188,7 @@
 .itemCheckbox image{
   width: 5em;
   height: 5em;
+  background: #eee;
 }
 
 .item_infomation{
@@ -202,6 +202,10 @@
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+}
+.item_infomation_name_measure{
+  word-break: break-all; 
+  width: 12em;
 }
 .item_infomation_money{
   color: #8B572A;
@@ -281,4 +285,27 @@
 
 .addrItems2_now .font2{
   margin-top: 0.4em;
+}
+/* 订单生成时间 */
+.orderTime2{
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.4em;
+} 
+.wuliuItem{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  border-bottom: 1rpx solid #eee;
+}
+.wuliuItem > .time{
+  color: #aaa;
+  font-size: 0.9em;
+}
+
+.orderTime2 text{
+  padding: 2px;
 }

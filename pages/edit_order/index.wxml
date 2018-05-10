@@ -1,4 +1,4 @@
- <view class='container'>
+  <view class='container'>
    
   <view class='addrItems' bindtap='showOtherArr'> 
     <view class='addrItems_info'>
@@ -22,7 +22,7 @@
   <view class='server_container'>
      <view>{{orderData.storageName}}</view>
   </view>
-  <view class='cartContainer'>
+  <view class='cartContainer'> 
     <view class='cartShopName'>
       <view class='font1' class='cart_star'>
          <text>{{orderData.belongShopName}}</text>
@@ -37,7 +37,7 @@
       </view>
       <view class='item_infomation'>
         <view class='item_infomation_name'>{{orderItem.itemName}}</view>
-        <view class='item_infomation_name' wx:if='{{!!orderItem.measureCartesianId}}'>{{orderItem.measures}}</view>
+        <view class='item_infomation_name_measure' wx:if='{{!!orderItem.measureCartesianId}}'>{{orderItem.measures}}</view>
         <view class='item_infomation_nums'> 
           <text class='flexCenter'>x {{orderItem.itemCount}}</text>
         </view>
@@ -109,13 +109,16 @@
 <view wx:if='{{showArr}}' class='zhezhao' bindtap='closeShowArr'></view>
 <view wx:if='{{showArr}}' class='OtherArrContainer'>
   <view class='addnewarr' bindtap='toaddress_new'  style='color:{{setting.platformSetting.defaultColor}}'>新增地址</view>
-  <view class='addrItems2' wx:for='{{addrArr}}' wx:for-item='addr' wx:key='{{addr.id}}'
-    data-chooseId='{{addr.id}}' bindtap='chooseNewAddr'
-    >
+  <view class='addrItems2' wx:for='{{addrArr}}' wx:for-item='addr' wx:key='{{addr.id}}' data-id='{{addr.id}}'>
+    <view class='addrItems2_left' data-chooseId='{{addr.id}}' bindtap='chooseNewAddr'>
       <image mode='aspectFit' src='/images/icons/addr.png'></image>
-      <view class=''>
+      <view class='addrItems2_left_text'>
         <text>{{addr.contactName}} {{addr.telNo}}</text>
         <text class='font2'>{{addr.province}} {{addr.city}} {{addr.area}} {{addr.address}}</text>
-      </view>
+      </view>        
     </view>
+    <view class="address_modify_in_time" bindtap='addressModifyInTime' data-id='{{addr.id}}' >
+        <image mode='aspectFit' src='http://image1.sansancloud.com/aikucun/2018_03/21/16/00/16_502.jpg'></image>
+    </view>
+  </view>
 </view>

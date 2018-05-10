@@ -46,18 +46,33 @@
   flex-direction: row;
   align-items: center;
 }
-.addrItems_info{
-}
+/* .addrItems_info{
+} */
 .addrItems_info image{
   width: 1.4em;
   height: 1.4em;
 
 }
+/*04.11修改*/
 .addrItems_info view{
   margin-left: 1em;
-  display: flex;
   flex-direction: column;
+  flex:1;
+
 }
+.addrItems_info view text{
+  display: block;
+}
+.addrItems_info view text:nth-last-child(1){
+  display: block;
+  text-overflow:ellipsis;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  word-break:break-all;
+}
+/*04.11修改  end*/
 .addrName{
   padding-bottom: 0.4em;
 }
@@ -99,7 +114,6 @@
   padding: 1em;
   overflow: hidden;
   border-bottom: 1px solid #dddddd;
-  height: 5em;
   position: relative;
 }
 .itemCheckbox{
@@ -125,6 +139,10 @@
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+}
+.item_infomation_name_measure{
+  word-break: break-all; 
+  width: 12em;
 }
 .item_infomation_money{
   color: #8B572A;
@@ -276,7 +294,7 @@
   background: #fff;
   border-bottom: 1px solid #ddd;
 }
-.addrItems2{
+/* .addrItems2{
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -296,4 +314,64 @@
 }
 .addrItems2 .font2{
   margin-top: 0.4em;
+} */
+/*04.10新增*/
+.addrItems2{
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px dashed rgb(240,240,240);
+  background: #fff;
+  padding: 1em 0em 1em 0.6em;
+  box-sizing: border-box; 
+  display: flex;  
+}
+.addrItems2_left{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:82%;  
+}
+.addrItems2_left image{
+  width: 1.4em;
+  height: 1.4em;
+}
+.addrItems2_left .addrItems2_left_text{
+  flex:1;
+  flex-direction: column;
+  padding-left:0.6em;
+  text-overflow:ellipsis; 
+  display:-webkit-box; 
+  -webkit-line-clamp:2; 
+  -webkit-box-orient:vertical; 
+  overflow:hidden; 
+  word-break:break-all; 
+}
+.addrItems2_left .addrItems2_left_text text{
+  display: block;
+  font-size: 0.9em; 
+}
+.addrItems2_left .addrItems2_left_text text:nth-child(1){
+  width: 100%; 
+  text-overflow:ellipsis; 
+  display:-webkit-box; 
+  -webkit-line-clamp:2; 
+  -webkit-box-orient:vertical; 
+  overflow:hidden;
+}
+.addrItems2_left .addrItems2_left_text text:nth-last-child(1){
+  font-size: 0.78em;
+  margin-top: 6rpx;
+}
+.address_modify_in_time{  
+  padding: 1em 0.6em;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  display:flex;
+}
+.address_modify_in_time image{
+  width: 1.2em;
+  height: 1.2em;
 }

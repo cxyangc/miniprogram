@@ -620,6 +620,19 @@ Page({
     })
     wx.stopPullDownRefresh()
   },
+  //点击购物车中的商品，跳转到详情页面
+  cart_pro_click_toDetail: function (e) {
+    console.log("点击购物车中的商品，跳转到详情页面")
+    console.log(e.currentTarget.dataset)
+    let promotionId = e.currentTarget.dataset.promotionid;
+    let productId = e.currentTarget.dataset.productid;
+    let description = e.currentTarget.dataset.description.description;
+    let name = e.currentTarget.dataset.name;
+    wx.navigateTo({
+      url: '/pages/promotion_products/index?' +
+      'description=' + description + '&navName=' + name + '&productName=' + productId + '&id=' + promotionId,
+    })
+  },
   /* 分享 */
   onShareAppMessage: function (res) {
     if (res.from == "button") {
@@ -627,7 +640,7 @@ Page({
       let products = this.data.products
       let focusData = products[index]
       let imageUrl = focusData.imagePath
-      let shareName = focusData.brandName + focusData.name + '原价：￥' + focusData.tagPrice + '活动价：￥' + focusData.price
+      let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tagPrice + ')' + focusData.brandName + focusData.name
       let shareParams = {}
       shareParams.productName = focusData.productCode
       console.log('nnnnnnnnnn' + shareName)
@@ -996,7 +1009,7 @@ Page({
   },
   //获取规格价格参数
   get_measure_cartesion: function () {
-
+    this.byNowParams.cartesianId = -1
     let productId = this.data.focusData.id
     let postStr = ''
 
@@ -1030,7 +1043,7 @@ Page({
         })
       },
       fail: function (res) {
-        console.log("fail")
+        console.log("mesure_fail")
         app.loadFail()
       },
       complete: function () {

@@ -7,13 +7,15 @@ Page({
    */
   data: {
     showLoadFail:false,
-    showLoading:false
+    showLoading:false 
   },
   
   toIndex:function(){
-    wx.reLaunch({
-      url: '/pages/' + app.miniIndexPage + '/index',
-    })
+    setTimeout(function () {
+      wx.reLaunch({
+        url: '/pages/' + app.miniIndexPage + '/index',
+      })
+    }, 100)
   },
   reloadJs:function(){
     this.setData({
@@ -83,7 +85,7 @@ Page({
     console.log('-------获取 setting 中--------')
     if (app.setting ) {
       clearTimeout(timer11)
-      app.toIndex()
+      that.toIndex()
       return false;
     }
     if (this.count < 1){

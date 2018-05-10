@@ -5,7 +5,7 @@ Page({
   /**
    * 页面的初始数据
    */ 
-  data: { 
+  data: {  
     setting: null, // setting           
     loginUser: null,
     productData: [], // 商品数据  
@@ -202,11 +202,20 @@ Page({
     console.log(returnParam)
     return returnParam
   },
+ 
+
   sliceProductImageList:function(arr){
+    
     let that = this
     for (let i = 0; i < arr.length; i++) {
       arr[i].imageListArr = that.sliceArray(arr[i].itemImages,4)
       arr[i].imageListWatcher = that.getImageUrlList(arr[i].itemImages)
+      
+      if(i < 2){
+        arr[i].showImage = true
+      }else{
+        arr[i].showImage = false
+      }
       arr[i].showShare = false //显示分享
       arr[i].current = 0
     }
@@ -222,7 +231,7 @@ Page({
     })
   },
   /* 获取数据 */
-  getData: function (param, ifAdd) {
+  getData: function (param, ifAdd, onReachBottom) {
     let that = this
     if (!ifAdd) {
       ifAdd = 1
@@ -256,7 +265,10 @@ Page({
           console.log(that.data.productData)
           
         }
-       
+        
+        setTimeout(function () {
+          that.getAllRects( onReachBottom)
+        }, 300)
         wx.hideLoading()
       },
       fail: function (res) {
@@ -487,7 +499,7 @@ Page({
      // 设置页面标题
     if (options.description) {
       this.setData({
-        acReport: options.description
+        acReport: decodeURIComponent(options.description)
       })
     }
     let navName = options.navName
@@ -561,13 +573,69 @@ Page({
     var that = this
     if (that.params.totalSize > that.params.curPage * that.params.pageSize) {
       that.params.page++
-      this.getData(this.params);
+      this.getData(this.params,1,1);
     }else{
       this.setData({
         listEnd:true
       })
     }
   },
+  /*  
+   * 图片懒加载模块
+   */
+  zuihoudetuoxie(rects) {
+    // 把每个top都加上他的第一个的  负数的  top值  
+
+    let subNum = rects[0].bottom
+    for (let i = 0; i < rects.length; i++) {
+
+      rects[i].top = rects[i].top - subNum
+    }
+    return rects
+  },
+  getAllRects: function (onReachBottom) {
+    let that = this
+    // 问题留下来    wx.createSelectorQuery().selectAll('.promotionItem')的时候
+    // 如果分页加载，就是现在没在顶部的时候， 他的 rects 的 之前的分支的 top值  为负数
+    wx.createSelectorQuery().selectAll('.promotionItem').boundingClientRect(function (rects) {
+
+      if (onReachBottom == 1) {
+        that.promotionItemPageOffline = that.zuihoudetuoxie(rects)
+      } else {
+        that.promotionItemPageOffline = rects
+      }
+      console.log(that.promotionItemPageOffline)
+
+      // rects.forEach(function (rect) {
+      //   promotionData.scrollTop = rect.top  
+      // })
+    }).exec() //回调
+
+  },
+  promotionItemPageOffline: null,   // .promotionItem支点集
+  onPageScroll(e) {
+    // 滑动的时候获取页面高度  并且开始判断 支点的模块高度
+    this.watchActiveCard(e.scrollTop)
+  },
+  watchActiveCard(pageTop) {
+    let promotionData = this.data.productData
+    // 判断页面高度和支点的模块高度并且计算是否显示图片
+    let promotionItemPageOffline = this.promotionItemPageOffline
+    for (let i = 0; i < promotionItemPageOffline.length; i++) {
+      if ((pageTop + this.data.sysHeight) > promotionItemPageOffline[i].top && !promotionData[i].showImage) {
+        this.showImage(i)
+      }
+    }
+
+    //pageTop + this.data.sysHeight
+  },
+  showImage(i) {
+    var promotionItem =  "productData["+i+"].showImage"
+    this.setData({
+      [promotionItem]: true
+    })
+  },
+
   _watchBigImage: function (e) {
     let urls = e.currentTarget.dataset.urls;
     let _url = e.currentTarget.dataset.url;
@@ -587,7 +655,9 @@ Page({
       let productData = this.data.productData
       let focusData = productData[index]
       let imageUrl = focusData.imagePath
-      let shareName = focusData.brandName + focusData.name + '原价：￥' + focusData.tagPrice + '活动价：￥' + focusData.price
+     
+      let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tagPrice + ')' + focusData.brandName + focusData.name
+
       let shareParams = this.opt
       shareParams.productName = focusData.productCode
       console.log('nnnnnnnnnn'+shareName)
@@ -612,6 +682,7 @@ Page({
   */
   MeasureParams: [],
   //提交规格产品
+  /*
   submitMeasure: function (id) {
     var that = this
     let focusProduct = this.data.focusData
@@ -641,10 +712,10 @@ Page({
         wx.hideLoading()
       }
     })
-  },
+  },*/
   //获取规格价格参数
   get_measure_cartesion: function () {
-
+    this.byNowParams.cartesianId = -1
     let productId = this.data.focusData.id
     let postStr = ''
     if (this.MeasureParams.length == 0) {

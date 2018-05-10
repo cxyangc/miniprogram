@@ -24,15 +24,15 @@
               <!-- share -->
               <view class='share_view '> 
                 <view  wx:if='{{!items.showShare}}' class='sharePoint' data-index='{{index}}' catchtap='showCardShare'>
-                  <image src='http://image1.sansancloud.com/aikucun/2018_03/21/16/44/04_645.jpg'></image>
+                  <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/28/48_387.jpg?imageMogr2/thumbnail/120x/interlace/0 '></image>
                 </view>  
                 <view class='share_box' wx:if='{{items.showShare}}'>
                   <button class='share_box_item' open-type='share' data-index='{{index}}' >
-                    <image src='http://image1.sansancloud.com/aikucun/2018_03/12/10/15/08_248.jpg'></image>
+                    <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/35/2_810.jpg?imageMogr2/thumbnail/120x/interlace/0'></image>
                     <text>分享</text>
                   </button>
                   <button class='share_box_item' data-index='{{index}}' bindtap='showKefuWechatCode'>
-                    <image src='http://image1.sansancloud.com/aikucun/2018_03/12/10/15/16_358.jpg'></image>
+                    <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/36/30_199.jpg?imageMogr2/thumbnail/120x/interlace/0'></image>
                     <text>客服</text>
                   </button>
                   <!-- <button class='share_box_item' data-index='{{index}}' bindtap='showKefuWechatCode'>
@@ -49,7 +49,7 @@
                    wx:for-item='imageL' wx:for-index='i' wx:key='image_{{i}}' >
                       <block wx:for='{{imageL}}' wx:for-item='image' wx:for-index='j' wx:key='image_{{j}}'>
                         <view class='hot_product_item2_image_area' style='width:{{(sysWidth - 70)/4}}px;height:{{(sysWidth - 70)/4}}px;'>
-                        <image src='{{image.imagePath}}' data-urls='{{items.imageListWatcher}}' data-me='{{image.imagePath}}' bindtap='watchBigImage'></image>
+                        <image mode='aspectFill' src='{{image.imagePath}}?imageMogr2/thumbnail/120x/interlace/0' data-urls='{{items.imageListWatcher}}' data-me='{{image.imagePath}}' bindtap='watchBigImage'></image>
                         </view>
                       </block>
                     

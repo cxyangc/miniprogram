@@ -51,3 +51,6 @@
 .flx_user_item_info > view{
   color: #aaa;
 } 
+.flx_user_item_info > .time{
+  font-size: 0.8em;
+}

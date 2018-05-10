@@ -14,7 +14,7 @@
         </view>
         <view class='item_infomation'>
           <view class='item_infomation_name'>{{list.itemName}}</view>
-           <view class='item_infomation_name' wx:if='{{list.measures}}'>{{list.measures}}</view>
+           <view class='item_infomation_name1' wx:if='{{list.measures}}'>{{list.measures}}</view>
           
           <view class='item_infomation_money'>
             <text style='color:{{setting.platformSetting.defaultColor}};'>单价:￥ {{list.itemPrice}} x{{list.itemCount}}</text>

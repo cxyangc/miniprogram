@@ -4,19 +4,22 @@
       <view class='tuikuanState'>
           <view class='Title'>申请状态</view>
           <view class='State'>
-              <block wx:if='{{orderDetailData.backAmount.backStatus  == 0}}'> 
+              <block wx:if='{{!orderDetailData.backAmount}}'> 
                 <text style='color:{{setting.platformSetting.defaultColor}}'>暂无</text>
               </block>
-              <block wx:if='{{orderDetailData.backAmount.backStatus  == 1}}'> 
+              <block wx:elif='{{orderDetailData.backAmount.backStatus  == 0}}'> 
+                <text style='color:{{setting.platformSetting.defaultColor}}'>暂无</text>
+              </block>
+              <block wx:elif='{{orderDetailData.backAmount.backStatus  == 1}}'> 
                 <text style='color:{{setting.platformSetting.defaultColor}}'>已提交申请</text>
               </block>
-              <block wx:if='{{orderDetailData.backAmount.backStatus  == 2}}'> 
+              <block wx:elif='{{orderDetailData.backAmount.backStatus  == 2}}'> 
                 <text style='color:{{setting.platformSetting.defaultColor}}'>申请已同意</text>
               </block>
-              <block wx:if='{{orderDetailData.backAmount.backStatus  == 3}}'> 
+              <block wx:elif='{{orderDetailData.backAmount.backStatus  == 3}}'> 
                 <text style='color:{{setting.platformSetting.defaultColor}}'>已退款</text>
               </block>
-              <block wx:if='{{orderDetailData.backAmount.backStatus  == 5}}'> 
+              <block wx:elif='{{orderDetailData.backAmount.backStatus  == 5}}'> 
                 <text style='color:{{setting.platformSetting.defaultColor}}'>申请被拒绝</text>
               </block>
           </view>
@@ -51,7 +54,7 @@
 
 
       <view class='tuikuanReasonImage' >
-        <image wx:for='{{orderDetailData.backAmount.backImageList}}'  data-url='{{item}}' data-urls='{{orderDetailData.backAmount.backImageList}}' bindtap='lookBigImage' src='{{item}}'></image>
+        <image wx:for='{{orderDetailData.backAmount.backImageList}}' wx:key="index"  data-url='{{item}}' data-urls='{{orderDetailData.backAmount.backImageList}}' bindtap='lookBigImage' src='{{item}}'></image>
       </view>
   </view>
 
@@ -82,7 +85,7 @@
       
   </view>
 
-  <view class='userInfo'>
+  <view class='userInfo' wx:if='{{orderDetailData.backAmount}}'>
     <image src='{{orderDetailData.backAmount.platformUserIcon }}'></image>
     <text>{{orderDetailData.backAmount.platformUserName  }}</text>
   </view>
@@ -104,7 +107,7 @@
     </view>
     <view class='cartItems'>
       <view class='itemCheckbox'>
-        <image mode='aspectFill' src='{{orderDetailData.itemIcon}}?x-oss-process=style/preview'></image>
+        <image mode='aspectFill' src='{{orderDetailData.itemIcon}}'></image>
       </view>
       <view class='item_infomation'>
         <view class='item_infomation_name'>{{orderDetailData.itemName}}</view>

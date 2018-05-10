@@ -12,7 +12,7 @@
         <view class='countContainer_top_product_info_container'>
            <view class='font_1'>{{focusData.name}}</view>
            <view class='font_aaa font_08'>商品编号: {{focusData.orderNumber}}</view>
-           <text class='price font_14' wx:if='{{measures.length == 0}}'>￥{{focusData.price}}</text>
+           <text class='price font_14' wx:if='{{focusData.measureItem == 0}}'>￥{{focusData.price}}</text>
            <view class='price font_14' wx:else>￥{{measurementJson.price}}</view>
         </view>
      </view>

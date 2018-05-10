@@ -8,7 +8,9 @@
 }
 .report_area_s{
   width: 100%;
-  background: #e0e0e0;
+  /* background: #e0e0e0; */
+   background: #FEB217;   
+   opacity:0.8;
   border-radius: 0.4em;
   display: flex;
   flex-direction: row;

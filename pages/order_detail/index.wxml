@@ -4,9 +4,9 @@
       <image mode='aspectFill' src='/images/icons/page.png'></image>
       <view class='oooo_view'> 
         <text class='font5'>订单号: {{orderDetailData.orderNo}}</text>
-        <text>订单金额: {{orderDetailData.goodsAmount}}</text>
-        <text>运费: {{orderDetailData.yunfeiAmount}}</text>
-        <text>{{orderDetailData.payTypeStr}}: {{orderDetailData.payAmount}}</text>
+        <text>订单金额: ￥{{orderDetailData.goodsAmount}}</text>
+        <text>运费: ￥{{orderDetailData.yunfeiAmount}}</text>
+        <text>{{orderDetailData.payTypeStr}}: ￥{{orderDetailData.payAmount}}</text>
         <block wx:if='{{orderDetailData.payStatus == 0}}'> <text>支付状态: 未支付</text>  </block>
           <block wx:if='{{orderDetailData.payStatus == 1}}'> <text>支付状态: 已支付</text>  </block>
           <block wx:if='{{orderDetailData.payStatus == 2}}'> <text>支付状态: 已退款</text>  </block>
@@ -24,7 +24,7 @@
           <text style='color:{{setting.platformSetting.defaultColor}}'>待完成</text>
         </block>
         <block wx:else>
-           <text style='color:{{setting.platformSetting.defaultColor}}'>{{orderDetailData.easyStatusStr}}</text>
+           <text style='color:{{setting.platformSetting.defaultColor}}'>{{orderDetailData.easyStatusStr}}</text> 
         </block>
   </view>
   <view class='orderKuaidi' wx:if='{{orderDetailData.orderStatus > 3 && orderDetailData.orderStatus < 7 }}'>
@@ -33,7 +33,9 @@
          <text style='color:{{setting.platformSetting.defaultColor}}' >{{orderDetailData.kuaidiName}}</text> 
       </view>
       <view class='orderKuaidi_no'>
-        <text>快递单号：</text> <text style='color:{{setting.platformSetting.defaultColor}}'>{{orderDetailData.invoiceNo}}</text>
+        <text>快递单号：</text> 
+        <text selectable="true" style='color:{{setting.platformSetting.defaultColor}}'>{{orderDetailData.invoiceNo}}</text>
+        <text style='padding:0 0.4em;border-radius:0.4em;color:#e24148; border:2rpx solid #e24148; margin-left:0.6em;' bindtap="copyTBL">复制</text>
       </view>
   </view>
   <view bindtap='showOtherArr' class='editAddr' wx:if='{{orderDetailData.orderStatus < 3}}'><!--  -->
@@ -68,7 +70,7 @@
       </view>
       <view class='item_infomation'>
         <view class='item_infomation_name'>{{orderItem.itemName}}</view>
-        <view class='item_infomation_name' wx:if='{{!!orderItem.measureCartesianId}}'>{{orderItem.measures}}</view>
+        <view class='item_infomation_name_measure' wx:if='{{!!orderItem.measureCartesianId}}'>{{orderItem.measures}}</view>
         <view class='item_infomation_nums'> 
           <text class='flexCenter'>x {{orderItem.itemCount}}</text>
         </view>
@@ -87,16 +89,25 @@
     <text>订单送货时间: {{orderDetailData.receiveTime}}</text>
   </view>
   
-  <view class='orderTime2'>
+  
+   <view class='orderTime2'>
     <view class='wuliuItem' wx:for='{{orderDetailData.kuaidiBean.data}}' wx:key='{{index}}'>
-      <view>{{item.context}}</view>
+      <view style="color:#333">{{item.context}}</view>
       <view class='time'>{{item.time}} </view>
     </view>
+  </view> 
 
-  </view>
 
+  
+  <!-- <view class='orderTime2'>
+    <view class='wuliuItem' wx:for='{{[1,1,1,1,1,1,1,1,1,2,1,11]}}' wx:key='{{index}}'>
+      <view>撒打算的撒发生覅以撒福看撒即可放款时间按不付款看阿双方将咖啡开始交话费</view>
+      <view class='time'>2018-8-10 22:10:12 </view>
+    </view>
+  </view> -->
+
+  
 </view>
-
 <block wx:if='{{showArr}}'>
   <view  class='zhezhao' bindtap='closeShowArr'></view>
   <view scroll-y style='height:100%' class='OtherArrContainer'>

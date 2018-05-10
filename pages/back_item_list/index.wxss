@@ -30,7 +30,6 @@
   flex-direction: row;
   padding: 1em;
   overflow: hidden;
-  height: 5em;
   position: relative;
   background-color:#f6f6f6;
 }
@@ -53,6 +52,9 @@
 }
 .item_infomation_name{
   word-break: break-all;
+}
+.item_infomation_name1{
+  
 }
 .item_infomation_money{
   font-size:0.8em;

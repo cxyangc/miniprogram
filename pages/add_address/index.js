@@ -9,7 +9,6 @@ Page({
   data: {
     longitude:0,
     latitude:0,
-
     region: ['省', '市', '区'],
     needParam: null, 
     setting: null,
@@ -100,6 +99,7 @@ Page({
         success: function (res) {
           console.log(res)
           wx.hideLoading()
+          app.addrEditParam = that.needParam
           wx.navigateBack()
         },
         fail: function (res) {

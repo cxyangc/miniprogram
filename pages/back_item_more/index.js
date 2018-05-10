@@ -40,16 +40,16 @@ Page({
       header: app.header,
       success: function (res) {
         console.log('-----------orderDetail--------')
+        console.log(res.data)
         if (res.data.id) {
-          let imageList = res.data.backAmount.backImageJson
-          if (imageList) {
+          if (res.data.backAmount && res.data.backAmount.backImageJson) {
+            let imageList = res.data.backAmount.backImageJson
             imageList = JSON.parse(imageList)
             res.data.backAmount.backImageList = that.dellBackImage(imageList)
           }
 
           that.setData({ orderDetailData: res.data })
         }
-        console.log(res.data)
 
         wx.hideLoading()
       },

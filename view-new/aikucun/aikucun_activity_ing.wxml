@@ -3,13 +3,13 @@
   <view class='activity_area'>
     <view class='activity_list' wx:if='{{activityPromotion.length == 0}}'>
           <view class='activity_list_item'>
-            <image  mode='scaleToFill'  style='height:{{sysWidth*0.55 - 10}}px;' 
-              src='http://image1.sansancloud.com/aikucun/2018_3/24/12/32/36_662.jpg'></image>
+            <image  mode='aspectFill'  style='height:{{sysWidth*0.55 - 10}}px;' 
+              src='http://image.aikucun.xyz/aikucun/2018_4/2/11/24/48_688.jpg'></image>
           </view>
       </view>
     <view wx:else class='activity_list'> 
         <view class='activity_list_item' style='height:{{sysWidth*0.55 - 10}}px;' wx:for='{{activityPromotion}}' wx:key='{{index}}' wx:for-item="items" >
-            <image mode='scaleToFill' style='height:{{sysWidth*0.55 - 10}}px;' src='{{items.promotionBanner}}' data-description='{{items.description}}' data-name='{{items.name}}' data-id='{{items.id}}' bindtap='toPromotionList'></image>
+            <image mode='aspectFill' style='height:{{sysWidth*0.55 - 10}}px;' src='{{items.promotionBanner}}' data-description='{{items.description}}' data-name='{{items.name}}' data-id='{{items.id}}' bindtap='toPromotionList'></image>
             <view class='activity_list_item_over' wx:if='{{items.second < 1 }}'>活动已结束</view>
             <view class='activity_list_item_card_bg '></view>
             <view class='activity_list_item_card '>

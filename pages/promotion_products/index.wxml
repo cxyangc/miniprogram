@@ -1,30 +1,30 @@
    <import src="../../view-new/aikucun/measure_card.wxml"/>
 
 
-<view class='container' bindtap='closeCardShare'>
+<view class='container'>
   <view class='acReport_view font_08'>
     <view class='acReport_view_title'>
-      <image src='http://image1.sansancloud.com/aikucun/2018_03/12/10/32/09_164.jpg'></image>
-      <text>公告</text>
-    </view>
+      <image src='http://image.aikucun.xyz/aikucun/2018_4/2/12/8/2_771.jpg?imageMogr2/thumbnail/120x/interlace/0 '></image>
+      <text >公告</text>
+    </view> 
     <view class='acReport_view_content'>
         <text>{{acReport}}</text>
     </view>
   </view> 
 
-  <view class='promotionList'>
-      <view class='promotionItem' wx:for='{{productData}}' wx:for-item="result" wx:key='item_{{index}}'>
+  <view class='promotionList'  bindtap='closeCardShare'>
+      <view id='promotionItem' class='promotionItem' wx:for='{{productData}}' wx:for-item="result" wx:key='item_{{index}}'>
         <view class='share_view '> 
           <view  wx:if='{{!result.showShare}}' class='sharePoint' data-index='{{index}}' catchtap='showCardShare'>
-            <image src='http://image1.sansancloud.com/aikucun/2018_03/21/16/44/04_645.jpg'></image>
+            <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/28/48_387.jpg?imageMogr2/thumbnail/120x/interlace/0'></image>
           </view>  
           <view class='share_box' wx:if='{{result.showShare}}'>
             <button class='share_box_item' open-type='share' data-index='{{index}}' >
-              <image src='http://image1.sansancloud.com/aikucun/2018_03/12/10/15/08_248.jpg'></image>
+              <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/35/2_810.jpg?imageMogr2/thumbnail/120x/interlace/0'></image>
               <text>分享</text>
             </button>
             <button class='share_box_item' data-index='{{index}}' bindtap='showKefuWechatCode'>
-              <image src='http://image1.sansancloud.com/aikucun/2018_03/12/10/15/16_358.jpg'></image>
+              <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/36/30_199.jpg?imageMogr2/thumbnail/120x/interlace/0'></image>
               <text>客服</text>
             </button>
             <!-- <button class='share_box_item' data-index='{{index}}' bindtap='drowCanvas'>
@@ -50,7 +50,7 @@
                   <view class='promotionItem_imageArea_item' wx:for="{{imageList}}" wx:for-item='imageItem' wx:for-index='n' wx:key='image_{{n}}'
                   data-urls='{{result.imageListWatcher}}'  data-me='{{imageItem.imagePath}}' bindtap='watchBigImage'
                   style='height:{{((sysWidth*0.95)-20)/2 -5}}px;  width:{{((sysWidth*0.95)-20)/2 -5}}px;'>
-                    <image  src='{{imageItem.imagePath}}?imageMogr2/thumbnail/400x/interlace/0' mode='aspectFill'></image>
+                    <image  src='{{imageItem.imagePath && result.showImage ?imageItem.imagePath : "/images/333.jpg" }}?imageMogr2/thumbnail/400x/interlace/0' mode='aspectFill'></image>
                   </view>
                 </view>
               </swiper-item> 

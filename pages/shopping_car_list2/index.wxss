@@ -42,6 +42,7 @@
   border-bottom: 1px solid #dddddd;
   /* height: 6em; */
   position: relative;
+   align-items: center;
 }
 .itemCheckbox{
   display: flex;
@@ -49,7 +50,7 @@
   justify-content: center;
   align-items: center;
 }
-.itemCheckbox image{
+.itemCheckbox_image{
   width: 6em;
   height: 6em;
   border: 1rpx solid #eee;
@@ -59,7 +60,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 10px;
+  padding-left:10px;
 }
 .item_infomation_name{
   width: 10em;

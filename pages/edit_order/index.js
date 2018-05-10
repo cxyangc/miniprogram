@@ -156,7 +156,6 @@ Page({
  
   getEditOrderDetail: function () {
     var that = this
-
     var getParams = {}
     getParams.orderNo = that.data.orderNo
     getParams.gotCouponListId = that.data.gotCouponListId
@@ -237,6 +236,52 @@ Page({
     }
   },
 
+  
+  //增加 购买过程中——及时收获地址——可编辑的状态
+  addressModifyInTime: function (e) {
+    var addrId = e.currentTarget.dataset.id
+    for (let i = 0; i < this.data.addrArr.length; i++) {
+      if (addrId == this.data.addrArr[i].id) {
+        app.EditAddr = this.data.addrArr[i]
+      }
+    }
+    this.hasEditAddr = true
+    wx.navigateTo({
+      url: '../add_address/index?addrId=' + addrId,
+    })
+  },
+
+  getAddr: function () {
+    if (!app.checkIfLogin()) {
+      return
+    }
+    var customIndex = app.AddClientUrl("/get_login_user_address_list.html")
+    var that = this
+    wx.showLoading({
+      title: 'loading'
+    })
+    //拿custom_page 
+    wx.request({
+      url: customIndex.url,
+      header: app.header,
+      success: function (res) {
+        console.log('-------地址---------')
+        console.log(res.data)
+        if (res.data.result.errcode == '-1') {
+          console.log('err')
+          app.echoErr(res.data.result.errMsg)
+        } else {
+          that.setData({ addrArr: res.data.result })
+        }
+        wx.hideLoading()
+      },
+      fail: function (res) {
+        wx.hideLoading()
+        app.loadFail()
+      }
+    })
+  },
+
   onLoad: function (o) {
     var that = this
     this.setData({ setting: app.setting })
@@ -249,6 +294,7 @@ Page({
       })
      
       that.getEditOrderDetail()
+     // that.getAddr()
     }
   },
 
@@ -273,15 +319,42 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
+  hasEditAddr: false,
   onShow: function () {
     if (!!this.data.orderNo) {
-      this.getEditOrderDetail()
+      //this.getEditOrderDetail()
+      this.getAddr()
     }
-    if(this.data.hasAddnewAddr){
+    if (this.data.hasAddnewAddr) {
       this.showOtherArr()
+      // this.getAddr()
+    }
+    let addrEditParam = app.addrEditParam
+    if (addrEditParam && this.hasEditAddr) {
+      console.log(addrEditParam)
+      this.changOutAddr(addrEditParam);
     }
     
   },
+  changOutAddr: function (addrEditParam) {
+    app.addrEditParam = null
+    this.hasEditAddr = false
+    let orderData = this.data.orderData
+    orderData.buyerName = addrEditParam.contactName
+    orderData.buyerTelno = addrEditParam.telno
+    orderData.buyerProvince = addrEditParam.province
+    orderData.buyerCity = addrEditParam.city
+    orderData.buyerArea = addrEditParam.district
+    orderData.buyerAddress = addrEditParam.detail
+
+    this.orderMessage.addressId = addrEditParam.addressId
+
+    this.setData({
+      orderData: orderData
+    })
+
+  },
+
 
   /**
    * 生命周期函数--监听页面隐藏

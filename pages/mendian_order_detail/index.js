@@ -43,6 +43,24 @@ Page({
       }
     })
   },
+  //物流单号 一键复制的事件
+  copyTBL: function () {
+    var that = this;
+    wx.setClipboardData({
+      data: that.data.orderDetailData.invoiceNo,
+      success: function (res) {
+        wx.getClipboardData({
+          success: function (res) {
+            wx.showToast({
+              title: '复制成功',
+              icon: 'success',
+              duration: 2000
+            })
+          }
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

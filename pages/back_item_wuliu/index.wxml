@@ -2,11 +2,11 @@
     <form class='backTextContainer' bindsubmit='getValues'>
       <view class='textAreaContainer'>
         <view >物流公司</view>
-        <textarea class='textAreaContainer_textArea' maxlength='10' bindinput='getwuliuCom' value=''  name='wuliuCom'></textarea>
+        <input class='textAreaContainer_textArea' maxlength='10' bindinput='getwuliuCom' value=''  name='wuliuCom'></input>
       </view>
       <view class='textAreaContainer'>
         <view >物流单号</view>
-        <textarea class='textAreaContainer_textArea' maxlength='20' bindinput='getwuliuNo' value='' name='wuliuNo'></textarea>
+        <input class='textAreaContainer_textArea' maxlength='20' bindinput='getwuliuNo' value='' name='wuliuNo'></input>
       </view>
       <view class='textAreaContainer'>
         <view >运费</view>

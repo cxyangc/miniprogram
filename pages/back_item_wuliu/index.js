@@ -45,8 +45,12 @@ Page({
     }
     postParam.shopBackAmountId = this.data.shopBackAmountId
     console.log(postParam)
-    if (!postParam.wuliuCom || !postParam.wuliuNo){
-      app.echoErr('请填写完整的物流信息')
+    if (!postParam.wuliuCom){
+      app.echoErr('请填写物流公司')
+    } else if (!postParam.wuliuNo){
+      app.echoErr('请填写物流单号')
+    } else if (!postParam.wuliuAmount){
+      app.echoErr('请填写运费')
     }else{
       this.sureBackItem(postParam)
     }

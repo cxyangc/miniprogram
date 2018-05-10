@@ -4,7 +4,7 @@ const app = getApp()
 var timer; // 计时器
 var timerACT;
 var timerACTWill;
-Page({
+Page({ 
   data: { 
     /* seeting */
     setting: null,
@@ -31,7 +31,13 @@ Page({
     showKefu: false,
 
   },
-
+  //时间格式改成 05月1日 12:30
+  toMonthToDay:function(str){
+    let arr = str.split(" ")
+    let date = arr[0].split("-")
+    let time = arr[1].split(":")
+    return date[1]+'月'+date[2]+'日'+time[0]+':'+time[1]
+  },
   getUserInfo: function (e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
@@ -46,7 +52,7 @@ Page({
   toPromotionList:function(e){
     console.log(e.currentTarget.dataset)
     let id = e.currentTarget.dataset.id;
-    let description = e.currentTarget.dataset.description;
+    let description = encodeURIComponent(e.currentTarget.dataset.description);
     let name = e.currentTarget.dataset.name;
     wx.navigateTo({
       url: '/pages/promotion_products/index?promotionId=' + id + '&description=' + description + '&navName=' + name,
@@ -89,9 +95,14 @@ Page({
     console.log(e.currentTarget.dataset)
     let content = e.currentTarget.dataset.content;
     let name = e.currentTarget.dataset.name;
-    if (content == "undefined") {
+    // if (content == "undefined") {
+    //   return
+    // }
+    
+    if (!content||content=='') {
       return
-    }
+    }//门店详情为空时，不能点击进去；
+    
     app.richTextHtml = content
     wx.navigateTo({
       url: '/pages/richText/index?navName=' + name,
@@ -125,6 +136,10 @@ Page({
   deelActivityPromotion: function (activityPromotion, unactivityPromotion){
     let that = this
     console.log('-----计时开始-----')
+
+    for(let i = 0; i < unactivityPromotion.length; i ++){
+      unactivityPromotion[i].startTimeDate = this.toMonthToDay(unactivityPromotion[i].startDate)
+    }
     CountdownActivity(activityPromotion, that,0)
     CountdownActivityWill(unactivityPromotion, that, 0)
   },
@@ -427,7 +442,7 @@ Page({
       let products = this.data.products
       let focusData = products[index]
       let imageUrl = focusData.imagePath
-      let shareName = focusData.brandName + focusData.name + '原价：￥' + focusData.tagPrice + '活动价：￥' + focusData.price
+      let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tagPrice + ')' + focusData.brandName + focusData.name
       let shareParams = {}
       shareParams.productName = focusData.productCode
       console.log('nnnnnnnnnn' + shareName)
@@ -658,40 +673,9 @@ Page({
      规格操作
   */
   MeasureParams: [],
-  //提交规格产品
-  submitMeasure: function (id) {
-    var that = this
-    let focusProduct = this.data.focusData
-    let measurementJson = this.data.measurementJson
-    let data = {}
-    data.cartesianId = measurementJson.id
-    data.productId = focusProduct.id
-    data.shopId = focusProduct.belongShopId
-    data.count = 1
-    data.type = 'add'
-
-    var customIndex = app.AddClientUrl("/change_shopping_car_item.html", data, 'post')
-    wx.request({
-      url: customIndex.url,
-      data: customIndex.params,
-      header: app.headerPost,
-      method: 'POST',
-      success: function (res) {
-        console.log('--------add----------')
-        console.log(res.data)
-
-      },
-      fail: function (res) {
-        app.loadFail()
-      },
-      complete: function () {
-        wx.hideLoading()
-      }
-    })
-  },
   //获取规格价格参数
   get_measure_cartesion: function () {
-
+    this.byNowParams.cartesianId = -1
     let productId = this.data.focusData.id
     let postStr = ''
     if (!this.data.focusData.measureItem||this.MeasureParams.length == 0) {

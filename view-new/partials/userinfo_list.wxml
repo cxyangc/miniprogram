@@ -2,12 +2,12 @@
   <view  class="userinfo_list" wx:if="{{showType == 0}}">
       <view class="userinfo_list_item font_08"  wx:for="{{cells}}" wx:for-item="cells" wx:key="{{index}}" data-link='{{cells.linkUrl}}' bindtap='tolinkUrl'>
         <view class='userinfo_list_item_left'>
-          <image style="" src="{{cells.iconPath}}?x-oss-process=style/preview"></image> 
+          <image style="" src="{{cells.iconPath}}?imageMogr2/thumbnail/120x/interlace/0"></image> 
           <view class='userinfo_list_item_text'  site_url="{{cells.linkUrl}}"  targetType="{{cells.targetType}}">
             {{cells.text}}
           </view>
         </view>
-        <image class='' src='http://image1.sansancloud.com/aikucun/2018_03/22/11/28/36_332.jpg?x-oss-process=style/preview_120'></image>
+        <image class='' src='http://image.aikucun.xyz/aikucun/2018_4/2/12/3/15_681.jpg?imageMogr2/thumbnail/120x/interlace/0'></image>
 
       </view>
   </view>

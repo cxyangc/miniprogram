@@ -70,6 +70,7 @@
     "pages/yijian_fankui/index", 
     "pages/aikucun_index/index",
     "pages/promotion_products/index",
+    "pages/promotion_detail/index",
     "pages/aikucun_activity_list/index",
     "pages/shopping_car_list2/index",
     "pages/aikucun_car_list/index",
@@ -82,7 +83,10 @@
     "pages/mendian_user/index",
     "pages/mendian_zijin/index",
     "pages/mendian_tixian/index",
-    "pages/mendian_back_item/index"
+    "pages/mendian_back_item/index",
+    "pages/mendian_system/index",
+    "pages/mendian_qrcode/index"
+
   ],
 "tabBar": {
   "color": "#7A7E83",

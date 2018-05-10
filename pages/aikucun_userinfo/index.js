@@ -5,7 +5,7 @@ var detailList = require('../../view/js/detail_list.js');
 var WxParse = require('../../wxParse/wxParse.js');
 Page({
   data: {
-    /* seeting */
+    /* seeting */ 
     setting: null,
     userData: null,
     PaiXuPartials: null,
@@ -30,7 +30,7 @@ Page({
     })
   },
   headData:{
-    imageUrl:' http://image1.sansancloud.com/aikucun/2018_03/22/10/58/49_233.jpg'
+    imageUrl:'http://image.aikucun.xyz/aikucun/2018_4/2/11/48/3_10.jpg'
   },
   
   blankData:{
@@ -42,7 +42,7 @@ Page({
     
     cells:[
       {
-        iconPath: "http://image1.sansancloud.com/aikucun/2018_03/21/15/59/45_177.jpg",
+        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/11/53/58_653.jpg",
         linkUrl: "order_list_2.html?easyStatus=2&easyStatusName=待付款",
         text: "待付款",
         color: "#777777",
@@ -50,21 +50,21 @@ Page({
         
       },
       {
-        iconPath: "http://image1.sansancloud.com/aikucun/2018_03/21/15/59/43_013.jpg",
+        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/11/54/1_475.jpg",
         linkUrl: "order_list_3.html?easyStatus=3&easyStatusName=待发货" ,
         text: "待发货",
         color: "#777777",
         showCountNum:0,
       },
       {
-        iconPath: "http://image1.sansancloud.com/aikucun/2018_03/21/15/59/47_657.jpg",
+        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/11/54/5_90.jpg",
         linkUrl: "order_list_4.html?easyStatus=4&easyStatusName=待收货",
         text: "待收货" ,
         color: "#777777",
         showCountNum:0,
       },
       {
-        iconPath: "http://image1.sansancloud.com/aikucun/2018_03/21/15/59/54_984.jpg",
+        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/11/54/7_742.jpg",
         linkUrl: "back_item_list.html",
         text: "售后",
         color: "#777777"
@@ -77,19 +77,19 @@ Page({
   ListData:{
     cells: [
       {
-        iconPath: "http://image1.sansancloud.com/jianzhan/2017_11/08/20/45/24_151.jpg",
+        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/12/0/27_922.jpg",
         linkUrl: "address.html",
         text: "收货地址" ,
         color: "#777777"
       },
       {
-        iconPath: "http://image1.sansancloud.com/jianzhan/2017_11/08/20/44/24_950.jpg" ,
+        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/12/0/30_584.jpg" ,
         linkUrl: "yijian_fankui.html",
         text: "意见反馈" ,
         color: "#777777"
       },
       {
-        iconPath: "http://image1.sansancloud.com/jianzhan/2017_11/08/20/44/32_860.jpg",
+        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/12/0/32_522.jpg",
         linkUrl: "news_list.html?newsTypeId=5&pageNage=关于我们",
         text: "关于我们",
         color: "#777777"
@@ -100,7 +100,7 @@ Page({
   },
 
   serverData:{
-    iconPath: "http://image1.sansancloud.com/aikucun/2018_03/12/13/00/08_078.jpg",
+    iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/12/4/20_993.jpg?imageMogr2/thumbnail/120x/interlace/0 ",
     linkUrl: "mendian_center.html",
     text: "我是服务商",
     color: "#777777"

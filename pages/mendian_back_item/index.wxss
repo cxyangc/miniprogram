@@ -87,7 +87,6 @@
   flex-direction: row;
   padding: 1em;
   overflow: hidden;
-  height: 5em;
   position: relative;
   
   border-bottom: 1px dashed #f1f1f1;
@@ -118,9 +117,6 @@
 }
 .item_infomation_name2{
   width: 9em;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
 }
 .item_infomation_money{
   font-size: 0.8em;

@@ -31,14 +31,14 @@
     <input class='InputContent'  maxlength='50' value='{{needParam.detail}}' bindblur='getAddr' placeholder='请输入详细地址'></input>
   </label>
 
-   <label class='inputContainer'>
+  <!-- <label class='inputContainer'>
     <view class='InputName'>经度</view>
     <view class='InputContent'>{{needParam.longitude}}</view>
   </label>
   <label class='inputContainer'>
     <view class='InputName'>纬度</view>
     <view class='InputContent'>{{needParam.latitude}}</view>
-  </label> 
+  </label> -->
   <checkbox-group bindchange="defaultAddressChange">
   <label class='inputContainer'>
     <view class='InputName'>设为默认地址</view>

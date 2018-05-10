@@ -5,7 +5,7 @@
         data-id='{{index}}' bindtap='bindTab'>{{item.name}}</view>        
     </view>
 
-    <swiper class='Tab_page' current='{{showTabIndex}}' style='height: {{sysHeight-50}}px;' bindchange='changeIndex'> 
+    <swiper class='Tab_page' current='{{showTabIndex}}' style='height: {{sysHeight-40}}px;' bindchange='changeIndex'> 
       <swiper-item wx:for='{{tab}}' wx:key='{{index}}' wx:for-item='tab'>
         <view class='swiperPageContainer'>
           <view class='freshView'>

@@ -6,7 +6,8 @@ import { dellUrl } from "/public/requestUrl.js";
   
 App({
  
-  clientUrl: 'https://mini.sansancloud.com/chainalliance/',  // 链接地址   
+   clientUrl: 'https://mini.sansancloud.com/chainalliance/',  // 链接地址 
+ 
 
   /**
    *   切换项目的开关 ↓↓↓↓↓ 
@@ -491,10 +492,13 @@ App({
           nickname: '',
           sex: ''
         }
-        if (loginJson){
-          infoParam.telNo =  loginJson.platformUser.telNo
-          infoParam.telNo =  loginJson.platformUser.userTip
+        if (loginJson && loginJson.platformUser.telNo){
+          console.error(loginJson.platformUser.telNo)
+          infoParam.telno =  loginJson.platformUser.telNo
+        }else{
+          infoParam.telno = ''
         }
+
         infoParam.headimg = userInfo.avatarUrl
         infoParam.nickname = userInfo.nickName
         infoParam.sex = userInfo.gender
@@ -525,6 +529,29 @@ App({
           complete: function (res) {
 
           },
+        })
+      },
+      fail: function (e) {
+        console.log(e)
+        wx.showModal({
+          title: '授权提示',
+          content: '取消用户授权可能导致部分功能不可用，请确认授权！',
+          cancelText: '拒绝',
+          confirmText: '去授权',
+          success: function (res) {
+            if (res.confirm) {
+              wx.openSetting({
+                success: (res) => {
+                  res.authSetting = {
+                    "scope.userInfo": true,
+                  }
+                  that.sentWxUserInfo(loginJson)
+                }
+              })
+            } else if (res.cancel) {
+
+            }
+          }
         })
       }
     })

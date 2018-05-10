@@ -14,9 +14,11 @@
       
       <view class='cartItems' wx:for='{{cartshop.carItems}}' wx:for-item='cart' wx:key='{{cart.id}}' wx:if='{{cart.count}}'>
         <label class='itemCheckbox'>
-          <checkbox  checked='{{allchecked}}' color='{{setting.platformSetting.defaultColor}}' value='{{cart.id}}'></checkbox>
-          <image mode='aspectFill' src='{{cart.item.imagePath}}?x-oss-process=style/preview'></image>
-        </label> 
+          <checkbox  checked='{{allchecked}}' color='{{setting.platformSetting.defaultColor}}' value='{{cart.id}}'></checkbox>         
+        </label>
+        <image bindtap='cart_pro_click_toDetail' data-description='{{cart.item.promotionBean}}'
+          data-name='{{cart.item.name}}' data-promotionId='{{cart.item.promotion}}' 
+         data-productId='{{cart.item.productCode}}'  class='itemCheckbox_image' mode='aspectFill' src='{{cart.item.imagePath}}?x-oss-process=style/preview'></image> 
         <view wx:if='{{cart.showEditView}}' class='editCart_item_container'>
           <view class='dellCart_butn_container'>
             <view class='dellCart_butn_container_1'>
@@ -38,7 +40,10 @@
           </view>
         </view>
          
-        <view class='item_infomation' wx:else>
+        <view wx:else class='item_infomation'
+         bindtap='cart_pro_click_toDetail' data-description='{{cart.item.promotionBean}}'
+          data-name='{{cart.item.name}}' data-promotionId='{{cart.item.promotion}}' 
+         data-productId='{{cart.item.productCode}}' >
           <view class='item_infomation_name' data-info='{{cart}}' 
             wx:if='{{cart.count}}'
            >{{cart.item.name}}</view>

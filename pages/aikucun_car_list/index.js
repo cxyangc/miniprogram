@@ -626,6 +626,20 @@ Page({
     })
     wx.stopPullDownRefresh()
   },
+  //点击购物车中的商品，跳转到详情页面
+  cart_pro_click_toDetail: function (e) {
+    console.log("点击购物车中的商品，跳转到详情页面")
+    console.log(e.currentTarget.dataset)
+    let promotionId = e.currentTarget.dataset.promotionid;
+    let productId = e.currentTarget.dataset.productid;
+    let description = e.currentTarget.dataset.description.description;
+    let name = e.currentTarget.dataset.name;
+    wx.navigateTo({
+      url: '/pages/promotion_products/index?' +
+      'description=' + description + '&navName=' + name + '&productName=' + productId + '&id=' + promotionId,
+    })
+  },
+
   /* 分享 */
   onShareAppMessage: function (res) {
     if (res.from == "button") {
@@ -633,7 +647,7 @@ Page({
       let products = this.data.products
       let focusData = products[index]
       let imageUrl = focusData.imagePath
-      let shareName = focusData.brandName + focusData.name + '原价：￥' + focusData.tagPrice + '活动价：￥' + focusData.price
+      let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tagPrice + ')' + focusData.brandName + focusData.name
       let shareParams = {}
       shareParams.productName = focusData.productCode
       console.log('nnnnnnnnnn' + shareName)
@@ -970,39 +984,39 @@ Page({
   */
   MeasureParams: [],
   //提交规格产品
-  submitMeasure: function (id) {
-    var that = this
-    let focusProduct = this.data.focusData
-    let measurementJson = this.data.measurementJson
-    let data = {}
-    data.cartesianId = measurementJson.id
-    data.productId = focusProduct.id
-    data.shopId = focusProduct.belongShopId
-    data.count = 1
-    data.type = 'add'
+  // submitMeasure: function (id) {
+  //   var that = this
+  //   let focusProduct = this.data.focusData
+  //   let measurementJson = this.data.measurementJson
+  //   let data = {}
+  //   data.cartesianId = measurementJson.id
+  //   data.productId = focusProduct.id
+  //   data.shopId = focusProduct.belongShopId
+  //   data.count = 1
+  //   data.type = 'add'
 
-    var customIndex = app.AddClientUrl("/change_shopping_car_item.html", data, 'post')
-    wx.request({
-      url: customIndex.url,
-      data: customIndex.params,
-      header: app.headerPost,
-      method: 'POST',
-      success: function (res) {
-        console.log('--------add----------')
-        console.log(res.data)
+  //   var customIndex = app.AddClientUrl("/change_shopping_car_item.html", data, 'post')
+  //   wx.request({
+  //     url: customIndex.url,
+  //     data: customIndex.params,
+  //     header: app.headerPost,
+  //     method: 'POST',
+  //     success: function (res) {
+  //       console.log('--------add----------')
+  //       console.log(res.data)
 
-      },
-      fail: function (res) {
-        app.loadFail()
-      },
-      complete: function () {
-        wx.hideLoading()
-      }
-    })
-  },
+  //     },
+  //     fail: function (res) {
+  //       app.loadFail()
+  //     },
+  //     complete: function () {
+  //       wx.hideLoading()
+  //     }
+  //   })
+  // },
   //获取规格价格参数
   get_measure_cartesion: function () {
-
+    this.byNowParams.cartesianId = -1
     let productId = this.data.focusData.id
     let postStr = ''
     

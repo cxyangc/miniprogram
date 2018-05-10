@@ -11,7 +11,8 @@ Page({
     userData: null,
     userSign: null,
 
-    loginUser: null
+    loginUser: null,
+    butnLoading:false,
   },
   userInfo: {
     username: "",
@@ -40,6 +41,7 @@ Page({
       title: 'loading',
       mask: true
     })
+    
     var loginUrl = app.AddClientUrl("Client.User.Login", data, 'post')
     wx.request({
       url: loginUrl.url,
@@ -131,7 +133,8 @@ Page({
         console.log("fail")
         wx.hideLoading()
         app.loadFail()
-      }
+      },
+     
     })
   },
 
@@ -185,7 +188,9 @@ Page({
       mask: true
     })
     var that = this
-
+    this.setData({
+      butnLoading: true
+    })
 
     wx.login({
       success: function (res) {
@@ -261,6 +266,13 @@ Page({
                   }
                 }
               })
+            },
+            complete:function(){
+              setTimeout(function () {
+                that.setData({
+                  butnLoading: false
+                })
+              }, 1000)
             }
           })
         } else {
@@ -275,6 +287,9 @@ Page({
         console.log('---------111111  complete----------')
         console.log(res)
         wx.hideLoading()
+        
+        
+        
       },
     });
   },
