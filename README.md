@@ -9,7 +9,7 @@
 	
 ### QQ交流群 — 25013930
 ### 公司官网 - http://www.fz33.net  官网
-### 管理后台效果图
+### 管理后台效果图（部分）
 
 |登录入口：http://www.sansancloud.com/manager/#/login|试用账号：yanshi 密码：yanshi123
 |:----|:----:|
