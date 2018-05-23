@@ -1,4 +1,4 @@
-# 微信小程序
+﻿# 微信小程序
 ## 微信小程序电商源码：外卖小程序，电商小程序，门店类小程序，展示类小程序，批发商城小程序。
 
 #### 项目介绍
@@ -9,6 +9,12 @@
 	
 ### QQ交流群 — 25013930
 ### 公司官网 - http://www.fz33.net  官网
+### 管理后台效果图
+
+|登录入口：http://www.sansancloud.com/manager/#/login|试用账号：yanshi 密码：yanshi123
+|:----|:----:|
+|![file-list](http://image1.sansancloud.com/xianhua/2018_5/23/14/20/51_340.jpg)|![file-list](http://image1.sansancloud.com/xianhua/2018_5/23/14/20/52_398.jpg)
+|![file-list](http://image1.sansancloud.com/xianhua/2018_5/23/14/21/0_82.jpg)|![file-list](http://image1.sansancloud.com/xianhua/2018_5/23/14/28/13_356.jpg)
 ### 效果图---扫码查看
 
 |扫码预览|扫码预览|扫码预览
