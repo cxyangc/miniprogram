@@ -5,7 +5,7 @@ var detailList = require('../../view/js/detail_list.js');
 var WxParse = require('../../wxParse/wxParse.js');
 Page({
   data: {
-    /* seeting */ 
+    /* seeting */
     setting: null,
     userData: null,
     PaiXuPartials: null,

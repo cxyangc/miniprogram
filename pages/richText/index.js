@@ -72,10 +72,10 @@ Page({
   onReachBottom: function () {
   
   },
-  onShareAppMessage: function () {
+ /*  onShareAppMessage: function () {
     let that = this
     let params = that.opt
     console.log('params:' + params)
     return app.shareForFx2('richText', '', params)
-  }
+  } */
 })

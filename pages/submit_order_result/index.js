@@ -19,8 +19,6 @@ Page({
   },
   /* 立即支付 */
   payNow:function(e){
-
-   
     var orderNo = e.currentTarget.dataset.orderno
     var orderItem = this.data.success
 

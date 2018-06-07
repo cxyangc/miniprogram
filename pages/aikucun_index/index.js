@@ -4,8 +4,8 @@ const app = getApp()
 var timer; // 计时器
 var timerACT;
 var timerACTWill;
-Page({ 
-  data: { 
+Page({
+  data: {
     /* seeting */
     setting: null,
     indexData: null,
@@ -15,7 +15,7 @@ Page({
     unactivityPromotion: null,
     products: null,
 
-    sysWidth: 320,//图片大小 
+    sysWidth: 320,//图片大小
     loginUser: null,
 
 
@@ -124,7 +124,7 @@ Page({
       backgroundColor: '#ffffff',
     })
     /* if (app.setting.platformSetting.defaultColor == '') {
-     
+
     } else {
       wx.setNavigationBarColor({
         frontColor: '#ffffff',
@@ -209,7 +209,7 @@ Page({
       focusIndex: index
     })
   },
-  //关闭 ... 
+  //关闭 ...
   closeCardShare: function (oldIndex) {
 
     let index = this.data.focusIndex
@@ -234,7 +234,7 @@ Page({
   },
   //开关显示客服的
   showKefuWechatCode: function (e) {
-    
+
     let index = e.currentTarget.dataset.index;
     this.closeCardShare(index)
     this.setData({
@@ -309,7 +309,7 @@ Page({
           })
         }
 
-    
+
 
         wx.hideLoading()
 
@@ -350,7 +350,7 @@ Page({
       this.setData({
         sysWidth: app.globalData.sysWidth
       });
-      
+
       if (!!app.setting) {
         this.setNavBar()
       }
@@ -360,7 +360,7 @@ Page({
     if (app.shareParam && app.shareParam.pageName) {
       this.jumpToPage(app.shareParam)
     }
-    
+
     this.setData({ setting: app.setting })
     Countdown(app,this);
   },
@@ -452,7 +452,7 @@ Page({
     else {
       return app.shareForFx2(app.miniIndexPage)
     }
-    
+
   },
 
   /* 下拉刷新 */
@@ -464,9 +464,9 @@ Page({
     setTimeout(function(){
       that.onLoad();
     },1000)
-    
+
    // app.StartRefresh()
-    
+
   },
 
 
@@ -494,11 +494,11 @@ Page({
       this.byNowParams.itemCount++;
       this.setData({ byNowParams: this.byNowParams })
     }
-    
+
   },
 
   //点击加入购物车或立即下单
- 
+
   bindBuy: function (e) {
     let index = e.currentTarget.dataset.index;
     let bindBuy = e.currentTarget.dataset.bindbuy;
@@ -663,13 +663,13 @@ Page({
   },
   closeZhezhao: function () {
     this.MeasureParams = []
-    this.setData({ 
-      showCount: false, 
+    this.setData({
+      showCount: false,
       focusData: null,
     })
   },
 
-  /* 
+  /*
      规格操作
   */
   MeasureParams: [],
@@ -698,7 +698,7 @@ Page({
         if (!res.data.id) {
           // 没有这个参数
           //......
-          
+
           console.error('error')
           console.log(that.MeasureParams)
           console.log(res.data)
@@ -803,7 +803,7 @@ function CountdownActivityWill(data, that, over) {
 function Countdown(page, that) {
   console.log('2')
   if (page.loginUser) {
-    
+
     /* if (!app.loginUser.platformUser.mendian && app.more_scene.indexOf("PLATFORM_USER_ID") > 0) {
       console.error('more_scene', app.more_scene)
       app.changeUserBelong(app.more_scene)

@@ -176,8 +176,9 @@ Page({
    
   },
   toCart:function(){
+    console.warn("cart")
     wx.switchTab({
-      url: '/pages/shopping_car_list/index',
+      url: '../../pageTab/aikucun_car_list/index',
     })
   },
   /* 找到购物车里面的内容 */

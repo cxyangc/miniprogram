@@ -10,25 +10,49 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+///
   },
-
+  getData:function(b){
+    var that= this
+    var param = { promotionId: b.id}
+    var customIndex = app.AddClientUrl("/get_promotions_detail.html", param, 'get')
+    wx.request({
+      url: customIndex.url,      
+      header: app.header,
+      success: function (res) {
+        // console.log(res)
+        // console.log(res.data)        
+        if (res.data.relateObj.name) {
+          wx.setNavigationBarTitle({
+            title: res.data.relateObj.name,
+          })
+        }
+        if (res.data.relateObj.content){
+          WxParse.wxParse('article', 'html', res.data.relateObj.content, that, 10);
+        }
+      },
+      fail: function (res) {
+        app.loadFail()
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   opt: null,
   onLoad: function (options) {
-    this.opt = options
-    let navName = options.navName
-    if (navName) {
-      wx.setNavigationBarTitle({
-        title: navName,
-      })
-    }
+     this.opt = options
+    // let navName = options.navName
+    // if (navName) {
+    //   wx.setNavigationBarTitle({
+    //     title: navName,
+    //   })
+    // }
 
-    let that = this
-    let richTextHtml = app.richTextHtml
-    WxParse.wxParse('article', 'html', richTextHtml, that, 10);
+    // let that = this
+    // let richTextHtml = app.richTextHtml
+    // WxParse.wxParse('article', 'html', richTextHtml, that, 10);
+    this.getData(options)
   },
 
   /**
@@ -76,6 +100,6 @@ Page({
     let that = this
     let params = that.opt
     console.log('params:' + params)
-    return app.shareForFx2('richText', '', params)
+    return app.shareForFx2('promotion_detail', '', params)
   }
 })

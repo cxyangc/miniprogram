@@ -6,20 +6,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    money:100,
-    payway:3,
-    butn_show_loading:false
+    money: 100,
+    payway: 3,
+    butn_show_loading: false
   },
-  getBuyerScript:function(e){
-    this.setData({ money:e.detail.value })
+  getBuyerScript: function (e) {
+    this.setData({ money: e.detail.value })
   },
-  getPayWay:function(e){
+  getPayWay: function (e) {
     this.setData({
-      payway:e.detail.value
+      payway: e.detail.value
     })
   },
 
-  subMitButn:function(){
+  subMitButn: function () {
     var that = this
     let money = this.data.money
     let payWay = this.data.payway
@@ -31,7 +31,7 @@ Page({
     wxChatPayParam.rechargeAmount = money
     wxChatPayParam.payType = payWay
     console.log(wxChatPayParam)
-    this.setData({ butn_show_loading:true })
+    this.setData({ butn_show_loading: true })
     let customIndex = app.AddClientUrl("/create_recharge_order.html", wxChatPayParam, 'post')
     wx.request({
       url: customIndex.url,
@@ -44,18 +44,18 @@ Page({
         //下面应该吊起支付
         console.log(res.data)
         let orderNo = res.data.orderNo
-        if(!res.data || !res.data.payType){
+        if (!res.data || !res.data.payType) {
           console.log('--------失败-------')
         }
-        if (res.data.payType == 3){
+        if (res.data.payType == 3) {
           that.payByWechat(orderNo)
         }
-        
-      },
-      fail:function () {
 
       },
-      complete:function(){
+      fail: function () {
+
+      },
+      complete: function () {
         that.setData({ butn_show_loading: true })
       }
 
@@ -121,7 +121,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+
   },
 
   /**
@@ -136,35 +136,35 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
 })

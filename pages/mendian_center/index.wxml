@@ -1,7 +1,6 @@
  
 <view class='container'>
-    <view class='tongji_container' >
-      
+    <view class='tongji_container' >      
       <view class='tongji_mid font_24'>{{mendian.account.account}}</view>
       <view class='tongji_top'>账户余额（￥）</view>
     </view>
@@ -96,14 +95,29 @@
             </view>
             <view class='borderRight'></view>
         </view>
-        <!-- <view class='mendian_menu_item' data-link='mendian_system.html'   bindtap='tolinkUrl'>
+        <view class='mendian_menu_item'  bindtap='toLoginBackstage'>
             <view class='imageContainer'>
-                <image src='http://image.aikucun.xyz/aikucun/2018_4/3/21/50/51_552.jpg?imageMogr2/thumbnail/400x/interlace/0'></image>
+                <image src='../../images/icons/saoyisao.png'></image>
             </view>
             <view class='item_text'>
-                <text>设置</text>
+                <text>扫一扫</text>
             </view>
-        </view> -->
+            <view class='borderRight'></view>
+        </view>        
+        <view class='mendian_menu_item'>
+            <form bindsubmit="submitFormId" report-submit='true' >
+              <button form-type="submit" style='background:none !important; border:none !important;'></button>
+            </form>
+            <view class='imageContainer'>
+                <image src='../../images/icons/saoyisao.png'></image>
+            </view>
+            <view class='item_text'>
+                <text>申请服务商</text>
+            </view>
+            <view class='borderRight'></view>
+        </view>
+            
+                  
     </view>
   </view>
     

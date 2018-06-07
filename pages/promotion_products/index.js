@@ -6,11 +6,12 @@ Page({
    * 页面的初始数据
    */ 
   data: {  
+    
     setting: null, // setting           
     loginUser: null,
     productData: [], // 商品数据  
     sysWidth: 320,//图片大小
-    acReport:'公告信息',
+    acReport:'正品低价，买！买！买！',
     focusIndex:0,
     carCount:0, 
     //规格信息
@@ -176,14 +177,26 @@ Page({
   },
   /* swiper滑动 */
   swiperCurrentChange:function(e){
-    let current = e.detail.current
+    console.log(e)
+    let current = e.detail.current;    
     let index = e.currentTarget.dataset.index;
     let productData = this.data.productData
-    let focusData = productData[index]
+    let focusData = productData[index];
+    if (current > focusData.current && current > focusData.pageNum){
+      focusData.pageNum = current      
+    }else{
+      focusData.pageNum = focusData.pageNum 
+    }
+    // console.log(focusData.current) 
     focusData.current = current
+    // console.log(focusData.current)
+    // focusData.pageNum = pageNum
+    // console.log(pageNum)
+   
+    
 
     this.setData({
-      productData: productData
+      productData: productData,
     })
   },
   //获取图片数组 用来预览用
@@ -207,17 +220,21 @@ Page({
   sliceProductImageList:function(arr){
     
     let that = this
+    let sdkVersion = app.compareVersion(app.SDKVersion, '1.4.0') //版本号
     for (let i = 0; i < arr.length; i++) {
       arr[i].imageListArr = that.sliceArray(arr[i].itemImages,4)
       arr[i].imageListWatcher = that.getImageUrlList(arr[i].itemImages)
       
-      if(i < 2){
-        arr[i].showImage = true
+      if (i < 2 || sdkVersion !=1 ){
+        arr[i].showImage = true        
       }else{
         arr[i].showImage = false
       }
+           
       arr[i].showShare = false //显示分享
       arr[i].current = 0
+      arr[i].pageNum=0
+      
     }
     return arr
   },
@@ -258,7 +275,7 @@ Page({
           that.setData({ productData: null })
         } else {
           let result2 = that.sliceProductImageList(result) 
- 
+
           if (dataArr == null) { dataArr = [] }
           dataArr = dataArr.concat(result2)
           that.setData({ productData: dataArr })
@@ -625,12 +642,11 @@ Page({
       if ((pageTop + this.data.sysHeight) > promotionItemPageOffline[i].top && !promotionData[i].showImage) {
         this.showImage(i)
       }
-    }
-
-    //pageTop + this.data.sysHeight
+    }   
   },
+  
   showImage(i) {
-    var promotionItem =  "productData["+i+"].showImage"
+    var promotionItem = "productData[" + i + "].showImage"
     this.setData({
       [promotionItem]: true
     })
@@ -654,6 +670,9 @@ Page({
       let index = res.target.dataset.index
       let productData = this.data.productData
       let focusData = productData[index]
+      if (!focusData.brandName || focusData.brandName == "") {
+        focusData.brandName = ""
+      };
       let imageUrl = focusData.imagePath
      
       let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tagPrice + ')' + focusData.brandName + focusData.name
@@ -799,5 +818,7 @@ Page({
     }
     this.get_measure_cartesion()
   },
+
+  
 
 })

@@ -3,6 +3,6 @@
   <button disabled='{{showLoading}}' bindtap='reloadJs' loading='{{showLoading}}' >重新加载</button>
 </view>
 
-<view wx:else> 
+<view wx:else>
   
 </view>

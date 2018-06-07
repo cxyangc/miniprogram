@@ -11,7 +11,7 @@ Page({
     IfbackTo:false
   },
   tuikuan: function (e) {
-    var orderNo = e.currentTarget.dataset.orderno
+    var orderNo = e.currentTarget.dataset.orderno   
     wx.navigateTo({
       url: '/pages/back_item_detail/index?orderItemId=' + orderNo,
     })

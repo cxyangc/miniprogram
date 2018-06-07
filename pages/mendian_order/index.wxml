@@ -18,13 +18,14 @@
                       <view class='cartShopName'> 
                         <!-- <text class='font1'>客户名：{{list.buyerName}}</text> -->
                         <view style='display:flex; align-items:center;'> 
-                          <!-- <image wx:if="{{list.buyerHeadimg}}" src='{{list.buyerHeadimg}}' mode='aspectFit'
+                           <image wx:if="{{list.buyerHeadimg}}" src='{{list.buyerHeadimg}}' mode='aspectFill'
                           style='width:2em; height:2em; border:1px solid #ccc;border-radius:50%;'>
                           </image>
-                          <image wx:else src='http://image1.sansancloud.com/jianzhan/2017_09/24/16/08/58_464.jpg' mode='aspectFit'
+                          <!-- <image wx:else src='http://image1.sansancloud.com/jianzhan/2017_09/24/16/08/58_464.jpg' mode='aspectFit'
                           style='width:2em; height:2em; border:1px solid #ccc;border-radius:50%;'>
-                          </image> -->
-                          <text class='font1' style='margin-left:10rpx;'>客户名：{{list.belongShopName}}</text>
+                          </image>  -->
+                          <text class='font1' style='margin-left:10rpx; max-width:3em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;'>{{list.buyerNickName}}</text>
+                          <text class="marginleft vity_tag" wx:if='{{list.promotionName}}'>{{list.promotionName}}</text>
                         </view>
                         <block wx:if='{{list.easyStatusStr == "作废"}}'> 
                           <text class='' style='color:{{setting.platformSetting.defaultColor}}'>已作废</text>

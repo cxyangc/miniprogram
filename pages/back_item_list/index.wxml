@@ -22,9 +22,16 @@
         </view>
       </view>
 
-      <view class='item_infomation_nums'> 
-          <block wx:if='{{list.backItem == 0}}'>
-            <text class='flexCenter butnForTuiKuan' data-orderNo='{{list.id}}' bindtap='tuikuan' style='color:#fff;background:{{setting.platformSetting.defaultColor}};'>申请退款</text>
+      <view class='item_infomation_nums'>
+      <!-- 已完成 隐藏“申请退货”，显示“已退几件”-->
+        <block wx:if='{{list.orderStatus ==6}}'>
+          <text class='flexCenter butnForTuiKuan' data-orderNo='{{list.id}}' data-backCount='{{list.backCount}}' data-itemCount='{{list.itemCount}}' bindtap='tuikuan' style='color:{{setting.platformSetting.defaultColor}};'>已退{{list.backCount}}件</text>
+        </block>
+        <!--已完成 隐藏“申请退货”，显示“已退几件”  end-->
+        <block wx:else> 
+          <block wx:if='{{list.backItem == 0 || list.backItem ==8}}'>
+          <text class='flexCenter butnForTuiKuan' data-orderNo='{{list.id}}' data-backCount='{{list.backCount}}' data-itemCount='{{list.itemCount}}' bindtap='tuikuan' style='color:{{setting.platformSetting.defaultColor}};'>已退{{list.backCount}}件</text>
+            <text class='flexCenter butnForTuiKuan' data-orderNo='{{list.id}}' data-backCount='{{list.backCount}}' data-itemCount='{{list.itemCount}}' bindtap='tuikuan' style='color:#fff;background:{{setting.platformSetting.defaultColor}};'>申请退款</text>
           </block>
           <block wx:if='{{list.backItem == 1}}'>
             <text class='flexCenter butnForTuiKuan' style='color:{{setting.platformSetting.defaultColor}}'>退款处理中</text>
@@ -47,12 +54,12 @@
             <text class='flexCenter butnForTuiKuan' style='color:{{setting.platformSetting.defaultColor}}'>退款成功</text>
             </block>
           <block wx:if='{{list.backItem == 5}}'>
-            <text class='flexCenter butnForTuiKuan' data-orderNo='{{list.id}}' bindtap='tuikuan' style='color:#fff;background:{{setting.platformSetting.defaultColor}};'>申请退款</text>
+            <text class='flexCenter butnForTuiKuan' data-orderNo='{{list.id}}' data-backcount='{{list.backcount}}' data-itemcount='{{list.itemcount}}' bindtap='tuikuan' style='color:#fff;background:{{setting.platformSetting.defaultColor}};' >申请退款</text>
             <text class='flexCenter butnForTuiKuan' style='color:{{setting.platformSetting.defaultColor}}'>申请被拒绝</text>
           </block>
-          </view>
+        </block>
+      </view>
     </view>
-
  </block>
   
 </view>

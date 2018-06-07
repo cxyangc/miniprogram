@@ -35,7 +35,8 @@
       <view class='orderKuaidi_no'>
         <text>快递单号：</text> 
         <text selectable="true" style='color:{{setting.platformSetting.defaultColor}}'>{{orderDetailData.invoiceNo}}</text>
-        <text style='padding:0 0.4em;border-radius:0.4em;color:#e24148; border:2rpx solid #e24148; margin-left:0.6em;' bindtap="copyTBL">复制</text>
+        <text wx:if="{{orderDetailData.invoiceNo}}" style='padding:0 0.4em;border-radius:0.4em;color:#e24148; border:2rpx solid #e24148; margin-left:0.6em;' bindtap="copyTBL">复制</text>
+        <text wx:else style='padding:0 0.4em;border-radius:0.4em;color:#e24148; border:2rpx solid #e24148; margin-left:0.6em;'></text>
       </view>
   </view>
   <view bindtap='showOtherArr' class='editAddr' wx:if='{{orderDetailData.orderStatus < 3}}'><!--  -->
@@ -55,12 +56,10 @@
   <view class='server_container'>
      <view>{{orderDetailData.storageName}}</view>
   </view>
-  <view class='cartContainer'>
+  <view class='cartContainer'>                        
     <view class='cartShopName'>
-      <view class='font1'>
-         <text>{{orderDetailData.belongShopName}}</text>
-         <text wx:if='{{orderDetailData.promotionName}}'  class='marginleft vity_tag'>{{orderDetailData.promotionName}}</text> 
-      </view>
+      <text class='font1'>{{orderDetailData.belongShopName}}</text>
+      <text wx:if='{{orderDetailData.promotionName}}' class='marginleft vity_tag'>{{orderDetailData.promotionName}}</text>
       <text class='color' style='color:{{setting.platformSetting.defaultColor}}'>合计:￥ {{orderDetailData.goodsAmount}}</text>
     </view>
     <view class='cartItems' wx:for='{{orderDetailData.orderItems}}' 
@@ -77,10 +76,10 @@
         <view class='item_infomation_money' style='color:{{setting.platformSetting.defaultColor}}'>单价:￥ {{orderItem.itemPrice}}</view>
       </view>
     </view>
-    <view class='butn_container2'>
+    <!-- <view class='butn_container2'>
       <text>留言</text>
       <text class='Input'>{{orderDetailData.buyerScript}}</text>
-    </view>
+    </view> -->
   </view>
 
   <view class='orderTime'>

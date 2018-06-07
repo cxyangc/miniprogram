@@ -4,7 +4,7 @@
 <import src="../../view/partials/help_blank.wxml"/><!-- 3 空白辅助-->
 <import src="../../view/partials/title.wxml"/><!-- 4 标题-->
 <import src="../../view/partials/text_link.wxml"/>  <!-- 5 -->
-<import src="../../view/partials/image_link.wxml"/><!-- 6 --> 
+<import src="../../view/partials/image_link.wxml"/><!-- 6 -->
 <import src="../../view/partials/banner.wxml"/><!-- 7 -->
 <import src="../../view/partials/gridlist.wxml"/><!-- 8 -->
 <import src="../../view/partials/detail_list.wxml"/><!-- 9 -->

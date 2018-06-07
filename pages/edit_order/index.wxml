@@ -78,10 +78,10 @@
       </checkbox-group>
     </block>
     <!-- 留言 -->
-    <view class='butn_container2'>
+    <!-- <view class='butn_container2'>
       <text>留言</text>
       <input placeholder='给卖家留言' maxlength='200' value='{{orderData.buyerScript}}' bindinput='getBuyerScript'></input>
-    </view>
+    </view> -->
   </view>
 
   <!-- 支付方式 -->

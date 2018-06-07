@@ -5,6 +5,11 @@
 .userinfo_list{
   display: flex;
   flex-direction: column;
+  margin: 0 30rpx;
+  box-sizing: border-box;
+  border-radius:18rpx;
+  background: #fff;
+  margin-bottom: 20rpx;
 }
 .userinfo_list_item{
   padding:1em;
@@ -13,7 +18,7 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1rpx solid #eee;
-  background: #fff;
+  
   overflow: hidden;
 }
 .userinfo_list_item_left{

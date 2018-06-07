@@ -118,10 +118,10 @@
         <view class='item_infomation_money' style='color:{{setting.platformSetting.defaultColor}}'>单价:￥ {{orderDetailData.itemPrice}}</view>
       </view>
     </view>
-    <view class='butn_container2'>
+    <!-- <view class='butn_container2'>
       <text>留言</text>
       <text class='Input'>{{orderDetailData.buyerScript}}</text>
-    </view>
+    </view> -->
   </view>
 
   <view class='orderTime'>

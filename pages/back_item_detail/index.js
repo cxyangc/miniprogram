@@ -8,11 +8,13 @@ Page({
     setting: null,
     Data: null,
     sentTagId: '',
+    maxTuiHuoNum:0,//最大退货数量
     sysWidth: 320,
     tags: [],
     chooseTag: 0,
     ImageList: [],
     upLoadImageList: []
+    
   },
   radioChange: function (e) {
     let index = e.currentTarget.dataset.index
@@ -122,10 +124,63 @@ Page({
     return resultStr
 
   },
+  //验证为数字和正整数
+  verifyGtInteger:function(data){
+    var nubmer = data;
+    console.log(data);
+    if (isNaN(nubmer) || nubmer <= 0 || !(/^\d+$/.test(nubmer))) {
+        data = "";
+        return false;
+      }else{
+        return true;
+      }
+  },
   // 上传
   sureBackItem: function (e) {
+    // var that=this;
     console.log(e.detail.value)
     let formData = e.detail.value
+    if (!formData.backcount) {
+      wx.showToast({
+        title: "请填写退货数量！",
+        image: '/images/icons/tip.png',
+        duration: 2000
+      })
+      return
+    }   
+    
+    let Data = this.data.Data    
+    if (!Data.backCount){
+      Data.backCount=0
+    } 
+    console.log("itemCount共买了", Data.itemCount)
+    console.log("backCount已经退货", Data.backCount)
+    console.log("将要退货", formData.backcount)   
+    let param = {}
+    param.orderItemId = Data.id,
+    param.backReason = formData.backReason //表单数据
+    if (this.verifyGtInteger(formData.backcount) == true){
+      param.backcount = formData.backcount
+      
+      if (formData.backcount <= this.data.maxTuiHuoNum){        
+        // return true
+      }else{
+        wx.showToast({
+          title: "超过最多退货数!!",
+          image: '/images/icons/tip.png',
+          duration: 2000
+        })
+        return false 
+      }
+    }else{
+      wx.showToast({
+        title: "退货数为正整数!!",
+        image: '/images/icons/tip.png',
+        duration: 2000
+      }) 
+      return false     
+    } 
+
     if (!formData.backReason) {
       wx.showToast({
         title: "请填写退款原因",
@@ -133,15 +188,14 @@ Page({
         duration: 2000
       })
       return
-    }
-    let Data = this.data.Data
-    let param = {}
-    param.orderItemId = Data.id,
-      param.backReason = formData.backReason
+    }   
+    param.backcount = parseInt(formData.backcount)
     param.tags = formData.tags
+    console.log("param", param)
     if (this.data.upLoadImageList.length) {
       param.backImages = this.dellImageToSureBack(this.data.upLoadImageList)
     }
+    console.log("param",param)
 
     var that = this
     wx.showModal({
@@ -149,8 +203,7 @@ Page({
       content: '确认退款',
       success: function (res) {
         if (res.confirm) {
-          var customIndex = app.AddClientUrl("/send_back_order_item_req.html", param, 'POST')
-
+          var customIndex = app.AddClientUrl("/send_back_order_item_req.html", param, 'POST')          
           wx.request({
             url: customIndex.url,
             data: customIndex.params,
@@ -158,7 +211,6 @@ Page({
             method: 'POST',
             success: function (res) {
               console.log(res.data)
-
               if (res.data.errcode == '0') {
                 wx.showToast({
                   title: '申请退款成功',
@@ -192,20 +244,30 @@ Page({
   getItem: function (orderItemId) {
     var that = this
     let param = {}
+    
     param.orderItemId = orderItemId
+   
     console.log(orderItemId)
     var customIndex = app.AddClientUrl("/get_back_order_item_page.html", param, 'get')
+   
     wx.request({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
         console.log(res)
+        param.itemcount = res.data.itemCount
+        param.backcount = res.data.backCount
+        
+        console.error("一共买了："+res.data.itemCount,"已经退货："+ res.data.backCount);
+        var maxTuiHuoNum = res.data.itemCount - res.data.backCount
+        
         // if(res.data.errcode)
         that.setData({
-          Data: res.data
+          Data: res.data,
+          maxTuiHuoNum: res.data.itemCount - res.data.backCount//最大可退货数量
         })
-        console.log(res.data)
-
+        // console.log(res.data)
+        // console.log(maxTuiHuoNum)
       },
       fail: function (res) {
         app.loadFail()
@@ -219,7 +281,7 @@ Page({
    */
   onLoad: function (options) {
     this.getItem(options.orderItemId)
-
+    
   },
 
   /**

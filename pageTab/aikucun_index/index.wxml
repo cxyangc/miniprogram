@@ -1,0 +1,22 @@
+<import src="../../view-new/aikucun/aikucun_index_head.wxml" />
+<import src="../../view-new/aikucun/aikucun_index_report.wxml" />
+<import src="../../view-new/aikucun/aikucun_activity_ing.wxml" />
+<import src="../../view-new/aikucun/aikucun_activity_will.wxml" />
+<import src="../../view-new/aikucun/aikucun_hot_product.wxml" />
+<import src="../../view-new/aikucun/aikucun_title0.wxml" />
+<import src="../../view-new/aikucun/aikucun_title1.wxml" />
+<import src="../../view-new/aikucun/aikucun_title2.wxml" />
+<import src="../../view-new/aikucun/measure_card.wxml" />
+<import src="../../view-new/aikucun/kefu.wxml" />
+<view class="container">
+    <template is="aikucun_index_head" data="{{...setting,sysWidth,loginUser:loginUser}}"></template>
+    <template is="aikucun_index_report" data="{{...setting,sysWidth,newsList:newsList}}"></template>
+    <template is="aikucun_title0" data="{{...setting,sysWidth,loginUser:loginUser,title:'限时抢购',activityPromotionNum:activityPromotionNum}}"></template>
+    <template is="aikucun_activity_ing" data="{{...setting,sysWidth,loginUser:loginUser,activityPromotion:activityPromotion}}"></template>
+    <template is="aikucun_title1" data="{{...setting,sysWidth,loginUser:loginUser,title:'活动预告'}}"></template>
+    <template is="aikucun_activity_will" data="{{...setting,sysWidth,loginUser:loginUser,unactivityPromotion:unactivityPromotion}}"></template>
+    <template is="aikucun_title2" data="{{...setting,sysWidth,loginUser:loginUser,title:'爆款推荐'}}"></template>
+    <template is="aikucun_hot_product" data="{{...setting,sysWidth,loginUser:loginUser,products:products,listEnd}}"></template>
+    <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template>
+    <template is="kefu" data="{{loginUser:loginUser,showKefu}}"></template>
+</view>

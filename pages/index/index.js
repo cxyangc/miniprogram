@@ -7,7 +7,7 @@ Page({
    */
   data: {
     showLoadFail:false,
-    showLoading:false 
+    showLoading:false
   },
   
   toIndex:function(){

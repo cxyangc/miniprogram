@@ -50,7 +50,8 @@
                   <view class='promotionItem_imageArea_item' wx:for="{{imageList}}" wx:for-item='imageItem' wx:for-index='n' wx:key='image_{{n}}'
                   data-urls='{{result.imageListWatcher}}'  data-me='{{imageItem.imagePath}}' bindtap='watchBigImage'
                   style='height:{{((sysWidth*0.95)-20)/2 -5}}px;  width:{{((sysWidth*0.95)-20)/2 -5}}px;'>
-                    <image  src='{{imageItem.imagePath && result.showImage ?imageItem.imagePath : "/images/333.jpg" }}?imageMogr2/thumbnail/400x/interlace/0' mode='aspectFill'></image>
+                     <image  src='{{imageItem.imagePath &&   m< result.pageNum+1 && result.showImage ?imageItem.imagePath : "/images/333.jpg" }}?imageMogr2/thumbnail/400x/interlace/0' mode='aspectFill'></image> 
+                     <!-- <image  src='{{result.showImage ?imageItem.imagePath : "/images/333.jpg" }}' mode='aspectFill'></image> -->
                   </view>
                 </view>
               </swiper-item> 

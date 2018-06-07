@@ -14,8 +14,8 @@
           <view class='item_infomation_name'>{{Data.itemName}}</view>
           
           <view class='item_infomation_money'>
-            <text >单价:￥ {{Data.goodsAmount}} </text>
-            <text >预计退款金额:￥ {{Data.evaluateBackAmount}} </text>
+            <text >单价:￥ {{Data.itemPrice}} </text>
+            <!-- <text >预计退款金额:￥ {{Data.evaluateBackAmount}} </text> -->
             <!-- <text style='color:red;'>注:优惠券一并退还 </text> -->
           </view>
         </view>
@@ -33,7 +33,12 @@
         </radio-group>
     </view>
 
-   
+      <view class='backTextContainer'>
+        <view>退货数量<text style='color:red; margin-left:10rpx; display:inline-block;vertical-align:middle;'>*</text></view>
+        <view>          
+          <input type="number"  style='padding:0.2em 0.4em;border-radius:0.6em;color:#000;border:1px solid #ddd; display:inline-block; margin-top:0.4em; ' placeholder='最多可退{{maxTuiHuoNum}}件' data-maxBackCount="最大退货数量：{{maxTuiHuoNum}}" name='backcount'/>
+        </view>
+      </view>
     
       <view class='backTextContainer'>
       <view class='marginbottom'>添加图片</view>

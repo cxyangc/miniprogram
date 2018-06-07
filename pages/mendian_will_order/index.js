@@ -10,7 +10,7 @@ Page({
   },
   distributeProfit: function (result) {
     for (let i = 0; i < result.length; i++) {
-      result[i].distributeProfitResult = (result[i].distributeProfit * result[i].itemCount * (app.setting.platformSetting.mendianDistributeProfit) / 100).toFixed(2)
+      result[i].distributeProfitResult = (result[i].distributeProfit * (result[i].itemCount - result[i].backCount) * (app.setting.platformSetting.mendianDistributeProfit) / 100).toFixed(2)
     }
     return result
   },

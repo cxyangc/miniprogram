@@ -15,7 +15,7 @@ const formatNumber = n => {
 }
 
 function GetDateDiff(startTime, endTime, diffType) {
-  //将xxxx-xx-xx的时间格式，转换为 xxxx/xx/xx的格式 
+  //将xxxx-xx-xx的时间格式，转换为 xxxx/xx/xx的格式
   startTime = startTime.replace(/\-/g, "/");
   endTime = endTime.replace(/\-/g, "/");
 
@@ -51,7 +51,7 @@ function GetDateDiff(startTime, endTime, diffType) {
 }
 
 function timeStamp(second_time) {
-  
+  //返回时间
   var retTime2 = {
     lever:0,
     Time: {
@@ -59,9 +59,9 @@ function timeStamp(second_time) {
       minute: 0,
       hour: 0,
       day: 0,
-    } 
+    }
   }
- 
+
   retTime2.Time.second = parseInt(second_time) > 9 ? parseInt(second_time) : '0' + parseInt(second_time)
   retTime2.lever = 1
   if (parseInt(second_time) > 60) {
@@ -82,17 +82,17 @@ function timeStamp(second_time) {
       if (hour > 24) {
         hour = parseInt(parseInt(second_time / 60) / 60) % 24;
         var day = parseInt(parseInt(parseInt(second_time / 60) / 60) / 24);
- 
+
         retTime2.Time.second = second > 9 ? second : '0' + second
         retTime2.Time.minute = min > 9 ? min : '0' + min
         retTime2.Time.hour = hour > 9 ? hour : '0' + hour
-        retTime2.Time.day = day 
+        retTime2.Time.day = day
         retTime2.lever = 4
       }
     }
   }
   return retTime2;
-} 
+}
 
 module.exports = {
   formatTime: formatTime,

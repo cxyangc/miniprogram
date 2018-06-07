@@ -639,6 +639,9 @@ Page({
       let index = res.target.dataset.index
       let products = this.data.products
       let focusData = products[index]
+      if (!focusData.brandName || focusData.brandName == "") {
+        focusData.brandName = ""
+      };
       let imageUrl = focusData.imagePath
       let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tagPrice + ')' + focusData.brandName + focusData.name
       let shareParams = {}

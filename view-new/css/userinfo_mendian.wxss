@@ -1,6 +1,6 @@
 
 .userinfo_mendian{
-  padding:1em;
+  padding:46rpx 12rpx;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -8,6 +8,10 @@
   font-size:0.8em;
   background: #fff;
   overflow: hidden;
+  margin: 0 30rpx;
+  border-radius:18rpx;
+  margin-top: -55rpx;
+  z-index: 5; 
 }
 .userinfo_mendian_left{
   display: flex;

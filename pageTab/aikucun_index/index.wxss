@@ -1,0 +1,16 @@
+@import '../../view-new/aikucun/aikucun_index_head.wxss';/*  detail_list_card  */ 
+@import '../../view-new/aikucun/aikucun_index_report.wxss';/*  detail_list_card  */ 
+@import '../../view-new/aikucun/aikucun_activity_ing.wxss';/*  detail_list_card  */ 
+@import '../../view-new/aikucun/aikucun_activity_will.wxss';/*  detail_list_card  */ 
+@import '../../view-new/aikucun/aikucun_hot_product.wxss';/*  detail_list_card  */ 
+@import '../../view-new/aikucun/aikucun_title.wxss';/*  detail_list_card  */ 
+
+
+
+@import '../../view-new/aikucun/measure_card.wxss';/*  detail_list_card  */ 
+@import '../../view-new/aikucun/kefu.wxss';/*  detail_list_card  */ 
+.container{
+  padding:0 10px;
+  background:#efefef;
+
+}
