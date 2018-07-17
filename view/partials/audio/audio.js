@@ -15,6 +15,10 @@ Component({
     someData: {},
     imgSrc:"../../../images/icons/play.png"
   },
+  // 组件本身自带ready方法，自带的方法写在methods之外
+   ready:function(){
+
+   },
   methods: {
     
     // 这里是一个自定义方法

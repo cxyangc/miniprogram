@@ -1,7 +1,7 @@
 <!--第一种banner -->
 <template name="simpleAudio">
    <block >
-   <!--难看的audio  controls-->
+   <!--自带的audio  controls-->
       <audio src="{{jsonData.source}}" id="myAudio" controls poster="../../../images/333.jpg" name="音频" author="音频文件"></audio>   
 
    
