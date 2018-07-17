@@ -1,6 +1,6 @@
 <!-- 魔方 -->
 
-<template name="14">
+<template name="pt_14">
     <view style='padding:{{navPadding}}px;background-color: {{navBackground}};'>
     <view class='mofang_templete'
      style='border-left: {{leftBorderWidth}}px solid {{leftBorderColor}};  border-right: {{rightBorderWidth}}px solid {{rightBorderColor}};   border-top: {{topBorderWidth}}px solid {{topBorderColor}};  border-bottom: {{bottomBorderWidth}}px solid {{bottomBorderColor}};   height:{{bili*sysWidth}}px' >

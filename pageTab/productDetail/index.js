@@ -28,7 +28,7 @@ Page({
       showState: index
     })
   },
-
+ 
   /* 删除收藏 */
   removeFavourite: function (e) {
     var that = this

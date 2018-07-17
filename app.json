@@ -4,12 +4,39 @@
     "pageTab/custom_page_index/index",
     "pageTab/product/index",
     "pageTab/aikucun_car_list/index",
-    "pageTab/aikucun_userinfo/index"
+    "pageTab/aikucun_userinfo/index",
+
+       
+          "view/partials/banner/banner",
+            "view/partials/title/title",
+          "view/partials/image_link/image_link",
+          "view/partials/gridlist/gridlist",
+          "view/partials/help_blank/help_blank",
+          "view/partials/text_link/text_link",
+          "view/partials/detailList/detailList",
+          "view/partials/video/video",
+          "view/partials/audio/audio",
+  
+
+          "view/partials/productList/productList",
+          "view/partials/newsList/newsList",
+          "view/partials/coupons/coupons",
+          "view/partials/activitiesGoods/activitiesGoods",  
+          "view/partials/activityList/activityList",
+          "view/partials/activitiesList/activitiesList"
+  
   ],
+  
   "subPackages": [
     {
       "root": "pages",
       "pages": [
+     
+        "new_promotion_products/index",
+       "aikucun_car_list/index",
+          "index/index",
+          "product/index",
+          "aikucun_userinfo/index",
         "product_waimai_offline/index",
         "product_waimai/index",
         "custom_page_index/index",
@@ -133,4 +160,5 @@
     "downloadFile": 10000
   },
   "debug": true
+
 }

@@ -1,0 +1,12 @@
+
+<template name="firstImageLink">
+<view wx:if = "{{jsonData.showUserInfo == 1}}">
+
+</view>
+
+
+<view wx:else >
+  <image mode="widthFix" src="{{jsonData.imageUrl}}" 
+   style="width:100%;display:block;" data-link='{{jsonData.linkUrl}}' bindtap='tolinkUrl'></image>
+</view>
+</template> 

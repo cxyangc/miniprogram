@@ -1,0 +1,33 @@
+<template name="simpleActivitiesList">
+      <block wx:for="{{relateBean.length}}" wx:if="{{relateBean.length !=0}}">
+    <view class='Box' bindtap='clickLink'>
+         <view class='time1'>
+           <view class='timeAll'> 
+           <view class='timeText'> <text>{{jsonData.promotionStatus==0?"即将开始":"距结束:"}}</text></view>
+         <view class='timeBox'> <text>{{countDownDay}}天</text></view>
+         <view class='timeText'> <text>:</text></view>
+         <view class='timeBox'> <text>{{countDownHour}}</text></view>
+         <view class='timeText'> <text>:</text></view>
+         <view class='timeBox'> <text>{{countDownMinute}}</text></view>
+          <view class='timeText'> <text>:</text></view>
+         <view class='timeBox'> <text>{{countDownSecond}}</text></view></view>
+            <view class='con' wx:if="{{jsonData.promotionStatus==0}}">{{startDate}}开抢</view>
+         </view>
+         <!--图片  -->
+         <view class='timeImg'>
+           <!-- <image mode="scaleToFill" src='../../../images/11111.png'></image> -->
+            <!--详情，去抢购  -->
+          <view class='timeName'> <text>{{jsonData.promotionStatus==0?"详情":"去抢购"}}</text></view>
+         </view>
+        
+    </view>
+ 
+      </block>
+<block wx:if="{{relateBean.length==0}}">
+            <view class="noproduct">
+              <image mode="widthFix" src='/images/icons/no-product.png'></image>
+              <text>没有相关活动</text>
+            </view>
+          </block>
+
+</template>

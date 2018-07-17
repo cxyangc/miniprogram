@@ -15,7 +15,7 @@
   </view>  
  
   <view class='ProductDetailInfoContainer'>
-    <view class='InfoName font_12'>{{productData.productInfo.name}}</view>
+    <view class='InfoName font_12'  >{{productData.productInfo.name}}</view>
     <block wx:if='{{!!productData.productInfo.description}}'>
       <view class='InfoSubName '>{{productData.productInfo.description}}</view>
     </block>

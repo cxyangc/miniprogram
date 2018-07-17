@@ -20,6 +20,7 @@ Page({
     console.log(data)
     var that = this
     var customIndex = app.AddClientUrl("/gain_coupon.html", data,'post')
+    
     wx.request({
       url: customIndex.url ,
       header: app.headerPost,
@@ -44,6 +45,7 @@ Page({
     })
   },
   freshData:function(id){
+    console.log("1111111111")
     var showCoupon = this.data.showCoupon
     for (let i = 0; i < showCoupon.length; i++) {
       if (showCoupon[i].id == id) {

@@ -1,0 +1,14 @@
+
+<import src="simpleVideo.wxml"/>  <!-- 正常的标题 -->
+
+
+    <!-- 当 androidTemplate为空的时候去引入普通标题框  -->  
+  <block wx:if='{{data.androidTemplate == ""}}'>
+  <template is="simpleVideo" 
+       data="{{...data}}"></template> 
+  </block>
+
+
+
+
+<slot></slot>

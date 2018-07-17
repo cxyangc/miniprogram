@@ -1,0 +1,11 @@
+
+<import src="simpleNewsList.wxml"/>  <!-- 普通的留白线 -->
+
+
+     <block wx:if='{{data.androidTemplate == ""}}'>
+  <template is="simpleNewsList" 
+       data="{{...data}}"></template> 
+  </block>
+
+<slot></slot>
+

@@ -28,7 +28,10 @@ Page({
       showState: index
     })
   },
-
+  aaaaa: function (e) {
+    console.log("hello")
+    app.linkEvent("product_detail_9218.html");
+  },
   /* 删除收藏 */
   removeFavourite: function (e) {
     var that = this

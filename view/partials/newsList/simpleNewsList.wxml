@@ -1,0 +1,26 @@
+<template name="simpleNewsList">
+<!--新闻列表内是有新闻的 relateBean.length -->
+  <block wx:if='{{relateBean.length >= "1"}}'>
+     <view class='wrap'>
+        <view class='content'  wx:for="{{relateBean}}" wx:key="{{index}}">
+          <view class='contentImg' style=' background-image:url({{item.imagePath}})'>
+          
+          </view>
+           <view class='contentText'>
+             <text class='bigText'>{{item.title}}</text>
+             <text class='smallText'>{{item.description}}</text>
+           </view>
+        </view>
+
+
+      </view>
+  </block>
+<block wx:if="{{relateBean.length==0}}">
+            <view class="noproduct">
+              <image mode="widthFix" src='/images/icons/no-product.png'></image>
+              <text>没有相关新闻</text>
+            </view>
+          </block>
+
+
+</template>

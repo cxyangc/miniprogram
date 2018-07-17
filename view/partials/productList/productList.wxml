@@ -1,0 +1,15 @@
+<!-- 列表样式-->
+<import src="simpleProductList.wxml"/>  <!-- 正常简单的 -->
+
+    <!-- 当 androidTemplate为空的时候去引入普通列表样式 -->  
+  <block wx:if='{{data.androidTemplate == ""}}'>
+  <template is="simpleProductList" 
+       data="{{...data}}"></template> 
+  </block>
+
+
+
+  <!-- <view>{{data.id}}</view> -->
+<slot></slot>
+
+

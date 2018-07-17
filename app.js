@@ -6,15 +6,16 @@ App({
     // clientUrl: 'https://www.aikucun.xyz/chainalliance/',  // 链接地址
      // clientUrl: 'http://10.1.1.15:3000/chainalliance/',  // 链接地址
      //clientUrl: 'http://192.168.30.92:3000/chainalliance/',  //勇哥ip 链接地址
-    //  clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
+    // clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
     //  clientUrl: 'http://192.168.40.180:3000/chainalliance/',  // 本地ip 链接地址
     // clientUrl: 'http://www2.aikucun.xyz/chainalliance/',
      clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+  // clientUrl: 'http://192.168.1.12:3000/chainalliance/',
 
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */
-    clientNo: 'jianzhan',   //自定义的项目的名称。
+     clientNo: 'shuiguodainpu',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
@@ -87,14 +88,17 @@ App({
           }
         })*/
 
-      
+      // 扫码登录  判断将使用哪些数据
+    // this.getSdkVersion()获取 个人信息例如name，nickname，password，platformNo，手机号等等 在900行
         this.getSdkVersion()
         let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
+        console.log("这是冬的测试" + JSON.stringify(extConfig))
+        console.log("这是冬的测试" + extConfig.clientNo)
         if (extConfig.clientNo) {
             that.clientNo = extConfig.clientNo
         }
         console.log('===' + this.clientNo + '====')
-        console.log("options", this.onLaunchOptions)
+        console.log("options111", this.onLaunchOptions)
         let inputPlatformNo = this.onLaunchOptions.query.platformNo;
         if (!!inputPlatformNo) {
             this.clientNo = inputPlatformNo
@@ -347,6 +351,7 @@ App({
         console.log(If_Order_url)
 
         if (linkUrl.substr(0, 3) == 'tel') {
+          console.log("9999999999999999")
             wx.navigateTo({
                 url: '/pages/custom_page_contact/index',
             })
@@ -356,25 +361,37 @@ App({
             if (urlData.param == '') {
                 urlData.param = '?'
             }
+            console.log("9999999999999999")
             wx.navigateTo({
                 url: '/pages/custom_page/index' + urlData.param + '&Cpage=' + resultUrl,
             })
         }
         else if (If_Order_url == 'order_list') {
+          console.log("9999999999999999")
             wx.navigateTo({
                 url: '/pages/' + 'order_list_tab' + '/index' + urlData.param,
             })
         }
-        else if (linkUrl.substr(0, 15) == 'product_detail_') {
+       
+        else if (linkUrl.substr(0, 14) == 'product_detail') {
             let productId = linkUrl.replace(/[^0-9]/ig, "");
+            console.log("9999999999999999")
             wx.navigateTo({
                 url: '/pages/productDetail/index?id=' + productId + "&addShopId=236",
             })
+        }
+        else if (linkUrl.substr(0, 4) == 'news') {
+        
+          console.log("9999999999999999")
+          wx.navigateTo({
+            url: '/pages/news_list/index',
+          })
         }
         else if (urlData.url == 'shop_map') {
             this.openLocation()
         }
         else {
+          console.log("9999999999999999" + linkUrl.substr(0, 14))
             wx.navigateTo({
                 url: "/pages/" + urlData.url + "/index" + urlData.param,
             })
@@ -895,6 +912,7 @@ App({
         })
     },
     SDKVersion: '',
+    // 个人信息，连接90行
     getSdkVersion: function () {
         //获取版本信息
         let that = this

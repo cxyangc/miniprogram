@@ -1,8 +1,10 @@
 
+
 var util = require('../../utils/util.js');
 const app = getApp()
 var timer; // 计时器
 Page({
+  
   data: {  
     /* seeting */ 
     setting:null,
@@ -24,22 +26,27 @@ Page({
       {
         title: 'caa'
       },
-    ]
+    ],
+    countDownDay: "",
+    countDownHour: "",
+    countDownMinute: "",
+    countDownSecond: "",
+
   },
 
   
   /* 搜索 */
-  searchProduct:function(e){
-    var product = e.detail.value
-    console.log(product)
-    var param ={}
-    param.productName = product
-    let postParam = app.jsonToStr(param)
-   // app.productParam = param
-    wx.navigateTo({
-      url: '/pages/search_product/index' + postParam
-    })
-  },
+  // searchProduct:function(e){
+  //   var product = e.detail.value
+  //   console.log(product)
+  //   var param ={}
+  //   param.productName = product
+  //   let postParam = app.jsonToStr(param)
+  //  // app.productParam = param
+  //   wx.navigateTo({
+  //     url: '/pages/search_product/index' + postParam
+  //   })
+  // },
    
   /* 查看更多 */
   lookMoreProduct:function(e){
@@ -58,7 +65,7 @@ Page({
   //partials
   getPartials: function (){
     var partials = this.data.renderData.partials;
-    console.warn("=====partials=====", partials)
+    console.log("=====partials=====", partials)
     var PaiXuPartials = [];
     //排序
     if (partials && partials.length){
@@ -72,6 +79,9 @@ Page({
     }}
     this.setData({ PaiXuPartials: PaiXuPartials  })
     console.log(this.data.PaiXuPartials)
+
+      
+        
   },
   toPage: function(event) {
     console.log(event.currentTarget.dataset)
@@ -205,6 +215,7 @@ Page({
   
   /*onload*/
   onLoad: function (options) {
+   
     console.warn("======onLoad:options======", options)
     console.log('--------------- custom_index --------------')
     if(!app.setting){
@@ -215,12 +226,24 @@ Page({
         });
        //this.getData()
        this.getParac()
+      
         if (!!app.setting) {
           this.setNavBar()
         }
     }
+    // 
+
+     
+    // }
+   
+  
   },
-  onReady: function () {
+
+  onReady: function () { 
+  
+   
+
+
     if (app.shareParam && app.shareParam.pageName){
       this.jumpToPage(app.shareParam)
     }
@@ -244,6 +267,7 @@ Page({
   },
   onShow: function () {
     console.log('-----------------a---------------')
+    this.audioCtx = wx.createAudioContext('myAudio');
     let Time2 = util.formatTime(new Date())  //当前时间
     let OldTime = '2018-3-1 15:20:33'
     let result = util.GetDateDiff(OldTime, Time2,'second') 

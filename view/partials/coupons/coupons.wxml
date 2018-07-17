@@ -1,0 +1,13 @@
+
+ 
+ <!--  -->
+<import src="simpleCoupons.wxml"/>  <!-- 正常的标题 -->
+
+   <block wx:if='{{data.androidTemplate == ""}}'>
+  <template is="simpleCoupons" 
+       data="{{...data,color}}"></template> 
+
+  </block> 
+
+
+<slot></slot>

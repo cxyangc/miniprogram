@@ -1,6 +1,6 @@
 <!-- 底部导航 -->
 
-<template name="11">
+<template name="pt_11">
  <!--  <view class='footer_tab' style="background: {{bgColor}};">
     <view class="footer_tab_tabItem" style='width:{{100/tabCount}}%'
      wx:for="{{tabs}}" wx:for-item="tab" wx:key="{{index}}" data-page="my" bindtap='toPage'>

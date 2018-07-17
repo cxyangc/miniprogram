@@ -1,0 +1,14 @@
+<!-- 图片导航 -->
+
+<import src="firstImageLink.wxml"/>  <!-- 正常的图片 -->
+
+
+   <block wx:if='{{data.androidTemplate == ""}}'>
+  <template is="firstImageLink" 
+       data="{{...data}}"></template> 
+
+  </block> 
+
+
+
+<slot></slot>

@@ -1,20 +1,20 @@
 <!--index.wxml-->
-<import src="../../wxParse/wxParse.wxml"/><!-- 1 富文本 -->
+<!--完成重组的：先判断partialType后判断androidTemplate  -->
+
+
+
+
+<import src="../../wxParse/wxParse.wxml"/>
+<!-- 1 富文本 -->
 
 <import src="../../view/partials/helpLine.wxml"/>  <!-- 2 辅助线 -->
-<import src="../../view/partials/help_blank.wxml"/><!-- 3 空白辅助-->
-<import src="../../view/partials/title.wxml"/><!-- 4 标题-->
-<import src="../../view/partials/text_link.wxml"/>  <!-- 5 -->
-<import src="../../view/partials/headSearch.wxml"/><!-- 12 --> 
-<import src="../../view/partials/banner.wxml"/><!-- 7 -->   
-<import src="../../view/partials/gridlist.wxml"/><!-- 8 -->
-<import src="../../view/partials/image_link.wxml"/><!-- 6 -->
-<import src="../../view/partials/help_blank.wxml"/><!-- 3 -->
-<import src="../../view/partials/detail_list.wxml"/><!-- 9 -->
+
+
+
+
 <import src="../../view/partials/footer_tab.wxml"/> <!-- 11 -->
 <import src="../../view/partials/mofang.wxml"/> <!-- 14 --> 
 
-<import src="../../view-new/partials/detail_list_card.wxml"/> <!-- detail_list_card --> 
 
 <import src="../../view-new/aikucun/aikucun_index_head.wxml"/>
 <import src="../../view-new/aikucun/aikucun_index_report.wxml"/>
@@ -26,6 +26,7 @@
 
 
 
+<import src="../../view/partials/activitiesList.wxml"/> 
 
 
 <!-- 
@@ -36,11 +37,52 @@
   <block wx:for="{{PaiXuPartials}}" wx:key="{{temp}}">
     <!-- <template is="{{item.partialType}}" 
        data="{{...item.jsonData,...setting,sysWidth}}"></template>
+
+
+       <template is="pt_{{item.partialType}}" 
+       data="{{...item.jsonData,...setting,sysWidth}}"></template>
  -->
-        <template is="{{!!item.androidTemplate ? item.androidTemplate : item.partialType }}" 
-       data="{{...item.jsonData,...setting,sysWidth,loginUser:loginUser,reportText:reportText}}"></template> 
+
+ <!-- <template is="pt_{{ item.partialType }}" 
+       data="{{...item.jsonData,...setting,sysWidth,...item,loginUser:loginUser,reportText:reportText}}"></template> -->
+        <!-- <template is="pt_{{!!item.partialType ? item.partialType : item.androidTemplate  }}" 
+       data="{{...item.jsonData,...setting,sysWidth,...item,loginUser:loginUser,reportText:reportText}}"></template>  -->
+
+
+
+
+       <!--组件化 -->
+      
+
+     <component-tag-nameBanner wx:if='{{item.partialType =="7"}}' data="{{item}}"></component-tag-nameBanner><!-- 7 Banner-->
+ <component-tag-name wx:if='{{item.partialType =="4"}}' data="{{item}}"></component-tag-name>  <!-- 4 标题 -->
+        <component-tag-nameImageLink wx:if='{{item.partialType =="6"}}' data="{{item}}"></component-tag-nameImageLink><!-- 6 图片-->
+
+          <component-tag-nameGridList wx:if='{{item.partialType =="8"}}' data="{{item}}"></component-tag-nameGridList><!-- 8 导航-->
+
+  <component-tag-nameHelpBlank wx:if='{{item.partialType =="3"}}' data="{{item}}"></component-tag-nameHelpBlank><!-- 3 留白-->
+
+    <component-tag-nameTextLink wx:if='{{item.partialType =="5"}}' data="{{item}}"></component-tag-nameTextLink><!-- 5 超链接-->
+
+        <component-tag-namedetailList wx:if='{{item.partialType =="9"}}' data="{{item}}"></component-tag-namedetailList><!-- 9 列表样式-->
+
+          <component-tag-nameProductList wx:if='{{item.partialType =="15"}}' data="{{item}}"></component-tag-nameProductList><!-- 15 产品列表-->
+
+           <component-tag-nameNewsList wx:if='{{item.partialType =="16"}}' data="{{item}}"></component-tag-nameNewsList><!-- 16 产品列表-->
+
+          <component-tag-nameVideo wx:if='{{item.partialType =="20"}}' data="{{item}}"></component-tag-nameVideo><!-- 20 视频-->
+                    <component-tag-nameAudio wx:if='{{item.partialType =="21"}}' data="{{item}}"></component-tag-nameAudio><!-- 21 音频-->
+                
+                <component-tag-nameCoupons wx:if='{{item.partialType =="19"}}' data="{{item}}"></component-tag-nameCoupons><!-- 19 优惠卷-->
+
+            <component-tag-nameActivitiesGoods wx:if='{{item.partialType =="18"}}' data="{{item}}" ></component-tag-nameActivitiesGoods><!-- 18 活动商品-->
+         
+           <component-tag-nameActivitiesList wx:if='{{item.partialType =="17"}}' data="{{item}}" ></component-tag-nameActivitiesList><!-- 17 活动列表-->
+
+         <!-- <template is="{{item.partialType==17 ?'17':'pt_2'}}" 
+       data="{{...item.jsonData,...setting,sysWidth,...item,countDownMinute,countDownDay,countDownHour,countDownSecond,loginUser:loginUser,reportText:reportText}}"></template>   -->
   </block>
-</view>
+</view>   
 <view wx:else class="blankPage">
    <view class='blankPage_image'>
 

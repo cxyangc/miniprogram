@@ -1,0 +1,11 @@
+
+<template name="simpleVideo">
+  <block>
+
+<view class="section tc">
+  <video id="myVideo" src="{{jsonData.source}}" autoplay="{{jsonData.autoPlay=='0'?'':'true'}}" direction="-90" controls="true" objectFit="fill" poster="{{jsonData.poster}}"></video>
+
+</view>
+     
+  </block>
+</template>
