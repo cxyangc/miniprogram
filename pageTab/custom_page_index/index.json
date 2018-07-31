@@ -18,7 +18,9 @@
 
       "component-tag-nameNewsList": "../../view/partials/newsList/newsList",
     "component-tag-nameCoupons": "../../view/partials/coupons/coupons", "component-tag-nameActivitiesGoods":"../../view/partials/activitiesGoods/activitiesGoods",
-    "component-tag-nameActivitiesList": "../../view/partials/activitiesList/activitiesList"
-
+    "component-tag-nameActivitiesList": "../../view/partials/activitiesList/activitiesList",
+    
+"component-tag-nameRichText": "../../view/partials/richText/richText",
+"component-tag-nameStores": "../../view/partials/stores/stores"
     }
 }

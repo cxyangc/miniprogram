@@ -23,7 +23,7 @@
       
         <view class='moreCouponsText'>
           
-          <view class='youhuiAmount'><text>更多好卷 </text></view>
+          <view class='youhuiAmount1'><text>更多好卷 </text></view>
           
         </view>
         <view class='CouponsImg'  style='background-color:#FE3D53;'></view>

@@ -11,7 +11,13 @@ Component({
   },
   data: {
     // 这里是一些组件内部数据
-    someData: {}
+    someData: {},
+    sysWidth:"",
+  },
+  ready:function(){
+    this.setData({
+      sysWidth: app.globalData.sysWidth
+    });
   },
   methods: {
     // 这里是一个自定义方法

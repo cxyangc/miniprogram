@@ -155,7 +155,7 @@ Page({
       success: function (res) {
         wx.hideLoading()
         app.renderData = res.data
-        console.log(res.data)
+        console.log("========下个页面========",res.data)
         that.setData({ renderData: res.data })
         if (res.data.partials.length == 0 ){
           that.setData({ PaiXuPartials:null })

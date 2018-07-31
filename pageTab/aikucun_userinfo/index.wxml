@@ -26,13 +26,15 @@
 
 
 <view class="container">
-  <template is="userinfo_head3" data="{{...userInfo,...headData, loginUser:loginUser}}"></template>
+   <template is="userinfo_head3" data="{{...userInfo,...headData, loginUser:loginUser}}"></template> 
   <template is="userinfo_mendian" data="{{...userInfo,...serverData, loginUser:loginUser}}"></template> 
   <!-- <template is="3" data="{{...userInfo,...blankData, loginUser:loginUser}}"></template>  -->
   <template is="userinfo_order3" data="{{...userInfo,...orderData, loginUser:loginUser}}"></template> 
   <template is="3" data="{{...userInfo,...blankData, loginUser:loginUser}}"></template> 
   <template is="userinfo_list" data="{{...userInfo,...ListData, loginUser:loginUser}}"></template> 
    
+   <view class='buttom'><text>技术支持:福州三三网络科技有限公司
+</text></view>
 </view>
 
 

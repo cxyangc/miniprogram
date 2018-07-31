@@ -1,23 +1,23 @@
 <template name="simpleActivitiesList">
-      <block wx:for="{{relateBean.length}}" wx:if="{{relateBean.length !=0}}">
-    <view class='Box' bindtap='clickLink'>
+      <block wx:for="{{relateBean}}" wx:if="{{relateBean.length !=0}}" wx:key="index">
+    <view class='Box' bindtap='clickLink' data-id="{{item.id}}" wx:if="{{index<jsonData.count}}">
          <view class='time1'>
            <view class='timeAll'> 
-           <view class='timeText'> <text>{{jsonData.promotionStatus==0?"即将开始":"距结束:"}}</text></view>
-         <view class='timeBox'> <text>{{countDownDay}}天</text></view>
+           <view class='timeText'> <text>{{item.promotionStatus==0?"即将开始:":"距结束:"}}</text></view>
+         <view class='timeBox'> <text>{{countDownList[index].day}}天</text></view>
          <view class='timeText'> <text>:</text></view>
-         <view class='timeBox'> <text>{{countDownHour}}</text></view>
+         <view class='timeBox'> <text>{{countDownList[index].hou}}</text></view>
          <view class='timeText'> <text>:</text></view>
-         <view class='timeBox'> <text>{{countDownMinute}}</text></view>
+         <view class='timeBox'> <text>{{countDownList[index].min}}</text></view>
           <view class='timeText'> <text>:</text></view>
-         <view class='timeBox'> <text>{{countDownSecond}}</text></view></view>
-            <view class='con' wx:if="{{jsonData.promotionStatus==0}}">{{startDate}}开抢</view>
+         <view class='timeBox'> <text>{{countDownList[index].sec}}</text></view></view>
+            <view class='conn' wx:if="{{item.promotionStatus==0}}"><text>{{dataArr[index]}}开抢</text></view>
          </view>
          <!--图片  -->
-         <view class='timeImg'>
-           <!-- <image mode="scaleToFill" src='../../../images/11111.png'></image> -->
-            <!--详情，去抢购  -->
-          <view class='timeName'> <text>{{jsonData.promotionStatus==0?"详情":"去抢购"}}</text></view>
+         <!-- <view class='timeImg' style='background-image: url({{item.promotionBanner}});'> -->
+            <view wx:if='{{item.promotionBanner}}' class='ListDataItemImage'><image mode='aspectFill' src='{{item.promotionBanner}}?x-oss-process=style/preview'></image>
+            <!-- 详情，去抢购  
+          <view class='timeName'> <text>{{jsonData.promotionStatus==0?"详情":"去抢购"}}</text></view> -->
          </view>
         
     </view>

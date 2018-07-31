@@ -166,6 +166,9 @@ Page({
       header: app.header,
       success: function (res) {
         console.log("====== res.data=========", res.data)
+        wx.setNavigationBarTitle({
+          title: res.data.channelTitle,
+        })
         wx.hideLoading()
         app.renderData = res.data
         that.setData({ renderData: res.data })
@@ -212,10 +215,25 @@ Page({
       console.log(this.data.setting)
     }
   },
-  
+  buttom:function(){
+    // console.log("1111111111111")
+    // app.wxLogin(1011)
+    // wx.chooseAddress({
+    //   success: function (res) {
+    //     console.log(res.userName)
+    //     console.log(res.postalCode)
+    //     console.log(res.provinceName)
+    //     console.log(res.cityName)
+    //     console.log(res.countyName)
+    //     console.log(res.detailInfo)
+    //     console.log(res.nationalCode)
+    //     console.log(res.telNumber)
+    //   }
+    // })
+  },
   /*onload*/
   onLoad: function (options) {
-   
+
     console.warn("======onLoad:options======", options)
     console.log('--------------- custom_index --------------')
     if(!app.setting){
@@ -243,8 +261,9 @@ Page({
   
    
 
-
+   
     if (app.shareParam && app.shareParam.pageName){
+      console.log("这是custom_page里面ready事件的shareParam" + app.shareParam)
       this.jumpToPage(app.shareParam)
     }
     
@@ -281,9 +300,12 @@ Page({
     let linkUrl = e.currentTarget.dataset.link
     app.linkEvent(linkUrl)
   },
-  /* 分享 */
+  /* 分享 app.js862行*/
   onShareAppMessage: function () {
+    console.log(app.miniIndexPage)
+
     return app.shareForFx2(app.miniIndexPage)
+    
   },
   onPullDownRefresh: function () {
     this.onLoad();

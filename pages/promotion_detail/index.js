@@ -14,22 +14,31 @@ Page({
   },
   getData:function(b){
     var that= this
-    var param = { promotionId: b.id}
+    var param = { promotionId: b.promotionId}
     var customIndex = app.AddClientUrl("/get_promotions_detail.html", param, 'get')
     wx.request({
       url: customIndex.url,      
       header: app.header,
       success: function (res) {
-        // console.log(res)
-        // console.log(res.data)        
-        if (res.data.relateObj.name) {
-          wx.setNavigationBarTitle({
-            title: res.data.relateObj.name,
+        console.log(res)
+        console.log(res.data)    
+        if (res.data.errcode =="-1"){
+          wx.showToast({
+            title: res.data.errMessage,
+            image: '/images/icons/tip.png',
+            duration: 2000
           })
-        }
-        if (res.data.relateObj.content){
-          WxParse.wxParse('article', 'html', res.data.relateObj.content, that, 10);
-        }
+        }    
+       else{
+          if (res.data.relateObj.name) {
+            wx.setNavigationBarTitle({
+              title: res.data.relateObj.name,
+            })
+          }
+           if (res.data.relateObj.content) {
+            WxParse.wxParse('article', 'html', res.data.relateObj.content, that, 10);
+          }
+       } 
       },
       fail: function (res) {
         app.loadFail()

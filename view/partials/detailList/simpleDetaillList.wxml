@@ -28,11 +28,9 @@
         <image mode='aspectFill'  src="{{items.iconPath}}"></image>
         <view class='center'  style='width:{{(1/jsonData.column)*sysWidth-40}}px;'>{{items.title}}</view>
  
-             <!--价格和购物车图片  -->
-       <view class='NewBox'>
-         <text>￥{{items.subTitle2}}</text>
-         <!--catchtap='addtocart'   -->
-         <image   data-id="{{id}}"     src="../../../images/icons/shoppingCar.png"></image> 
+       <view class='NewBox' wx:if="{{items.subTitle2}}">
+         <text>{{items.subTitle2}}</text>
+  
        </view>
        
 

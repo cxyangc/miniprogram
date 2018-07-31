@@ -9,5 +9,9 @@
       <button class='loginButn' disabled='{{butnLoading}}' loading='{{butnLoading}}' bindtap='wxLogin' style='background:{{setting.platformSetting.defaultColor}}'>使用微信登录</button>
   </view>
 
-  
+
+  <view class='wxLoginButnContainer'>
+      <button class='loginButn' bindtap='login' style='background:{{setting.platformSetting.defaultColor}}'>账号密码登录</button>
+  </view>
+
 </view>

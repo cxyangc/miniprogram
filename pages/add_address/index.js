@@ -71,7 +71,7 @@ Page({
     return pass
   },
   subMitArrFrom: function(e) {
-    console.log(this.needParam)
+    console.log("这是参数" + JSON.stringify(this.needParam))
     var that = this
     /* 判断地址是否有空的 */
     let pass = this.dellAddrSpace(this.needParam)

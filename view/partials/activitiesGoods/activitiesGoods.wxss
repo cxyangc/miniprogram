@@ -5,16 +5,35 @@
 }
 
 
-
+.mt20{
+  margin-top: 20rpx;
+}
 .recommend_hot_box {
   width: 222rpx;
   height: 222rpx;
+
   margin-left: 24rpx;
-  margin-top: 20rpx;
   display: inline-block;
-  /* background-color: #FE3D53; */
+   /* background-color: #FE3D53;  */
   text-align: center;
    position: relative;
+
+}
+.recommend_hot_box_copy{
+    width: 222rpx;
+  height: 230rpx;
+   margin-left: 24rpx; 
+     display: inline-block;
+  /* background-color: yellow; */
+  text-align: center;
+     position: relative;
+         top: -100rpx; 
+}
+.recommend_hot_box_copy text{
+  font-size: 50rpx;
+   /* display: block;  */
+  color: #FF6767;
+  line-height: 222rpx;
 }
 
 .CouponsImg {
@@ -38,6 +57,7 @@
 
 }
 .choose text{
+  display: block;
 font-size: 24rpx;
 line-height: 50rpx;
 color: white;
@@ -73,7 +93,7 @@ color: white;
 }
 .timeText{
    text-align: center;
-  margin-right: 10rpx;
+  margin-right: 5rpx;
 }
 .timeText text{
   font-size: 28rpx;

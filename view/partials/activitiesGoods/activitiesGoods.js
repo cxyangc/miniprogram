@@ -25,57 +25,116 @@ Component({
   // oldData.countDownMinute = '1fffffffffffffffffffffffffffffffffffffff11';
   // console.log("hel11lo", JSON.stringify(oldData)); 
   // console.log("hel11lo", oldData.data.relateBean.endDate); 
+    if (oldData.data.relateBean.promotionStatus == 1) {
 
 
-  var interval = setInterval(function () {
-    var t1 = oldData.data.relateBean.endDate;
-    var d1 = t1.replace(/\-/g, "/");
-    var date1 = new Date(d1);
+      var interval = setInterval(function () {
+        var t1 = oldData.data.relateBean.endDate;
+        var d1 = t1.replace(/\-/g, "/");
+        var date1 = new Date(d1);
 
-    var totalSecond = parseInt((date1 - new Date()) / 1000);
-    // 秒数
-    var second = totalSecond;
-    // console.log(totalSecond)
-    // 天数位
-    var day = Math.floor(second / 3600 / 24);
-    var dayStr = day.toString();
-    if (dayStr.length == 1) dayStr = '0' + dayStr;
+        var totalSecond = parseInt((date1 - new Date()) / 1000);
+        // 秒数
+        var second = totalSecond;
+        // console.log(totalSecond)
+        // 天数位
+        var day = Math.floor(second / 3600 / 24);
+        var dayStr = day.toString();
+        if (dayStr.length == 1) dayStr = '0' + dayStr;
 
-    // 小时位
-    var hr = Math.floor((second - day * 3600 * 24) / 3600);
-    var hrStr = hr.toString();
-    if (hrStr.length == 1) hrStr = '0' + hrStr;
+        // 小时位
+        var hr = Math.floor((second - day * 3600 * 24) / 3600);
+        var hrStr = hr.toString();
+        if (hrStr.length == 1) hrStr = '0' + hrStr;
 
-    // 分钟位
-    var min = Math.floor((second - day * 3600 * 24 - hr * 3600) / 60);
-    var minStr = min.toString();
-    if (minStr.length == 1) minStr = '0' + minStr;
+        // 分钟位
+        var min = Math.floor((second - day * 3600 * 24 - hr * 3600) / 60);
+        var minStr = min.toString();
+        if (minStr.length == 1) minStr = '0' + minStr;
 
-    // 秒位
-    var sec = second - day * 3600 * 24 - hr * 3600 - min * 60;
-    var secStr = sec.toString();
-    if (secStr.length == 1) secStr = '0' + secStr;
+        // 秒位
+        var sec = second - day * 3600 * 24 - hr * 3600 - min * 60;
+        var secStr = sec.toString();
+        if (secStr.length == 1) secStr = '0' + secStr;
 
-    this.setData({
-      countDownDay: dayStr,
-      countDownHour: hrStr,
-      countDownMinute: minStr,
-      countDownSecond: secStr,
-    });
-    totalSecond--;
-    if (totalSecond < 0) {
-      clearInterval(interval);
-      wx.showToast({
-        title: '活动已结束',
-      });
-      this.setData({
-        countDownDay: '00',
-        countDownHour: '00',
-        countDownMinute: '00',
-        countDownSecond: '00',
-      });
+        this.setData({
+          countDownDay: dayStr,
+          countDownHour: hrStr,
+          countDownMinute: minStr,
+          countDownSecond: secStr,
+        });
+        totalSecond--;
+        if (totalSecond < 0) {
+          clearInterval(interval);
+          wx.showToast({
+            title: '活动已结束',
+          });
+          this.setData({
+            countDownDay: '00',
+            countDownHour: '00',
+            countDownMinute: '00',
+            countDownSecond: '00',
+          });
+        }
+      }.bind(this), 1000);
+
+
     }
-  }.bind(this), 1000);
+    if (oldData.data.relateBean.promotionStatus == 0) {
+
+
+      var interval = setInterval(function () {
+        var t1 = oldData.data.relateBean.startDate;
+        var d1 = t1.replace(/\-/g, "/");
+        var date1 = new Date(d1);
+
+        var totalSecond = parseInt((date1 - new Date()) / 1000);
+        // 秒数
+        var second = totalSecond;
+        // console.log(totalSecond)
+        // 天数位
+        var day = Math.floor(second / 3600 / 24);
+        var dayStr = day.toString();
+        if (dayStr.length == 1) dayStr = '0' + dayStr;
+
+        // 小时位
+        var hr = Math.floor((second - day * 3600 * 24) / 3600);
+        var hrStr = hr.toString();
+        if (hrStr.length == 1) hrStr = '0' + hrStr;
+
+        // 分钟位
+        var min = Math.floor((second - day * 3600 * 24 - hr * 3600) / 60);
+        var minStr = min.toString();
+        if (minStr.length == 1) minStr = '0' + minStr;
+
+        // 秒位
+        var sec = second - day * 3600 * 24 - hr * 3600 - min * 60;
+        var secStr = sec.toString();
+        if (secStr.length == 1) secStr = '0' + secStr;
+
+        this.setData({
+          countDownDay: dayStr,
+          countDownHour: hrStr,
+          countDownMinute: minStr,
+          countDownSecond: secStr,
+        });
+        totalSecond--;
+        if (totalSecond < 0) {
+          clearInterval(interval);
+          wx.showToast({
+            title: '活动已结束',
+          });
+          this.setData({
+            countDownDay: '00',
+            countDownHour: '00',
+            countDownMinute: '00',
+            countDownSecond: '00',
+          });
+        }
+      }.bind(this), 1000);
+
+
+    }
   },
   methods: {
     // 这里是一个自定义方法
@@ -89,12 +148,44 @@ Component({
       //   url: '/pages/' + event.currentTarget.dataset.page + '/index'
       // })
     },
+    // 跳转页面
     clickLink: function (e) {
-      console.log(e.currentTarget.dataset.id)
+      console.log(e)
+      // 如果是已经开始的就前往详情
+      var oldData = this.data;
+      if (oldData.data.relateBean.promotionStatus == 1) {
+        wx.navigateTo({
+          url: '../../pages/new_promotion_products/index?promotionId=' + e.currentTarget.dataset.id,
+        })
+      }
 
-     wx.navigateTo({
-       url: '../../pages/promotion_detail/index?id=' + e.currentTarget.dataset.id,
-      })
+      if (oldData.data.relateBean.promotionStatus == 0) {
+        wx.navigateTo({
+          url: '../../pages/promotion_detail/index?promotionId=' + e.currentTarget.dataset.id,
+        })
+      }
+
+
+
+    },
+    clickLink1: function (e) {
+      console.log(e)
+      // 如果是已经开始的就前往详情
+      var oldData = this.data;
+      if (oldData.data.relateBean.promotionStatus == 1) {
+        wx.navigateTo({
+          url: '../../pages/new_promotion_products/index?promotionId=' + e.currentTarget.dataset.id,
+        })
+      }
+
+      if (oldData.data.relateBean.promotionStatus == 0) {
+        wx.navigateTo({
+          url: '../../pages/promotion_detail/index?promotionId=' + e.currentTarget.dataset.id,
+        })
+      }
+
+
+
     },
 
   },

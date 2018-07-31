@@ -1,48 +1,4 @@
-.wrap{
-   
 
-}
-.content{
-  width: 690rpx;
-  margin: 0 auto;
-  height: 200rpx;
-  margin-top: 30rpx;
-  display: flex;
-  flex-direction: row;
-  border-bottom: 1px solid #999;
-  padding: 10rpx;
-}
-.contentImg{
-   width: 300rpx;
-  height: 200rpx; 
- 
-background-repeat: no-repeat; 
-  background-size:100% 100%; 
- -moz-background-size:100% 100%;
-/* background-size:cover; */
-  
-}
-
-.contentText{
-   width: 390rpx;
-  height: 200rpx;
-   display: flex;
-   flex-direction: column;
-
-}
-.contentText text{
-  margin-top: 40rpx;
-  margin-left: 20rpx;
-     overflow: hidden;
-     text-overflow:ellipsis;
-white-space:nowrap;
-}
-.bigText{
-  font-size:35rpx;
-}
-.smallText{
-  font-size:30rpx;
-}
 /*没有相关商品  */
 .noproduct{
   width: 100%;
@@ -61,4 +17,64 @@ white-space:nowrap;
 .noproduct text{
 font-size: 30rpx;
   
+}
+
+
+
+.ListDataContainer{
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #ddd;
+  font-size: 1em;
+  padding: 0.8em;
+  background: #f3f3f3;
+}
+.ListDataItem{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8em;
+  height: 4em;
+  border-radius: 0.4em;
+  margin-bottom: 0.8em;
+  background: #fff;
+
+
+}
+.ListDataItemWord{
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.lineheight_title{
+  height:2em;
+  line-height:2em;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ListDataItemWord text{ 
+  margin-left:10px;
+}
+.ListDataItemWord .word2 {
+  font-size: 25rpx;
+  color: #aaa;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.ListDataItemImage{
+  width: 30%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0.2em;
+}
+.ListDataItemImage image{
+  width: 100%;
+  height: 100%;
 }

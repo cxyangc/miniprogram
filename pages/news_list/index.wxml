@@ -38,7 +38,7 @@
       <text class='lineheight_title font_1'>{{list.title}}</text>
       <text class='word2 font_08'>{{list.description}} </text> 
     </view>
-    <view wx:if='{{list.imagePath}}' class='ListDataItemImage'><image mode='aspectFill' src='{{list.imagePath}}?x-oss-process=style/preview'></image></view>
+     <view wx:if='{{list.imagePath}}' class='ListDataItemImage'><image mode='aspectFill' src='{{list.imagePath}}?x-oss-process=style/preview'></image></view> 
   </view>
  
 </view>

@@ -2,6 +2,7 @@
 
 
 <template name="userinfo_mendian">
+<!--   -->
   <view wx:if='{{loginUser.platformUser.managerMendianId}}' class='userinfo_mendian' data-link='{{linkUrl}}' bindtap='tolinkUrl'>
     <view class='userinfo_mendian_left'>
       <image mode='aspectFit' src="{{iconPath}}"></image>

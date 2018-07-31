@@ -86,13 +86,13 @@ Component({
           
           }
           // 不能领取
-          else if (res.errcode && res.errcode == 0) {
+          else if (res.data.errcode && res.data.errcode == 0) {
             res = res.relateBean
           }
-          else if (res.errcode && res.errcode != 0) {
+          else if (res.data.errcode && res.data.errcode != 0) {
         
             wx.showToast({
-              title: res.errMsg,
+              title: res.data.errMsg,
               icon: 'none',
               duration: 1000
             })

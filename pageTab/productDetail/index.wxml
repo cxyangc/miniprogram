@@ -29,14 +29,14 @@
       <text >运费：￥{{productData.productInfo.yunfei}}</text>
     </view>
     <view wx:if='{{productData.productInfo.saleStrategy}}' class='saleStrategy'>
-        <view class='saleStrategyItems'> 
+        <!-- <view class='saleStrategyItems'> 
           <view class='saleStrategyItems_name'>批发数量</view>
           <view class='saleStrategyItems_price'>批发价格</view>
-       </view>
-       <view class='saleStrategyItems' wx:for='{{productData.productInfo.saleStrategyDetails}}' wx:for-item='saleStrategy' wx:key='{{index}}'> 
+       </view> -->
+       <!-- <view class='saleStrategyItems' wx:for='{{productData.productInfo.saleStrategyDetails}}' wx:for-item='saleStrategy' wx:key='{{index}}'> 
           <view class='saleStrategyItems_name'>{{saleStrategy.leastProductCount}}</view>
           <view class='saleStrategyItems_price'>￥ {{saleStrategy.computePrice}}</view>
-       </view>
+       </view> -->
     </view>
      <view class='InfoTags_container font_08'>
         <view class='InfoTags' wx:for='{{targs}}' wx:key='{{index}}'>

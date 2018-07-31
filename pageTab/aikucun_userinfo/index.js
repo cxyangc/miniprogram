@@ -19,6 +19,7 @@ Page({
     ListData: null,
     serverData: null,
   },
+
   loginOut: function () {
     wx.navigateTo({
       url: '/pages/pre_change_user_info/index',
@@ -70,6 +71,7 @@ Page({
         text: "售后",
         color: "#777777"
       },
+  
     ],
     column:4,
     showType: 0

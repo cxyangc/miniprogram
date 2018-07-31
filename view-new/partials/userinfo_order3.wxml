@@ -5,7 +5,7 @@
       <text class='font_08'>查看全部订单</text> 
     </view>
     <view  class="userinfo_order3_list_container" wx:if="{{showType == 0}}">
-        <view class="userinfo_order3_list_item font_08" style="width:{{100/ column}}%;"  wx:for="{{cells}}" wx:for-item="cells" wx:key="{{index}}" data-link='{{cells.linkUrl}}' bindtap='tolinkUrl'>
+        <view class="userinfo_order3_list_item font_08" style="width:{{100/ (column)}}%;"  wx:for="{{cells}}" wx:for-item="cells" wx:key="{{index}}" data-link='{{cells.linkUrl}}' bindtap='tolinkUrl'>
           
           <view class='imageContainer_order'>
             <view class='red_poient_num' wx:if='{{cells.showCountNum > 0}}'>{{cells.showCountNum}}</view>

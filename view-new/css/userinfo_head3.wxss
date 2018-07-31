@@ -3,6 +3,7 @@
   height: 12em;
   background: #eee;
   position: relative;
+  z-index: 0;
 }
 .userinfo_head3_gray{
   position: absolute;

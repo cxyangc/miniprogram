@@ -79,9 +79,17 @@
          
            <component-tag-nameActivitiesList wx:if='{{item.partialType =="17"}}' data="{{item}}" ></component-tag-nameActivitiesList><!-- 17 活动列表-->
 
-         <!-- <template is="{{item.partialType==17 ?'17':'pt_2'}}" 
-       data="{{...item.jsonData,...setting,sysWidth,...item,countDownMinute,countDownDay,countDownHour,countDownSecond,loginUser:loginUser,reportText:reportText}}"></template>   -->
+            <component-tag-nameRichText wx:if='{{item.partialType =="1"}}' data="{{item}}" ></component-tag-nameRichText><!-- 1 富文本-->
+
+<component-tag-nameStores  wx:if='{{item.partialType =="22"}}' data="{{item}}" ></component-tag-nameStores><!-- 22 门店-->
+    
+
+
+
   </block>
+      <!--技术支持  -->
+       <view class='buttom' bindtap='buttom'><text>技术支持:福州三三网络科技有限公司
+</text></view>
 </view>   
 <view wx:else class="blankPage">
    <view class='blankPage_image'>

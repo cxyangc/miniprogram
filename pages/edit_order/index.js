@@ -47,7 +47,9 @@ Page({
   jifenChange :function (e){
     //console.log(e.detail.value[0])
     let jifen = e.detail.value[0]
+    if (jifen){
     this.orderMessage.jifenDikou = jifen
+    }
   },
   /* 获取地址列表 */
   showOtherArr:function() {
@@ -60,7 +62,7 @@ Page({
       url: customIndex.url ,
       header: app.header,
       success: function (res) {
-        console.log(res.data)
+        console.log("获取地址列表" + JSON.stringify(res))
         wx.hideLoading()
         that.setData({ addrArr:res.data.result, showArr: true })
       },
@@ -77,12 +79,71 @@ Page({
       url: '/pages/add_address/index',
     })
   },
+  // 地址从微信上调取需要的参数
+  needParam: {
+    contactName: '',
+    telno: '',
+    province: '',
+    city: '',
+    district: '',
+    detail: '', //详细地址
+    longitude: '',
+    latitude: '',
+    defaultAddress: 0,
+  },
+  wx_toaddress_new:function(){
+    
+    let that=this;
+    wx.chooseAddress({
+      success: function (res) {
+        console.log(res.userName) //收货人姓名
+        console.log(res.postalCode) //邮编
+        console.log(res.provinceName)// 省
+        console.log(res.cityName)//  市
+        console.log(res.countyName)//区
+        console.log(res.detailInfo)// 详细地址
+        console.log(res.telNumber)//手机号
+
+        that.needParam.contactName = res.userName //名字
+        that.needParam.province = res.provinceName //省
+        that.needParam.city = res.cityName //市
+        that.needParam.district = res.countyName //
+        that.needParam.telno = res.telNumber  //手机号
+        that.needParam.detail = res.detailInfo
+        that.needParam.defaultAddress = "1" //默认
+
+        console.log("参数" + JSON.stringify(that.needParam))
+      let customIndex = app.AddClientUrl("/add_address.html", that.needParam, 'post')
+        wx.request({
+          url: customIndex.url,
+          data: customIndex.params,
+          header: app.headerPost,
+          method: 'POST',
+          success: function (res) {
+            console.log(res)
+            wx.hideLoading()
+            app.addrEditParam = that.needParam
+            // 添加成功后重新刷新列表
+            that.showOtherArr()
+          },
+          fail: function (res) {
+            wx.hideLoading()
+            app.loadFail()
+          }
+        })
+      },
+
+ 
+
+    })
+  },
   chooseNewAddr: function (e) {
     wx.showLoading()
     //console.log(e.currentTarget.dataset.chooseid)
     var addrArr = this.data.addrArr
     console.log(addrArr)
     var addressId = e.currentTarget.dataset.chooseid
+    console.log("addressId" + addressId)
     var selectAddr = null
     for (let i = 0; i < addrArr.length;i++){
       if (addressId == addrArr[i].id){
@@ -90,17 +151,18 @@ Page({
       }
     }
     console.log(selectAddr)
-    this.data.orderData.buyerName = selectAddr.contactName
-    this.data.orderData.buyerTelno = selectAddr.telNo
-    this.data.orderData.buyerProvince = selectAddr.province
-    this.data.orderData.buyerCity = selectAddr.city
-    this.data.orderData.buyerArea = selectAddr.area
-    this.data.orderData.buyerAddress = selectAddr.address
+    let newData = this.data.orderData
+    newData.buyerName = selectAddr.contactName
+    newData.buyerTelno = selectAddr.telNo
+    newData.buyerProvince = selectAddr.province
+    newData.buyerCity = selectAddr.city
+    newData.buyerArea = selectAddr.area
+    newData.buyerAddress = selectAddr.address
    // this.data.orderData.buyerName = selectAddr.contactName
-    //this.addressId = addressId
+    newData.addressId = addressId
     this.orderMessage.addressId = addressId
     this.setData({
-      orderData: this.data.orderData,
+      orderData: newData,
       showArr:false
     })
     wx.hideLoading()
@@ -143,10 +205,12 @@ Page({
   getavailableCouponsArr: function() { 
     var arr = ['no']
     var arr2 = ['请选择优惠券']
+    var data=this.data;
+    if (data&&data.getEditOrderDetailData.availableCoupons){
     for (let i = 0; i < this.data.getEditOrderDetailData.availableCoupons.length;i++){
       arr.push(this.data.getEditOrderDetailData.availableCoupons[i])
       arr2.push(this.data.getEditOrderDetailData.availableCoupons[i].couponName)
-    }
+    }}
     this.setData({ coupon: arr, coupon2: arr2})
     console.log('----------1----------')
     console.log(arr)
@@ -167,7 +231,7 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        console.log(res)
+        console.log("orde detail",res)
 
         that.setData({ getEditOrderDetailData:res.data })
         that.setData({ orderData:res.data})
@@ -201,6 +265,7 @@ Page({
       })
       
     }else{
+      console.log("这是参数" + JSON.stringify(that.orderMessage) )
       var customIndex = app.AddClientUrl("/submit_order.html", that.orderMessage,'post')
       
       wx.showLoading({
@@ -271,7 +336,9 @@ Page({
           console.log('err')
           app.echoErr(res.data.result.errMsg)
         } else {
-          that.setData({ addrArr: res.data.result })
+        
+            that.setData({ addrArr: res.data.result })
+          
         }
         wx.hideLoading()
       },
@@ -282,8 +349,72 @@ Page({
     })
   },
 
+  // 添加一个地址到
+  subMitArrFrom: function (e) {
+    console.log(this.needParam)
+    var that = this
+    /* 判断地址是否有空的 */
+    let pass = this.dellAddrSpace(this.needParam)
+    if (pass == '0') {
+      /* 判断是编辑还是新增 */
+      var customIndex = null
+      if (!this.data.ifEid) {
+        customIndex = app.AddClientUrl("/add_address.html", that.needParam, 'post')
+      }
+      else {
+        customIndex = app.AddClientUrl("/edit_address.html", that.needParam, 'post')
+      }
+
+
+      wx.showLoading({
+        title: 'loading',
+        mask: true
+      })
+
+      wx.request({
+        url: customIndex.url,
+        data: customIndex.params,
+        header: app.headerPost,
+        method: 'POST',
+        success: function (res) {
+          console.log(res)
+          wx.hideLoading()
+          app.addrEditParam = that.needParam
+          wx.navigateBack()
+        },
+        fail: function (res) {
+          wx.hideLoading()
+          app.loadFail()
+        }
+      })
+    } else {
+      wx.showToast({
+        title: pass,
+        image: '/images/icons/tip.png',
+        duration: 2000
+      })
+    }
+
+  },
   onLoad: function (o) {
     var that = this
+    wx.getLocation({
+      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标  
+      success: function (res) {
+        // success  
+        var longitude = res.longitude
+        var latitude = res.latitude
+        that.needParam.longitude = longitude
+        that.needParam.latitude = latitude
+        that.setData({ needParam: that.needParam })
+      },
+      fail: function () {
+        // fail  
+      },
+      complete: function () {
+        // complete  
+      }
+    })
     this.setData({ setting: app.setting })
     this.setData({ loginUser: app.loginUser })
     console.log(o)
@@ -305,7 +436,9 @@ Page({
     this.orderMessage.platformNo = app.setting.platformSetting.platformNo
     this.orderMessage.userId = app.loginUser.id
     this.orderMessage.orderNo = this.data.orderData.orderNo
+    if (this.data.orderData.orderJifen && this.data.orderData.orderJifen.tuijianDikou){
     this.orderMessage.jifenDikou = this.data.orderData.orderJifen.tuijianDikou
+    }
     this.orderMessage.gotCouponListId = this.data.gotCouponListId
     this.orderMessage.addressId = this.data.orderData.addressId
 
@@ -381,7 +514,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
   },
 
   

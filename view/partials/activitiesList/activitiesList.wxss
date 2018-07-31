@@ -31,7 +31,7 @@
 }
 .timeText{
    text-align: center;
-  margin-right: 10rpx;
+   margin-right: 5rpx; 
 }
 .timeText text{
   font-size: 28rpx;
@@ -58,7 +58,7 @@
   width: 690rpx;
   height: 420rpx;
   margin: 0 auto;
-  background-image: url(http://p08e0oy3g.bkt.clouddn.com/11111.png);
+  /* background-image: url(http://p08e0oy3g.bkt.clouddn.com/11111.png); */
   background-repeat: no-repeat;
     position: relative;  
 
@@ -98,4 +98,25 @@ color: white;
 font-size: 30rpx;
 
   
+}
+
+.ListDataItemImage{
+  width: 100%;
+  height: 80%;
+  overflow: hidden;
+  border-radius: 0.2em;
+}
+.ListDataItemImage image{
+  width: 100%;
+  height: 100%;
+}
+
+.conn{
+  width: 250rpx;
+  text-align: center;
+}
+.conn text{
+    display: block;
+  font-size: 28rpx;
+  line-height: 80rpx;
 }

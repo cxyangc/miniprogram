@@ -143,7 +143,11 @@ Page({
       url: '../regist/index',
     })
   },
-
+  login:function(){
+    wx.navigateTo({
+      url: '../login/index',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

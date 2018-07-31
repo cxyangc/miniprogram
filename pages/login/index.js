@@ -50,6 +50,8 @@ Page({
             success: function (res) {
 
                 console.log(res)
+                console.log(res.data.relateObj.platformUser.mendian)
+                
                 var header = res.header
                 var cookie = null
                 if (!!header['Set-Cookie']) {
@@ -146,7 +148,7 @@ Page({
      */
     onLoad: function (options) {
 
-        this.wxLogin()
+        // this.wxLogin()
         return
         var userSign = app.userSign
         this.setData({

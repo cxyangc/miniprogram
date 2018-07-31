@@ -105,7 +105,7 @@ Page({
         url: cusUrl.url,
         header: app.header,
         success: function (res) {
-          console.log(res.data)
+          console.log(res)
           that.listPage.pageSize = res.data.pageSize
           that.listPage.curPage = res.data.curPage
           that.listPage.totalSize = res.data.totalSize

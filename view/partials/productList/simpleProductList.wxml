@@ -22,7 +22,7 @@
   
     <view class='detail_list_mode1' style='background:  #eeeeee;'>
       <view class="mode1_items"   wx:for="{{relateBean}}" wx:for-item="relateBean" wx:key="{{index}}"  bindtap='tolinkUrl' data-id='{{relateBean.id}}'
-        style='border-right: 10px solid   #eeeeee;'> 
+        style='border-right: 10px solid #eeeeee;'> 
         
         <image  mode='aspectFill'  src="{{relateBean.imagePath}}"></image>
         <view class='center' style='width:{{(1/jsonData.column)*sysWidth-40}}px;'>{{relateBean.name}}</view>

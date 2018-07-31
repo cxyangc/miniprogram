@@ -17,13 +17,10 @@ Component({
     // 这里是一个自定义方法
 
     tolinkUrl: function (event) {
-      console.log(event.currentTarget.dataset.link)
-      app.linkEvent(event.currentTarget.dataset.link);
-
-
-      // wx.navigateTo({
-      //   url: '/pages/' + event.currentTarget.dataset.page + '/index'
-      // })
+      console.log(event.currentTarget.dataset.id)
+      wx.navigateTo({
+        url: '/pages/news_detail/index?id=' + event.currentTarget.dataset.id,
+      })
     }
   },
 })

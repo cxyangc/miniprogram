@@ -3,7 +3,7 @@
 <view>{{id}}</view>
    <block wx:if='{{data.androidTemplate == ""}}'>
   <template is="simpleActivitiesList" 
-       data="{{...data,countDownDay,countDownHour,countDownMinute,countDownSecond}}"></template> 
+       data="{{...data,dataArr,actEndTimeList,countDownList}}"></template> 
 
   </block> 
 

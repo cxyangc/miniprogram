@@ -96,7 +96,6 @@
 .NewBox{
   width: 350rpx;
   display: flex;
-  justify-content: space-around;
 }
 .NewBox text{
 margin-left: 20rpx;

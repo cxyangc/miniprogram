@@ -12,101 +12,165 @@ Component({
   data: {
     // 这里是一些组件内部数据
     someData: {},
+    actEndTimeList: [],
+    countDownList:[],
+    dataArr:[],
 
-    countDownDay: "",
-    countDownHour: "",
-    countDownMinute: "",
-    countDownSecond: "",
+
+
   },
 
   ready: function (options) {
     var me = this;
     var oldData = this.data;
-    // oldData.countDownMinute = '1fffffffffffffffffffffffffffffffffffffff11';
-    // console.log( JSON.stringify(oldData));
-    // console.log(oldData.data.relateBean[0].endDate);
+    console.log( JSON.stringify(oldData));
 
-    if (oldData.data.relateBean[0].endDate) {
-    var interval = setInterval(function () {
-      
-      var t1 = oldData.data.relateBean[0].endDate;
-      var d1 = t1.replace(/\-/g, "/");
-      var date1 = new Date(d1);
-
-      var totalSecond = parseInt((date1 - new Date()) / 1000);
-      // 秒数
-      var second = totalSecond;
-      // console.log(totalSecond)
-      // 天数位
-      var day = Math.floor(second / 3600 / 24);
-      var dayStr = day.toString();
-      if (dayStr.length == 1) dayStr = '0' + dayStr;
-
-      // 小时位
-      var hr = Math.floor((second - day * 3600 * 24) / 3600);
-      var hrStr = hr.toString();
-      if (hrStr.length == 1) hrStr = '0' + hrStr;
-
-      // 分钟位
-      var min = Math.floor((second - day * 3600 * 24 - hr * 3600) / 60);
-      var minStr = min.toString();
-      if (minStr.length == 1) minStr = '0' + minStr;
-
-      // 秒位
-      var sec = second - day * 3600 * 24 - hr * 3600 - min * 60;
-      var secStr = sec.toString();
-      if (secStr.length == 1) secStr = '0' + secStr;
-
-      this.setData({
-        countDownDay: dayStr,
-        countDownHour: hrStr,
-        countDownMinute: minStr,
-        countDownSecond: secStr,
-      });
-      totalSecond--;
-      if (totalSecond < 0) {
-        clearInterval(interval);
-        wx.showToast({
-          title: '活动已结束',
-        });
-        this.setData({
-          countDownDay: '00',
-          countDownHour: '00',
-          countDownMinute: '00',
-          countDownSecond: '00',
-        });
+    // 已经开始的活动
+    if (oldData.data.relateBean[0].promotionStatus == 1){
+      var arr=[];
+      console.log(oldData.data.relateBean.length);
+      var dataLength = oldData.data.relateBean.length;
+      // 循环出项目的个数,添加到arr中
+      for (var a = 0; a < dataLength; a++) {
+        console.log(oldData.data.relateBean[a].endDate)
+        arr.push(oldData.data.relateBean[a].endDate)   
       }
-    }.bind(this), 1000);
+      me.setData({ actEndTimeList: arr })
+
+      var interval = setInterval(function () {
+        // 获取当前时间，同时得到活动结束时间数组
+        let newTime = new Date().getTime();
+        let endTimeList = oldData.actEndTimeList;
+        let countDownArr = [];
+        // console.log("endTimeList" + endTimeList)
+        // 对结束时间进行处理渲染到页面
+        endTimeList.forEach(o => {
+          let endTime = new Date(o).getTime();
+          let obj = null;
+          // 如果活动未结束，对时间进行处理
+          if (endTime - newTime > 0) {
+            let time = (endTime - newTime) / 1000;
+            // 获取天、时、分、秒
+            let day = parseInt(time / (60 * 60 * 24));
+            let hou = parseInt(time % (60 * 60 * 24) / 3600);
+            let min = parseInt(time % (60 * 60 * 24) % 3600 / 60);
+            let sec = parseInt(time % (60 * 60 * 24) % 3600 % 60);
+            obj = {
+              day: this.timeFormat(day),
+              hou: this.timeFormat(hou),
+              min: this.timeFormat(min),
+              sec: this.timeFormat(sec)
+            }
+          } else {//活动已结束，全部设置为'00'
+            obj = {
+              day: '00',
+              hou: '00',
+              min: '00',
+              sec: '00'
+            }
+          }
+          countDownArr.push(obj);
+        })
+        // 渲染，然后每隔一秒执行一次倒计时函数
+        this.setData({ countDownList: countDownArr })
+        // console.log(oldData.countDownList)
+      
+      }.bind(this), 1000);
     }
+   
+ 
+    // 还未开始的活动
+    if (oldData.data.relateBean[0].promotionStatus == 0) {
+      var arr = [];
+      var dataArr=[];
+      console.log(oldData.data.relateBean.length);
+      var dataLength = oldData.data.relateBean.length;
+      // 循环出项目的个数,添加到arr中
+      for (var a = 0; a < dataLength; a++) {
+        console.log(oldData.data.relateBean[a].startDate)
+        arr.push(oldData.data.relateBean[a].startDate)
+        // 开抢时间
+        var aaa = oldData.data.relateBean[a].startDate;
+        var str = aaa.slice(5, 10); 
+        var d1 = str.replace(/\-/g, "月");
+        dataArr.push(d1)
+        console.log(d1) 
+      }
+      me.setData({
+         actEndTimeList: arr,
+         dataArr: dataArr
+          })
+      
+
+      var interval = setInterval(function () {
+        // 获取当前时间，同时得到活动结束时间数组
+        let newTime = new Date().getTime();
+        let endTimeList = oldData.actEndTimeList;
+        let countDownArr = [];
+        // console.log("endTimeList" + endTimeList)
+        // 对结束时间进行处理渲染到页面
+        endTimeList.forEach(o => {
+          let endTime = new Date(o).getTime();
+          let obj = null;
+          // 如果活动未结束，对时间进行处理
+          if (endTime - newTime > 0) {
+            let time = (endTime - newTime) / 1000;
+            // 获取天、时、分、秒
+            let day = parseInt(time / (60 * 60 * 24));
+            let hou = parseInt(time % (60 * 60 * 24) / 3600);
+            let min = parseInt(time % (60 * 60 * 24) % 3600 / 60);
+            let sec = parseInt(time % (60 * 60 * 24) % 3600 % 60);
+            obj = {
+              day: this.timeFormat(day),
+              hou: this.timeFormat(hou),
+              min: this.timeFormat(min),
+              sec: this.timeFormat(sec)
+            }
+          } else {//活动已结束，全部设置为'00'
+            obj = {
+              day: '00',
+              hou: '00',
+              min: '00',
+              sec: '00'
+            }
+          }
+          countDownArr.push(obj);
+        })
+        // 渲染，然后每隔一秒执行一次倒计时函数
+        this.setData({ countDownList: countDownArr })
+        // console.log(oldData.countDownList)
+
+      }.bind(this), 1000);
+    }
+   
   },
+
   methods: {
     // 这里是一个自定义方法
-
-    tolinkUrl: function (event) {
-      console.log(event.currentTarget.dataset.link)
-      app.linkEvent(event.currentTarget.dataset.link);
-
-
-      // wx.navigateTo({
-      //   url: '/pages/' + event.currentTarget.dataset.page + '/index'
-      // })
+ 
+    timeFormat: function(param) {//小于10的格式化函数
+      return param < 10 ? '0' + param : param;
     },
-    click: function () {
-      this.setData({
-        countDownMinute: "11111"
-      })
-    },
-    clickLink: function () {
 
+// 跳转页面
+    clickLink: function (e) {
+  console.log(e)
+   // 如果是已经开始的就前往详情
+   var oldData = this.data;
+   if (oldData.data.relateBean[0].promotionStatus==1){
+    wx.navigateTo({
+      url: '../../pages/new_promotion_products/index?promotionId=' + e.currentTarget.dataset.id,
+    })
+  }
   
-      // 前往新闻详情
-      // wx.navigateTo({
-      //   url: '../../pages/news_detail/index',
-      // })
-        // 前往详情
-      wx.navigateTo({
-        url: '../../pages/new_promotion_products/index',
-      })
+   if (oldData.data.relateBean[0].promotionStatus == 0) {
+     wx.navigateTo({
+       url: '../../pages/promotion_detail/index?promotionId=' + e.currentTarget.dataset.id,
+     })
+   }   
+
+
+
     },
   },
 

@@ -30,10 +30,10 @@
        data="{{...item.jsonData,...setting,sysWidth,loginUser:loginUser,reportText:reportText}}"></template>  -->
 
   <!--组件化 -->
-       <component-tag-name wx:if='{{item.partialType =="4"}}' data="{{item}}"></component-tag-name>  <!-- 4 标题 -->
+      
 
      <component-tag-nameBanner wx:if='{{item.partialType =="7"}}' data="{{item}}"></component-tag-nameBanner><!-- 7 Banner-->
-
+ <component-tag-name wx:if='{{item.partialType =="4"}}' data="{{item}}"></component-tag-name>  <!-- 4 标题 -->
         <component-tag-nameImageLink wx:if='{{item.partialType =="6"}}' data="{{item}}"></component-tag-nameImageLink><!-- 6 图片-->
 
           <component-tag-nameGridList wx:if='{{item.partialType =="8"}}' data="{{item}}"></component-tag-nameGridList><!-- 8 导航-->
@@ -48,8 +48,6 @@
 
            <component-tag-nameNewsList wx:if='{{item.partialType =="16"}}' data="{{item}}"></component-tag-nameNewsList><!-- 16 产品列表-->
 
-
-
           <component-tag-nameVideo wx:if='{{item.partialType =="20"}}' data="{{item}}"></component-tag-nameVideo><!-- 20 视频-->
                     <component-tag-nameAudio wx:if='{{item.partialType =="21"}}' data="{{item}}"></component-tag-nameAudio><!-- 21 音频-->
                 
@@ -58,6 +56,10 @@
             <component-tag-nameActivitiesGoods wx:if='{{item.partialType =="18"}}' data="{{item}}" ></component-tag-nameActivitiesGoods><!-- 18 活动商品-->
          
            <component-tag-nameActivitiesList wx:if='{{item.partialType =="17"}}' data="{{item}}" ></component-tag-nameActivitiesList><!-- 17 活动列表-->
+
+            <component-tag-nameRichText wx:if='{{item.partialType =="1"}}' data="{{item}}" ></component-tag-nameRichText><!-- 1 富文本-->
+
+<component-tag-nameStores  wx:if='{{item.partialType =="22"}}' data="{{item}}" ></component-tag-nameStores><!-- 22 门店-->
 
 
 

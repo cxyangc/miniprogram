@@ -1,28 +1,27 @@
 //app.js
 import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
-
 App({
     // clientUrl: 'https://www.aikucun.xyz/chainalliance/',  // 链接地址
      // clientUrl: 'http://10.1.1.15:3000/chainalliance/',  // 链接地址
      //clientUrl: 'http://192.168.30.92:3000/chainalliance/',  //勇哥ip 链接地址
-    // clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
+    //   clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
     //  clientUrl: 'http://192.168.40.180:3000/chainalliance/',  // 本地ip 链接地址
     // clientUrl: 'http://www2.aikucun.xyz/chainalliance/',
-     clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+  clientUrl: 'https://mini.sansancloud.com/chainalliance/',
   // clientUrl: 'http://192.168.1.12:3000/chainalliance/',
 
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */
-     clientNo: 'shuiguodainpu',   //自定义的项目的名称。
+     clientNo: 'jianzhan',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
-
+ 
     miniIndexPage: '',
     setting: null,  // 全局设置
-    loginUser: null, //登陆返回的个人信息
+    loginUser: "", //登陆返回的个人信息
     cookie: null,
     shopOpen: null, // 店铺营业时间-开关
 
@@ -43,6 +42,11 @@ App({
     },
 
     successOnlaunch: false,
+   
+    defaultMendianID: "",
+
+    // 扫描二维码所带的参数，即扫码进来携带MendianID
+    enterMenDianID:"",
     /* 页面影藏 */
     appHide: false,
     onHide: function (e) {
@@ -56,8 +60,16 @@ App({
         console.log("=======eeeee======",e)
         if (e.scene === "1011" || e.scene === "1012" || e.scene === "1013" || e.scene === "1047") {
           this.appHide = true
-          this.clientNo = e.query.platformNo;
+          console.log("=====1011====");
+          if (e.query.platformNo){
+           
+           
+
+            console.log("HAHAHAHHAA" + e.query.platformNo)
+          }
+        
         }
+        console.log("=====on show==="+this.clientNo);
         /* let pagePath = e.path
         if(this.appHide){
           this.appHide = false
@@ -69,7 +81,7 @@ App({
         this.onLaunchOptions = options
         let that = this
 
-        console.log('------onlauch------')
+        console.log('------onlauch------'+this.clientNo)
         console.log(options)
         /* 第三方配置加载 clientNo */
         /*
@@ -92,17 +104,19 @@ App({
     // this.getSdkVersion()获取 个人信息例如name，nickname，password，platformNo，手机号等等 在900行
         this.getSdkVersion()
         let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
-        console.log("这是冬的测试" + JSON.stringify(extConfig))
-        console.log("这是冬的测试" + extConfig.clientNo)
+   //      console.log("这是冬的测试" + JSON.stringify(extConfig))
+      //   console.log("这是冬的测试" + extConfig.clientNo)
         if (extConfig.clientNo) {
             that.clientNo = extConfig.clientNo
         }
         console.log('===' + this.clientNo + '====')
         console.log("options111", this.onLaunchOptions)
+       
         let inputPlatformNo = this.onLaunchOptions.query.platformNo;
         if (!!inputPlatformNo) {
-            this.clientNo = inputPlatformNo
+           this.clientNo = inputPlatformNo
         }
+     
         let more_scene = decodeURIComponent(this.onLaunchOptions.scene)
 
         if (more_scene) {
@@ -129,6 +143,7 @@ App({
 
     //第一次登录加载的函数
     loadFirstEnter: function (more_scene) {
+      // console.log("这个是第一次加载的more_scene" + more_scene)
         this.getSetting()
         this.wxLogin(more_scene)
     },
@@ -351,7 +366,7 @@ App({
         console.log(If_Order_url)
 
         if (linkUrl.substr(0, 3) == 'tel') {
-          console.log("9999999999999999")
+         
             wx.navigateTo({
                 url: '/pages/custom_page_contact/index',
             })
@@ -361,13 +376,13 @@ App({
             if (urlData.param == '') {
                 urlData.param = '?'
             }
-            console.log("9999999999999999")
+    
             wx.navigateTo({
                 url: '/pages/custom_page/index' + urlData.param + '&Cpage=' + resultUrl,
             })
         }
         else if (If_Order_url == 'order_list') {
-          console.log("9999999999999999")
+          
             wx.navigateTo({
                 url: '/pages/' + 'order_list_tab' + '/index' + urlData.param,
             })
@@ -375,14 +390,14 @@ App({
        
         else if (linkUrl.substr(0, 14) == 'product_detail') {
             let productId = linkUrl.replace(/[^0-9]/ig, "");
-            console.log("9999999999999999")
+          
             wx.navigateTo({
                 url: '/pages/productDetail/index?id=' + productId + "&addShopId=236",
             })
         }
         else if (linkUrl.substr(0, 4) == 'news') {
         
-          console.log("9999999999999999")
+      
           wx.navigateTo({
             url: '/pages/news_list/index',
           })
@@ -484,7 +499,7 @@ App({
             data: customIndex.params,
             header: that.headerPost,
             success: function (res) {
-                console.log('===========get_session_userinfo============')
+              console.log('===========get_session_userinfo============' + res.data.relateObj)
                 if (res.data.errcode == 0) {
                     console.log(res.data.relateObj)
                     that.loginUser = res.data.relateObj
@@ -505,7 +520,7 @@ App({
         let userInfo = this.globalData.userInfo
         wx.getUserInfo({
             success: function (res) {
-                console.warn('--获取用户信息--')
+              console.log('--获取用户信息--')
                 console.log(res.userInfo)
                 userInfo = res.userInfo
                 let infoParam = {
@@ -523,6 +538,10 @@ App({
                 infoParam.headimg = userInfo.avatarUrl
                 infoParam.nickname = userInfo.nickName
                 infoParam.sex = userInfo.gender
+                // 用户所在城市，市，区，
+                infoParam.city = userInfo.city 
+
+
                 let customIndex = that.AddClientUrl("/change_user_info.html", infoParam, 'post')
                 wx.request({
                     url: customIndex.url,
@@ -584,15 +603,33 @@ App({
     },
     getCaption: function (str1) {
         var str2 = (str1.match(/MINI_PLATFORM_USER_ID_(\S*)/))[1];
+        console.log("这是测试str2"+str2)
         return str2;
     },
     hasNoScope: false,
     changeUserBelong: function (more_scene) {
+      if (!more_scene) return;
+      if (!this.loginUser || !this.loginUser.platformUser
+        || this.loginUser.platformUser.parentId>0
+      ){
+      //  console.log("parent id:"+this.loginUser.platformUser.parentId);
+        console.log("未登录或 已经有推广用户了");
+        return;
+      }
+      else
+      {
+        console.log("修改用户推广人");
+      }
+     
         let that = this
-        console.error(more_scene)
+        console.error("hello:"+more_scene)
+        console.log("测试有没有调用")
 
         let parentPlatformUserId = this.getCaption(more_scene)
         console.error(parentPlatformUserId)
+        if (!parentPlatformUserId){
+          return ;
+        }
         let param_post = {}
         param_post.parentPlatformUserId = parentPlatformUserId
         var customIndex = that.AddClientUrl("/change_fx_user.html", param_post, 'post')
@@ -629,7 +666,7 @@ App({
         var that = this
         wx.login({//微信登入接口
             success: function (res) {
-                console.log("=======wxCode======",res.code)
+              console.log("=======wxCode======", res.code, more_scene)
                 if (res.code && res.code.indexOf('mock') == -1) {
                     //发起网络请求
                     let loginParam = {}
@@ -642,8 +679,9 @@ App({
                         header: that.headerPost,
                         method: 'POST',
                         success: function (e) {
+
                             if (e.data.errcode == 0) {
-                              console.warn("===========e.data.errcode=============", e)
+                              console.log("===========e.data.errcode=============", e)
                                 let header = e.header
                                 let cookie = null
                                 if (!!header['Set-Cookie']) {
@@ -685,14 +723,15 @@ App({
                                     // console.error('没有昵称调用上传接口')
                                     that.sentWxUserInfo(loginJson)
                                 }
-                                //console.error(loginJson.platformUser.mendian)
-                                //  console.error('more_scene', more_scene)
-                                if (!loginJson.platformUser.mendian && more_scene.indexOf("PLATFORM_USER_ID") > 0) {
+                                console.log(loginJson.platformUser.mendian)
+                                  console.log('===more_scene===', more_scene)
+                          //      if (!loginJson.platformUser.mendian && more_scene.indexOf("PLATFORM_USER_ID") > 0) {
                                     //console.error('more_scene',more_scene)
-                                    that.changeUserBelong(more_scene)
-                                }
+                                  that.changeUserBelong(that.USER_DEFINED_SCENE)
+                               // }
                                 // that.toIndex()
                             } else {
+                              console.log("失败原因" + JSON.stringify(e.data))
                                 wx.hideLoading()
 
                                 wx.showToast({
@@ -736,13 +775,17 @@ App({
         console.log('**************************************', self)
         var settUrl = this.AddClientUrl("/get_platform_setting.html", {}, 'get', 1, 1)
         var that = this
-        console.warn("======settUrl.url======", settUrl.url)
+        console.log("======settUrl.url======", settUrl.url)
         //拿setting
         wx.request({
             url: settUrl.url, //仅为示例，并非真实的接口地址
             header: that.header,
             success: function (res) {
               console.log("====res====",res.data)
+              // 获取门店ID
+              console.log("====门店ID====", res.data.platformSetting.defaultShopBean.defaultMendianId);
+              that.defaultMendianID = res.data.platformSetting.defaultShopBean.defaultMendianId;
+
                 if (res.data.platformSetting) {
                     that.clientName = res.data.platformSetting.platformName
                     if (res.data.platformSetting.categories) {//产品类别
@@ -757,14 +800,19 @@ App({
                         categories.unshift(allType)
                     }
                 }
-
+           
                 that.setting = res.data
-                if (res.data.platformSetting.miniIndexPage) {
+             
+                  if (res.data.platformSetting.miniIndexPage) {
                     let miniIndexPage = that.getSpaceStr(res.data.platformSetting.miniIndexPage, '.')
+
                     that.miniIndexPage = miniIndexPage.str1
-                } else {
+                  } else {
+
                     that.miniIndexPage = 'custom_page_index'
-                }
+                  }
+      
+             
 
                 if (!self) {
 
@@ -847,6 +895,7 @@ App({
             title: pageTitle,
             path: '/pages/' + pageName + '/index?' + AllCode,
             success: function (res) {
+              console.log('转发出去的参数集合：   ' + AllCode)
             },
             fail: function (res) {
             }
@@ -862,7 +911,7 @@ App({
 
         let AllCode = ''
         let fxCode = ''  //userId
-        if (this.loginUser) {
+        if (this.loginUser&&this.loginUser.platformUser) {
             fxCode = 'scene=MINI_PLATFORM_USER_ID_' + this.loginUser.platformUser.id
         }
         if (!pageName && !this.miniIndexPage) {
@@ -878,12 +927,17 @@ App({
         if (!pageCode) {
             pageCode = {}
         }
-        pageCode.scene = 'MINI_PLATFORM_USER_ID_' + this.loginUser.platformUser.id
+        if (this.loginUser && this.loginUser.platformUser) {
+        pageCode.scene = 'MINI_PLATFORM_USER_ID_' + this.loginUser.platformUser.id;
+        }else{
+          pageCode.scene = 'MINI_PLATFORM_USER_ID_' + 0;
+        }
         pageCode.pageName = pageName
-
+        // jsonToStr2在333行
         AllCode = that.jsonToStr2(pageCode)
 
         console.log('转发出去的参数集合：   ' + AllCode)
+        console.log('转发出去的imageUrl：   ' + imageUrl)
         return {
             title: pageTitle,
             path: '/pageTab/index/index?' + AllCode,

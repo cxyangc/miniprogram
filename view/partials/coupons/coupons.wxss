@@ -17,17 +17,28 @@
   text-align: center;
    position: relative;
 }
+.name{
+  height: 50rpx;
 
-.name text{
-  font-size: 30rpx;
 }
-
+.name text{
+  display: block;
+  font-size: 30rpx;
+  line-height: 50rpx;
+}
+.youhuiAmount{
+    height: 85rpx;
+}
 .youhuiAmount text{
   font-size: 60rpx;
 }
-
+.remark{
+  height: 45rpx;
+}
 .remark text{
+  display: block;
   font-size: 30rpx;
+  line-height: 45rpx;
 }
 .CouponsImg {
   width: 250rpx;

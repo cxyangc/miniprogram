@@ -5,8 +5,11 @@
     "pageTab/product/index",
     "pageTab/aikucun_car_list/index",
     "pageTab/aikucun_userinfo/index",
+    "pageTab/fx_center/index",
+    "pageTab/product_waimai_offline/index",
 
-       
+
+          
           "view/partials/banner/banner",
             "view/partials/title/title",
           "view/partials/image_link/image_link",
@@ -16,7 +19,7 @@
           "view/partials/detailList/detailList",
           "view/partials/video/video",
           "view/partials/audio/audio",
-  
+           "view/partials/richText/richText",
 
           "view/partials/productList/productList",
           "view/partials/newsList/newsList",
@@ -31,8 +34,12 @@
     {
       "root": "pages",
       "pages": [
-     
+      
         "new_promotion_products/index",
+        "new_pay_offline/index",
+        "nearby_stores/index",
+        "integral_mall/index",
+
        "aikucun_car_list/index",
           "index/index",
           "product/index",
@@ -53,7 +60,7 @@
         "scan_login/scan_login",
         "regist/index",
         "regist_xieyi/index",
-        "search_product/index",
+    "search_product/index",
         "product_tree_list/index",
         "product_type2/index",
         "search_product2/index",
@@ -139,12 +146,14 @@
         "selectedIconPath": "images/icons/cart2.png",
         "text": "购物车"
       },
+
       {
         "pagePath": "pageTab/aikucun_userinfo/index",
         "iconPath": "images/icons/me1.png",
         "selectedIconPath": "images/icons/me2.png",
         "text": "我的"
       }
+   
     ]
   },
   "window": {

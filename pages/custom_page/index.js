@@ -64,12 +64,38 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        console.log(res.data)
+        console.log(res)
+
+        if(res.data.errcode<0){
+          console.log(res.data.errMsg)
+        }
+        else{
+
+       
+        // 数据经过更改导航栏的名称更改在获取的数据中
+       
+          wx.setNavigationBarTitle({
+            title: res.data.channelTitle
+          })
+    
+//  导航栏的背景颜色根据app.setting.platformSetting里面拿取
+        if (app.setting.platformSetting.defaultColor == '') {
+          wx.setNavigationBarColor({
+            frontColor: '#ffffff',
+            backgroundColor: '#000000',
+          })
+        } else {
+          wx.setNavigationBarColor({
+            frontColor: '#ffffff',
+            backgroundColor: app.setting.platformSetting.defaultColor,
+          })
+        }
         wx.hideLoading()
         if (!!res.data.partials){
           that.getPartials(res.data.partials)
         }else{
           console.log('--------error --------' +res.data)
+        }
         }
       },
       fail: function (res) {

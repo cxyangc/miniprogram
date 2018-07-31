@@ -3,7 +3,7 @@
 
    <block wx:if='{{data.androidTemplate == ""}}'>
   <template is="firstBanner" 
-       data="{{...data}}"></template> 
+       data="{{...data,sysWidth}}"></template> 
 
   </block> 
 
