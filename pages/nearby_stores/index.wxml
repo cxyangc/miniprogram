@@ -1,0 +1,31 @@
+
+<!--用户归属门店  -->
+<block  wx:for="{{arr}}"  wx:if="{{arr.length>0}}" wx:key="{{index}}">
+<view class="wrap" bindtap='click' data-index="{{index}}">
+
+  <view  class='name'>
+  <!--左边的图片  -->
+    <view class='ListDataItemImage'  wx:if="{{item.logo!=''&&item.logo!='0'}}"><image mode='aspectFill' src='{{item.logo}}'></image></view>
+
+       <view class='ListDataItemImage'  wx:else> <image mode='aspectFill' src='../../images/333.jpg'></image></view>
+<!--中间的文字  -->
+  <view class='nameText'> <text>{{item.name}}</text></view>
+  <!--右边的地图图标  -->
+    <view class='nameImg' catchtap='clickCatch' data-index="{{index}}"> <image src='../../images/icons/mendian.png'></image></view>
+  </view>
+</view>
+</block>
+
+<!--附近门店  -->
+<block  wx:if="{{arr.length==0}}">
+<view class="wrap">
+
+  <view  class='name'>
+  <!--左边的图片  -->
+    <view class='ListDataItemImage'></view>
+<!--中间的文字  -->
+  <view class='nameText'> <text>无附近门店</text></view>
+</view>
+</view>
+</block>
+

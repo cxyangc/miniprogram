@@ -10,7 +10,7 @@ Page({
     setting:null,
     renderData:null,
     PaiXuPartials:[], 
-    sysWidth: 320,//图片大小
+    sysWidth: 750,//图片大小
     topName: {
       SearchProductName: "",//头部搜索的
     },
@@ -217,7 +217,7 @@ Page({
   },
   buttom:function(){
     // console.log("1111111111111")
-    // app.wxLogin(1011)
+    app.wxLogin(1011)
     // wx.chooseAddress({
     //   success: function (res) {
     //     console.log(res.userName)

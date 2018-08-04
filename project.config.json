@@ -10,7 +10,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "1.9.91",
 	"appid": "wx42d98cf6cb1a1316",
-	"projectname": "11",
+	"projectname": "%E6%88%91%E7%9A%84",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
@@ -30,27 +30,27 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 5,
 			"list": [
 				{
 					"id": 0,
 					"name": "qq",
 					"pathName": "pageTab/index/index",
-					"query": "platformNo=jianzhan&pageName=index2",
+					"query": "platformNo=shuiguodianpu",
 					"scene": "1011"
 				},
 				{
 					"id": 1,
 					"name": "门店",
 					"pathName": "pageTab/index/index",
-					"query": "platformNo=shuiguodianpu&ENTER_MENDIAN_OFF_PAY=29",
+					"query": "platformNo=shuiguodianpu&ENTER_MENDIAN_OFF_PAY=79",
 					"scene": "1011"
 				},
 				{
 					"id": 2,
 					"name": "门店",
 					"pathName": "pageTab/index/index",
-					"query": "ENTER_MENDIAN_OFF_PAY=74",
+					"query": "ENTER_MENDIAN_OFF_PAY=29",
 					"scene": "1011"
 				},
 				{
@@ -64,14 +64,14 @@
 					"id": 4,
 					"name": "扫码进来携带MendianID",
 					"pathName": "pageTab/index/index",
-					"query": "ENTER_MENDIAN=29",
+					"query": "ENTER_MENDIAN=74",
 					"scene": "1011"
 				},
 				{
 					"id": 5,
 					"name": "预览页面",
 					"pathName": "pageTab/index/index",
-					"query": "ENTER_PLATFORM_NO=shuiguodianpu&ENTER_PAGE_NAME=custom_page_index.html",
+					"query": "ENTER_PLATFORM_NO=shuiguodianpu&ENTER_PAGE_NAME=custom_page_ces.html",
 					"scene": "1011"
 				}
 			]

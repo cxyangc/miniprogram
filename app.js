@@ -144,8 +144,9 @@ App({
     //第一次登录加载的函数
     loadFirstEnter: function (more_scene) {
       // console.log("这个是第一次加载的more_scene" + more_scene)
-        this.getSetting()
+        
         this.wxLogin(more_scene)
+        this.getSetting()
     },
     loadScene: function (inputPlatformNo) {
         this.clientNo = inputPlatformNo

@@ -1,3 +1,8 @@
+<import src="../../view/partials/mofang.wxml"/>  <!-- 2 辅助线 -->
+
+
+
+
 
 <!-- <import src="../../../view/partials/richPage.wxml"/>   --><!-- 1 -->
 <import src="../../view/partials/text_link.wxml"/>  <!-- 5 -->
@@ -31,7 +36,8 @@
        data="{{sysWidth:sysWidth,...item.jsonData,wxParseData:article.nodes}}"></template>  -->
 
    <!--组件化 -->
-      
+          <template is="14"  wx:if='{{item.partialType =="14"}}' 
+       data="{{...item.jsonData,...setting,sysWidth,...item,loginUser:loginUser,reportText:reportText}}"></template>  
 
      <component-tag-nameBanner wx:if='{{item.partialType =="7"}}' data="{{item}}"></component-tag-nameBanner><!-- 7 Banner-->
  <component-tag-name wx:if='{{item.partialType =="4"}}' data="{{item}}"></component-tag-name>  <!-- 4 标题 -->

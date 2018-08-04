@@ -3,7 +3,7 @@
     <scroll-view class="recommend_scroll_x_box" scroll-x="true">
  <block wx:for="{{relateBean.products}}" wx:key="index">
       <view class="recommend_hot_box" style='background-color:{{color}};'  bindtap='clickLink' data-id='{{relateBean.id}}'>
-        <view class='CouponsImg'>   <image src="{{item.imagePath}}"></image> </view>
+        <view class='CouponsImg'>   <image mode='aspectFill' src="{{item.imagePath}}"></image> </view>
         <view class='choose' > <text>去抢购</text> </view>
       </view>
           <view class="recommend_hot_box_copy" wx:if="{{index==relateBean.products.length-1}}" style='background-color:{{color}};'  bindtap='clickLink1' data-id='{{relateBean.id}}'>

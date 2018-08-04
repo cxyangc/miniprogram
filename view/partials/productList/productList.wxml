@@ -1,5 +1,11 @@
-<!-- 列表样式-->
+<!-- 产品列表样式-->
 <import src="simpleProductList.wxml"/>  <!-- 正常简单的 -->
+<import src="oneColumns/oneColumns.wxml"/>  <!-- 一列的产品列表 -->
+<import src="threeColumns/threeColumns.wxml"/>  <!-- 三列的产品列表 -->
+<import src="productListDetail/productListDetail.wxml"/>  <!-- 类似新闻的产品列表 -->
+<import src="productListSlide/productListSlide.wxml"/>  <!-- 可以滑动的产品列表 -->
+
+
 
     <!-- 当 androidTemplate为空的时候去引入普通列表样式 -->  
   <block wx:if='{{data.androidTemplate == ""}}'>
@@ -7,7 +13,29 @@
        data="{{...data}}"></template> 
   </block>
 
+<!--3行的时候  -->
+  <block wx:if='{{data.androidTemplate == "product_list_3colum"}}'>
+  <template is="threeColumns" 
+       data="{{...data}}"></template> 
+  </block>
 
+<!--1行的时候  -->
+  <block wx:if='{{data.androidTemplate == "product_list_1colum"}}'>
+  <template is="oneColumns" 
+       data="{{...data}}"></template> 
+  </block>
+
+  <!--类似新闻的产品列表  -->
+  <block wx:if='{{data.androidTemplate == "product_list_detail"}}'>
+  <template is="productListDetail" 
+       data="{{...data}}"></template> 
+  </block>
+  
+    <!--可以滑动的产品列表  -->
+  <block wx:if='{{data.androidTemplate == "product_list_slide"}}'>
+  <template is="productListSlide" 
+       data="{{...data}}"></template> 
+  </block>
 
   <!-- <view>{{data.id}}</view> -->
 <slot></slot>

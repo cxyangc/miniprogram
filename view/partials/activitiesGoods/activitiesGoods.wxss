@@ -30,7 +30,7 @@
          top: -100rpx; 
 }
 .recommend_hot_box_copy text{
-  font-size: 50rpx;
+  font-size: 32rpx;
    /* display: block;  */
   color: #FF6767;
   line-height: 222rpx;
@@ -39,6 +39,7 @@
 .CouponsImg {
   width: 222rpx;
   height: 222rpx;
+  overflow: hidden;
 }
 .CouponsImg image{
   width: 100%;

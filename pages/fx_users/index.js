@@ -28,6 +28,7 @@ Page({
       header: app.header,
       success: function (res) {
         console.log(res.data)
+       
         that.listPage.pageSize = res.data.pageSize
         that.listPage.curPage = res.data.curPage
         that.listPage.totalSize = res.data.totalSize
@@ -36,10 +37,15 @@ Page({
         if(!data){
           return
         }
-        if(data.length == 0){
+        if (data.length == 0 && that.data.List.length == 0){
           that.setData({ List:null })
         }else{
-          that.setData({ List:data})
+          // 获取到的数据要添加进原先的数据
+          let newList = that.data.List;
+          newList = newList.concat(res.data.result);
+          console.log(newList);
+
+          that.setData({ List: newList})
         }
 
         

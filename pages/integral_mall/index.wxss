@@ -1,12 +1,47 @@
-@import 'threeColumns/threeColumns.wxss';/* 引入三列的 */
-@import 'oneColumns/oneColumns.wxss';/* 引入一列的 */
-@import 'productListDetail/productListDetail.wxss';/* 引入详细列表跟新闻列表一样的样式 */
-@import 'productListSlide/productListSlide.wxss';/* 引入可以滑动的样式 */
+.jiFen{
+  height: 180rpx;
+  background-color: #0099FF;
+  padding-top: 40rpx;
+}
+.box{
+  display: flex;
+  flex-direction: row;
+}
+.jiFenBox{
+  /* width: 130rpx; */
+  height: 100rpx;
+  margin-left: 50rpx;
+  text-align: center;
+}
+.jiFenBox text{
+font-size: 70rpx;
+display: block;
+line-height: 100rpx;
+color: white;
+}
+.jiFenImg{
+    width: 40rpx;
+  height: 40rpx;
+  margin-top: 30rpx;
+}
+.jiFenImg image{
+    width: 100%;
+  height: 100%;
+}
+.jiFenBox1{
+   width: 80rpx; 
+  height: 50rpx;
+  margin-left: 50rpx;
+  text-align: center;
+}
+.jiFenBox1 text{
+font-size: 20rpx;
+display: block;
+line-height: 50rpx;
+color: white;
+}
 
-
-
-
-
+/*  */
 .detail_list_mode1{
   display: flex;
   flex-direction: row;
@@ -32,6 +67,7 @@
   flex-direction: column;
   justify-content: center;
   background: #fff;
+  padding-bottom: 10px;
 }
 .mode1_items image{
     margin: 0 auto;
@@ -41,7 +77,7 @@
 }
 .mode1_items .center{
   margin: 0 auto;
-  text-align: left;
+  text-align: center;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -50,7 +86,7 @@
   font-size: 13px;
   color: #333;
   line-height: 21px;
-  height:36px;
+  height:15px;
 }
  .mode1_items text{
   text-align: left;
@@ -104,14 +140,18 @@
 /*新样式  */
 .NewBox{
   width: 350rpx;
-  /* display: flex;
-  justify-content: space-around; */
-
+display: flex;
+justify-content: space-between;
 }
 .NewBox text{
-margin-left: 20rpx;
+font-size: 30rpx;
 }
-
+.ml20{
+  margin-left: 20rpx;
+}
+.mr20{
+  margin-right: 25rpx;
+}
 .NewBox image{
  width: 50rpx;
  height: 50rpx;
@@ -137,4 +177,22 @@ margin-left: 20rpx;
 .noproduct text{
 font-size: 30rpx;
   
+}
+.exchange{
+  width: 150rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+
+  margin: 0 auto;
+  margin-top: 2px;
+ 
+display: flex;
+justify-content: center;
+}
+.exchange text{
+font-size: 30rpx;
+display: block;
+line-height: 60rpx;
+
+
 }

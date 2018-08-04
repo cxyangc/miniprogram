@@ -1,0 +1,15 @@
+
+<!-- 门店组件 -->
+<import src="simpleStores.wxml"/>  <!-- 简单的 -->
+
+    <!-- 当 androidTemplate为空的时候去引入普通列表样式 -->  
+  <block wx:if='{{data.androidTemplate == ""}}'>
+  <template is="simpleStores" 
+       data="{{...data,belongShopName,name,logo,arr,img}}"></template> 
+  </block>
+<!-- <view>{{img}}</view> -->
+<!-- <view>{{arr.length}}</view> -->
+
+
+
+<slot></slot>

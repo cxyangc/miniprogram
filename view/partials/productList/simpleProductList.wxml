@@ -19,7 +19,6 @@
 
 
 <block  wx:if="{{relateBean.length!=0}}">
-  
     <view class='detail_list_mode1' style='background:  #eeeeee;'>
       <view class="mode1_items"   wx:for="{{relateBean}}" wx:for-item="relateBean" wx:key="{{index}}"  bindtap='tolinkUrl' data-id='{{relateBean.id}}'
         style='border-right: 10px solid #eeeeee;'> 
@@ -29,7 +28,7 @@
         <!--价格和购物车图片  -->
        <view class='NewBox'>
          <text>￥{{relateBean.price}}</text>
-         <image src="../../../images/icons/shoppingCar.png"></image> 
+         <!-- <image src="../../../images/icons/shoppingCar.png"></image>  -->
        </view>
        
     

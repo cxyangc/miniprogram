@@ -1,0 +1,30 @@
+<!--正常的标题 -->
+<template name="newsListSlide">
+
+<block  wx:if="{{relateBean.length!=0}}">
+
+      <scroll-view class="recommend_scroll_x_box" scroll-x="true">
+ <block wx:for="{{relateBean}}" wx:key="index">
+
+      <view class="recommend_hot_box" style='background-color:{{color}};'  bindtap='tolinkUrl' data-id='{{item.id}}'>
+        <view class='CouponsImg'>   <image  mode='aspectFill'  src="{{item.imagePath}}"></image> </view>
+      <view class='choose'><text>{{item.title}}</text></view>
+     
+      </view>
+           
+     </block> 
+      
+    </scroll-view>
+
+
+
+</block>
+
+<block wx:if="{{relateBean.length==0}}">
+            <view class="noproduct">
+              <image mode="widthFix" src='/images/icons/no-product.png'></image>
+              <text>没有相关新闻</text>
+            </view>
+          </block>
+
+</template>

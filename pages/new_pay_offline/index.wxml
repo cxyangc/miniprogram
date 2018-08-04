@@ -1,0 +1,34 @@
+<view class='container'>
+
+  <view wx:if='{{mendianImg!=""}}' class='ListDataItemImage'><image mode='aspectFill' src='{{mendianImg}}'></image></view>
+
+        <view class='mendianText'><text>门店名称：{{mendianName}}</text></view>
+  <view class='chongzhijine'>
+    <text>付款金额</text>
+    <input  bindinput='getBuyerScript'  placeholder='请输入金额'></input>
+  </view>
+  <view class='way'>
+   <view class='payName'>支付方式</view>
+  <radio-group bindchange="getPayWay">
+   
+
+    <label class='payWay'>
+      <radio color="{{setting.platformSetting.defaultColor}}" checked='true' value='3'></radio>
+      <text>微信支付</text>
+    </label>
+ <!--   <label class='payWay'>
+      <radio color="{{setting.platformSetting.defaultColor}}" checked='false' value='4'></radio>
+      <text>支付宝</text>
+    </label> -->
+  </radio-group>
+  </view>
+
+  <view ></view>
+  <button loading='{{butn_show_loading}}' bindtap='subMitButn' class='subMitButn' style='background:{{setting.platformSetting.defaultColor}}'>立即付款</button>
+
+   <!--返回首页  -->
+    <view class="loginBtnView">
+    <button class="loginBtn"  bindtap="login">返回首页</button> 
+  </view>
+
+</view>

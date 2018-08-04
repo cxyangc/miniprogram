@@ -1,11 +1,19 @@
 
-<import src="simpleNewsList.wxml"/>  <!-- 普通的留白线 -->
+<import src="simpleNewsList.wxml"/>  <!-- 普通的新闻列表 -->
+<import src="newsListSlide/newsListSlide.wxml"/>  <!-- 普通的新闻列表 -->
 
 
      <block wx:if='{{data.androidTemplate == ""}}'>
   <template is="simpleNewsList" 
        data="{{...data}}"></template> 
   </block>
+
+<!--可以滑动的新闻列表  -->
+     <block wx:if='{{data.androidTemplate == "news_list_slide"}}'>
+  <template is="newsListSlide" 
+       data="{{...data}}"></template> 
+  </block>
+
 
 <slot></slot>
 

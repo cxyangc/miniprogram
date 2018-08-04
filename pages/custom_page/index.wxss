@@ -1,3 +1,7 @@
+@import '../../view/css/mofang.wxss';/* 14 */
+
+
+
 /* pages/my/index.wxss */
 @import"../../wxParse/wxParse.wxss";/* 富文本 */
 

@@ -1,0 +1,49 @@
+.recommend_scroll_x_box {
+  height: 320rpx;
+  white-space: nowrap;
+  display: flex;
+  margin-top: 10rpx;
+}
+
+.recommend_hot_box {
+  width: 222rpx;
+  height: 320rpx;
+  margin-left: 24rpx;
+  display: inline-block;
+  text-align: center;
+
+}
+
+
+.CouponsImg {
+  width: 222rpx;
+  height: 222rpx;
+  overflow: hidden;
+   border-radius: 0.2em;
+}
+.CouponsImg image{
+  width: 100%;
+  height: 100%;
+}
+.choose{
+  text-align: left;
+  font-size: 25rpx;
+  margin-top: 10rpx;
+  white-space:normal;
+  display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:2;
+
+}
+.productListSlidePrice{
+    width: 100%;
+    height: 50rpx;
+    text-align: left;
+}
+.productListSlidePrice text{
+   font-size: 30rpx;
+  color: red;
+}
