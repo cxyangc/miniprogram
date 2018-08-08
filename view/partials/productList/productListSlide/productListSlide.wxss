@@ -28,6 +28,7 @@
   height: 100%;
 }
 .chooseName1{
+  height: 70rpx;
   text-align: left;
   font-size: 25rpx;
   margin-top: 10rpx;

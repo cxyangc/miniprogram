@@ -1,6 +1,6 @@
 .wrap{
   width: 730rpx;
-   height: 360rpx; 
+   /* height: 360rpx;  */
   overflow: hidden;
      display: flex;
   flex-direction: row;
@@ -29,6 +29,7 @@
   height: 100%;
 }
 .threeColumnsBoxName{
+  height: 65rpx;
   text-align: left;
   font-size: 25rpx;
   margin-top: 10rpx;

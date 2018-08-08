@@ -2,7 +2,7 @@
  <view class='mt20'>
     <scroll-view class="recommend_scroll_x_box" scroll-x="true">
  <block wx:for="{{relateBean.products}}" wx:key="index">
-      <view class="recommend_hot_box" style='background-color:{{color}};'  bindtap='clickLink' data-id='{{relateBean.id}}'>
+      <view class="recommend_hot_box" style='background-color:{{color}};'  bindtap='clickLink' data-id='{{relateBean.id}}' data-index='{{item.id}}'>
         <view class='CouponsImg'>   <image mode='aspectFill' src="{{item.imagePath}}"></image> </view>
         <view class='choose' > <text>去抢购</text> </view>
       </view>

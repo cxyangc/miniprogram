@@ -14,7 +14,7 @@ Page({
   toIndex:function(){
     let that=this; 
     setTimeout(function () {
-      //console.log("=========================ff",'/pages/apply_for_facilitator/apply_for_facilitator?scene=' + app.more_scene);
+ 
       console.log("========app==", app, app.more_scene);
       // custom_page_index.html是首页也就是app.miniIndexPage+".html" 
       if (that.data.page_name != "" && that.data.page_name != app.miniIndexPage+".html"){
@@ -33,9 +33,14 @@ Page({
 
       }
       else{
+        // wx.reLaunch({
+        //   url: '/pageTab/' + app.miniIndexPage + '/index'
+        // })
+        console.log("进入蓝湖")
         wx.reLaunch({
-          url: '/pageTab/' + app.miniIndexPage + '/index'
+          url: '/pageTab/lanHu/index/index'
         })
+   
       }
  
       // if (app.more_scene && app.more_scene.indexOf("MINI_INVITATION_CODE")!=-1){
@@ -94,6 +99,17 @@ Page({
 
 
       }
+
+    //林做的，以后可以删除（项目）
+    if (options.lanhu) {
+      console.log("进入蓝湖")
+              wx.reLaunch({
+          url: '/pageTab/lanHu/index/index'         
+        })
+        return;
+    } 
+
+
     //调用分销
 
     //如果传入的是 MINI_PLATFORM_USER_开头的更改用户推广人
@@ -129,7 +145,7 @@ Page({
       setTimeout(function(){
         wx.reLaunch({
           url: '/pageTab/' + app.miniIndexPage + '/index',
-       //   url: 'pages/apply_for_facilitator/apply_for_facilitator',
+     
         })
       },100)
       

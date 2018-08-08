@@ -1,3 +1,5 @@
+<import src="../../view/partials/mofang.wxml"/>  <!-- 2 辅助线 -->
+
 <!--index.wxml-->
 <import src="../../wxParse/wxParse.wxml"/><!-- 1 富文本 -->
 
@@ -28,6 +30,8 @@
  -->
         <!-- <template is="{{!!item.androidTemplate ? item.androidTemplate : item.partialType }}" 
        data="{{...item.jsonData,...setting,sysWidth,loginUser:loginUser,reportText:reportText}}"></template>  -->
+        <template is="14"  wx:if='{{item.partialType =="14"}}' 
+       data="{{...item.jsonData,...setting,sysWidth,...item,loginUser:loginUser,reportText:reportText}}"></template> 
 
   <!--组件化 -->
       

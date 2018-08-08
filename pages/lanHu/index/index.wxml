@@ -1,0 +1,19 @@
+<!--头部tab  -->
+<view class='index'>
+<view  class='wrap'  wx:if="{{activityPromotion.length!=0}}">
+    <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}" >
+        <view wx:for="{{activityPromotion}}" class="tab-item {{currentTab==index?'active':''}}"  data-current="{{index}}"  bindtap="swichNav" >{{item.name}}</view>
+    </scroll-view>
+</view>
+
+<!--特卖，日销  -->
+<view class='sale'>
+  <view class='user'></view>
+</view>
+
+
+
+
+
+
+</view>

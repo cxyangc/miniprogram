@@ -28,7 +28,7 @@
   <!--类似新闻的产品列表  -->
   <block wx:if='{{data.androidTemplate == "product_list_detail"}}'>
   <template is="productListDetail" 
-       data="{{...data}}"></template> 
+       data="{{...data,defaultColor,secondColor}}"></template> 
   </block>
   
     <!--可以滑动的产品列表  -->

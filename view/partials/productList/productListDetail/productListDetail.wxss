@@ -47,16 +47,20 @@ font-size: 30rpx;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
-  display: -webkit-box;
+        margin-left:10px;
+ 
+    
+}
+.ListDataItemWordName{
+  height: 70rpx;
+ display: -webkit-box;
     word-break: break-all;
     text-overflow: ellipsis;
     font-size: 26rpx;
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp:2;
-      margin-left:10px;
 }
-
 
 .ListDataItemWord .word2 {
   font-size: 30rpx;
@@ -85,7 +89,7 @@ color: red;
 .BoxRed{
   width: 100rpx;
   height: 40rpx;
-  border: 1px solid red;
+
   border-radius: 20rpx;
   text-align: center;
 }
@@ -93,7 +97,7 @@ color: red;
   font-size: 26rpx;
   display: block;
   line-height: 40rpx;
-color: red;
+
 margin-left: 0rpx;
 }
 .ListDataItemImage{

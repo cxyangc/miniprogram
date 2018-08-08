@@ -1,0 +1,113 @@
+<import src="product.wxml"/>
+<import src="getProductData/getProductData.wxml"/>
+
+
+<!--头部tab  -->
+
+<view class='index'>
+<view  class='wrap'  wx:if="{{activityPromotion.length!=0}}">
+    <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}" >
+    <!--特卖  -->
+    <view class="tab-item {{currentTab==0?'active':'black'}}"  data-current="0"  bindtap="swichNav"   data-id="0">特卖</view>
+
+        <view wx:for="{{activityPromotion}}" class="tab-item {{currentTab==index+1?'active':'black'}}"  data-current="{{index+1}}" data-id="{{item.id}}" bindtap="swichNav" wx:key="index+1">{{item.name}}</view>
+    </scroll-view>
+</view>
+</view>
+<!--做锚点  -->
+<scroll-view class='content'  scroll-into-view="{{toView}}" scroll-y="true"  scroll-with-animation="true">
+<!--特卖，日销  -->
+<view class='sale' >
+  <view class='user'>
+    <view class='usrBox'>
+  <!--用户头像  -->
+     <view class="userImg" wx:if="{{platformSetting.logo&&platformSetting.logo!=''}}"><image mode='aspectFill' src='{{platformSetting.logo}}'></image></view>
+          <view class="userImg" wx:else><image mode='aspectFill' src='../../../images/1.png'></image></view>
+
+  <!--用户名  -->
+   <view class='userText' wx:if="{{platformSetting.platformName&&platformSetting.platformName!=''}}"><text>{{platformSetting.platformName}}</text></view> 
+    <view class='userText' wx:else><text>暂无店铺名</text></view> 
+   <!--等级  -->
+      <view class='level'><text>LV1</text></view>  
+  </view>
+
+
+<!--搜索  -->
+ <view class='search'>
+   <!--输入框  -->
+   <view class='searchInput'><input placeholder="安耐晒"  bindconfirm='searchProduct' ></input></view>
+   <!--搜索  -->
+    <view class='searchImg'><image mode='aspectFill' src='../../../images/icon/search.png'></image></view> 
+ </view> 
+</view>
+
+  </view>
+
+<!-- 特卖，日销 图片 -->
+<view class='center' >
+  <view class='centerLeft' bindtap='tiaoZhuan' >
+        <view class='centerLeftImg'><image mode='aspectFill' src='../../../images/1.png'></image></view> 
+        <view class='centerLeftText'>
+        <view class='teMai'><text>特卖</text></view>
+        <view class='teMai2'> <text>MAC口红超低价</text></view>
+          
+        </view>
+  </view>
+  <view class='centerLeft'>
+    <view class='centerLeftImg'><image mode='aspectFill' src='../../../images/2.png'></image></view> 
+        <view class='centerLeftText'>
+        <view class='teMai'><text>热销</text></view>
+        <view class='teMai2'> <text>爆款安耐晒已到货</text></view>
+          
+        </view>
+  </view>
+</view>
+
+<!--活动列表  -->
+ <view class='activeList' wx:for="{{activityPromotion}}" >
+      <view class='activeListtImg' bindtap='click' data-id='{{item.id}}'  id="{{'inToView'+item.id}}"> <image mode='aspectFill' src='{{item.promotionBanner}}'></image> 
+       <view class='priceKode'>价格低至2折起</view>
+      <view class='time'>
+             <view class='timeBox'> <text>{{countDownList[index].hou}}</text></view>
+       
+         <view class='timeBox'> <text>{{countDownList[index].min}}</text></view>
+ 
+         <view class='timeBox'> <text>{{countDownList[index].sec}}</text></view>
+
+        <view class='timeBox1'> <text class='timeBox1Text1'>仅剩</text><text class='timeBox1Text2'>53%</text></view>
+      </view> 
+      </view> 
+      <!--几个商品  -->
+      
+  <block >
+  <template is="simpleProductList" 
+       data="{{...item}}"></template> 
+  </block>
+ </view>
+
+<!--未开始活动列表  -->
+ <view class='activeList'wx:if="{{unactivityPromotion.length!=0}}" wx:for="{{unactivityPromotion}}"  id="inToView0" bindtap='click1' data-id='{{item.id}}'>
+      <view class='activeListtImg'>  <image mode='aspectFill' src='{{item.promotionBanner}}'></image> 
+         <view class='priceKode'>价格低至2折起</view>
+      <view class='time'>
+             <view class='timeBox'> <text>{{countDownList1[index].hou}}</text></view>
+       
+         <view class='timeBox'> <text>{{countDownList1[index].min}}</text></view>
+ 
+         <view class='timeBox'> <text>{{countDownList1[index].sec}}</text></view>
+
+        <view class='timeBox1'> <text class='timeBox1Text1'>即将开始</text></view>
+      </view>
+      </view> 
+
+ </view>
+
+
+
+    <block >
+   
+  <template is="getProductData" 
+       data="{{getProductData}}"></template> 
+  </block>
+
+</scroll-view>

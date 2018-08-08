@@ -5,10 +5,10 @@ App({
     // clientUrl: 'https://www.aikucun.xyz/chainalliance/',  // 链接地址
      // clientUrl: 'http://10.1.1.15:3000/chainalliance/',  // 链接地址
      //clientUrl: 'http://192.168.30.92:3000/chainalliance/',  //勇哥ip 链接地址
-    //   clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
+    //  clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
     //  clientUrl: 'http://192.168.40.180:3000/chainalliance/',  // 本地ip 链接地址
     // clientUrl: 'http://www2.aikucun.xyz/chainalliance/',
-  clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+   clientUrl: 'https://mini.sansancloud.com/chainalliance/',
   // clientUrl: 'http://192.168.1.12:3000/chainalliance/',
 
     /**

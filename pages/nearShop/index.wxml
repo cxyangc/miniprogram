@@ -1,0 +1,54 @@
+
+
+  <block wx:if='{{shops.length >= "1"}}'>
+     <view class='ListDataContainer' >
+        <view class='ListDataItem' wx:for="{{shops}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap='tolinkUrl'>
+  <!--左边的图片  -->
+     <view wx:if='{{item.shopLogo}}' class='ListDataItemImage'><image mode='aspectFill' src='{{item.shopLogo}}?x-oss-process=style/preview'></image></view>
+        <view wx:else class='ListDataItemImage'><image mode='aspectFill' src='../../images/333.jpg'></image></view> 
+     <!--右边的字  -->
+       <view class='ListDataItemWord'> 
+       <!--店铺名  -->
+         <view class='ListDataItemWordTitle'>
+          <text >{{item.shopName}}</text>
+         </view>
+        <!-- 五星 -->
+           <view class='ListDataItemWordStar'>
+               <view class='star'>
+                 <view class='starImg'>
+                     <view class='star1'>
+               <image src='../../images/icons/star3.png'></image>
+               <image src='../../images/icons/star3.png'></image>
+               <image src='../../images/icons/star3.png'></image>
+               <image src='../../images/icons/star3.png'></image>
+               <image src='../../images/icons/star3.png'></image>
+               <view class='fenShu'>5.0</view>
+               <!--公里  -->
+                       <view  wx:if="{{journey[index]!='NaN'}}" class='time color'>{{journey[index]}}km</view>
+                <view wx:else class='time color' >未知</view>
+             </view>
+             
+                 </view>
+               </view>
+         </view>
+               <!--经营范围，服务时间  -->
+         <view class='fanWei'><text>服务范围：{{item.range}}km</text></view>
+           <view class='fanWei'><text>服务时间：{{item.serviceStartTime}}:00-{{item.serviceEndTime}}:00</text></view>
+         <!--店铺介绍  -->
+         <view class='introduce'>
+            <text>{{item.shopContent}}</text>
+</view> 
+         
+    </view>
+  </view>
+ </view>
+
+  </block>
+<block wx:if="{{shops.length==0}}">
+            <view class="noproduct">
+              <image mode="widthFix" src='/images/icons/no-product.png'></image>
+              <text>没有相关店铺</text>
+            </view>
+          </block>
+
+

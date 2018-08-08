@@ -1,0 +1,17 @@
+
+
+
+<view  class='wrap'  wx:if="{{arr.length!=0}}">
+    <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}" style='background:{{data.jsonData.bgColor}} ;'>
+        <view wx:for="{{data.jsonData.tabs}}" class="tab-item {{currentTab==index?'active':''}}"  data-current="{{index}}" 
+        data-html="{{item.linkUrl}}" bindtap="swichNav" style='color:{{data.jsonData.fontColor}} ;'>{{item.title}}</view>
+
+
+    </scroll-view>
+ 
+</view>
+
+
+     <component-tag-nameImageLink  data="{{arr}}" wx:if="{{arr.length!=0}}"></component-tag-nameImageLink><!-- 7 Banner-->
+     
+<slot></slot>

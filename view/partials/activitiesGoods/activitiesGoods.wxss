@@ -74,15 +74,19 @@ color: white;
   justify-content: space-between;
 }
 .activeName{
-    width: 100rpx;
+    width: 280rpx;
   height: 80rpx;
-  text-align: center;
+  text-align: left;
+  overflow:hidden; 
+text-overflow:ellipsis;
+white-space:nowrap;
 
 }
 .activeName text{
     font-size: 40rpx;
     line-height: 80rpx;
     color: white;
+    margin-left: 10rpx;
   
 }
 .time{

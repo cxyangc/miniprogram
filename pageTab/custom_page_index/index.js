@@ -6,6 +6,7 @@ var timer; // 计时器
 Page({
   
   data: {  
+    listenerId: null,
     /* seeting */ 
     setting:null,
     renderData:null,
@@ -34,7 +35,31 @@ Page({
 
   },
 
-  
+  // 子组件做出更改后更改相应的样式
+  exFun(v) {
+
+    console.log("56565555555555555555555555" + JSON.stringify(v))
+    console.log(this.data.PaiXuPartials)
+
+    this.data.listenerId = (v.currentTarget.id);
+
+    var data = this.data.PaiXuPartials;
+    var index = 0;
+    console.log(data.length)
+    var a = [];
+    for (var i = 0; i < data.length; i++) {
+      index = i;
+      console.log(data[index].partialType)
+      if (data[index].partialType == "13") {
+        a.push(data[index]);
+        console.log(a)
+        this.setData({
+          PaiXuPartials: a
+        })
+      }
+    }
+
+  },
   /* 搜索 */
   // searchProduct:function(e){
   //   var product = e.detail.value
@@ -308,8 +333,45 @@ Page({
     
   },
   onPullDownRefresh: function () {
-    this.onLoad();
-    wx.stopPullDownRefresh()
+    // 下拉刷新的时候首先判断存不存在tab
+
+    if (this.data.listenerId) {
+
+      console.log("hello:" + this.data.listenerId);
+      try {
+   
+        this.selectComponent('#' + this.data.listenerId).refresh();
+      } catch (e) {
+        console.log("e", e)
+      }
+    }
+    console.log(this.data.PaiXuPartials)
+
+    var data = this.data.PaiXuPartials;
+    var index = 0;
+    console.log(data.length)
+    var a = [];
+    for (var i = 0; i < data.length; i++) {
+      index = i;
+      console.log(data[index].partialType)
+      if (data[index].partialType == "13") {
+        a.push(data[index]);
+        console.log(a)
+        this.setData({
+          PaiXuPartials: a
+        })
+      }
+
+    }
+
+    if (this.data.PaiXuPartials.length == "0") {
+
+      this.onLoad();
+      // wx.stopPullDownRefresh()
+    }
+ 
+      wx.stopPullDownRefresh()
+ 
   },
 })
 function Countdown(page,that) {

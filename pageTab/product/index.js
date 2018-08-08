@@ -215,7 +215,7 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        console.log(res.data)
+        console.log("商品数据",res.data.result)
         wx.hideLoading()
         if (!res.data.result || res.data.result.length == 0) {
           that.setData({ productData: null })

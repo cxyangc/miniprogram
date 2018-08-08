@@ -1,0 +1,15 @@
+<import src="../../../wxParse/wxParse.wxml"/><!-- 富文本 -->
+<import src="simpleNearShop.wxml"/>  <!-- 普通的新闻列表 -->
+
+
+
+     <block wx:if='{{data.androidTemplate == ""}}'>
+  <template is="simpleNearShop" 
+       data="{{...data,shops,journey}}"></template> 
+  </block>
+
+
+
+
+<slot></slot>
+

@@ -121,9 +121,7 @@ Component({
         totalSecond--;
         if (totalSecond < 0) {
           clearInterval(interval);
-          wx.showToast({
-            title: '活动已结束',
-          });
+         
           this.setData({
             countDownDay: '00',
             countDownHour: '00',
@@ -154,12 +152,12 @@ Component({
       // 如果是已经开始的就前往详情
       var oldData = this.data;
       if (oldData.data.relateBean.promotionStatus == 1) {
-        wx.navigateTo({
-          url: '../../pages/new_promotion_products/index?promotionId=' + e.currentTarget.dataset.id,
-        })
+        var a = "product_detail.html?productId=" + e.currentTarget.dataset.index;
+        app.linkEvent(a);
       }
 
       if (oldData.data.relateBean.promotionStatus == 0) {
+
         wx.navigateTo({
           url: '../../pages/promotion_detail/index?promotionId=' + e.currentTarget.dataset.id,
         })

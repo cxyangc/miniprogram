@@ -13,6 +13,15 @@ Component({
     // 这里是一些组件内部数据
     someData: {}
   },
+     ready:function(){
+       // 主色调
+       console.log(JSON.stringify(app.setting.platformSetting.defaultColor));
+       console.log(JSON.stringify(app.setting.platformSetting.secondColor));
+       this.setData({
+         defaultColor: app.setting.platformSetting.defaultColor,
+         secondColor: app.setting.platformSetting.secondColor
+       })
+  },
   methods: {
     // 这里是一个自定义方法
 

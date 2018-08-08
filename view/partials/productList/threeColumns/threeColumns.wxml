@@ -4,7 +4,7 @@
 <block  wx:if="{{relateBean.length!=0}}">
   <view class='wrap'>
 
-    <view class='threeColumnsBox' wx:for="{{relateBean}}" wx:for-item="relateBean" wx:key="{{index}}"  bindtap='tolinkUrl' data-id='{{relateBean.id}}' wx:if="{{index<3}}"
+    <view class='threeColumnsBox' wx:for="{{relateBean}}" wx:for-item="relateBean" wx:key="{{index}}"  bindtap='tolinkUrl' data-id='{{relateBean.id}}' 
         style='border-left: 10px solid white;'>
        <view class='threeColumnsBoxImg'>
         <image mode='aspectFill' src='{{relateBean.imagePath}}'></image>

@@ -8,8 +8,12 @@
     "pageTab/fx_center/index",
     "pageTab/product_waimai_offline/index",
 
+    "pageTab/lanHu/index/index",
+    "pageTab/lanHu/teMai/index",
 
-          
+
+          "view/partials/tab/index",
+          "view/partials/custom_page/index",
           "view/partials/banner/banner",
             "view/partials/title/title",
           "view/partials/image_link/image_link",
@@ -20,6 +24,8 @@
           "view/partials/video/video",
           "view/partials/audio/audio",
            "view/partials/richText/richText",
+          "view/partials/nearShop/nearShop",
+
 
           "view/partials/productList/productList",
           "view/partials/newsList/newsList",
@@ -39,6 +45,8 @@
         "new_pay_offline/index",
         "nearby_stores/index",
         "integral_mall/index",
+       "nearShop/index", 
+
 
        "aikucun_car_list/index",
           "index/index",

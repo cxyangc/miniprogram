@@ -1,0 +1,22 @@
+{
+  "component": true,
+  "usingComponents": {
+    "component-tag-name": "../title/title",
+    "component-tag-nameBanner": "../banner/banner",
+    "component-tag-nameImageLink": "../image_link/image_link",
+    "component-tag-nameGridList": "../gridlist/gridlist",
+    "component-tag-nameHelpBlank": "../help_blank/help_blank",
+    "component-tag-nameTextLink": "../text_link/text_link",
+    "component-tag-namedetailList": "../detailList/detailList",
+    "component-tag-nameProductList": "../productList/productList",
+    "component-tag-nameVideo": "../video/video",
+    "component-tag-nameAudio": "../audio/audio",
+    "component-tag-nameNewsList": "../newsList/newsList",
+    "component-tag-nameCoupons": "../coupons/coupons",
+    "component-tag-nameActivitiesGoods": "../activitiesGoods/activitiesGoods",
+    "component-tag-nameActivitiesList": "../activitiesList/activitiesList",
+    "component-tag-nameRichText": "../richText/richText",
+    "component-tag-nameStores": "../stores/stores"
+  }
+  
+}

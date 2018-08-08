@@ -53,7 +53,12 @@
        data="{{...item.jsonData,...setting,sysWidth,...item,loginUser:loginUser,reportText:reportText}}"></template>  
 
        <!--组件化 -->
-      
+      <component-tag-nameNearShop  wx:if='{{item.partialType == "23"}}'  data="{{item}}"></component-tag-nameNearShop> <!-- 附近店铺-->
+
+
+
+
+      <component-tag-nametab id="tabPage{{index}}" wx:if='{{item.partialType == "13"}}'  data="{{item}}"   bind:action='exFun'></component-tag-nametab> <!-- 13 -->
 
      <component-tag-nameBanner wx:if='{{item.partialType =="7"}}' data="{{item}}"></component-tag-nameBanner><!-- 7 Banner-->
  <component-tag-name wx:if='{{item.partialType =="4"}}' data="{{item}}"></component-tag-name>  <!-- 4 标题 -->
