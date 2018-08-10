@@ -59,11 +59,6 @@ Page({
       }
     })
   },
-  /* 组件事件集合 */
-  tolinkUrl: function (e) {
-    let linkUrl = e.currentTarget.dataset.link
-    app.linkEvent(linkUrl)
-  },
   loginOut: function () {
     wx.navigateTo({
       url: '/pages/pre_change_user_info/index',
@@ -170,12 +165,15 @@ Page({
    */
   onLoad: function (options) {
 
+    console.log('======app.loginUser======', app.loginUser)
     this.setData({
       setting: app.setting,
       loginUser: app.loginUser
     })
-
-    this.getMendianInfo()
+    console.log('======this.loginUser======', this.data.loginUser)
+    if (this.data.loginUser.platformUser.managerMendianId){
+      this.getMendianInfo()
+      }
   },
 
   /**
