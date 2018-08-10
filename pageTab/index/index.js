@@ -33,13 +33,16 @@ Page({
 
       }
       else{
-        wx.reLaunch({
-          url: '/pageTab/' + app.miniIndexPage + '/index'
-        })
+        // wx.reLaunch({
+        //   url: '/pageTab/' + app.miniIndexPage + '/index'
+        // })
         // console.log("进入蓝湖")
         // wx.reLaunch({
         //   url: '/pageTab/lanHu/index/index'
         // })
+        wx.reLaunch({
+          url: '/pages/nearShop/index'
+        })
    
       }
  

@@ -1,16 +1,16 @@
 {
   "pages": [
-    "pageTab/index/index",
     "pageTab/custom_page_index/index",
+    "pageTab/index/index",
     "pageTab/product/index",
-    "pageTab/aikucun_car_list/index",
     "pageTab/aikucun_userinfo/index",
+    "pageTab/aikucun_car_list/index",
     "pageTab/fx_center/index",
     "pageTab/product_waimai_offline/index",
 
     "pageTab/lanHu/index/index",
     "pageTab/lanHu/teMai/index",
-
+    "pageTab/lanHu/myInfo/index",
 
           "view/partials/tab/index",
           "view/partials/custom_page/index",
@@ -154,9 +154,8 @@
         "selectedIconPath": "images/icons/cart2.png",
         "text": "购物车"
       },
-
       {
-        "pagePath": "pageTab/aikucun_userinfo/index",
+        "pagePath": "pageTab/lanHu/myInfo/index",
         "iconPath": "images/icons/me1.png",
         "selectedIconPath": "images/icons/me2.png",
         "text": "我的"
