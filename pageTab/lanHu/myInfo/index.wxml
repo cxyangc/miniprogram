@@ -87,7 +87,7 @@
         </view>
         <view class='data_right'>
           <image src='../../../images/myImg/user2.png' style='width:32rpx;height:32rpx;margin-right:8rpx'></image>
-          <text class='data_right_id'>ID:167910</text>
+          <text class='data_right_id'>ID:{{loginUser.platformUser.id}}</text>
           <image src='../../../images/check.png' style='width:20rpx;height:20rpx;margin-left:24rpx'></image>
         </view>
       </view>
@@ -109,7 +109,7 @@
             <text class='data_bottom_num'>¥0</text>
          </view>
 
-          <view class='data_bottom_items'>
+          <view class='data_bottom_items' data-link='mendian_order.html'   bindtap='tolinkUrl'>
             <view class='data_bottom_img_text'>
                 <image src='../../../images/myImg/calendar-check2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
                 <text class='data_bottom_text'>今日订单</text>
@@ -125,7 +125,7 @@
             <text class='data_bottom_num'>0</text>
          </view>
 
-          <view class='data_bottom_items'>
+          <view class='data_bottom_items' data-link='mendian_zijin.html'   bindtap='tolinkUrl'>
             <view class='data_bottom_img_text'>
                 <image src='../../../images/myImg/money_collect2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
                 <text class='data_bottom_text'>可提现金</text>
@@ -133,10 +133,10 @@
             <text class='data_bottom_num'>¥{{mendian.account.account}}</text>
          </view>
 
-          <view class='data_bottom_items'>
+          <view class='data_bottom_items' data-link='mendian_will_order.html'   bindtap='tolinkUrl'>
             <view class='data_bottom_img_text'>
                 <image src='../../../images/myImg/yuan2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
-                <text class='data_bottom_text'>待提现金</text>
+                <text class='data_bottom_text'>待实现金</text>
             </view>
             <text class='data_bottom_num'>¥{{mendian.waitCompleteOrderDistributeAmount}}</text>
          </view>
@@ -146,7 +146,7 @@
 </view>
 <!--我的订单(mendian) start -->
     <view class="profit_block_mendian" wx:if='{{loginUser.platformUser.managerMendianId}}'>
-      <view class='profit_block_top' data-link='mendian_order.html' bindtap='tolinkUrl'>
+      <view class='profit_block_top' data-link='order_list_0.html?easyStatus=0&easyStatusName=全部订单' bindtap='tolinkUrl'>
          <view class='profit_top_name'>
            <text>我的订单</text>
          </view>
@@ -180,15 +180,15 @@
 <!--我的功能 start -->
     <view class='profit_block mg_user' class="{{loginUser.platformUser.managerMendianId?'profit_block mg_mendian':'profit_block mg_user'}}">
         <view class='profit_block_fun_border'>
-          <view class='profit_block_top' data-link='mendian_order.html' bindtap='tolinkUrl'>
+          <view class='profit_block_top'>
             <view class='profit_top_name'>
               <text>我的功能</text>
             </view>
             <view class='profit_top_check'>
-              <text class='profit_check_name'>全部功能</text>
+              <!-- <text class='profit_check_name'>全部功能</text>
               <view class='profit_check_border'>
                   <image class='profit_check_img' src='../../../images/check.png'></image>
-              </view>
+              </view> -->
             </view>
           </view>
           <view class='profit_block_list'>
@@ -204,20 +204,24 @@
                 <text class='profit_items_text'>优惠券</text>
               </button>
             </view>
-            <view class='function_block_items' open-type="contact" session-from="weapp">
+            <view class='function_block_items'>
             <!-- <contact-button type="default-light" size="20" session-from="weapp"></contact-button> -->
-              <button open-type="contact" class='kefu_buttom' plain='true' hover-class="none" style='border:none'>
+              <button open-type="contact" class='kefu_buttom' plain='true' hover-class="none" style='border:none' wx:if='{{loginUser.platformUser.managerMendianId}}'>
+                <image class='function_items_img' src='../../../images/myImg/kefu2.png' style='width:48rpx;height:52rpx; box-sizing: border-box;padding-bottom:-5rpx'></image>
+                <text class='profit_items_text'>专属客服</text>
+              </button>
+              <button class='kefu_buttom' plain='true' hover-class="none" style='border:none'  data-link='mendian_kefu_code.html?imgData={{loginUser.platformUser.mendian.kefuQrcode}}'   bindtap='tolinkUrl' wx:else>
                 <image class='function_items_img' src='../../../images/myImg/kefu2.png' style='width:48rpx;height:52rpx; box-sizing: border-box;padding-bottom:-5rpx'></image>
                 <text class='profit_items_text'>专属客服</text>
               </button>
             </view>
-            <view class='function_block_items' data-link='mendian_back_item.html'   bindtap='tolinkUrl'>
+            <view class='function_block_items' data-link='news_list.html?newsTypeId=84&pageNage=授权中心'   bindtap='tolinkUrl'>
               <button class='kefu_buttom' plain='true' hover-class="none" style='border:none'>
               <image class='function_items_img' src='../../../images/myImg/authorization2.png' style='width:43rpx;height:53rpx'></image>
               <text class='profit_items_text'>授权中心</text>
               </button>
             </view>
-            <view class='function_block_items' data-link='news_list.html?newsTypeId=5&pageNage=关于我们' bindtap='tolinkUrl'>
+            <view class='function_block_items' data-link='news_list.html?newsTypeId=83&pageNage=关于我们' bindtap='tolinkUrl'>
               <button class='kefu_buttom' plain='true' hover-class="none" style='border:none'>
               <image class='function_items_img' src='../../../images/myImg/about_us2.png' style='width:48rpx;height:48rpx'></image>
               <text class='profit_items_text' >关于我们</text>

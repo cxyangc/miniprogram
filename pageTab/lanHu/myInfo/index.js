@@ -25,7 +25,49 @@ Page({
   submitFormId: function (e) {
     this.toApplyForFacilitator(e);
   },
+  getSessionUserInfo: function () {
+    var that = this;
+    var postParamUserBank = app.AddClientUrl("/get_session_userinfo.html")
+    wx.request({
+      url: postParamUserBank.url,
+      data: postParamUserBank.params,
+      header: app.headerPost,
+      success: function (res) {
+        console.log(res.data)
 
+        if (res.data.errcode == '0') {
+          let UserInfo = res.data.relateObj.platformUser
+          // let orderData = that.orderData
+          // orderData.cells[0].showCountNum = UserInfo.unpayedCount
+          // orderData.cells[1].showCountNum = UserInfo.unsendedCount
+          // orderData.cells[2].showCountNum = UserInfo.unreceivedCount
+
+          that.setData({
+            // orderData: orderData,
+            loginUser: res.data.relateObj
+          })
+          app.loginUser = res.data.relateObj
+        } else {
+          wx.showToast({
+            title: res.data.errMsg,
+            image: '/images/icons/tip.png',
+            duration: 1000
+          })
+        }
+      },
+      fail: function (res) {
+
+        // unsendedCount //待发货
+        // unreceivedCount //待收货
+        // unpayedCount //逮住款
+
+        console.log(res.data)
+      },
+      complete: function (res) {
+        wx.stopPullDownRefresh()
+      }
+    })
+  },
   getMendianInfo: function () {
     console.log('-------门店-1-------')
     let params = {}
@@ -208,10 +250,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.onLoad()
-    setTimeout(function () {
-      wx.stopPullDownRefresh()
-    }, 2000)
+    this.getSessionUserInfo()
+    // this.onLoad()
+    // setTimeout(function () {
+    //   wx.stopPullDownRefresh()
+    // }, 2000)
 
   },
 

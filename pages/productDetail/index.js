@@ -22,6 +22,9 @@ Page({
     commitList:[],
     measurementJson:null,
   },
+  toIndex: function () {
+    app.toIndex()
+  }, 
   showCouponState: function (e) {
     var index = e.currentTarget.dataset.id
     this.setData({

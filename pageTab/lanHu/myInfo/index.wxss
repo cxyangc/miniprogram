@@ -70,9 +70,9 @@
   flex-direction: row;
   align-items: center;
   border: 1rpx solid #fff;
-  border-radius: 14rpx;
+  border-radius: 20rpx;
   width: 118rpx;
-  height: 28rpx;
+  height: 30rpx;
 }
 .user_shop_name{
   font-size: 18rpx;

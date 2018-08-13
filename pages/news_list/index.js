@@ -95,6 +95,7 @@ Page({
   
   /* 获取新闻列表数据 */
   getNewsData: function (param,ifAdd){
+    console.log("param", param)
     var that = this
     if (!param){
       param = ''
@@ -133,8 +134,9 @@ Page({
   },
   
   onLoad: function (options) {
+    console.log("======options=====", options)
     this.getNewsData(options)
-    this.getCusPage();
+    // this.getCusPage();
     this.opt = options
     if (options.pageNage){
       wx.setNavigationBarTitle({

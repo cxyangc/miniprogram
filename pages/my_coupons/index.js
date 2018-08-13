@@ -52,7 +52,7 @@ Page({
     //加载tab项
     let tab = [
       {
-        title: '进行中',
+        title: '未使用',
         linkUrl: '',
         page: 1,
         pageSize: 0,
@@ -60,7 +60,7 @@ Page({
         totalSize: 0,
       },
       {
-        title: '活动预告',
+        title: '已过期',
         linkUrl: '',
         page: 1,
         pageSize: 0,
@@ -68,7 +68,7 @@ Page({
         totalSize: 0,
       },
       {
-        title: '过期活动',
+        title: '已使用',
         linkUrl: '',
         page: 1,
         pageSize: 0,
