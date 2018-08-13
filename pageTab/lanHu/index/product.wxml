@@ -18,11 +18,23 @@
 
    
        <!--  -->
-     <view class='share_box'wx:if='{{showShare}}'  catchtap='ceshi'>
-   <!-- <button class='share_box_item' open-type='share' data-index='{{index}}'></button>  -->   <button class='share_box_item' open-type='share' data-index='{{index}}' >
-              <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/35/2_810.jpg'></image>
+     <view class='share_box'wx:if='{{showShare}}' catchtouchmove="preventD">
+     <!--第一个button  -->
+   <button class='share_box_item' open-type='share' data-index='{{index}}' >
+   <view class='share_box_item_img'>
+           <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/35/2_810.jpg'></image> 
+   </view>
+       
               <text>分享</text>
             </button>
+       <!--第二个button   -->
+        <!-- <button class='share_box_item' open-type='share' data-index='{{index}}' >
+   <view class='share_box_item_img'>
+           <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/35/2_810.jpg'></image> 
+   </view>
+       
+              <text>分享</text>
+            </button> -->
           </view>  
        </view>
        <view class='jieShao'>

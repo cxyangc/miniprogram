@@ -29,7 +29,10 @@ Page({
     focusData: null,
     measurementJson: null,
   },
+  //防止点击穿透 背景层
+  preventD: function () {
 
+  },
   /**
    * 生命周期函数--监听页面加载
    */

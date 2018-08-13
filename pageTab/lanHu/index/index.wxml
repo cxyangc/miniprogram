@@ -23,7 +23,7 @@
   <view class='user'>
     <view class='usrBox'>
   <!--用户头像  -->
-     <view class="userImg" wx:if="{{loginUser.logo&&loginUser.logo!=''}}"><image mode='aspectFill' src='{{loginUser.logo}}'></image></view>
+     <view class="userImg" wx:if="{{loginUser.logo&&loginUser.logo!=''&&loginUser.logo!='0'}}"><image mode='aspectFill' src='{{loginUser.logo}}'></image></view>
           <view class="userImg" wx:else><image mode='aspectFill' src='../../../images/333.jpg'></image></view>
 
   <!--用户名  -->
