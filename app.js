@@ -7,15 +7,15 @@ App({
      //clientUrl: 'http://192.168.30.92:3000/chainalliance/',  //勇哥ip 链接地址
     //  clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
     //  clientUrl: 'http://192.168.40.180:3000/chainalliance/',  // 本地ip 链接地址
-  //    clientUrl: 'http://www2.aikucun.xyz/chainalliance/',
- //  clientUrl: 'https://mini.tunzai.vip/chainalliance/',
-    clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+    // clientUrl: 'http://www2.aikucun.xyz/chainalliance/',
+  //clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+  clientUrl: 'https://mini.tunzai.vip/chainalliance/',
   // clientUrl: 'http://192.168.1.12:3000/chainalliance/',
 
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */
-   clientNo: 'jianzhan',   //自定义的项目的名称。
+     clientNo: 'tunzai',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
@@ -161,8 +161,15 @@ App({
     toIndex: function () {
         console.log('首页叫做：' + this.miniIndexPage)
 
+        console.log('首页叫做：' + this.clientNo)
         //这个需要注意  switchTab  和  redirectTo
 
+        if(this.clientNo=='tunzai'){
+        wx.switchTab({
+          url: '/pageTab/lanHu/index/index',
+        })
+        return;
+        }
         if (this.miniIndexPage) {
             wx.switchTab({
                 url: '/pageTab/' + this.miniIndexPage + '/index',
@@ -314,6 +321,7 @@ App({
             theResult.url = str2
             theResult.param = str3
         }
+        console.log("======theResult======", theResult)
         return theResult
     },
     getSpaceStr: function (str, p) {
@@ -358,13 +366,14 @@ App({
 
     //link事件   绑定导向对应的控件上
     linkEvent: function (linkUrl) {
+      console.log('====linkUrl======', linkUrl)
         if (!linkUrl) {
             return
         }
         let urlData = this.getUrlParams(linkUrl)
         let If_Order_url = urlData.url.substr(0, 10)
         console.log('-----toGridLinkUrl---------')
-        console.log(urlData)
+        console.log('==urlData===',urlData)
         console.log(If_Order_url)
 
         if (linkUrl.substr(0, 3) == 'tel') {
@@ -398,10 +407,10 @@ App({
             })
         }
         else if (linkUrl.substr(0, 4) == 'news') {
-        
+        console.log("======newsList=======")
       
           wx.navigateTo({
-            url: '/pages/news_list/index',
+            url: '/pages/news_list/index' + urlData.param,
           })
         }
         else if (urlData.url == 'shop_map') {
