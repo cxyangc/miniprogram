@@ -1,0 +1,8 @@
+<view class='container'>
+<!--按钮  -->
+<view class='btn'  bindtap='tolinkUrl'>点击成为囤主</view>
+
+<!--背景  -->
+ <image class='bg' src='http://image.tunzai.vip/tunzai/2018_8/10/21/22/17_812.jpg'></image>
+
+</view>

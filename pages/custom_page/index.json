@@ -11,13 +11,14 @@
   "component-tag-nameProductList": "../../view/partials/productList/productList",
   "component-tag-nameVideo": "../../view/partials/video/video",
   "component-tag-nameAudio": "../../view/partials/audio/audio",
+  "component-tag-nameNearShop": "../../view/partials/nearShop/nearShop",
   "component-tag-nameNewsList": "../../view/partials/newsList/newsList",
   "component-tag-nameCoupons": "../../view/partials/coupons/coupons",
   "component-tag-nameActivitiesGoods": "../../view/partials/activitiesGoods/activitiesGoods",
   "component-tag-nameActivitiesList": "../../view/partials/activitiesList/activitiesList",
   "component-tag-nameRichText": "../../view/partials/richText/richText",
-  "component-tag-nameStores": "../../view/partials/stores/stores"
-
-  }
+  "component-tag-nameStores": "../../view/partials/stores/stores",
+  "component-tag-nametab": "../../view/partials/tab/index"
+}
 
 }

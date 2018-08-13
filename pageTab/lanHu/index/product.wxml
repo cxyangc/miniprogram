@@ -1,3 +1,6 @@
+
+
+
 <!--正常的标题 -->
 <template name="simpleProductList">
 
@@ -5,29 +8,52 @@
 
 <block  wx:if="{{products.length!=0}}">
     <view class='detail_list_mode1' >
-      <view class="mode1_items"   wx:for="{{products}}" wx:for-item="products" wx:key="{{index}}"  bindtap='tolinkUrl' data-id='{{products.id}}' > 
+      <view class="mode1_items"   wx:for="{{products}}" wx:for-item="products"  bindtap='tolinkUrl' data-id='{{products.id}}' wx:key="index" > 
         <view class='mode1_itemsImg' >
         <image  mode='aspectFill'  src="{{products.imagePath}}"></image>
-        <view class='show'> <image  mode='aspectFill'  src="../../../images/icon/share6x.png"></image></view>
+        <!--分享  -->     
+        <view class='show' catchtap='showCardShare'data-index='{{index}}'>
+          <image  mode='aspectFill'  src="../../../images/icon/share6x.png"></image>  
+          </view>
+
+   
+       <!--  -->
+     <view class='share_box'wx:if='{{showShare}}'  catchtap='ceshi'>
+   <!-- <button class='share_box_item' open-type='share' data-index='{{index}}'></button>  -->   <button class='share_box_item' open-type='share' data-index='{{index}}' >
+              <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/35/2_810.jpg'></image>
+              <text>分享</text>
+            </button>
+          </view>  
        </view>
        <view class='jieShao'>
         <!-- 价格和购物车图片   -->
-      <view class='NewBox'>
-         <text>￥{{products.price}}</text> 
-         <!-- <image src="../../../images/icons/shoppingCar.png"></image>  -->
-        </view> 
-       
-      <view class='center' style='width:{{(1/jsonData.column)*sysWidth-40}}px;'>{{products.name}}</view> 
+    
+       <view class='priceBox'>
+               
+                <text class='price'>￥{{products.price}}</text>
+                <block wx:if='{{products.price < products.tagPrice}}'>
+                  <text class='priceTagLine'>￥{{products.tagPrice}}</text>
+                </block>
+               
 
-       <view class='smallText' style='width:{{(1/jsonData.column)*sysWidth-40}}px;'>
-               <text>CHILI X 1</text> 
-          <image src="../../../images/icon/Cart1@3x.png"></image>  
+            
+                   </view>
+       
+      <view class='center1'>
+         <view class='centerName'>  {{products.name}}</view>
+           <view class='smallText'>
+           <image catchtap="bindAddtocart"   data-index="{{index}}" data-bindbuy='addto' src="../../../images/icon/Cart1@3x.png"></image>   
     </view> 
+    </view> 
+
+     
       
  </view>
       </view>
     </view>
 </block>
+
+
 
 <block wx:if="{{products.length==0}}">
             <view class="noproduct">

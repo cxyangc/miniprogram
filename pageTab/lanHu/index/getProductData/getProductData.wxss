@@ -59,6 +59,15 @@ page{
   color: #aaa;
   margin-left: 10px;
   text-decoration: line-through;
+
+}
+.priceBox{
+  width: 100%;
+  height: 40rpx;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+
 }
 
 .priceBox .priceTagLine{
@@ -69,11 +78,27 @@ page{
 font-size: 30rpx;
 color: red;
 }
+
+
+
+.priceBox image{
+  width: 60rpx;
+  height: 15rpx;
+  margin-top: 10rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+}
+.name{
+  margin-top: -20rpx;
+  margin-left: 12rpx;
+}
 .smallText1{
    width: 300rpx;
-   height: 38rpx;
+   height: 30rpx;
    margin-left: 12rpx;
-   margin-top: -35rpx;
+   margin-top: -50rpx;
    display: flex;
    flex-direction: row;
    justify-content: space-between;
@@ -82,17 +107,8 @@ color: red;
 font-size: 20rpx;
 display: block;
 color:   #D2D2D2;
-line-height: 38rpx;
+line-height: 30rpx;
 }
-
-.priceBoxImg{
-  width: 60rpx;
-  height: 36rpx;
-  /* background-color: yellow; */
-}
-
-
-
 .noproduct image{
   width: 30%;
 }

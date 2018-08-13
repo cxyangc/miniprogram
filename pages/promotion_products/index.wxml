@@ -16,6 +16,7 @@
       <view id='promotionItem' class='promotionItem' wx:for='{{productData}}' wx:for-item="result" wx:key='item_{{index}}'>
         <view class='share_view '> 
           <view  wx:if='{{!result.showShare}}' class='sharePoint' data-index='{{index}}' catchtap='showCardShare'>
+          <!--分享的图标  -->
             <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/28/48_387.jpg?imageMogr2/thumbnail/120x/interlace/0'></image>
           </view>  
           <view class='share_box' wx:if='{{result.showShare}}'>
@@ -87,8 +88,8 @@
 
 </view> 
 
-
- <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template> 
+<!--加入购物车的遮罩层  -->
+  <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template>  
 
  
 <view class='cartButn' style='background:{{setting.platformSetting.defaultColor}}'  bindtap='toCart'>

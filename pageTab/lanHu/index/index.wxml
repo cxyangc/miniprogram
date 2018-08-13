@@ -1,31 +1,33 @@
 <import src="product.wxml"/>
 <import src="getProductData/getProductData.wxml"/>
+   <import src="../../../view-new/aikucun/measure_card.wxml"/>
+
 
 
 <!--头部tab  -->
 
-<view class='index'>
+<view class='index'  >
 <view  class='wrap'  wx:if="{{activityPromotion.length!=0}}">
     <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}" >
     <!--特卖  -->
-    <view class="tab-item {{currentTab==0?'active':'black'}}"  data-current="0"  bindtap="swichNav"   data-id="0">特卖</view>
+    <!-- <view class="tab-item {{currentTab==0?'active':'black'}}"  data-current="0"  bindtap="swichNav"   data-id="0">特卖</view> -->
 
         <view wx:for="{{activityPromotion}}" class="tab-item {{currentTab==index+1?'active':'black'}}"  data-current="{{index+1}}" data-id="{{item.id}}" bindtap="swichNav" wx:key="index+1">{{item.name}}</view>
     </scroll-view>
 </view>
 </view>
 <!--做锚点  -->
-<scroll-view class='content'  scroll-into-view="{{toView}}" scroll-y="true"  scroll-with-animation="true">
+<scroll-view   class='content1'   scroll-into-view="{{toView}}" scroll-y="true"  scroll-with-animation="true" >
 <!--特卖，日销  -->
-<view class='sale' >
+<view class='sale'  id="inToView0">
   <view class='user'>
     <view class='usrBox'>
   <!--用户头像  -->
-     <view class="userImg" wx:if="{{platformSetting.logo&&platformSetting.logo!=''}}"><image mode='aspectFill' src='{{platformSetting.logo}}'></image></view>
-          <view class="userImg" wx:else><image mode='aspectFill' src='../../../images/1.png'></image></view>
+     <view class="userImg" wx:if="{{loginUser.logo&&loginUser.logo!=''}}"><image mode='aspectFill' src='{{loginUser.logo}}'></image></view>
+          <view class="userImg" wx:else><image mode='aspectFill' src='../../../images/333.jpg'></image></view>
 
   <!--用户名  -->
-   <view class='userText' wx:if="{{platformSetting.platformName&&platformSetting.platformName!=''}}"><text>{{platformSetting.platformName}}</text></view> 
+   <view class='userText' wx:if="{{loginUser.name&&loginUser.name!=''}}"><text>{{loginUser.name}}</text></view> 
     <view class='userText' wx:else><text>暂无店铺名</text></view> 
    <!--等级  -->
       <view class='level'><text>LV1</text></view>  
@@ -43,18 +45,18 @@
 
   </view>
 
-<!-- 特卖，日销 图片 -->
+<!-- 特卖，日销 图片 bindtap='tiaoZhuan'  -->
 <view class='center' >
-  <view class='centerLeft' bindtap='tiaoZhuan' >
-        <view class='centerLeftImg'><image mode='aspectFill' src='../../../images/1.png'></image></view> 
+  <view class='centerLeft' bindtap="anchor"   data-id="18">
+        <view class='centerLeftImg'><image mode='aspectFill' src='http://image.tunzai.vip/tunzai/2018_8/10/18/12/56_719.jpg'></image></view> 
         <view class='centerLeftText'>
         <view class='teMai'><text>特卖</text></view>
         <view class='teMai2'> <text>MAC口红超低价</text></view>
           
         </view>
   </view>
-  <view class='centerLeft'>
-    <view class='centerLeftImg'><image mode='aspectFill' src='../../../images/2.png'></image></view> 
+  <view class='centerLeft' bindtap="anchor"   data-id="18">
+    <view class='centerLeftImg'><image mode='aspectFill' src='http://image.tunzai.vip/tunzai/2018_8/10/18/13/37_49.jpg'></image></view> 
         <view class='centerLeftText'>
         <view class='teMai'><text>热销</text></view>
         <view class='teMai2'> <text>爆款安耐晒已到货</text></view>
@@ -64,10 +66,11 @@
 </view>
 
 <!--活动列表  -->
- <view class='activeList' wx:for="{{activityPromotion}}" >
+ <view class='activeList' wx:for="{{activityPromotion}}" wx:key="index">
       <view class='activeListtImg' bindtap='click' data-id='{{item.id}}'  id="{{'inToView'+item.id}}"> <image mode='aspectFill' src='{{item.promotionBanner}}'></image> 
-       <view class='priceKode'>价格低至2折起</view>
+       <!-- <view class='priceKode'>价格低至2折起</view> -->
       <view class='time'>
+       <view class='timeBoxDay'> <text>{{countDownList[index].hou}}天</text></view>
              <view class='timeBox'> <text>{{countDownList[index].hou}}</text></view>
        
          <view class='timeBox'> <text>{{countDownList[index].min}}</text></view>
@@ -81,15 +84,17 @@
       
   <block >
   <template is="simpleProductList" 
-       data="{{...item}}"></template> 
+       data="{{...item,setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson,showShare}}"></template> 
   </block>
  </view>
 
 <!--未开始活动列表  -->
- <view class='activeList'wx:if="{{unactivityPromotion.length!=0}}" wx:for="{{unactivityPromotion}}"  id="inToView0" bindtap='click1' data-id='{{item.id}}'>
+ <view class='activeList'wx:if="{{unactivityPromotion.length!=0}}" wx:for="{{unactivityPromotion}}"  id="{{'inToView'+item.id}}" bindtap='click1' data-id='{{item.id}}'>
       <view class='activeListtImg'>  <image mode='aspectFill' src='{{item.promotionBanner}}'></image> 
-         <view class='priceKode'>价格低至2折起</view>
+         <!-- <view class='priceKode'>价格低至2折起</view> -->
       <view class='time'>
+       <view class='timeBoxDay'> <text>{{countDownList1[index].hou}}天</text></view>
+
              <view class='timeBox'> <text>{{countDownList1[index].hou}}</text></view>
        
          <view class='timeBox'> <text>{{countDownList1[index].min}}</text></view>
@@ -102,12 +107,20 @@
 
  </view>
 
-
-
+<!--商品数据  -->
+<!-- 
     <block >
    
   <template is="getProductData" 
        data="{{getProductData}}"></template> 
-  </block>
+  </block> -->
 
-</scroll-view>
+    <view data-link='promotion_products.html' bindtap="tolinkUrl1" >测试用的跳转到promotion_products页面</view>
+      
+</scroll-view> 
+
+
+<!--加入购物车的遮罩层  -->
+  <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template>  
+
+

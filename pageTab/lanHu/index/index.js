@@ -6,6 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+  //  分享
+    focusIndex: 0,
+    showShare:false,
+
+
+    screenHeight:"",//手机高度
     activityPromotion: [],//已经开始的活动
     unactivityPromotion:[],//还未开始的活动
     sysWidth: "",
@@ -15,6 +21,13 @@ Page({
     countDownList1:[],
     toView: 'inToView01',
     getProductData:[],//商品列表
+    activityPromotionAll:[],
+    productData:[],//加入购物车用的商品数据
+
+    //规格信息
+    showCount: false,
+    focusData: null,
+    measurementJson: null,
   },
 
   /**
@@ -23,11 +36,26 @@ Page({
   onLoad: function (options) {
     this.getData();
     this.getProductData()
-    console.log("用户信息", app.setting.platformSetting)
+    console.log("用户信息", app.loginUser)
+    if (app.loginUser && app.loginUser != "" && app.loginUser.platformUser.mendian){
       this.setData({
-        platformSetting: app.setting.platformSetting
+        loginUser: app.loginUser.platformUser.mendian
       })
-   
+    }
+    var that=this;
+    //  获取手机高度
+    // wx.getSystemInfo({
+    //   success: function (res) {
+    //     console.log("手机高度",res.screenHeight)
+    //     let screenHeight = res.screenHeight*2-420;
+    //     screenHeight = screenHeight+"rpx"
+    //     console.log("screenHeight:" + screenHeight);
+    //     that.setData({
+    //       screenHeight: screenHeight
+    //     })
+    //   }
+    // })
+ 
    
   },
   getData: function () {
@@ -39,13 +67,31 @@ Page({
       header: app.header,
       success: function (res) {
         console.log("====== res.data=========", res.data)
+        let activityPromotion = res.data.activityPromotion;
+        let unactivityPromotion = res.data.unactivityPromotion;
+        let activityPromotionAll = activityPromotion.concat(unactivityPromotion)
+   
+        console.log("activityPromotionAll", activityPromotionAll);
+        // productData:商品数据 加入购物车用的
+        var index="0"
+        var productData=[];
+        for (var i = 0; i < activityPromotion.length;i++){
+            index=i;
+         
+            productData = productData.concat(activityPromotion[index].products);
+         
+        }
+        console.log("productData", productData);
+
       that.setData({
         activityPromotion: res.data.activityPromotion,
-        unactivityPromotion: res.data.unactivityPromotion
+        unactivityPromotion: res.data.unactivityPromotion,
+        activityPromotionAll: activityPromotionAll,
+        productData: productData,
           })
         wx.hideLoading()
         if (that.data.activityPromotion.length==0){
-          that.getData();
+          console.log("无")
         }
         else{
           that.getTimeAll();
@@ -169,6 +215,15 @@ Page({
 
   
   },
+  // 制作锚点
+  anchor:function(e){
+    console.log(e.currentTarget.dataset.id)
+    var _id = e.target.dataset.id;
+    this.setData({
+      toView: 'inToView' + _id
+    })
+  },
+
   //判断当前滚动超过一屏时，设置tab标题滚动条。
   checkCor: function () {
     if (this.data.currentTab > 4) {
@@ -364,8 +419,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.onLoad();
     wx.stopPullDownRefresh()
+    this.getData();
+  
+  
   },
 
   /**
@@ -383,9 +440,425 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
+    console.log("hahaha",res)
+    if (res.from == "button") {
+      let index = res.target.dataset.index
+      let productData = this.data.productData
+      let focusData = productData[index]
+      if (!focusData.brandName || focusData.brandName == "") {
+        focusData.brandName = ""
+      };
+      let imageUrl = focusData.imagePath
+
+      let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tagPrice + ')' + focusData.brandName + focusData.name
+
+      let shareParams = this.opt
+      shareParams.productName = focusData.productCode
+      console.log('nnnnnnnnnn' + shareName)
+      return app.shareForFx2('promotion_products', shareName, shareParams, imageUrl)
+    }
+
+    else {
+      let that = this
+      let params = that.opt
+      console.log('params:' + params)
+      return app.shareForFx2('promotion_products', '', params)
+    }
+  },
+  
+// 测试用的跳转到promotion_products页面
+  tolinkUrl1: function (event) {
+    console.log(event.currentTarget.dataset.link)
+    app.linkEvent(event.currentTarget.dataset.link);
+
+  },
+
+
+  /* 全部参数 */
+  params: {
+    page: 1,
+    promotionId: "",
+    productName: '',
+    pageSize: 0,
+    totalSize: 0,
+    curpage: 1
+  },
+  byNowParams: {
+    productId: '',
+    itemCount: 1,
+    shopId: '',
+    cartesianId: '0',
+    orderType: ''
+  },
+  subNum: function () {
+    if (this.byNowParams.itemCount == 1) {
+      return
+    }
+    this.byNowParams.itemCount--;
+    this.setData({ byNowParams: this.byNowParams })
+  },
+  addNum: function (e) {
+    let cantadd = e.currentTarget.dataset.cantadd;
+    if (cantadd == 1) {
+      return
+    } else {
+      this.byNowParams.itemCount++;
+      this.setData({ byNowParams: this.byNowParams })
+    }
+  },
+
+  //点击加入购物车或立即下单
+  bindAddtocart: function (e) {
+    var index = e.currentTarget.dataset.index;
+    console.log("index", index)
+    this.dellBindItem(index, 'addto')
+  },
+  bindBuy: function (e) {
+    var index = e.currentTarget.dataset.index;
+    this.dellBindItem(index, 'tobuy')
+  },
+  dellBindItem: function (index, bindType) {
+    
+    let productData = this.data.productData
+    let focusData = productData[index]
+
+    this.byNowParams.productId = focusData.id
+    this.byNowParams.shopId = focusData.belongShopId
+    this.byNowParams.orderType = 0
+    this.chooseMeasureItem(focusData)
+    console.log(focusData)
+    this.setData({
+      focusData: focusData,
+      showCount: true,
+      byNowParams: this.byNowParams,
+      bindType: bindType
+    })
+  },
+  buyNow: function () {
+    console.log(this.byNowParams)
+    if (!app.checkShopOpenTime()) {
+      return
+    }
+
+    if (!app.checkIfLogin()) {
+      return
+    }
+    if (this.data.bindType == 'addto') {
+      //加入购物车
+      console.log('加入购物车')
+      this.addtocart()
+    } else {
+      //立即购买
+      console.log('立即购买')
+      this.createOrder22(this.byNowParams)
+    }
+
+  },
+
+  /* 加入購物車 */
+  addtocart: function () {
+
+    if (!app.checkIfLogin()) {
+
+      return
+    }
+    var params = {
+      cartesianId: '',
+      productId: '',
+      shopId: '',
+      count: '',
+      type: '',
+    }
+
+    if (!this.data.focusData.measureItem || this.data.focusData.measureTypes.length == 0) {
+      params.cartesianId = '0'
+    }
+    else {
+      params.cartesianId = this.data.measurementJson.id
+    }
+
+    params.productId = this.data.focusData.id
+    params.shopId = this.data.focusData.belongShopId
+    params.count = this.byNowParams.itemCount
+    params.type = 'add'
+
+    this.postParams(params)
+
+  },
+
+  getCart: function () {
+
+    var params = {}
+    params.productId = 0
+    params.count = 0
+    params.type = 'add'
+    this.postParams(params)
+  },
+  postParams: function (data) {
+    var that = this
+    var customIndex = app.AddClientUrl("/change_shopping_car_item.html", data, 'post')
+    wx.request({
+      url: customIndex.url,
+      data: customIndex.params,
+      header: app.headerPost,
+      method: 'POST',
+      success: function (res) {
+        console.log('---------------change_shopping_car_item-----------------')
+        console.log(res.data)
+        wx.hideLoading()
+
+        if (that.data.bindType == 'addto') {
+          that.setData({ showCount: false })
+        }
+        if (data.productId == 0) {
+          console.log('购物车里面的商品数量')
+          that.setData({
+            carCount: res.data.totalCarItemCount
+          })
+        } else {
+          if (res.data.productId && res.data.productId != 0) {
+            that.setData({
+              carCount: res.data.totalCarItemCount
+            })
+            if (data.count == 0) {
+              console.log('通过加入购物车来确定购物车里面的商品数量')
+            } else {
+              wx.showToast({
+                title: '加入购物车成功',
+              })
+            }
+          } else {
+            wx.showToast({
+              title: res.data.errMsg,
+              image: '/images/icons/tip.png',
+              duration: 3000
+            })
+          }
+        }
+
+
+
+      },
+      fail: function (res) {
+        wx.hideLoading()
+        app.loadFail()
+      }
+    })
+  },
+
+  /* 创建订单 */
+  createOrder22: function (o) {
+    var customIndex = app.AddClientUrl("/buy_now.html", o, 'post')
+    var that = this
+    wx.showLoading({
+      title: 'loading',
+      mask: true
+    })
+    wx.request({
+      url: customIndex.url,
+      data: customIndex.params,
+      header: app.headerPost,
+      method: 'POST',
+      success: function (res) {
+        console.log(res)
+        if (!!res.data.orderNo) {
+          wx.hideLoading()
+          wx.navigateTo({
+            url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
+          })
+        } else {
+          wx.hideLoading()
+          wx.showToast({
+            title: res.data.errMsg,
+            image: '/images/icons/tip.png',
+            duration: 2000
+          })
+        }
+      },
+      fail: function (res) {
+        wx.hideLoading()
+        app.loadFail()
+      },
+      complete: function (res) {
+
+      }
+    })
+  },
+  closeZhezhao: function () {
+    this.MeasureParams = []
+    this.setData({ showCount: false, focusData: null })
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  opt: {},
+  loadOpt: function (options) {
+    // 设置页面标题
+    if (options.description) {
+      this.setData({
+        acReport: decodeURIComponent(options.description)
+      })
+    }
+    let navName = options.navName
+    if (navName) {
+      wx.setNavigationBarTitle({
+        title: navName,
+      })
+    }
+
+  },
+
+  /* 
+     规格操作
+  */
+  MeasureParams: [],
+
+  //获取规格价格参数
+  get_measure_cartesion: function () {
+    this.byNowParams.cartesianId = -1
+    let productId = this.data.focusData.id
+    let postStr = ''
+    if (this.MeasureParams.length == 0) {
+      this.byNowParams.cartesianId = '0'
+      return
+    }
+    for (let i = 0; i < this.MeasureParams.length; i++) {
+      postStr += this.MeasureParams[i].value + ','
+    }
+    let param = {}
+    param.productId = productId
+    param.measureIds = postStr
+    let customIndex = app.AddClientUrl("/get_measure_cartesion.html", param)
+
+    var that = this
+    wx.request({
+      url: customIndex.url,
+      header: app.header,
+      success: function (res) {
+        if (!res.data.id) {
+          // 没有这个参数
+          //......
+          console.log('error')
+          //.....
+        }
+        console.log(res.data)
+        that.byNowParams.cartesianId = res.data.id
+        that.setData({
+          measurementJson: res.data
+        })
+      },
+      fail: function (res) {
+        console.log("fail")
+        app.loadFail()
+      },
+      complete: function () {
+      },
+    })
+  },
+  /* 初始化 选规格 */
+  chooseMeasureItem: function (focusData) {
+    console.log('----------初始化规格参数-----------')
+    if (!focusData.measureItem) {
+      return
+    }
+    for (let i = 0; i < focusData.measureTypes.length; i++) {
+      focusData.measureTypes[i].checkedMeasureItem = 0
+      //初始化选择的数据
+      let param = {}
+      param.name = focusData.measureTypes[i].name
+      param.value = focusData.measureTypes[i].productAssignMeasure[0].id
+
+      this.MeasureParams.push(param)
+     
+    }
+    console.log(focusData.measureTypes.length)
+    this.setData({
+      focusData: focusData
+    })
+    this.get_measure_cartesion()
+  },
+  //选择规格小巷的---显示
+  radioChange: function (e) {
+    let index = e.currentTarget.dataset.index
+    let indexJson = app.getSpaceStr(index, '-')
+    //console.log(indexJson)
+
+    let focusData = this.data.focusData
+    focusData.measureTypes[indexJson.str1].checkedMeasureItem = indexJson.str2
+    this.setData({ focusData: focusData })
+  },
+  //选择规格小巷---获取数据
+  chooseMeasure: function (e) {
+    console.log(e.detail.value)
+    let chooseMeasureJson = app.getSpaceStr(e.detail.value, '-')
+    console.log(chooseMeasureJson)
+
+    for (let i = 0; i < this.MeasureParams.length; i++) {
+      if (this.MeasureParams[i].name == chooseMeasureJson.str1) {
+        this.MeasureParams[i].value = chooseMeasureJson.str2
+      }
+    }
+    this.get_measure_cartesion()
+  },
+
+
+
+
+  // 分享的部分
+  //点击 ...  显示分享
+  showCardShare: function (e) {
+    let oldIndex = this.data.focusIndex 
+    let index = e.currentTarget.dataset.index;
+
+    let productData = this.data.productData
+    let focusData = productData[index]
+    console.log("focusData", focusData)
+    let showShare = this.data.showShare
+    if (oldIndex == index) {
+      showShare = !showShare
+    } else {
+      this.closeCardShare(oldIndex)
+      showShare = !showShare
+    }
+    console.log('--------1--------' + index)
+    this.setData({
+      productData: productData,
+      focusIndex: index,
+      showShare: showShare
+    })
   
   },
 
+  //开关显示客服的
+  showKefuWechatCode: function (e) {
+    let index = e.currentTarget.dataset.index;
+    this.closeCardShare(index)
+    this.setData({
+      showKefu: true
+    })
+  },
+  //关闭
+  closeCardShare: function (oldIndex) {
+
+    let index = this.data.focusIndex
+    if (!isNaN(oldIndex) && oldIndex > -1) {
+      index = oldIndex
+    }
+    console.log('--------2--------' + index)
+    if (index == -1) {
+      return
+    }
+    let productData = this.data.productData
+    let focusData = productData[index]
+    if (focusData.showShare == false) {
+      return
+    }
+    focusData.showShare = false
+    this.setData({
+      productData: productData
+    })
+  },
 
 })

@@ -116,7 +116,7 @@ Page({
   //点击 ...  显示分享
   showCardShare:function(e){
     let oldIndex = this.data.focusIndex
-    
+    console.log("oldIndex", oldIndex)
     let index = e.currentTarget.dataset.index;
 
     let productData = this.data.productData
@@ -331,6 +331,7 @@ Page({
   //点击加入购物车或立即下单
   bindAddtocart:function(e){
     var index = e.currentTarget.dataset.index;
+    console.log("index",index)
     this.dellBindItem(index, 'addto')
   },
   bindBuy:function(e){

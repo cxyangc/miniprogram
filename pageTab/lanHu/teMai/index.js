@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    ProductshowWay: '2',
     setting: null, // setting           
     loginUser: null,
     productData: [], // 商品数据  
@@ -23,6 +23,7 @@ Page({
     bindType: 'addto', //加入购物车or直接下单
 
     showKefu: false,
+    id: ""//传进来的promotionId，用来辨别这是哪个活动
   },
   drowCanvas: function (e) {
     let that = this
@@ -262,7 +263,7 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        console.log(res.data)
+        console.log("特卖数据",res.data)
         that.params.pageSize = res.data.pageSize
         that.params.curPage = res.data.curPage
         that.params.totalSize = res.data.totalSize
@@ -529,7 +530,10 @@ Page({
     //公告信息-从活动信息过来的
   },
   onLoad: function (options) {
-    console.log(options)
+    console.log("hahahahahahah", options.promotionId)
+    this.setData({
+      id: options.promotionId
+    })
     this.getCart()
 
     this.opt = options
@@ -539,7 +543,9 @@ Page({
         if (i.toLowerCase() == j.toLowerCase()) { this.params[j] = options[i] }
       }
     }
+    this.getActiveData();
     this.getData(this.params, 1)//获取商品数据
+
 
   },
 
@@ -868,8 +874,8 @@ Page({
 
   /* 点击遮罩层 */
   closeZhezhao: function () {
-    this.data.showType = false;
-    this.setData({ showType: false, bindProductTypeIndex: null })
+    this.MeasureParams = []
+    this.setData({ showCount: false, focusData: null })
   },
 
   /* 点击分类大项 */
@@ -1127,4 +1133,113 @@ Page({
     curpage: 1
   },
 
+  getActiveData: function () {
+    var that = this
+    var customIndex = app.AddClientUrl("/tunzai_index.html", {}, 'get', '1')
+    //获取到数据
+    wx.request({
+      url: customIndex.url,
+      header: app.header,
+      success: function (res) {
+        console.log("====== res.data=========", res.data.activityPromotion)
+        let id = that.data.id;
+
+
+
+        wx.hideLoading()
+        if (res.data.activityPromotion.length == 0) {
+          that.getActiveData();
+        }
+        else {
+          var index = "0"
+          for (var i = 0; i < res.data.activityPromotion.length; i++) {
+            index = i;
+            if (id == res.data.activityPromotion[index].id) {
+              console.log("相同的id", res.data.activityPromotion[index])
+              that.setData({
+                activityPromotion: res.data.activityPromotion[index],
+              })
+            }
+
+          }
+          console.log("最后的数据", that.data.activityPromotion)
+          that.getTimeAll();
+        }
+      },
+      fail: function (res) {
+        console.log('------------2222222-----------')
+        console.log(res)
+        wx.hideLoading()
+        wx.showModal({
+          title: '提示',
+          content: '加载失败，点击【确定】重新加载',
+          success: function (res) {
+
+            if (res.confirm) {
+              that.getParac()
+            } else if (res.cancel) {
+              app.toIndex()
+            }
+          }
+        })
+      }
+    })
+  },
+  // 获取时间
+  getTimeAll: function () {
+
+    var me = this;
+    // 已经开始的活动
+    var arr = [];
+
+
+    arr[0] = me.data.activityPromotion.endDate
+
+    me.setData({ actEndTimeList: arr })
+    var interval = setInterval(function () {
+      // 获取当前时间，同时得到活动结束时间数组
+      let newTime = new Date().getTime();
+      let endTimeList = me.data.actEndTimeList;
+      let countDownArr = [];
+      let endTime1 = new Date(arr[0]).getTime();
+      // 对结束时间进行处理渲染到页面
+      endTimeList.forEach(o => {
+        let endTime = new Date(o.replace(/-/g, '/')).getTime();
+        let obj = null;
+
+        // 如果活动未结束，对时间进行处理
+        if (endTime - newTime > 0) {
+          let time = (endTime - newTime) / 1000;
+
+          // 获取天、时、分、秒
+          let day = parseInt(time / (60 * 60 * 24));
+          let hou = parseInt(time % (60 * 60 * 24) / 3600);
+          let min = parseInt(time % (60 * 60 * 24) % 3600 / 60);
+          let sec = parseInt(time % (60 * 60 * 24) % 3600 % 60);
+          obj = {
+            day: me.timeFormat(day),
+            hou: me.timeFormat(hou),
+            min: me.timeFormat(min),
+            sec: me.timeFormat(sec)
+          }
+        } else {//活动已结束，全部设置为'00'
+          obj = {
+            day: '00',
+            hou: '00',
+            min: '00',
+            sec: '00'
+          }
+        }
+        countDownArr.push(obj);
+      })
+      // 渲染，然后每隔一秒执行一次倒计时函数
+      this.setData({ countDownList: countDownArr })
+      // console.log(this.data.countDownList)
+
+    }.bind(this), 1000);
+
+  },
+  timeFormat: function (param) {//小于10的格式化函数
+    return param < 10 ? '0' + param : param;
+  },
 })

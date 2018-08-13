@@ -11,6 +11,7 @@
     "component-tag-nameProductList": "../productList/productList",
     "component-tag-nameVideo": "../video/video",
     "component-tag-nameAudio": "../audio/audio",
+    "component-tag-nameNearShop": "../nearShop/nearShop",
     "component-tag-nameNewsList": "../newsList/newsList",
     "component-tag-nameCoupons": "../coupons/coupons",
     "component-tag-nameActivitiesGoods": "../activitiesGoods/activitiesGoods",

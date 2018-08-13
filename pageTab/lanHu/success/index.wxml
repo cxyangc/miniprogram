@@ -1,0 +1,9 @@
+
+<view class="wrap">
+     <view class='btn'>成功</view>
+   <!--返回首页  -->
+    <view class="loginBtnView">
+    <button class="loginBtn"  bindtap="login">返回首页</button> 
+  </view>
+
+</view>

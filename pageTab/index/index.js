@@ -33,16 +33,28 @@ Page({
 
       }
       else{
+
+      
+
+   
+
         // wx.reLaunch({
         //   url: '/pageTab/' + app.miniIndexPage + '/index'
         // })
+
         // console.log("进入蓝湖")
         // wx.reLaunch({
-        //   url: '/pageTab/lanHu/index/index'
+        //   url: '/pageTab/lanHu/preApplyMendian/index?code=' +"LIN567"
         // })
+
+
+        console.log("进入蓝湖")
         wx.reLaunch({
-          url: '/pages/nearShop/index'
+          url: '/pageTab/lanHu/index/index' 
         })
+
+    
+
    
       }
  
@@ -99,7 +111,7 @@ Page({
        app.clientNo = options.ENTER_PLATFORM_NO
        app.getSetting();
       
-
+  return;
 
       }
 
@@ -111,7 +123,14 @@ Page({
         })
         return;
     } 
+    if (options.APPLY_SERVER_CHANNEL_CODE && options.APPLY_SERVER_CHANNEL_CODE!=""){
+      console.log("进服务商页面", options.APPLY_SERVER_CHANNEL_CODE)
+      wx.reLaunch({
+        url: '/pageTab/lanHu/preApplyMendian/index?code=' + options.APPLY_SERVER_CHANNEL_CODE
+      })
 
+      return;
+   }
 
     //调用分销
 

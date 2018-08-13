@@ -10,23 +10,20 @@
               <image mode="aspectFill" src='{{item.imagePath}}?x-oss-process=style/preview'></image></view>
             
               
-              <view class='priceBox'> 
-              <view>
+          
+              <view class='priceBox'>
+               
                 <text class='price'>￥{{item.price}}</text>
                 <block wx:if='{{item.price < item.tagPrice}}'>
                   <text class='priceTagLine'>￥{{item.tagPrice}}</text>
                 </block>
-                </view>
-                  <view class='priceBoxImg'>
-                     <image src="../../../images/icon/Cart1@3x.png"></image>
-                  </view>
-              </view>
-               <view>{{item.name}}</view>
-
-       <view class='smallText1' style='width:{{(1/jsonData.column)*sysWidth-40}}px;'>
-               <text>CHILI X 1</text> 
+               
             
-    </view> 
+                     <image src="../../../images/icon/Cart15@2x.png"></image>
+            
+                   </view>
+            
+               <view class='name'>{{item.name}}</view> 
 
             </view>
              </block>

@@ -1,24 +1,33 @@
 @import 'product.wxss';
 @import 'getProductData/getProductData.wxss';
+@import '../../../view-new/aikucun/measure_card.wxss';/*  detail_list_card  */ 
 
  page{ height: 100%;position : relative;  background-color: #F8FBFF;}
-.content{
-   height: 100%;
-   margin-top: 68rpx;
+.content1{
+    /* height: 90%; 
+    margin-top: 68rpx;  */
+    position:absolute;
+right:0;
+top:68rpx;
+bottom:0;
+width:100%;
+ 
 } 
 
 .index{
   background-color: #F8FBFF;
+  
 }
 /*头部Tab  */
 .wrap{
-  width: 100%;
-      height: 68rpx;
+      width: 100%;
+       height: 68rpx; 
       background-color: white;
-            z-index: 999; 
-      position: fixed;
+       z-index: 999; 
+      /* position: fixed;
       top: 0;
-      left: 0;
+      left: 0; */
+
 }
 
 .tab-h{
@@ -30,7 +39,6 @@
      font-size: 24rpx; 
      white-space: nowrap;
 
-     /* background-color: red; */
      }
 .tab-item{
    /* margin:0 24rpx; */
@@ -40,9 +48,10 @@
 .tab-item.active{
   color: black;
    position: relative;
+   font-weight:bold;
   }
   .black{
-    color: #EBEBEB;
+    color: gray;
     
   }
 .tab-item.active:after{
@@ -301,10 +310,8 @@ height: 100%;
 .activeListtImg{
   width: 702rpx;
   height: 194rpx;
-    padding-top: 10rpx;
- /* background-repeat: no-repeat;
-  background-size:100% 100%;-moz-background-size:100% 100%; */
     border-radius: 15rpx;
+    overflow: hidden;
      position: relative; 
      z-index: 1;
 }
@@ -332,7 +339,7 @@ height: 100%;
 }
 /*时间  */
 .time{
-  width: 180rpx;
+   width: 300rpx;
   height:25rpx;
   text-align: center;
   line-height: 36rpx;
@@ -343,8 +350,8 @@ height: 100%;
   display: flex;
   flex-direction: row;
        position: absolute;
-  left: 261rpx;
-  top: 100rpx; 
+  left: 201rpx;
+  top: 84.5rpx; 
       z-index: 100;  
 }
 .timeBox{
@@ -360,6 +367,20 @@ height: 100%;
    line-height: 25rpx; 
   color: white;
 
+}
+.timeBoxDay{
+  width: 60rpx;
+  height: 25rpx;
+  background-color: red;
+  text-align: center;
+  margin-right: 8rpx;
+    font-size: 18rpx;
+}
+.timeBoxDay text{
+  display: block;
+  font-size: 18rpx;
+   line-height: 25rpx; 
+  color: white;
 }
 .timeBox1{
   width: 100rpx;
@@ -389,11 +410,4 @@ height: 100%;
 
 
 
-.cccc{
-  height: 500rpx;
-  width: 750rpx;
-  background-color: yellow;
-  margin-top: 20rpx;
-}
-
-
+/* 分享组件 */
