@@ -70,7 +70,7 @@
 				{
 					"id": 5,
 					"name": "预览页面",
-					"pathName": "pageTab/lanHu/success/index",
+					"pathName": "pageTab/lanHu/canvas/index",
 					"query": "",
 					"scene": "1001"
 				},

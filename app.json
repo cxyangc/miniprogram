@@ -12,6 +12,7 @@
     "pageTab/productDetail/index",
     "pageTab/lanHu/index/index",
     "pageTab/lanHu/teMai/index",
+    "pageTab/lanHu/canvas/index",
 
     "pageTab/lanHu/preApplyMendian/index",
     "pageTab/lanHu/applyMendian/index",
@@ -40,7 +41,8 @@
           "view/partials/coupons/coupons",
           "view/partials/activitiesGoods/activitiesGoods",  
           "view/partials/activityList/activityList",
-          "view/partials/activitiesList/activitiesList"
+          "view/partials/activitiesList/activitiesList",
+          "view/partials/canvas/index"
   
   ],
   
@@ -48,7 +50,8 @@
     {
       "root": "pages",
       "pages": [
-    
+
+        "canvas/index",
         "new_promotion_products/index",
         "new_pay_offline/index",
         "nearby_stores/index",

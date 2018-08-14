@@ -36,6 +36,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  loginSuccess:function(user){
+    console.log("hello!!!", app.loginUser);
+    if (app.loginUser && app.loginUser != "" && app.loginUser.platformUser.mendian) {
+      this.setData({
+        loginUser: app.loginUser.platformUser.mendian
+      })
+    }
+  },
   onLoad: function (options) {
     this.getData();
     this.getProductData()
@@ -46,6 +54,7 @@ Page({
       })
     }
     var that=this;
+    app.addLoginListener(this);
     //  获取手机高度
     // wx.getSystemInfo({
     //   success: function (res) {

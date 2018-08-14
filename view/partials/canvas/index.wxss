@@ -1,0 +1,23 @@
+.bg{
+  position: fixed;
+  width:100%;
+  height: 100%;
+  top:0;
+  left: 0;
+  background: #000;
+  filter:alpha(opacity:60); 
+  opacity:0.6;  
+  -moz-opacity:0.6;
+  -khtml-opacity: 0.6;
+  z-index:1000;
+}
+.content{
+  width:680rpx;
+  height: 80%;
+  position: fixed;
+  top:100rpx;
+  left: 50%;
+  background: #fff;
+  margin-left: -340rpx;
+  z-index: 1001;
+}

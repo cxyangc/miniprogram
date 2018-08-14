@@ -301,6 +301,10 @@ App({
         } else {
             loginToken = this.loginUser.platformUser.loginToken
         }
+        if (url.indexOf("get_product_comment_list")!=-1||url.indexOf("product_detail") != -1 ||url.indexOf("get_platform_setting.html") != -1 ||url.indexOf("more_product_list.html") != -1||url.indexOf("index.html")!=-1){
+          loginToken="";
+          random="tunzai";
+        } 
         var returnUrl = dellUrl(url, params, method, random, loginToken)
         returnUrl.url = this.clientUrl + this.clientNo + returnUrl.url
         return returnUrl;
@@ -688,6 +692,9 @@ App({
                     let loginParam = {}
                     loginParam.code = res.code
                     loginParam.scene = more_scene
+                    setTimeout(function(){
+
+                 
                     let customIndex = that.AddClientUrl("/wx_mini_code_login.html", loginParam, 'post')
                     wx.request({
                         url: customIndex.url,
@@ -695,7 +702,7 @@ App({
                         header: that.headerPost,
                         method: 'POST',
                         success: function (e) {
-
+                              
                             if (e.data.errcode == 0) {
                               console.log("===========e.data.errcode=============", e)
                                 let header = e.header
@@ -710,20 +717,20 @@ App({
 
                                 that.setCookie(cookie)
                                 that.setloginUser(e.data.relateObj, cookie)
+                             
+                                console.log('登陆成功')
+                                that.loginUser = e.data.relateObj
+                                that.globalData.sansanUser = e.data.relateObj
                                 if (that.loginSuccessListeners && that.loginSuccessListeners.length > 0) {
                                   console.log('000000000000', that.loginSuccessListeners)
-                                  for (let t = 0; t < that.loginSuccessListeners.length;t++){
-                                    try{
+                                  for (let t = 0; t < that.loginSuccessListeners.length; t++) {
+                                    try {
                                       that.loginSuccessListeners[t].loginSuccess(e.data.relateObj);
-                                    }catch( e){
+                                    } catch (e) {
                                       console.log(e);
                                     }
                                   }
                                 }
-                                console.log('登陆成功')
-                                that.loginUser = e.data.relateObj
-                                that.globalData.sansanUser = e.data.relateObj
-
                                 wx.hideLoading()
                                 wx.getSetting({//检查用户是否授权了
                                     success(res) {
@@ -801,6 +808,7 @@ App({
                             }
                         }
                     })
+                    }, 0)
                 } else {
                     console.log('获取用户登录态失败！' + res.errMsg)
                 }

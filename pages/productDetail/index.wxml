@@ -16,6 +16,7 @@
  
   <view class='ProductDetailInfoContainer'>
     <view class='InfoName font_12' >{{productData.productInfo.name}}</view>
+    <component-tag-name inner-text="Some text"></component-tag-name>
     <block wx:if='{{!!productData.productInfo.description}}'>
       <view class='InfoSubName '>{{productData.productInfo.description}}</view>
     </block>

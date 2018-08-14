@@ -25,7 +25,7 @@ Page({
   submitFormId: function (e) {
     this.toApplyForFacilitator(e);
   },
-  getSessionUserInfo: function () {
+  getSessionUserInfo: function (callback) {
     var that = this;
     var postParamUserBank = app.AddClientUrl("/get_session_userinfo.html")
     wx.request({
@@ -47,6 +47,9 @@ Page({
             loginUser: res.data.relateObj
           })
           app.loginUser = res.data.relateObj
+          try{
+            callback(app.loginUser);
+          }catch(e){}
         } else {
           wx.showToast({
             title: res.data.errMsg,
@@ -250,7 +253,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.getSessionUserInfo()
+    var that=this;
+    this.getSessionUserInfo(function(loginUser){
+      console.log("====get login user===");
+      if (loginUser.platformUser.managerMendianId) {
+        that.getMendianInfo()
+      }
+    });
+    
     // this.onLoad()
     // setTimeout(function () {
     //   wx.stopPullDownRefresh()
