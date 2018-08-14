@@ -8,7 +8,7 @@
       autoplay="true" interval="5000" duration="500">
       <block wx:for="{{productData.images}}"  wx:key="{{swiper}}">
         <swiper-item>
-          <image mode='aspectFill' src="{{item.imagePath}}"/>
+          <image mode='aspectFill' src="{{item.imagePath}}"  data-imageUrl='{{item.imagePath}}' bindtap='lookBigImage' bindlongpress='saveImageToLocal'/>
         </swiper-item> 
       </block>  
     </swiper>

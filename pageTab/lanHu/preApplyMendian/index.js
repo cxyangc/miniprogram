@@ -1,30 +1,100 @@
 // pageTab/lanHu/serviceProviders/index.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    code:""
+    code:"",
+    applyImgBg:'',
+    applyState:'',
   },
 
+getSUbmitRecord:function(callback){
+  let params = {}
+  var customIndex = app.AddClientUrl("/get_product_mendian_submit.html", params, 'post')
+  var that = this
+  wx.showLoading({
+    title: 'loading'
+  })
+  wx.request({
+    url: customIndex.url,
+    data: customIndex.params,
+    header: app.headerPost,
+    method: 'POST',
+    success: function (res) {
+      console.log('=====999999=======',res.data)
+      if (res.data.errcode == '0') {
+        callback(res.data.relateObj)
+        wx.hideLoading()
+      } else {
+        callback(res.data)
+        // wx.showModal({
+        //   title: '失败了',
+        //   content: '请求失败了，请重新进入！',
+        // })
+        wx.hideLoading()
+      }
+    }
+  })
+},
+checkState:function(){
+  console.log('----1------')
+  let that=this;
+  this.getSUbmitRecord(function(record){
+    console.log('record=======', record)
+    if(record.status==0){
+      that.data.applyImgBg ='http://image.tunzai.vip/tunzai/2018_8/14/13/41/3_623.jpg'
+      that.data.applyState = record.status;
+    } else if (record.status==1){
+      that.data.applyImgBg = 'http://image.tunzai.vip/tunzai/2018_8/14/13/41/15_606.jpg'
+      that.data.applyState = record.status;
+    } else if (record.status == 2) {
+      wx.showModal({
+          title: '您已被拒绝',
+          content: '您提交的信息存在问题，请重新填写您的信息',
+        })
+      that.data.applyState = record.status;
+      that.data.applyImgBg = 'http://image.tunzai.vip/tunzai/2018_8/14/13/40/56_666.jpg'
+    } else if (record.errcode == '-1') {
+      that.data.applyState = record.errcode;
+      that.data.applyImgBg = 'http://image.tunzai.vip/tunzai/2018_8/14/13/40/56_666.jpg'
+    }
+    that.setData({
+      applyImgBg: that.data.applyImgBg,
+      applyState:that.data.applyState,
+    }) 
+    })
+},
+loginSuccess:function(user){
+  console.log("pre apply mendian login success call back!", user);
+  this.checkState();
+},
+loginFailed:function(err){
+  console.log("login failed!!");
+   
+},
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('======options=====', options)
       let a=""; 
-// 查看是否带参数
-    if (options.code && options.code!=""){
-      console.log("携带的参数", options.code);
-      this.setData({
-        code: options.code
-      })
-    }
-    else{
+      if(options.code){
+        a=options.code;
+      }
       this.setData({
         code: a
-      })
-    }
+      }) 
+      /**** */
+      console.log('======4444444======', app.loginUser)
+      if (app.loginUser) {
+        this.checkState();
+      }else{
+        console.log('======111222333======')
+        app.addLoginListener(this);
+      }
  
   },
   tolinkUrl:function(){

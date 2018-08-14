@@ -53,7 +53,9 @@ Page({
           url: '/pageTab/lanHu/index/index' 
         })
 
-    
+        // wx.reLaunch({
+        //   url: '/page/near_shops/index'
+        // })
 
    
       }

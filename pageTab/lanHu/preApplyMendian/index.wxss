@@ -13,20 +13,12 @@
   z-index: -1;
 }
 .btn{
-  margin: 0 auto;
-  margin-top: 1100rpx;
-  width:668rpx;
-height:90rpx;
-background:rgba(255,255,255,1);
-box-shadow:0rpx 4rpx 16rpx 0rpx rgba(255,61,61,0.5);
-border-radius:40rpx;
-text-align: center;
-line-height: 90rpx;
-color: #FF3D3D;
-font-size: 35rpx;
-  /* position: fixed;
-
-  left: 41rpx;
-  bottom: 16rpx;
-  z-index: 100; */
+  position: fixed;
+  left: 50%;
+  bottom: 80rpx;
+  margin-left: -275rpx;
+  height: 160rpx;
+  z-index: 100;  
+  width: 550rpx;
+  border-radius: 100rpx;
 }

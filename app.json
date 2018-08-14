@@ -2,14 +2,14 @@
   "pages": [
     "pageTab/index/index",
     "pageTab/custom_page_index/index",
-    "pageTab/nearShopPage/index",
     "pageTab/product/index",
+    "pageTab/near_shop_page/index",
     "pageTab/aikucun_userinfo/index",
     "pageTab/aikucun_car_list/index",
     "pageTab/fx_center/index",
     "pageTab/product_waimai_offline/index",
     "pageTab/product_waimai/index",
-
+    "pageTab/productDetail/index",
     "pageTab/lanHu/index/index",
     "pageTab/lanHu/teMai/index",
 
@@ -17,7 +17,7 @@
     "pageTab/lanHu/applyMendian/index",
     "pageTab/lanHu/success/index",
 
-
+    "pageTab/near_shops/index",
     "pageTab/lanHu/myInfo/index",
 
 
@@ -48,13 +48,13 @@
     {
       "root": "pages",
       "pages": [
-      
+    
         "new_promotion_products/index",
         "new_pay_offline/index",
         "nearby_stores/index",
         "integral_mall/index",
         "near_shops/index", 
-        "nearShopPage/index",
+        "near_shop_page/index",
         "aikucun_car_list/index",
         "index/index",
         "product/index",
@@ -75,7 +75,7 @@
         "scan_login/scan_login",
         "regist/index",
         "regist_xieyi/index",
-    "search_product/index",
+        "search_product/index",
         "product_tree_list/index",
         "product_type2/index",
         "search_product2/index",
@@ -152,7 +152,7 @@
       },
      
       {
-        "pagePath": "pageTab/nearShopPage/index",
+        "pagePath": "pageTab/near_shop_page/index",
         "iconPath": "images/icons/good1.png",
         "selectedIconPath": "images/icons/good2.png",
         "text": "产品列表"

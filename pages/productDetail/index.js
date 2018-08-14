@@ -25,6 +25,39 @@ Page({
   toIndex: function () {
     app.toIndex()
   }, 
+  lookBigImage: function (e) {
+    console.log("111111111")
+    let imgSrc = e.currentTarget.dataset.imageurl
+    console.log(imgSrc)
+    let PostImageSrc = imgSrc.replace(/http/, "https")
+    // let PostImageSrc = imgSrc
+    console.log(PostImageSrc)
+    if (!imgSrc) {
+      return
+    }
+    let urls = []
+    urls.push(imgSrc)
+    wx.previewImage({
+      current: imgSrc, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    })
+  },
+  saveImageToLocal: function (e) {
+    let imgSrc = e.currentTarget.dataset.imageurl
+    console.log(imgSrc)
+    let PostImageSrc = imgSrc.replace(/http/, "https")
+    // let PostImageSrc = imgSrc
+    console.log(PostImageSrc)
+    if (!imgSrc) {
+      return
+    }
+    let urls = []
+    urls.push(imgSrc)
+    wx.previewImage({
+      current: imgSrc, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    })
+  },
   showCouponState: function (e) {
     var index = e.currentTarget.dataset.id
     this.setData({

@@ -5,7 +5,7 @@ App({
     // clientUrl: 'https://www.aikucun.xyz/chainalliance/',  // 链接地址
      // clientUrl: 'http://10.1.1.15:3000/chainalliance/',  // 链接地址
      //clientUrl: 'http://192.168.30.92:3000/chainalliance/',  //勇哥ip 链接地址
-    //  clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
+      //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
     //  clientUrl: 'http://192.168.40.180:3000/chainalliance/',  // 本地ip 链接地址
     // clientUrl: 'http://www2.aikucun.xyz/chainalliance/',
   //clientUrl: 'https://mini.sansancloud.com/chainalliance/',
@@ -29,6 +29,7 @@ App({
     cart_offline: [],
     //addr:null,
 
+    loginSuccessListeners:[],
     payItem: null, //下单的时候传过去的
     userSign: null, //账号密码
     EditAddr: null,//传值的
@@ -54,6 +55,10 @@ App({
         console.log('hide')
         console.log(e)
 
+    },
+    addLoginListener:function(listener){
+      console.log('addLoginListener', listener)
+      this.loginSuccessListeners.push(listener);
     },
     onShow: function (e) {
         let that=this
@@ -705,6 +710,16 @@ App({
 
                                 that.setCookie(cookie)
                                 that.setloginUser(e.data.relateObj, cookie)
+                                if (that.loginSuccessListeners && that.loginSuccessListeners.length > 0) {
+                                  console.log('000000000000', that.loginSuccessListeners)
+                                  for (let t = 0; t < that.loginSuccessListeners.length;t++){
+                                    try{
+                                      that.loginSuccessListeners[t].loginSuccess(e.data.relateObj);
+                                    }catch( e){
+                                      console.log(e);
+                                    }
+                                  }
+                                }
                                 console.log('登陆成功')
                                 that.loginUser = e.data.relateObj
                                 that.globalData.sansanUser = e.data.relateObj
@@ -750,6 +765,18 @@ App({
                                     image: '/images/icons/tip.png',
                                     duration: 2000
                                 })
+
+
+                                if (that.loginSuccessListeners && that.loginSuccessListeners.length > 0) {
+                                  console.log('000000000000', that.loginSuccessListeners)
+                                  for (let t = 0; t < that.loginSuccessListeners.length; t++) {
+                                    try {
+                                      that.loginSuccessListeners[t].loginFailed(e.data);
+                                    } catch (e) {
+                                      console.log(e);
+                                    }
+                                  }
+                                }
                             }
                         },
                         fail: function (e) {
@@ -761,6 +788,17 @@ App({
                                 image: '/images/icons/tip.png',
                                 duration: 2000
                             })
+
+                            if (that.loginSuccessListeners && that.loginSuccessListeners.length > 0) {
+                              console.log('000000000000', that.loginSuccessListeners)
+                              for (let t = 0; t < that.loginSuccessListeners.length; t++) {
+                                try {
+                                  that.loginSuccessListeners[t].loginFailed(e);
+                                } catch (e) {
+                                  console.log(e);
+                                }
+                              }
+                            }
                         }
                     })
                 } else {

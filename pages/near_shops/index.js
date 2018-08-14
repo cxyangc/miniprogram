@@ -15,7 +15,10 @@ Page({
     pageSize :10,
     totalSize : 1
   },
-
+  tolinkUrl: function (e) {
+    let linkUrl = e.currentTarget.dataset.link
+    app.linkEvent(linkUrl)
+  },
   // 获取附近店铺数据
   getData: function () {
 
@@ -29,8 +32,8 @@ Page({
       success: function (res) {
         var latitude = res.latitude
         var longitude = res.longitude
-        console.log(latitude)
-        console.log(that.data.page)
+        console.log('=========latitude============',latitude)
+        console.log('=========that.data.page============',that.data.page)
 
         // 获取附近店铺数据
         var nearShopUrl = "/more_near_shops.html"

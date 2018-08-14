@@ -70,9 +70,9 @@
 				{
 					"id": 5,
 					"name": "预览页面",
-					"pathName": "pageTab/index/index",
-					"query": "ENTER_PLATFORM_NO=shuiguodianpu&ENTER_PAGE_NAME=custom_page_index.html",
-					"scene": "1011"
+					"pathName": "pageTab/lanHu/success/index",
+					"query": "",
+					"scene": "1001"
 				},
 				{
 					"id": 6,
@@ -86,6 +86,13 @@
 					"name": "tuizai",
 					"pathName": "pageTab/index/index",
 					"query": "APPLY_SERVER_CHANNEL_CODE=LIN456"
+				},
+				{
+					"id": 8,
+					"name": "qq1",
+					"pathName": "pageTab/lanHu/preApplyMendian/index",
+					"query": "code=222",
+					"scene": "1011"
 				}
 			]
 		}
