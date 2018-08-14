@@ -8,7 +8,7 @@ Page({
   data: {
   //  分享
     focusIndex: 0,
-    showShare:false,
+    showShare:[],
 
 
     screenHeight:"",//手机高度
@@ -93,13 +93,21 @@ Page({
             productData = productData.concat(activityPromotion[index].products);
          
         }
-        console.log("productData", productData);
+        let showShare = that.data.showShare
+        let num = 0;
+        for (var a = 0; a < productData.length; a++) {
+          num = a;
+          showShare[num] = false;
+
+        }
+
 
       that.setData({
         activityPromotion: res.data.activityPromotion,
         unactivityPromotion: res.data.unactivityPromotion,
         activityPromotionAll: activityPromotionAll,
         productData: productData,
+        showShare: showShare
           })
         wx.hideLoading()
         if (that.data.activityPromotion.length==0){
@@ -374,15 +382,39 @@ Page({
     var a = "product_detail.html?productId=" + e.currentTarget.dataset.id;
     app.linkEvent(a);
   },
+  // 关闭分享
+  closeShowShar:function(){
+
+    // 循环activityPromotion
+    let activityPromotion = this.data.activityPromotion
+
+    let a = 0;
+    let b = 0;
+
+    for (let i = 0; i < activityPromotion.length; i++) {
+      a = i;
+      //  console.log(activityPromotion[a].products)
+      if (activityPromotion[a].products.length > 0) {
+        for (let j = 0; j < activityPromotion[a].products.length; j++) {
+          b = j;  
+            activityPromotion[a].products[b].productShow = false
+        }
+      }
+    }
+    this.setData({
+      activityPromotion: activityPromotion
+    })
+  },
   click:function (e) {
     console.log(e)
-
+    this.closeShowShar();
     wx.navigateTo({
       url: '/pageTab/lanHu/teMai/index?promotionId=' + e.currentTarget.dataset.id,
     })
   },
   click1: function (e) {
     console.log(e)
+    this.closeShowShar()
     wx.navigateTo({
       url: '../../../pages/promotion_detail/index?promotionId=' + e.currentTarget.dataset.id,
     })
@@ -455,9 +487,26 @@ Page({
   onShareAppMessage: function (res) {
     console.log("hahaha",res)
     if (res.from == "button") {
-      let index = res.target.dataset.index
+      // 商品id
+      let id = res.target.dataset.id
       let productData = this.data.productData
+
+      console.log("this.data.productData", this.data.productData)
+  let index = 0;
+
+  for (let i = 0; i < productData.length;i++){
+        
+    if (productData[i].id==id ){
+      console.log(productData[i],i)
+          index=i;
+          }
+      }
+
+   
+
       let focusData = productData[index]
+
+      console.log("focusData", focusData)
       if (!focusData.brandName || focusData.brandName == "") {
         focusData.brandName = ""
       };
@@ -468,20 +517,27 @@ Page({
       let shareParams = this.opt
       shareParams.productName = focusData.productCode
       console.log('nnnnnnnnnn' + shareName)
+      console.log("MMMMMMMMMMMMMMM", index)
+
+ 
+      
+      shareParams.id = id
+      console.log("shareParams", shareParams)
       return app.shareForFx2('promotion_products', shareName, shareParams, imageUrl)
     }
 
     else {
       let that = this
       let params = that.opt
-      console.log('params:' + params)
-      return app.shareForFx2('promotion_products', '', params)
+      params.pageName="index";
+      console.log('params:' + JSON.stringify(params))
+      return app.shareForFx2('index', '', params)
     }
   },
   
 // 测试用的跳转到promotion_products页面
   tolinkUrl1: function (event) {
-    console.log(event.currentTarget.dataset.link)
+    console.log("link",event.currentTarget.dataset.link)
     app.linkEvent(event.currentTarget.dataset.link);
 
   },
@@ -522,6 +578,7 @@ Page({
 
   //点击加入购物车或立即下单
   bindAddtocart: function (e) {
+    this.closeShowShar()
     var index = e.currentTarget.dataset.index;
     console.log("index", index)
     this.dellBindItem(index, 'addto')
@@ -824,23 +881,54 @@ Page({
     let oldIndex = this.data.focusIndex 
     let index = e.currentTarget.dataset.index;
 
+   console.log("index",index)
+
     let productData = this.data.productData
     let focusData = productData[index]
     console.log("focusData", focusData)
-    let showShare = this.data.showShare
+      let showShare = this.data.showShare
+// 找到商品id
+      let id = e.currentTarget.dataset.id;
+      console.log("id", id)
+      // 循环activityPromotion
+      let activityPromotion = this.data.activityPromotion
+
+      let a=0;
+      let b=0;
+    
+      for (let i = 0; i < activityPromotion.length;i++){
+               a=i;
+              //  console.log(activityPromotion[a].products)
+               if (activityPromotion[a].products.length>0){
+                 for (let j = 0; j < activityPromotion[a].products.length;j++){
+                   b=j;
+                  //  console.log(activityPromotion[a].products[b].id)
+                   if (activityPromotion[a].products[b].id==id){
+                     activityPromotion[a].products[b].productShow=true
+                   }
+                   else{
+                     activityPromotion[a].products[b].productShow = false
+                   }
+                 }
+               }
+      }
+      console.log("activityPromotion", activityPromotion)
     if (oldIndex == index) {
-      showShare = !showShare
+      showShare[index] = !showShare[index];
+     
     } else {
       this.closeCardShare(oldIndex)
-      showShare = !showShare
+      showShare[index] = !showShare[index];
+    
     }
     console.log('--------1--------' + index)
     this.setData({
       productData: productData,
       focusIndex: index,
-      showShare: showShare
+      showShare: showShare,
+      activityPromotion: activityPromotion
     })
-  
+    console.log(this.data.activityPromotion)
   },
 
   //开关显示客服的
@@ -850,6 +938,29 @@ Page({
     this.setData({
       showKefu: true
     })
+    console.log("MMMMMMMMMMMMMMM", this.data.showShare, index)
+    let showShare = this.data.showShare;
+    showShare[index] = false;
+    this.setData({
+      showShare: showShare
+    })
+  },
+  lookBigWxCode: function (e) {
+    let url = e.currentTarget.dataset.url;
+    if (!url) {
+      return
+    }
+    let urls = []
+    urls.push(url)
+    wx.previewImage({
+      current: url, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    })
+  },
+  closeKefu: function () {
+    this.setData({
+      showKefu: false
+    })
   },
   //关闭
   closeCardShare: function (oldIndex) {
@@ -858,7 +969,7 @@ Page({
     if (!isNaN(oldIndex) && oldIndex > -1) {
       index = oldIndex
     }
-    console.log('--------2--------' + index)
+    console.log('--------2关闭--------' + index)
     if (index == -1) {
       return
     }
@@ -870,6 +981,11 @@ Page({
     focusData.showShare = false
     this.setData({
       productData: productData
+    })
+  },
+  closeKefu: function () {
+    this.setData({
+      showKefu: false
     })
   },
 

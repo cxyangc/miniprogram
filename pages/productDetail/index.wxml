@@ -8,7 +8,9 @@
       autoplay="true" interval="5000" duration="500">
       <block wx:for="{{productData.images}}"  wx:key="{{swiper}}">
         <swiper-item>
-          <image mode='aspectFill' src="{{item.imagePath}}"  data-imageUrl='{{item.imagePath}}' bindtap='lookBigImage' bindlongpress='saveImageToLocal'/>
+
+          <image mode='aspectFit' src="{{item.imagePath}}"  data-imageUrl='{{item.imagePath}}' bindtap='lookBigImage' bindlongpress='saveImageToLocal'/>
+
         </swiper-item> 
       </block>  
     </swiper>
@@ -16,7 +18,7 @@
  
   <view class='ProductDetailInfoContainer'>
     <view class='InfoName font_12' >{{productData.productInfo.name}}</view>
-    <component-tag-name inner-text="Some text"></component-tag-name>
+   
     <block wx:if='{{!!productData.productInfo.description}}'>
       <view class='InfoSubName '>{{productData.productInfo.description}}</view>
     </block>

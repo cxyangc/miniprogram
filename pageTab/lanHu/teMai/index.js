@@ -121,24 +121,25 @@ Page({
     let index = e.currentTarget.dataset.index;
 
     let productData = this.data.productData
-    let focusData = productData[index]
+    let focusData = productData
+   
 
 
     if (oldIndex == index) {
-      focusData.showShare = !focusData.showShare
+      focusData[index].showShare = !focusData[index].showShare
     } else {
       this.closeCardShare(oldIndex)
-      focusData.showShare = !focusData.showShare
+      focusData[index].showShare = !focusData[index].showShare
     }
 
 
     console.log('--------1--------' + index)
     this.setData({
-      productData: productData,
+      productData: focusData,
       focusIndex: index
     })
 
-
+    console.log("productData", this.data.productData)
 
 
 
@@ -146,12 +147,12 @@ Page({
   },
   //关闭
   closeCardShare: function (oldIndex) {
-
+   
     let index = this.data.focusIndex
     if (!isNaN(oldIndex) && oldIndex > -1) {
       index = oldIndex
     }
-    console.log('--------2--------' + index)
+    console.log('--------2关闭--------' + index)
     if (index == -1) {
       return
     }
@@ -160,7 +161,16 @@ Page({
     if (focusData.showShare == false) {
       return
     }
-    focusData.showShare = false
+    focusData.showShare = false;
+
+   
+    let a=0;
+    for (let i = 0; i < productData.length;i++){
+      a=i;
+      productData[a].showShare=false
+   }
+    console.log("productData", productData)
+
     this.setData({
       productData: productData
     })
@@ -331,6 +341,7 @@ Page({
 
   //点击加入购物车或立即下单
   bindAddtocart: function (e) {
+    this.closeShowShar();
     var index = e.currentTarget.dataset.index;
     this.dellBindItem(index, 'addto')
   },
@@ -672,9 +683,25 @@ Page({
    */
   onShareAppMessage: function (res) {
     console.log(res)
+   
     if (res.from == "button") {
-      let index = res.target.dataset.index
+      console.log(res)
+      // 商品id
+      let id = res.target.dataset.id
       let productData = this.data.productData
+
+      console.log("this.data.productData", this.data.productData)
+      let index = 0;
+
+      for (let i = 0; i < productData.length; i++) {
+
+        if (productData[i].id == id) {
+          console.log(productData[i], i)
+          index = i;
+        }
+      }
+      let oldIndex=index
+      this.closeCardShare(oldIndex)
       let focusData = productData[index]
       if (!focusData.brandName || focusData.brandName == "") {
         focusData.brandName = ""
@@ -686,6 +713,10 @@ Page({
       let shareParams = this.opt
       shareParams.productName = focusData.productCode
       console.log('nnnnnnnnnn' + shareName)
+
+      shareParams.id = id
+      console.log("shareParams", shareParams)
+
       return app.shareForFx2('promotion_products', shareName, shareParams, imageUrl)
     }
 
@@ -693,6 +724,7 @@ Page({
       let that = this
       let params = that.opt
       console.log('params:' + params)
+      this.closeShowShar();
       return app.shareForFx2('promotion_products', '', params)
 
     }
@@ -1241,5 +1273,27 @@ Page({
   },
   timeFormat: function (param) {//小于10的格式化函数
     return param < 10 ? '0' + param : param;
+  },
+
+  tolinkUrl: function (e) {
+    this.closeShowShar();
+    console.log(e)
+    var a = "product_detail.html?productId=" + e.currentTarget.dataset.info.id;
+    app.linkEvent(a);
+  },
+  closeShowShar: function (e) {
+    console.log("this.data.productData",this.data.productData)
+    let productData = this.data.productData;
+    let index=0;
+    for (let i = 0; i < productData.length;i++){
+      index=i;
+      console.log(productData[i].showShare)
+      if (productData[index].showShare){
+        productData[index].showShare = !productData[index].showShare
+      }
+    }
+  this.setData({
+    productData: productData
+  })
   },
 })

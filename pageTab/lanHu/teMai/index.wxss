@@ -1,4 +1,4 @@
-
+ @import '../../../view-new/aikucun/aikucun_hot_product.wxss';
 
 @import '../../../view-new/css/product_search.wxss';
 @import '../../../view/css/type_search.wxss';
@@ -268,6 +268,47 @@ page{
   margin-left: 10px;
   text-decoration: line-through;
 }
+.share_box{
+    width: 200rpx;
+   height: 100rpx; 
+   position: absolute;
+  right: 10rpx;
+  top: 10rpx; 
+  z-index: 9;
+  /* display: flex;
+  flex-direction: column; */
+
+}
+.share_box_item{
+  width: 100%;
+  height: 100%;
+    display: flex;
+  flex-direction: row;
+
+}
+.share_box_item_img{
+   width: 55rpx;
+  height: 40rpx; 
+  margin-left: -10rpx;
+  margin-right: 10rpx;
+  /* margin-top: 20rpx; */
+
+}
+.share_box_item_img image{
+  width: 100%;
+  height: 100%;
+}
+.share_box_item_text{
+     width: 100rpx;
+  height: 100rpx; 
+
+}
+.share_box_item_text text{
+font-size: 35rpx;
+display: block;
+line-height: 70rpx;
+
+}
 /* 没有商品时 */
 .noproduct{
   position: absolute;
@@ -423,6 +464,7 @@ white-space:nowrap;
   width: 702rpx;
   margin: 0 auto;
   margin-top: 20rpx;
+
 
 
 }

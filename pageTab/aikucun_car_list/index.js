@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据 
    */
   data: {
+    showShare: [],
     setting: null,
     cartData: [],
     allchecked: false,
@@ -23,6 +24,7 @@ Page({
     showHongDong: false, //活动购买的时候
     /* 热销数据 */
     products: null,
+    hotProduct:[],
     //规格信息
     showCount: false,
     focusData: null,
@@ -434,7 +436,7 @@ Page({
       header: app.header,
       success: function (res) {
         console.log('------error-------')
-        console.log(res.data)
+        console.log("加载的数据",res.data)
         if (res.data.errcode == '10001') {
           that.setData({
             cartData: null
@@ -570,7 +572,7 @@ Page({
     console.log(countGood, 'countGood__')
     console.log(countPrice, "countPrice__")
   },
-
+// 获取热销数据
   getHotProduct: function () {
     let param = {
       orderType: 1,
@@ -581,10 +583,22 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        console.log(res.data)
+        console.log("获取热销数据",res.data)
         if (res.data.result) {
           that.dellProductImage(res.data.result)
         }
+        let productData = res.data.result;
+        let showShare = that.data.showShare
+        let num = 0;
+        for (var a = 0; a < productData.length; a++) {
+          num = a;
+          showShare[num] = false;
+
+        }
+        that.setData({
+          hotProduct: res.data.result,
+          showShare: showShare
+        })
       },
       fail: function (res) {
         console.log("fail")
@@ -661,35 +675,59 @@ Page({
   //点击购物车中的商品，跳转到详情页面
   cart_pro_click_toDetail: function (e) {
     console.log("点击购物车中的商品，跳转到详情页面")
-    console.log(e)
+    console.log(e.currentTarget.dataset.id)
     console.log(e.currentTarget.dataset)
     let promotionId = e.currentTarget.dataset.promotionid;
-    let productId = e.currentTarget.dataset.productid;
+    let productId = e.currentTarget.dataset.id;
+
+    console.log(e)
+    console.log("============productId", productId)
     let description = e.currentTarget.dataset.description;
     if (!description || description == "undefined") {
       description = ""
     }
     let name = e.currentTarget.dataset.name;
     wx.navigateTo({
-      url: '/pages/promotion_products/index?' +
-        'description=' + description + '&navName=' + name + '&productName=' + productId + '&id=' + promotionId,
+      url: '/pages/productDetail/index?id=' + productId + "&addShopId=0",
     })
   },
 
   /* 分享 */
   onShareAppMessage: function (res) {
     if (res.from == "button") {
-      let index = res.target.dataset.index
+  console.log(res)
+      // 商品id
+      let id = res.target.dataset.id
       let products = this.data.products
+
+      console.log("this.data.products", this.data.products)
+      let index = 0;
+
+      for (let i = 0; i < products.length; i++) {
+
+        if (products[i].id == id) {
+          console.log(products[i], i)
+          index = i;
+        }
+      }
+
+
       let focusData = products[index]
-      pageTab / aikucun_index / index
+    
       let imageUrl = focusData.imagePath
       let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tagPrice + ')' + focusData.brandName + focusData.name
       let shareParams = {}
       shareParams.productName = focusData.productCode
       console.log('nnnnnnnnnn' + shareName)
+
+      shareParams.id = id
+      console.log("shareParams", shareParams)
+      
       return app.shareForFx2('promotion_products', shareName, shareParams, imageUrl)
     } else {
+
+      // 分享页面
+      console.log("分享页面")
       return app.shareForFx2(app.miniIndexPage)
     }
   },
@@ -748,20 +786,26 @@ Page({
     let oldIndex = this.data.focusIndex
     let index = e.currentTarget.dataset.index;
     let products = this.data.products
-    let focusData = products[index]
+    let focusData = products
 
-    console.log(focusData)
+  
+    let showShare = this.data.showShare
+
     if (oldIndex == index) {
-      focusData.showShare = !focusData.showShare
+      focusData[index].showShare = !focusData[index].showShare
+      showShare[index] = !showShare[index];
     } else {
       this.closeCardShare(oldIndex)
-      focusData.showShare = !focusData.showShare
+      focusData[index].showShare = !focusData[index].showShare
+      showShare[index] = !showShare[index];
     }
 
-    console.log('--------1--------' + index)
+    console.log('--------1--------' + index, showShare)
+    console.log("focusData", focusData)
     this.setData({
-      products: products,
-      focusIndex: index
+      products: focusData,
+      focusIndex: index,
+      showShare: showShare,
     })
   },
   //关闭 ... 
@@ -1144,5 +1188,11 @@ Page({
       }
     }
     this.get_measure_cartesion()
+  },
+// 跳转到详情页
+  tolinkUrl: function (e) {
+    console.log(e)
+    var a = "product_detail.html?productId=" + e.currentTarget.dataset.id;
+    app.linkEvent(a);
   },
 })

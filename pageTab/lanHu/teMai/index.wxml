@@ -1,7 +1,8 @@
    <import src="../../../view-new/aikucun/measure_card.wxml"/>
 
 <block  >
- <view class="typeSearchContainer" > 
+
+ <view class="typeSearchContainer"> 
     <view class="typeSearch">
      <view class='flexCenter1' data-ordertype="102" bindtap='searchProduct'>价格</view>
      <view class='flexCenter1Img'><image src='../../../images/icons/topSel.png'></image></view>
@@ -88,7 +89,7 @@
 
    <!--活动列表  -->
  <view class='activeList' wx:for="{{countDownList}}" wx:key="index">
-      <view class='activeListtImg' > <image mode='aspectFill' src='{{activityPromotion.promotionBanner}}'></image> 
+      <view class='activeListtImg' > <image mode='aspectFill' src='{{activityPromotion.promotionBanner}}' ></image> 
        <!-- <view class='priceKode'>价格低至2折起</view> -->
       <view class='time'>
          <view class='timeBoxDay'> <text>{{item.hou}}天</text></view>
@@ -108,11 +109,31 @@
      <block wx:if="{{ProductshowWay == 2}}">
         <view class='product_page_container'>
           <block wx:if = "{{!! productData}}">
+          <!--bindtap='toProductDetail'  -->
             <view class='product_items' wx:for="{{productData}}" wx:key='{{index}}' wx:for-item="result" 
-                   data-info='{{result}}' bindtap='toProductDetail'>
-              <image class='product_itemsImg' mode="aspectFill" style='height:{{sysWidth*44/100}}px;width:100%;' src='{{result.imagePath}}?x-oss-process=style/preview'></image>
-                <view class='show'> <image  mode='aspectFill'  src="../../../images/icon/share6x.png"></image></view>
-      
+                   data-info='{{result}}' >
+              <image class='product_itemsImg' mode="aspectFit" style='height:{{sysWidth*44/100}}px;width:100%;' src='{{result.imagePath}}?x-oss-process=style/preview' bindtap='tolinkUrl' data-id='{{item.id}}'  data-info='{{result}}'></image>
+                 <view class='show'  catchtap='showCardShare'data-index='{{index}}'data-id='{{result.id}}'> <image  mode='aspectFill'  src="../../../images/icon/share6x.png"></image></view> 
+
+      <!--分享  -->
+        <view class='share_box'wx:if='{{result.showShare}}'>
+     <!--第一个button  -->
+   <button class='share_box_item' open-type='share' data-index='{{index}}'  data-id='{{result.id}}'>
+   <view class='share_box_item_img'>
+           <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/35/2_810.jpg'></image> 
+   </view>
+       <view class='share_box_item_text'><text>分享</text></view>
+            
+            </button>
+     <!--第二个button  -->
+    <!-- <button class='share_box_item' data-index='{{index}}' bindtap='showKefuWechatCode' >
+   <view class='share_box_item_img'>
+           <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/36/30_199.jpg'></image> 
+   </view>
+       <view class='share_box_item_text'><text>客服</text></view>
+            
+            </button>  -->
+          </view> 
 
 
        <view class='priceBox'>
@@ -148,7 +169,7 @@
      <view class='product_page_container2'>
         <block wx:if = "{{!! productData}}">
           <view class='product_items2' data-info='{{result}}' bindtap='toProductDetail' wx:for="{{productData}}" wx:for-item="result" wx:key="{{result.id}}">
-            <image mode="aspectFill" src='{{result.imagePath}}?x-oss-process=style/preview'></image>
+            <image mode="aspectFit" src='{{result.imagePath}}?x-oss-process=style/preview'></image>
             <view class='product_items2_view1'>
               
               <view>
@@ -170,6 +191,7 @@
         </block>
       </view>
     </block>
+  
 </block>
 
 <!--加入购物车的遮罩层  -->

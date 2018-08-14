@@ -6,18 +6,18 @@
 
 <!--头部tab  -->
 
-<view class='index'  >
+<view class='index'  bindtap="closeShowShar">
 <view  class='wrap'  wx:if="{{activityPromotion.length!=0}}">
     <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}" >
     <!--特卖  -->
-    <!-- <view class="tab-item {{currentTab==0?'active':'black'}}"  data-current="0"  bindtap="swichNav"   data-id="0">特卖</view> -->
+     <view class="tab-item {{currentTab==0?'active':'black'}}"  data-current="0"  bindtap="swichNav"   data-id="0">特卖</view> 
 
         <view wx:for="{{activityPromotion}}" class="tab-item {{currentTab==index+1?'active':'black'}}"  data-current="{{index+1}}" data-id="{{item.id}}" bindtap="swichNav" wx:key="index+1">{{item.name}}</view>
     </scroll-view>
 </view>
 </view>
 <!--做锚点  -->
-<scroll-view   class='content1'   scroll-into-view="{{toView}}" scroll-y="true"  scroll-with-animation="true" >
+<scroll-view   class='content1'   scroll-into-view="{{toView}}" scroll-y="true"  scroll-with-animation="true"  bindtap="closeShowShar">
 <!--特卖，日销  -->
 <view class='sale'  id="inToView0">
   <view class='user'>
@@ -35,18 +35,18 @@
 
 
 <!--搜索  -->
- <view class='search'>
+ <!-- <view class='search'> -->
    <!--输入框  -->
-   <view class='searchInput'><input placeholder="安耐晒"  bindconfirm='searchProduct' ></input></view>
+   <!-- <view class='searchInput'><input placeholder="安耐晒"  bindconfirm='searchProduct' ></input></view> -->
    <!--搜索  -->
-    <view class='searchImg'><image mode='aspectFill' src='../../../images/icon/search.png'></image></view> 
- </view> 
+     <!-- <view class='searchImg'><image mode='aspectFill' src='../../../images/icon/search.png'></image></view>   -->
+ <!-- </view>  -->
 </view>
 
   </view>
 
 <!-- 特卖，日销 图片 bindtap='tiaoZhuan'  -->
-<view class='center' >
+<!-- <view class='center' >
   <view class='centerLeft' bindtap="anchor"   data-id="18">
         <view class='centerLeftImg'><image mode='aspectFill' src='http://image.tunzai.vip/tunzai/2018_8/10/18/12/56_719.jpg'></image></view> 
         <view class='centerLeftText'>
@@ -63,7 +63,7 @@
           
         </view>
   </view>
-</view>
+</view> -->
 
 <!--活动列表  -->
  <view class='activeList' wx:for="{{activityPromotion}}" wx:key="index">
@@ -115,7 +115,6 @@
        data="{{getProductData}}"></template> 
   </block> -->
 
-    <view data-link='promotion_products.html' bindtap="tolinkUrl1" >测试用的跳转到promotion_products页面</view>
       
 </scroll-view> 
 
@@ -123,4 +122,22 @@
 <!--加入购物车的遮罩层  -->
   <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template>  
 
-
+<!--客服二維碼  -->
+<!-- wx:if='{{loginUser.platformUser.mendian.kefuQrcode}}' -->
+ <view class='kefu_wx' wx:if='{{showKefu}}' catchtouchmove='doNothing'>
+  <view class='kefu_bg_zhezhao' bindtap='closeKefu'></view>
+  <view class='kefu_wx_card'>
+    <view class='kefu_info'>
+    <!--客服女的头像  -->
+      <!-- <view class='kefu_info_icon'><image src='http://image1.sansancloud.com/aikucun/2018_03/12/13/00/08_078.jpg'></image></view> -->
+      <view class='kefu_info_content'>
+        <view>客服：{{loginUser.platformUser.mendian.name}}</view>
+        <text>扫描二维码，客服{{loginUser.platformUser.mendian.name}}为您服务</text>
+      </view>
+    </view>
+    <view class='kefu_qrcode'>
+      <image mode='widthFix' data-url='{{loginUser.kefuQrcode}}'
+       bindtap='lookBigWxCode' src='{{loginUser.kefuQrcode}}'></image>
+    </view>
+  </view>
+</view> 

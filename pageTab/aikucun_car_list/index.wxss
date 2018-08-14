@@ -1,8 +1,11 @@
 /* pages/cart/index.wxss */
-@import '../../view-new/aikucun/aikucun_hot_product.wxss';/*  detail_list_card  */ 
+@import 'productList/productList.wxss'; 
+
+
+/* @import '../../view-new/aikucun/aikucun_hot_product.wxss'; */
 @import '../../view-new/aikucun/aikucun_title.wxss';/*  detail_list_card  */ 
-@import '../../view-new/aikucun/measure_card.wxss';/*  detail_list_card  */ 
-@import '../../view-new/aikucun/kefu.wxss';/*  detail_list_card  */ 
+ @import '../../view-new/aikucun/measure_card.wxss'; 
+ @import '../../view-new/aikucun/kefu.wxss'; 
 
 
 .hasMoreCart{

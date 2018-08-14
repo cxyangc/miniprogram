@@ -1,4 +1,8 @@
-<import src="../../view-new/aikucun/aikucun_hot_product.wxml"/>
+   <!-- <import src="../../view-new/aikucun/aikucun_hot_product.wxml"/>    -->
+
+  <import src="productList/productList.wxml"/>  
+
+
 <import src="../../view-new/aikucun/measure_card.wxml"/>
 <import src="../../view-new/aikucun/kefu.wxml"/>
 <import src="../../view-new/aikucun/aikucun_title2.wxml"/>
@@ -17,7 +21,7 @@
         </label> 
          <image bindtap='cart_pro_click_toDetail' data-description='{{cart.item.promotionBean.description}}'
           data-name='{{cart.item.name}}' data-promotionId='{{cart.item.promotion}}' 
-         data-productId='{{cart.item.productCode}}' class='itemCheckbox_image' mode='aspectFill' src='{{cart.item.imagePath}}?x-oss-process=style/preview'></image>
+         data-productId='{{cart.item.productCode}}' data-id="{{cart.item.id}}" class='itemCheckbox_image' mode='aspectFill' src='{{cart.item.imagePath}}?x-oss-process=style/preview'></image>
         <view wx:if='{{cart.showEditView}}' class='editCart_item_container'>
           <view class='dellCart_butn_container'>
             <view class='dellCart_butn_container_1'>
@@ -42,7 +46,7 @@
         <view wx:else class='item_infomation'
          bindtap='cart_pro_click_toDetail' data-description='{{cart.item.promotionBean.description}}'
           data-name='{{cart.item.name}}' data-promotionId='{{cart.item.promotion}}' 
-         data-productId='{{cart.item.productCode}}' >
+         data-productId='{{cart.item.productCode}}'  data-id="{{cart.item.id}}" >
           <view class='item_infomation_name' data-info='{{cart}}' 
             wx:if='{{cart.count}}'
            >{{cart.item.name}}</view>
@@ -91,8 +95,12 @@
 </view>
   <view class='hotProductContainer' bindtap='closeCardShare'>
     <template is="aikucun_title2" data="{{...setting,sysWidth,loginUser:loginUser,title:'爆款推荐'}}"></template> 
-    <template is="aikucun_hot_product" data="{{...setting,sysWidth,loginUser:loginUser,products:products,listEnd}}"></template> 
-    <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template> 
+     <!-- <template is="aikucun_hot_product" data="{{...setting,sysWidth,loginUser:loginUser,products:products,listEnd}}"></template>   -->
+<!--新的  -->
+      <template is="aikucun_hot_product" data="{{...setting,sysWidth,loginUser:loginUser,products:products,listEnd,hotProduct}}"></template>   
+
+    <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson,showShare}}"></template> 
+    
     <template is="kefu" data="{{loginUser:loginUser,showKefu}}"></template> 
   </view>
 

@@ -38,9 +38,9 @@ Page({
 
    
 
-        // wx.reLaunch({
-        //   url: '/pageTab/' + app.miniIndexPage + '/index'
-        // })
+        wx.reLaunch({
+          url: '/pageTab/' + app.miniIndexPage + '/index'
+        })
 
         // console.log("进入蓝湖")
         // wx.reLaunch({
@@ -48,10 +48,10 @@ Page({
         // })
 
 
-        console.log("进入蓝湖")
-        wx.reLaunch({
-          url: '/pageTab/lanHu/index/index' 
-        })
+        // console.log("进入蓝湖")
+        // wx.reLaunch({
+        //   url: '/pageTab/lanHu/index/index' 
+        // })
 
         // wx.reLaunch({
         //   url: '/page/near_shops/index'
@@ -145,10 +145,31 @@ Page({
       }else{
         app.USER_DEFINED_SCENE=options.scene;
       }
+
+
     } 
 
-    //如果传入的是 MendainID
 
+    // if (options.SHARE_INDEX_PAGE && options.SHARE_INDEX_PAGE != "") {
+    //  // gotoIndex();
+    //   return;
+    // }
+  // 分享出来带分享SHARE_PRODUCT_DETAIL_PAGE跳到产品详情页
+
+    if (options.SHARE_PRODUCT_DETAIL_PAGE && options.SHARE_PRODUCT_DETAIL_PAGE!=""){
+    
+    console.log("options.SHARE_PRODUCT_DETAIL_PAGE", options.SHARE_PRODUCT_DETAIL_PAGE)
+    wx.reLaunch({
+
+      url: '/pages/productDetail/index?id=' + options.SHARE_PRODUCT_DETAIL_PAGE + "&addShopId=0"
+    }) 
+     
+      
+ 
+      return;
+    }
+
+      //如果传入的是 MendainID
     if (!!options.ENTER_MENDIAN && options.ENTER_MENDIAN != -1) {
        console.log("传入的是id" + options.ENTER_MENDIAN)
        app.enterMenDianID = options.ENTER_MENDIAN;
