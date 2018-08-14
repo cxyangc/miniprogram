@@ -63,7 +63,7 @@
                 <image class='profit_items_img' src='../../../images/myImg/goods_received2.png' style='width:80rpx;height:80rpx'></image>
                 <text class='profit_items_text' style='margin-top:10px'>待收货</text>
               </view>
-              <view class='profit_block_items' data-link='mendian_back_item.html'   bindtap='tolinkUrl'>
+              <view class='profit_block_items' data-link='back_item_list.html'   bindtap='tolinkUrl'>
                 <image class='profit_items_img' src='../../../images/myImg/after_sale2.png' style='width:86rpx;height:80rpx'></image>
                 <text class='profit_items_text' style='margin-top:10px'>售后中</text>
               </view>
@@ -170,7 +170,7 @@
           <image class='profit_items_img' src='../../../images/myImg/goods_received2.png' style='width:80rpx;height:80rpx'></image>
           <text class='profit_items_text' style='margin-top:10px'>待收货</text>
         </view>
-        <view class='profit_block_items' data-link='mendian_back_item.html'   bindtap='tolinkUrl'>
+        <view class='profit_block_items' data-link='back_item_list.html'   bindtap='tolinkUrl'>
           <image class='profit_items_img' src='../../../images/myImg/after_sale2.png' style='width:86rpx;height:80rpx'></image>
           <text class='profit_items_text' style='margin-top:10px'>售后中</text>
         </view>
