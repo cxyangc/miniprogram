@@ -94,14 +94,14 @@
 <!-- 底部按钮们 -->
 <view class='bottomHeight'></view>
 <view class='product_detail_bottom_container'>
- <view class='left_bottom' >
-   <image  data-itemId='{{productData.productInfo.productId}}' bindtap='toIndex' mode='aspectFit' src='/images/icons/home1.png'></image>
+ <view class='left_bottom'>
+   <image  data-itemId='{{productData.productInfo.productId}}' bindtap='toIndex' mode='aspectFit' src='/images/icons/home2.png'></image>
    <text  class='font_08'>首页</text>
   </view> 
-  <button open-type='contact' class='left_bottom_contact' >
+  <!-- <button open-type='contact' class='left_bottom_contact' >
     <image mode='aspectFit' src='/images/icons/kefu.png'></image>
     <text class='font_08'>客服</text>
-  </button>
+  </button> -->
   <!-- <view class='left_bottom' >
     <block wx:if='{{!productData.productInfo.favorite}}'>
       <image  data-itemId='{{productData.productInfo.productId}}' bindtap='addToFavourite' mode='aspectFit' src='/images/icons/star.png'></image>

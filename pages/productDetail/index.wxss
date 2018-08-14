@@ -280,7 +280,7 @@ button {
   padding: 1px 0.2em;
 }
 .right_bottom{
-  width: 27.5%;
+  width: 35%;
   display: flex;
   justify-content: center;
   align-items: center;
