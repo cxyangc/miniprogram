@@ -20,6 +20,7 @@ Component({
     maskHidden:true,
     someData: {},
     productData:{},
+    imgInfo: {scale_y:0, scale_x:0,w:0,h:0},
   },
   ready:function(){
     this.getProInfo();
@@ -43,10 +44,30 @@ Component({
               })
             }
           }
+          that.getImgBiLi(that.data.img_l)
+        }
+      })
+    },
+    getImgBiLi:function(url){
+      let that = this;
+      var clientWidth = wx.getSystemInfoSync().screenWidth;
+      var imgInfo = { scale_y: 0, scale_x: 0, w: 0, h: 0};
+      wx.getImageInfo({
+        src: url,
+        success: function (res) {
+          console.log('==getImageInfo===', res.width)
+          console.log('==getImageInfo===', res.height)
+          imgInfo.w = res.width     //图片真实宽度
+          imgInfo.h = res.height   //图片真实高度
+          imgInfo.scale_x = clientWidth * imgInfo.w / imgInfo.h;
+          imgInfo.scale_y = clientWidth * imgInfo.h / imgInfo.w ;
+          that.setData({
+            imgInfo: imgInfo //将下载的图片临时路径赋值给img_l,用于预览图片
+          })
+          console.log('==getImageInfo===', that.data.imgInfo)
           that.customMethod();
         }
       })
-
     },
     getProInfo: function () {
       let that = this
@@ -68,7 +89,7 @@ Component({
           console.log('--------------getData-------------')
           that.setData({ productData: res.data })
           that.downFileFun(that.data.productData.images[0].imagePath,'proImg')
-          that.downFileFun(that.data.ewmImgUrl,'showEwm')
+          that.downFileFun('http://www.tunzai.vip/chainalliance/tunzai/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fENTER_MENDIAN%3d678','showEwm')
         },
         fail: function (res) {
           console.log("fail")
@@ -83,27 +104,30 @@ Component({
     customMethod: function () {
       let that=this;
       console.log('4444444444444', this.data.innerText)
-      var clientWidth = wx.getSystemInfoSync().screenWidth;;
-      console.log('=======1========', clientWidth)
+      var clientWidth = wx.getSystemInfoSync().screenWidth;
       var context = wx.createCanvasContext('shareCanvas', this)
+      // if (that.data.imgInfo.h > that.data.imgInfo.w) {
+      //   context.drawImage(that.data.img_l, 0, 0, that.data.imgInfo.w, that.data.imgInfo.h, 16, 16, that.data.imgInfo.scale_x, that.data.imgInfo.scale_y);
+      // } else {
+      //   context.drawImage(that.data.img_l, 0, 0, that.data.imgInfo.w, that.data.imgInfo.h, 16, 16, that.data.imgInfo.scale_x, that.data.imgInfo.scale_y);
+      // }
       context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
-
       context.setTextAlign('left')    // 文字居中
       context.setFillStyle('#000000')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
       //context.fillText("叶礼旺大师，极品青兔毫！口径14.8×5.5cm", 0, clientWidth * 0.7)
-      context.lineWidth = 1;
+      context.lineWidth = 0.8;
       var str = that.data.productData.productInfo.name
-      context.fillText(str, 15, clientWidth * 0.7+16)
+      that.InterceptStr(str, clientWidth * 0.62, clientWidth * 0.7 + 16, context)
+      //context.fillText(str, 15, clientWidth * 0.7+16)
       //this.strFun(str, clientWidth * 0.62, clientWidth * 0.7,context)
 
+      context.lineWidth =0.5;
       context.setTextAlign('left')    // 文字居中
       context.setFillStyle('#999')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
-      context.fillText(that.data.productData.productInfo.description, 16, clientWidth * 0.75 + 16)
-      //context.lineWidth = 1;
-      //var str = "叶礼旺大师"
-      //this.strFun(str, clientWidth * 0.62, clientWidth * 0.8, context)
+      //that.InterceptStr(that.data.productData.productInfo.description, clientWidth * 0.62, clientWidth * 0.75 + 16, context)
+      //context.fillText(that.data.productData.productInfo.description, 16, clientWidth * 0.75 + 16)
       // 横线
       context.moveTo(16, clientWidth * 0.8 + 16);
       context.strokeStyle = "#999"  // 文字颜色：黑色
@@ -183,6 +207,20 @@ Component({
     },
     closeFun:function(){
       this.triggerEvent('closePoaster', 0) //myevent自定义名称事件，父组件中使用
+    },
+    InterceptStr: function (str, canvasWidth, canvasHeight, context){
+      var lineWidth = 0;
+      var canvasWidth = canvasWidth;//计算canvas的宽度
+      var initHeight = canvasHeight;//绘制字体距离canvas顶部初始的高度
+      var lastSubStrIndex = 0; //每次开始截取的字符串的索引
+      for (let i = 0; i < str.length; i++) {
+        lineWidth += context.measureText(str[i]).width;
+        if (lineWidth > canvasWidth) {
+          context.fillText(str.substring(lastSubStrIndex, i), 16, initHeight);//绘制截取部分
+        }else{
+          context.fillText(str.substring(lastSubStrIndex, i), 16, initHeight);//绘制截取部分
+        }
+      }
     },
     strFun: function (str, canvasWidth, canvasHeight, context){
        var lineWidth = 0;
