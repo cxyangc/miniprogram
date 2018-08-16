@@ -16,7 +16,9 @@ Page({
     showCount:false,
     byNowParams:{},
     targs:null,
-
+    posterState:false,
+    proId:'',
+    shopId:'',
     bindway:'cart',  //点击的是加入购物车或者立即购买
     showState: 0,
     commitList:[],
@@ -25,39 +27,41 @@ Page({
   toIndex: function () {
     app.toIndex()
   }, 
+  posterStateFun:function(state){
+    console.log('====state====',state)
+    this.setData({
+      posterState: true
+    })
+  },
+  getChilrenPoster:function(e){
+    this.setData({
+      posterState: false
+    })
+  },
   lookBigImage: function (e) {
-    console.log("111111111")
+    console.log("111111111", e.currentTarget.dataset)
     let imgSrc = e.currentTarget.dataset.imageurl
+    let imgArray=[]
+    let index = e.currentTarget.dataset.index
+    let PostImageSrc=[];
     console.log(imgSrc)
-    let PostImageSrc = imgSrc.replace(/http/, "https")
+    for (let i = 0; i < imgSrc.length;i++){
+      imgArray.push(imgSrc[i].imagePath)
+      PostImageSrc.push(imgSrc[i].imagePath.replace(/http/, "https"))
+    }
     // let PostImageSrc = imgSrc
     console.log(PostImageSrc)
     if (!imgSrc) {
       return
     }
-    let urls = []
-    urls.push(imgSrc)
+    // let urls = []
+    // urls.push(imgSrc)
     wx.previewImage({
-      current: imgSrc, // 当前显示图片的http链接
-      urls: urls // 需要预览的图片http链接列表
+      current: imgArray[index], // 当前显示图片的http链接
+      urls: imgArray // 需要预览的图片http链接列表
     })
   },
-  saveImageToLocal: function (e) {
-    let imgSrc = e.currentTarget.dataset.imageurl
-    console.log(imgSrc)
-    let PostImageSrc = imgSrc.replace(/http/, "https")
-    // let PostImageSrc = imgSrc
-    console.log(PostImageSrc)
-    if (!imgSrc) {
-      return
-    }
-    let urls = []
-    urls.push(imgSrc)
-    wx.previewImage({
-      current: imgSrc, // 当前显示图片的http链接
-      urls: urls // 需要预览的图片http链接列表
-    })
-  },
+  
   showCouponState: function (e) {
     var index = e.currentTarget.dataset.id
     this.setData({
@@ -81,7 +85,6 @@ Page({
     let productData = this.data.productData
 
     postData.itemId = e.currentTarget.dataset.itemid
-    console.log(postData)
     
     var customIndex = app.AddClientUrl("/remove_favorite.html", postData,'post')
     wx.request({
@@ -514,9 +517,11 @@ Page({
     addShopId:''
   },
   onLoad: function (options) {
-    console.log('--------product----------')
+    console.log('--------product----------', options)
     this.setData({
-      sysWidth: app.globalData.sysWidth
+      sysWidth: app.globalData.sysWidth,
+      proId: options.id,
+      shopId: options.addShopId
     });
     console.log(options)
     this.dataFOr_getData.id = options.id

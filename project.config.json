@@ -45,6 +45,74 @@
 					"pathName": "pageTab/index/index",
 					"query": "id=8708&addShopId=236&scene=MINI_PLATFORM_USER_ID_66259&SHARE_PRODUCT_DETAIL_PAGE=8708",
 					"scene": "1044"
+				},
+				{
+					"id": 4,
+					"name": "扫码进来携带MendianID",
+					"pathName": "pageTab/index/index",
+					"query": "ENTER_MENDIAN=74",
+					"scene": "1011"
+				},
+				{
+					"id": 5,
+					"name": "预览页面",
+					"pathName": "pageTab/lanHu/preApplyMendian/index",
+					"query": "code=111",
+					"scene": "1011"
+				},
+				{
+					"id": 6,
+					"name": "lanhu",
+					"pathName": "pageTab/index/index",
+					"query": "lanhu=shuiguodianpu",
+					"scene": "1011"
+				},
+				{
+					"id": 7,
+					"name": "tuizai",
+					"pathName": "pageTab/index/index",
+					"query": "APPLY_SERVER_CHANNEL_CODE=LIN456"
+				},
+				{
+					"id": 8,
+					"name": "qq1",
+					"pathName": "pageTab/lanHu/preApplyMendian/index",
+					"query": "code=222",
+					"scene": "1011"
+				},
+				{
+					"id": 4,
+					"name": "扫码进来携带MendianID",
+					"pathName": "pageTab/index/index",
+					"query": "ENTER_MENDIAN=74",
+					"scene": "1011"
+				},
+				{
+					"id": 5,
+					"name": "预览页面",
+					"pathName": "pageTab/lanHu/canvas/index",
+					"query": "",
+					"scene": "1001"
+				},
+				{
+					"id": 6,
+					"name": "lanhu",
+					"pathName": "pageTab/index/index",
+					"query": "lanhu=shuiguodianpu",
+					"scene": "1011"
+				},
+				{
+					"id": 7,
+					"name": "tuizai",
+					"pathName": "pageTab/index/index",
+					"query": "APPLY_SERVER_CHANNEL_CODE=LIN456"
+				},
+				{
+					"id": 8,
+					"name": "qq1",
+					"pathName": "pageTab/lanHu/preApplyMendian/index",
+					"query": "code=222",
+					"scene": "1011"
 				}
 			]
 		}

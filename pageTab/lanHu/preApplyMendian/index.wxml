@@ -1,7 +1,7 @@
 <view class='container'>
 <!--按钮  -->
 <view class='btn'  bindtap='tolinkUrl' wx:if="{{applyState=='-1'||applyState=='2'}}"></view>
-
+<view class='btn1'  bindtap='login' wx:if="{{applyState=='1'}}"></view>
 <!--背景  -->
  <image class='bg' src='{{applyImgBg}}'></image>
 

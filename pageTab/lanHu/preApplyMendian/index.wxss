@@ -21,4 +21,15 @@
   z-index: 100;  
   width: 550rpx;
   border-radius: 100rpx;
+  background: #000;
+}
+.btn1{
+  position: fixed;
+  left: 50%;
+  bottom: 420rpx;
+  margin-left: -275rpx;
+  height: 210rpx;
+  z-index: 100;  
+  width: 550rpx;
+  border-radius: 100rpx;
 }

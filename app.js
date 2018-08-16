@@ -9,7 +9,7 @@ App({
     //  clientUrl: 'http://192.168.40.180:3000/chainalliance/',  // 本地ip 链接地址
     // clientUrl: 'http://www2.aikucun.xyz/chainalliance/',
  clientUrl: 'https://mini.sansancloud.com/chainalliance/',
-  // clientUrl: 'https://mini.tunzai.vip/chainalliance/',
+  //clientUrl: 'https://mini.tunzai.vip/chainalliance/',
   // clientUrl: 'http://192.168.1.12:3000/chainalliance/',
 
     /**

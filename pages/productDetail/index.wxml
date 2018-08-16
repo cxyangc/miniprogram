@@ -7,10 +7,8 @@
     <swiper class='SwiperIndex' style='height:{{sysWidth}}px' indicator-dots="true"
       autoplay="true" interval="5000" duration="500">
       <block wx:for="{{productData.images}}"  wx:key="{{swiper}}">
-        <swiper-item>
-
-          <image mode='aspectFit' src="{{item.imagePath}}"  data-imageUrl='{{item.imagePath}}' bindtap='lookBigImage' bindlongpress='saveImageToLocal'/>
-
+        <swiper-item  data-imageUrl='{{productData.images}}' data-index='{{index}}' bindtap='lookBigImage' >
+          <image mode='aspectFit' src="{{item.imagePath}}"/>
         </swiper-item> 
       </block>  
     </swiper>
@@ -26,9 +24,10 @@
       <text class='p1 font_12'>￥{{productData.productInfo.price}}</text>
       <block wx:if='{{productData.productInfo.tagPrice > productData.productInfo.price}}'>
         <text class='p2 '>￥{{productData.productInfo.tagPrice}}</text>
+        <component-tag-name proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='1'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></component-tag-name> 
       </block>
     </view>
-    <view class='InfoYunfei font_08'>
+    <view class='InfoYunfei font_08' bindtap='posterStateFun'>
       <text >运费：￥{{productData.productInfo.yunfei}}</text>
     </view>
     <view wx:if='{{productData.productInfo.saleStrategy}}' class='saleStrategy'>

@@ -10,7 +10,12 @@ Page({
     applyImgBg:'',
     applyState:'',
   },
-
+  // 返回首页
+  login: function (e) {
+    wx.switchTab({
+      url: '../index/index',
+    })
+  },
 getSUbmitRecord:function(callback){
   let params = {}
   var customIndex = app.AddClientUrl("/get_product_mendian_submit.html", params, 'post')
