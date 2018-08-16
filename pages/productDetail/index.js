@@ -23,6 +23,7 @@ Page({
     showState: 0,
     commitList:[],
     measurementJson:null,
+    qrCodeUrl:"",
   },
   toIndex: function () {
     app.toIndex()
@@ -523,11 +524,12 @@ Page({
       proId: options.id,
       shopId: options.addShopId
     });
-    console.log(options)
+    console.log("商品id和店铺id",options)
     this.dataFOr_getData.id = options.id
     this.dataFOr_getData.addShopId = options.addShopId
     
     this.getData(options)
+    this.getQrCode();
   },
 
 
@@ -722,5 +724,31 @@ Page({
     this.setData({ showGuigeType: false })
     this.MeasureParams = []
   },
+  // 获取二维码
+  getQrCode:function() {
 
+    let userId = "";
+    if (app.loginUser && app.loginUser.platformUser) {
+      userId = 'MINI_PLATFORM_USER_ID_' + app.loginUser.platformUser.id
+    }
+    console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
+    // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
+    let postParam = {}
+    postParam.SHARE_PRODUCT_DETAIL_PAGE = this.data.proId;
+    postParam.scene = userId
+
+    // 上面是需要的参数下面的url
+    var customIndex = app.AddClientUrl("/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d" + this.data.proId + "%26scene%3d" + userId, postParam, 'get', '1')
+    var result = customIndex.url.split("?");
+
+    customIndex.url = result[0] + "?" + result[1]
+
+    console.log("customIndex", customIndex.url, result[0])
+
+    var that = this
+    that.setData({
+      qrCodeUrl: customIndex.url
+    })
+
+  }
 })
