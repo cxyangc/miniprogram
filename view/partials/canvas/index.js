@@ -89,7 +89,7 @@ Component({
           console.log('--------------getData-------------')
           that.setData({ productData: res.data })
           that.downFileFun(that.data.productData.images[0].imagePath,'proImg')
-          that.downFileFun('http://www.tunzai.vip/chainalliance/tunzai/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fENTER_MENDIAN%3d678','showEwm')
+          that.downFileFun(that.data.ewmImgUrl,'showEwm')
         },
         fail: function (res) {
           console.log("fail")
