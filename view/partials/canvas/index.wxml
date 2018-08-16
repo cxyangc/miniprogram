@@ -6,6 +6,6 @@
     <view class='box_shareCanvas'>
        <canvas canvas-id="shareCanvas" class='canvas' bindtap='saveImageToLocal' disable-scroll="true" bindtouchstart="saveImageToLocal" bindtouchmove="touchMove" bindtouchend="touchEnd"></canvas>
     </view>
-    <view class='saveImgBtn'><text>保存图片</text></view>
+    <view class='saveImgBtn' bindtap='saveImgToPhotosAlbumTap'><text>保存图片</text></view>
     <view class='saveText'><text>保存至相册可以分享到朋友圈</text></view>
 </view>

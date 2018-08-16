@@ -26,6 +26,31 @@ Component({
     this.getProInfo();
   },
   methods: {
+    // saveImgToPhotosAlbumTap: function () {
+    //   let that = this;
+    //   wx.showToast({
+    //     title: '保存图片中...',
+    //     icon: 'loading',
+    //     duration: 1000
+    //   });
+    //   wx.saveImageToPhotosAlbum({
+    //     filePath: that.data.imagePath,
+    //     success: function (res) {
+    //       console.log(res)
+    //       wx.hideToast()
+    //       wx.showToast({
+    //         title: '保存图片成功',
+    //         icon: 'success',
+    //         duration: 1000
+    //       });
+    //     },
+    //     fail: function (res) {
+    //       console.log(res)
+    //       console.log('fail')
+    //     }
+    //   })
+
+    // },
     downFileFun: function (url,typeData) {
       let that = this
       const downloadTask = wx.downloadFile({
