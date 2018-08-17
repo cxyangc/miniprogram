@@ -162,9 +162,15 @@ Page({
     return mendian
   },
   setNav: function (mendian) {
-    wx.setNavigationBarTitle({
-      title: mendian.name,
-    })
+    if (mendian&&mendian!=='') {
+      wx.setNavigationBarTitle({
+        title: mendian.name,
+      })
+    }else{
+      wx.setNavigationBarTitle({
+        title: '我的',
+      })
+    }
   },
   //扫一扫 登录后台
   toLoginBackstage: function (e) {

@@ -25,11 +25,10 @@ Component({
   methods: {
     // 这里是一个自定义方法
 
-    tolinkUrl: function (event) {
-      // console.log(event.currentTarget.dataset.id)
-      // wx.navigateTo({
-      //   url: '/pages/news_detail/index?id=' + event.currentTarget.dataset.id,
-      // })
+    tolinkUrl: function (e) {
+      console.log("e.currentTarget.dataset.link=====", e.currentTarget.dataset.link)
+      let linkUrl = e.currentTarget.dataset.link
+      app.linkEvent(linkUrl)
     },
     // 获取附近店铺数据
     getData:function(){

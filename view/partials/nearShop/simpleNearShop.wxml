@@ -8,7 +8,7 @@
 
   <block wx:if='{{shops.length >= "1"}}'>
      <view class='ListDataContainer' >
-        <view class='ListDataItem' wx:for="{{shops}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap='tolinkUrl'>
+        <view class='ListDataItem' wx:for="{{shops}}" wx:key="{{index}}"  data-link='near_shop_page.html?addShopId={{item.id}}' bindtap='tolinkUrl'>
   <!--左边的图片  -->
      <view wx:if='{{item.shopLogo}}' class='ListDataItemImage'><image mode='aspectFill' src='{{item.shopLogo}}?x-oss-process=style/preview'></image></view>
         <view wx:else class='ListDataItemImage'><image mode='aspectFill' src='../../../images/333.jpg'></image></view> 

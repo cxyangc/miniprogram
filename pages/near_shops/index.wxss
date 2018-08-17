@@ -82,6 +82,7 @@ white-space:nowrap;
  width:100%; 
   display: block;
   flex-direction: column;
+  overflow: hidden；
 
 }
 .star{
@@ -95,12 +96,14 @@ white-space:nowrap;
   
 }
 .starImg{
+   height: 24rpx;
   margin-left: 15rpx;
   display: block;
   flex-direction: row;
 
 }
 .star1{
+   height: 24rpx;
   width: 100%;
     display: flex;
   flex-direction: row;

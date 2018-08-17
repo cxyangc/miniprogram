@@ -5,7 +5,7 @@
   <view class='shop_top'>
     <view class='shop_top_left'><image class='shop_top_img' src='../../../images/icons/logo.jpg'></image></view>
     <view class='shop_top_right'>
-      <view class='shop_top_name'><text>野鲜超市-泰禾店</text></view>
+      <view class='shop_top_name'><text>{{shopInfo.shopName}}</text></view>
       <view class='shop_top_decribe'>
         <text class='decribe_dada'>达达专送-46分钟</text>
         <text class='decribe_base'>| 基础运费4元</text>
