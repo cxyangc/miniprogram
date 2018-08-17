@@ -53,7 +53,7 @@
       <view class='center1'>
          <view class='centerName'>  {{products.name}}</view>
            <view class='smallText'>
-           <image catchtap="bindBuy" mode="aspectFit"  data-index="{{index}}" data-bindbuy='addto' src="../../../images/icon/Cart1@3x.png"></image>   
+           <image catchtap="bindBuy" mode="aspectFit"  data-index="{{index}}" data-bindbuy='addto' src="../../images/icon/Cart1@3x.png"></image>   
     </view> 
     </view> 
 

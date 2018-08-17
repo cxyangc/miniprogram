@@ -28,6 +28,8 @@ Page({
     showCount: false,
     focusData: null,
     measurementJson: null,
+    // 海报
+    posterState:false
   },
   //防止点击穿透 背景层
   preventD: function () {
@@ -47,26 +49,20 @@ Page({
   onLoad: function (options) {
     this.getData();
     this.getProductData()
+   
     console.log("用户信息", app.loginUser)
     if (app.loginUser && app.loginUser != "" && app.loginUser.platformUser.mendian){
       this.setData({
         loginUser: app.loginUser.platformUser.mendian
       })
     }
+    console.log("setting", app.setting.platformSetting.logo)
+    this.setData({
+      logo: app.setting.platformSetting.logo
+    })
     var that=this;
     app.addLoginListener(this);
-    //  获取手机高度
-    // wx.getSystemInfo({
-    //   success: function (res) {
-    //     console.log("手机高度",res.screenHeight)
-    //     let screenHeight = res.screenHeight*2-420;
-    //     screenHeight = screenHeight+"rpx"
-    //     console.log("screenHeight:" + screenHeight);
-    //     that.setData({
-    //       screenHeight: screenHeight
-    //     })
-    //   }
-    // })
+
  
    
   },
@@ -100,8 +96,6 @@ Page({
           showShare[num] = false;
 
         }
-
-
       that.setData({
         activityPromotion: res.data.activityPromotion,
         unactivityPromotion: res.data.unactivityPromotion,
@@ -110,13 +104,14 @@ Page({
         showShare: showShare
           })
         wx.hideLoading()
-        if (that.data.activityPromotion.length==0){
-          console.log("无")
-        }
-        else{
+      
+  
           that.getTimeAll();
-        that.ungetTimeAll();
-        }
+          that.ungetTimeAll();
+
+     
+   
+
        
       },
       fail: function (res) {
@@ -313,12 +308,11 @@ Page({
   
   },
   ungetTimeAll: function () {
-
     var me = this;
     var oldData = this.data;
     // 已经开始的活动
     var arr = [];
-    // console.log(oldData.unactivityPromotion.length);
+    console.log(oldData.unactivityPromotion.length);
     var dataLength = oldData.unactivityPromotion.length;
     // 循环出项目的个数,添加到arr中
     for (var a = 0; a < dataLength; a++) {
@@ -363,7 +357,7 @@ Page({
       })
       // 渲染，然后每隔一秒执行一次倒计时函数
       this.setData({ countDownList1: countDownArr })
-      // console.log(oldData.countDownList)
+      // console.log(oldData.countDownList1)
 
     }.bind(this), 1000);
 
@@ -578,19 +572,29 @@ Page({
 
   //点击加入购物车或立即下单
   bindAddtocart: function (e) {
-    this.closeShowShar()
-    var index = e.currentTarget.dataset.index;
-    console.log("index", index)
-    this.dellBindItem(index, 'addto')
+    console.log("56565555555555555555555555", e.detail.e.target.dataset.id);
+    var id = e.detail.e.target.dataset.id;
+    console.log("id", id)
+    this.dellBindItem(id, 'addto')
   },
   bindBuy: function (e) {
     var index = e.currentTarget.dataset.index;
     this.dellBindItem(index, 'tobuy')
   },
-  dellBindItem: function (index, bindType) {
-    
+  dellBindItem: function (id, bindType) {
+   
     let productData = this.data.productData
-    let focusData = productData[index]
+    console.log("productData", productData,id)
+    let index=0;
+      let focusData = "";
+    for (let i = 0; i < productData.length;i++){
+     index=i;
+      if (productData[index].id==id){
+        console.log(productData[index])
+        focusData = productData[index]
+     }
+    }
+
 
     this.byNowParams.productId = focusData.id
     this.byNowParams.shopId = focusData.belongShopId
@@ -988,5 +992,32 @@ Page({
       showKefu: false
     })
   },
+
+
+
+// 展示海报
+  showPosters(e){
+    console.log("showPostersEEEE", e.detail.e.currentTarget.dataset.id)
+    let that=this;
+    this.setData({
+      proId: e.detail.e.currentTarget.dataset.id,
+      shopId: "236",
+      posterState: true,
+     
+    })
+    this.getQrCode();
+
+  },
+  // 关闭海报
+  getChilrenPoster(e) {
+
+    let that = this;
+      that.setData({
+        posterState: false,
+      })
+  
+  },
+
+ 
 
 })

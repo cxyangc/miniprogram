@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    posterState:false,
     ProductshowWay: '2',
     setting: null, // setting           
     loginUser: null,
@@ -277,7 +278,7 @@ Page({
         that.params.pageSize = res.data.pageSize
         that.params.curPage = res.data.curPage
         that.params.totalSize = res.data.totalSize
-        let dataArr = that.data.productData
+        let dataArr = res.data.result
         let result = res.data.result
         if (ifAdd == 2) {
           dataArr = []
@@ -341,17 +342,29 @@ Page({
 
   //点击加入购物车或立即下单
   bindAddtocart: function (e) {
-    this.closeShowShar();
-    var index = e.currentTarget.dataset.index;
-    this.dellBindItem(index, 'addto')
+    console.log("56565555555555555555555555", e.detail.e.target.dataset.id);
+    var id = e.detail.e.target.dataset.id;
+    console.log("id", id)
+    this.dellBindItem(id, 'addto')
   },
   bindBuy: function (e) {
     var index = e.currentTarget.dataset.index;
     this.dellBindItem(index, 'tobuy')
   },
-  dellBindItem: function (index, bindType) {
+  dellBindItem: function (id, bindType) {
+
     let productData = this.data.productData
-    let focusData = productData[index]
+    console.log("productData", productData, id)
+    let index = 0;
+    let focusData = "";
+    for (let i = 0; i < productData.length; i++) {
+      index = i;
+      if (productData[index].id == id) {
+        console.log(productData[index])
+        focusData = productData[index]
+      }
+    }
+
 
     this.byNowParams.productId = focusData.id
     this.byNowParams.shopId = focusData.belongShopId
@@ -545,7 +558,10 @@ Page({
     this.setData({
       id: options.promotionId
     })
-    this.getCart()
+    this.getActiveData();
+    this.getData(this.params, 1)//获取商品数据
+    this.getCart();
+   
 
     this.opt = options
     this.loadOpt(options)
@@ -554,8 +570,7 @@ Page({
         if (i.toLowerCase() == j.toLowerCase()) { this.params[j] = options[i] }
       }
     }
-    this.getActiveData();
-    this.getData(this.params, 1)//获取商品数据
+
 
 
   },
@@ -1296,4 +1311,55 @@ Page({
     productData: productData
   })
   },
+
+
+  // 展示海报
+  showPosters(e) {
+    console.log("showPostersEEEE", e.detail.e.currentTarget.dataset.id)
+    let that = this;
+    this.setData({
+      proId: e.detail.e.currentTarget.dataset.id,
+      shopId: "0",
+      posterState: true,
+
+    })
+    this.getQrCode();
+  },
+  // 关闭海报
+  getChilrenPoster(e) {
+
+    let that = this;
+    that.setData({
+      posterState: false,
+    })
+
+  },
+  // 获取二维码
+  getQrCode: function () {
+
+    let userId = "";
+    if (app.loginUser && app.loginUser.platformUser) {
+      userId = 'MINI_PLATFORM_USER_ID_' + app.loginUser.platformUser.id
+    }
+    console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
+    // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
+    let postParam = {}
+    postParam.SHARE_PRODUCT_DETAIL_PAGE = this.data.proId;
+    postParam.scene = userId
+
+    // 上面是需要的参数下面的url
+    var customIndex = app.AddClientUrl("/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d" + this.data.proId + "%26scene%3d" + userId, postParam, 'get', '1')
+    var result = customIndex.url.split("?");
+
+    customIndex.url = result[0] + "?" + result[1]
+
+    console.log("customIndex", customIndex.url, result[0])
+
+    var that = this
+    that.setData({
+      qrCodeUrl: customIndex.url
+    })
+
+  }
+
 })

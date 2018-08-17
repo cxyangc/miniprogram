@@ -22,7 +22,7 @@
      </view>
           
      <view class='flexCenter' bindtap='bindProductshowWay'>
-        <block wx:if="{{ProductshowWay ==2}}">
+        <block wx:if="{{ProductshowWay ==1}}">
           <image src='/images/icons/liebiao2.png'></image>
         </block>
         <block wx:else>
@@ -82,7 +82,7 @@
   <view class='guangGao'>
     <view class='guangGaoImg'><image mode='aspectFill' src='../../../images/icon/ring@2x.png'></image></view>
 
-    <view  wx:if="{{activityPromotion.description!=''}}"><text class='big'>公告</text><text class='small'>{{activityPromotion.description}}</text></view>
+    <view class='bigBox' wx:if="{{activityPromotion.description!=''}}"><text class='big'>公告</text><text class='small'>{{activityPromotion.description}}</text></view>
 
       <view  wx:else><text class='big'>公告</text><text class='small'>暂无活动公告</text></view> 
   </view>
@@ -92,7 +92,8 @@
       <view class='activeListtImg' > <image mode='aspectFill' src='{{activityPromotion.promotionBanner}}' ></image> 
        <!-- <view class='priceKode'>价格低至2折起</view> -->
       <view class='time'>
-         <view class='timeBoxDay'> <text>{{item.hou}}天</text></view>
+       <view class='jiesu'>距结束</view>
+         <view class='timeBoxDay'> <text>{{item.day}}天</text></view>
 
              <view class='timeBox'> <text>{{item.hou}}</text></view>
        
@@ -100,66 +101,14 @@
  
          <view class='timeBox'> <text>{{item.sec}}</text></view>
 
-        <view class='timeBox1'> <text class='timeBox1Text1'>仅剩</text><text class='timeBox1Text2'>53%</text></view>
+        <!-- <view class='timeBox1'> <text class='timeBox1Text1'>仅剩</text><text class='timeBox1Text2'>53%</text></view> -->
       </view> 
       </view> 
       </view> 
 
-<!--公告结束  -->
+<!--公告结束 productData -->
      <block wx:if="{{ProductshowWay == 2}}">
-        <view class='product_page_container'>
-          <block wx:if = "{{!! productData}}">
-          <!--bindtap='toProductDetail'  -->
-            <view class='product_items' wx:for="{{productData}}" wx:key='{{index}}' wx:for-item="result" 
-                   data-info='{{result}}' >
-              <image class='product_itemsImg' mode="aspectFit" style='height:{{sysWidth*44/100}}px;width:100%;' src='{{result.imagePath}}?x-oss-process=style/preview' bindtap='tolinkUrl' data-id='{{item.id}}'  data-info='{{result}}'></image>
-                 <view class='show'  catchtap='showCardShare'data-index='{{index}}'data-id='{{result.id}}'> <image  mode='aspectFill'  src="../../../images/icon/share6x.png"></image></view> 
-
-      <!--分享  -->
-        <view class='share_box'wx:if='{{result.showShare}}'>
-     <!--第一个button  -->
-   <button class='share_box_item' open-type='share' data-index='{{index}}'  data-id='{{result.id}}'>
-   <view class='share_box_item_img'>
-           <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/35/2_810.jpg'></image> 
-   </view>
-       <view class='share_box_item_text'><text>分享</text></view>
-            
-            </button>
-     <!--第二个button  -->
-    <!-- <button class='share_box_item' data-index='{{index}}' bindtap='showKefuWechatCode' >
-   <view class='share_box_item_img'>
-           <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/36/30_199.jpg'></image> 
-   </view>
-       <view class='share_box_item_text'><text>客服</text></view>
-            
-            </button>  -->
-          </view> 
-
-
-       <view class='priceBox'>
-               
-                <text class='price'>￥{{result.price}}</text>
-                <block wx:if='{{result.price < result.tagPrice}}'>
-                  <text class='priceTagLine'>￥{{result.tagPrice}}</text>
-                </block>
-            
-                   </view>
-
-                    <view class='center1'>
-         <view class='centerName'>  {{result.name}}</view>
-           <view class='smallText'>
-            <image catchtap="bindAddtocart"   data-index="{{index}}" data-bindbuy='addto' src="../../../images/icon/Cart1@3x.png"></image>    
-    </view> 
-    </view> 
-            </view>
-          </block>
-          <block wx:else>
-            <view class="noproduct">
-              <image mode="widthFix" src='/images/icons/no-product.png'></image>
-              <text>没有相关商品</text>
-            </view>
-          </block>
-        </view>
+              <productList  data="{{productData}}" id="exceplem"  bind:action='bindAddtocart'    bind:showPosters='showPosters'></productList>
     </block>
 
 
@@ -194,8 +143,11 @@
   
 </block>
 
+<!--  海报-->
+   <posters proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 
 <!--加入购物车的遮罩层  -->
   <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template>  
+
 
 
       <view  class='dixian'> 我是有底线的 ~</view> 

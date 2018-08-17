@@ -27,7 +27,7 @@
         <component-tag-name proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></component-tag-name> 
       </block>
     </view>
-    <view class='InfoYunfei font_08' bindtap='posterStateFun'>
+    <view class='InfoYunfei font_08' >
       <text >运费：￥{{productData.productInfo.yunfei}}</text>
     </view>
     <view wx:if='{{productData.productInfo.saleStrategy}}' class='saleStrategy'>
@@ -96,8 +96,8 @@
 <!-- 底部按钮们 -->
 <view class='bottomHeight'></view>
 <view class='product_detail_bottom_container'>
- <view class='left_bottom'>
-   <image  data-itemId='{{productData.productInfo.productId}}' bindtap='toIndex' mode='aspectFit' src='/images/icons/home2.png'></image>
+ <view class='left_bottom' data-itemId='{{productData.productInfo.productId}}' bindtap='toIndex' >
+   <image mode='aspectFit' src='/images/icons/home2.png'></image>
    <text  class='font_08'>首页</text>
   </view> 
   <!-- <button open-type='contact' class='left_bottom_contact' >

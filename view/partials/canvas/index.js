@@ -21,36 +21,43 @@ Component({
     someData: {},
     productData:{},
     imgInfo: {scale_y:0, scale_x:0,w:0,h:0},
+    color:'',
+
   },
   ready:function(){
+    this.setData({
+      color: app.setting.platformSetting.defaultColor,
+      platformName: app.setting.platformSetting.platformName
+    })
     this.getProInfo();
+    console.log('=======', app.setting)
   },
   methods: {
-    // saveImgToPhotosAlbumTap: function () {
-    //   let that = this;
-    //   wx.showToast({
-    //     title: '保存图片中...',
-    //     icon: 'loading',
-    //     duration: 1000
-    //   });
-    //   wx.saveImageToPhotosAlbum({
-    //     filePath: that.data.imagePath,
-    //     success: function (res) {
-    //       console.log(res)
-    //       wx.hideToast()
-    //       wx.showToast({
-    //         title: '保存图片成功',
-    //         icon: 'success',
-    //         duration: 1000
-    //       });
-    //     },
-    //     fail: function (res) {
-    //       console.log(res)
-    //       console.log('fail')
-    //     }
-    //   })
+    saveImgToPhotosAlbumTap: function () {
+      let that = this;
+      wx.showToast({
+        title: '保存图片中...',
+        icon: 'loading',
+        duration: 1000
+      });
+      wx.saveImageToPhotosAlbum({
+        filePath: that.data.imagePath,
+        success: function (res) {
+          console.log(res)
+          wx.hideToast()
+          wx.showToast({
+            title: '保存图片成功',
+            icon: 'success',
+            duration: 1000
+          });
+        },
+        fail: function (res) {
+          console.log(res)
+          console.log('fail')
+        }
+      })
 
-    // },
+    },
     downFileFun: function (url,typeData) {
       let that = this
       const downloadTask = wx.downloadFile({
@@ -136,6 +143,7 @@ Component({
       // } else {
       //   context.drawImage(that.data.img_l, 0, 0, that.data.imgInfo.w, that.data.imgInfo.h, 16, 16, that.data.imgInfo.scale_x, that.data.imgInfo.scale_y);
       // }
+      console.log("55555");
       context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
       context.setTextAlign('left')    // 文字居中
       context.setFillStyle('#000000')  // 文字颜色：黑色
@@ -143,17 +151,18 @@ Component({
       //context.fillText("叶礼旺大师，极品青兔毫！口径14.8×5.5cm", 0, clientWidth * 0.7)
       context.lineWidth = 0.8;
       var str = that.data.productData.productInfo.name
-      that.InterceptStr(str, clientWidth * 0.62, clientWidth * 0.7 + 16, context)
-      //context.fillText(str, 15, clientWidth * 0.7+16)
+      //that.InterceptStr(str, clientWidth * 0.5, clientWidth * 0.7 + 16, context)
+      context.fillText(str.substring(0, 25), 16, clientWidth * 0.7+16)
       //this.strFun(str, clientWidth * 0.62, clientWidth * 0.7,context)
-
-      context.lineWidth =0.5;
+      console.log("6666");
       context.setTextAlign('left')    // 文字居中
-      context.setFillStyle('#999')  // 文字颜色：黑色
-      context.setFontSize(12)         // 文字字号：22px
-      //that.InterceptStr(that.data.productData.productInfo.description, clientWidth * 0.62, clientWidth * 0.75 + 16, context)
-      //context.fillText(that.data.productData.productInfo.description, 16, clientWidth * 0.75 + 16)
+      context.setFillStyle('#ff4444')  // 文字颜色：黑色
+      context.setFontSize(18)         // 文字字号：22px
+      var str1 = that.data.productData.productInfo.price
+      //that.InterceptStr("￥"+str1, clientWidth * 0.62, clientWidth * 0.9 + 16, context)
+      context.fillText("￥" + str1, 16, clientWidth * 0.78 + 16)
       // 横线
+      console.log("7777");
       context.moveTo(16, clientWidth * 0.8 + 16);
       context.strokeStyle = "#999"  // 文字颜色：黑色
       context.lineTo(clientWidth * 0.68, clientWidth * 0.8 + 16);
@@ -162,14 +171,14 @@ Component({
       context.setFillStyle('#000')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
       context.fillText("长按识别小程序码访问", 16, clientWidth * 0.88 + 16)
-
+      console.log("8888");
       context.setTextAlign('left')    // 文字居中
       context.setFillStyle('#999')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
-      context.fillText("三三网络科技有限公司", 16, clientWidth * 0.93 + 16)
-
+      context.fillText(that.data.platformName, 16, clientWidth * 0.93 + 16)
+      console.log("9999:" + that.data.img_ewm);
       context.drawImage(that.data.img_ewm, clientWidth * 0.5 - 16, clientWidth * 0.8 + 16, 80, 80)
-
+      console.log("55555");
       context.stroke()
       context.draw()
       //绘制图片
@@ -240,11 +249,15 @@ Component({
       var lastSubStrIndex = 0; //每次开始截取的字符串的索引
       for (let i = 0; i < str.length; i++) {
         lineWidth += context.measureText(str[i]).width;
+        console.log('====-lineWidth-----', lineWidth)
+        console.log('====-canvasWidth-----', canvasWidth)
         if (lineWidth > canvasWidth) {
+          console.log('====');
           context.fillText(str.substring(lastSubStrIndex, i), 16, initHeight);//绘制截取部分
-        }else{
-          context.fillText(str.substring(lastSubStrIndex, i), 16, initHeight);//绘制截取部分
-        }
+         }
+        //else{
+        //   context.fillText(str.substring(lastSubStrIndex, i), 16, initHeight);//绘制截取部分
+        // }
       }
     },
     strFun: function (str, canvasWidth, canvasHeight, context){

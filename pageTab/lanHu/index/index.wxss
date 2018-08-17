@@ -1,6 +1,6 @@
 @import 'product.wxss';
  @import 'getProductData/getProductData.wxss'; 
-  /* @import '../../../view-new/aikucun/aikucun_hot_product.wxss';  */
+
 @import '../../../view-new/aikucun/measure_card.wxss';/*  detail_list_card  */ 
 
  page{ height: 100%;position : relative;  background-color: #F8FBFF;}
@@ -58,7 +58,7 @@ width:100%;
 .tab-item.active:after{
           content: "";
         display: block;
-      height: 3.5rpx;
+      height: 4rpx;
       width: 50%;
       background: #FF4141;
       position: absolute;
@@ -310,7 +310,7 @@ height: 100%;
 }
 .activeListtImg{
   width: 702rpx;
-  height: 194rpx;
+  height: 280rpx;
     border-radius: 15rpx;
     overflow: hidden;
      position: relative; 
@@ -318,7 +318,7 @@ height: 100%;
 }
 .activeListtImg image{
   width: 702rpx;
-  height: 194rpx;
+  height: 280rpx;
    position: absolute;
   left: 0;
   top: 0; 
@@ -340,7 +340,7 @@ height: 100%;
 }
 /*时间  */
 .time{
-   width: 300rpx;
+   width: 400rpx;
   height:25rpx;
   text-align: center;
   line-height: 36rpx;
@@ -351,60 +351,70 @@ height: 100%;
   display: flex;
   flex-direction: row;
        position: absolute;
-  left: 201rpx;
-  top: 84.5rpx; 
+  left: 26rpx;
+ bottom: 25rpx;
       z-index: 100;  
 }
 .timeBox{
-  width: 28rpx;
-  height: 25rpx;
+  width: 40rpx;
+   height: 40rpx;
   background-color: red;
   text-align: center;
   margin-right: 8rpx;
 }
 .timeBox text{
   display: block;
-  font-size: 18rpx;
-   line-height: 25rpx; 
+  font-size: 28rpx;
+   line-height: 40rpx; 
   color: white;
 
 }
 .timeBoxDay{
-  width: 60rpx;
-  height: 25rpx;
+  /* width: 56rpx; */
+  height: 40rpx;
   background-color: red;
   text-align: center;
   margin-right: 8rpx;
-    font-size: 18rpx;
 }
 .timeBoxDay text{
   display: block;
-  font-size: 18rpx;
-   line-height: 25rpx; 
+  font-size: 28rpx;
+   line-height: 40rpx; 
   color: white;
 }
+.jiesu{
+  width:84rpx;
+height:40rpx;
+font-size:28rpx;
+font-family:PingFangSC-Semibold;
+color:rgba(255,255,255,1);
+line-height:40rpx;
+}
 .timeBox1{
-  width: 100rpx;
-  height: 25rpx;
+  position: absolute;
+  right: 22rpx;
+  bottom: 12rpx;
+
+  width: 128rpx;
+  height: 40rpx;
   background-color: red;
-  margin-right: 8rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 .timeBox1 .timeBox1Text1{
   display: block;
-  font-size: 18rpx;
+  font-size: 28rpx;
 
-   line-height: 25rpx; 
+   line-height: 40rpx; 
   color: white;
   background-color: red;
 
 }
 .timeBox1 .timeBox1Text2{
   display: block;
-  font-size: 18rpx;
-   line-height: 25rpx; 
+  font-size: 28rpx;
+   line-height: 40rpx; 
   color: white;
 
 }

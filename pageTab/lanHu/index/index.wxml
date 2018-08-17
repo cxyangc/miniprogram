@@ -1,30 +1,29 @@
 <import src="product.wxml"/>
 <import src="getProductData/getProductData.wxml"/>
-   <import src="../../../view-new/aikucun/measure_card.wxml"/>
+<import src="../../../view-new/aikucun/measure_card.wxml"/>
 
 
 
 <!--头部tab  -->
 
-<view class='index'  bindtap="closeShowShar">
-<view  class='wrap'  wx:if="{{activityPromotion.length!=0}}">
+ <!-- -->
+<view  class='wrap' >
     <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}" >
     <!--特卖  -->
      <view class="tab-item {{currentTab==0?'active':'black'}}"  data-current="0"  bindtap="swichNav"   data-id="0">特卖</view> 
 
-        <view wx:for="{{activityPromotion}}" class="tab-item {{currentTab==index+1?'active':'black'}}"  data-current="{{index+1}}" data-id="{{item.id}}" bindtap="swichNav" wx:key="index+1">{{item.name}}</view>
+         <view wx:for="{{activityPromotion}}"  wx:if="{{activityPromotion.length!=0}}" class="tab-item {{currentTab==index+1?'active':'black'}}"  data-current="{{index+1}}" data-id="{{item.id}}" bindtap="swichNav" wx:key="index+1">{{item.name}}</view> 
     </scroll-view>
-</view>
-</view>
+</view> 
 <!--做锚点  -->
-<scroll-view   class='content1'   scroll-into-view="{{toView}}" scroll-y="true"  scroll-with-animation="true"  bindtap="closeShowShar">
+<scroll-view   class='content1'   scroll-into-view="{{toView}}" scroll-y="true"  scroll-with-animation="true"  bindtap="closeShowShar"> 
 <!--特卖，日销  -->
 <view class='sale'  id="inToView0">
   <view class='user'>
     <view class='usrBox'>
   <!--用户头像  -->
      <view class="userImg" wx:if="{{loginUser.logo&&loginUser.logo!=''&&loginUser.logo!='0'}}"><image mode='aspectFill' src='{{loginUser.logo}}'></image></view>
-          <view class="userImg" wx:else><image mode='aspectFill' src='../../../images/333.jpg'></image></view>
+          <view class="userImg" wx:else><image mode='aspectFill' src='{{logo}}'></image></view>
 
   <!--用户名  -->
    <view class='userText' wx:if="{{loginUser.name&&loginUser.name!=''}}"><text>{{loginUser.name}}</text></view> 
@@ -70,22 +69,25 @@
       <view class='activeListtImg' bindtap='click' data-id='{{item.id}}'  id="{{'inToView'+item.id}}"> <image mode='aspectFill' src='{{item.promotionBanner}}'></image> 
        <!-- <view class='priceKode'>价格低至2折起</view> -->
       <view class='time'>
-       <view class='timeBoxDay'> <text>{{countDownList[index].hou}}天</text></view>
+       <view class='timeBoxDay'> <text>{{countDownList[index].day}}天</text></view>
              <view class='timeBox'> <text>{{countDownList[index].hou}}</text></view>
        
          <view class='timeBox'> <text>{{countDownList[index].min}}</text></view>
  
          <view class='timeBox'> <text>{{countDownList[index].sec}}</text></view>
-
-        <view class='timeBox1'> <text class='timeBox1Text1'>仅剩</text><text class='timeBox1Text2'>53%</text></view>
+          <view class='jiesu'>后结束</view>
+      
       </view> 
+        <!-- <view class='timeBox1'> <text class='timeBox1Text1'>仅剩</text><text class='timeBox1Text2'>53%</text></view> -->
       </view> 
       <!--几个商品  -->
       
-  <block >
+  <!-- <block >
   <template is="simpleProductList" 
        data="{{...item,setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson,showShare}}"></template> 
-  </block>
+  </block> -->
+
+   <productList  data="{{item.products}}" id="exceplem"  bind:action='bindAddtocart' bind:showPosters='showPosters'            ></productList>
  </view>
 
 <!--未开始活动列表  -->
@@ -93,16 +95,17 @@
       <view class='activeListtImg'>  <image mode='aspectFill' src='{{item.promotionBanner}}'></image> 
          <!-- <view class='priceKode'>价格低至2折起</view> -->
       <view class='time'>
-       <view class='timeBoxDay'> <text>{{countDownList1[index].hou}}天</text></view>
+       <view class='timeBoxDay'> <text>{{countDownList1[index].day}}天</text></view>
 
              <view class='timeBox'> <text>{{countDownList1[index].hou}}</text></view>
        
          <view class='timeBox'> <text>{{countDownList1[index].min}}</text></view>
  
          <view class='timeBox'> <text>{{countDownList1[index].sec}}</text></view>
-
-        <view class='timeBox1'> <text class='timeBox1Text1'>即将开始</text></view>
+<view class='jiesu'>后开始</view>
+      
       </view>
+        <view class='timeBox1'> <text class='timeBox1Text1'>即将开始</text></view>
       </view> 
 
  </view>
@@ -121,6 +124,12 @@
 
 <!--加入购物车的遮罩层  -->
   <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template>  
+
+<!--  海报-->
+   <posters proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 
+
+
+
 
 <!--客服二維碼  -->
 <!-- wx:if='{{loginUser.platformUser.mendian.kefuQrcode}}' -->

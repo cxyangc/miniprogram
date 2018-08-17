@@ -2,5 +2,9 @@
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true,
-  "navigationBarTitleText": "特卖"
+  "navigationBarTitleText": "特卖",
+      "usingComponents": {
+        "productList": "../components/productList/productList",
+        "posters": "../../../view/partials/canvas/index"
+      }
 }

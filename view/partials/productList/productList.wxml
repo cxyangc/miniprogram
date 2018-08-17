@@ -37,6 +37,12 @@
        data="{{...data}}"></template> 
   </block>
 
+
+
+    
+    
+
+
   <!-- <view>{{data.id}}</view> -->
 <slot></slot>
 

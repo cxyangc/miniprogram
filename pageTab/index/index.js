@@ -161,7 +161,7 @@ Page({
     console.log("options.SHARE_PRODUCT_DETAIL_PAGE", options.SHARE_PRODUCT_DETAIL_PAGE)
     wx.reLaunch({
 
-      url: '/pages/productDetail/index?id=' + options.SHARE_PRODUCT_DETAIL_PAGE + "&addShopId=0"
+      url: '/pages/productDetail/index?id=' + options.SHARE_PRODUCT_DETAIL_PAGE + "&addShopId=236"
     }) 
      
       

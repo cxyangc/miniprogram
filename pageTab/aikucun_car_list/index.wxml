@@ -97,7 +97,11 @@
     <template is="aikucun_title2" data="{{...setting,sysWidth,loginUser:loginUser,title:'爆款推荐'}}"></template> 
      <!-- <template is="aikucun_hot_product" data="{{...setting,sysWidth,loginUser:loginUser,products:products,listEnd}}"></template>   -->
 <!--新的  -->
-      <template is="aikucun_hot_product" data="{{...setting,sysWidth,loginUser:loginUser,products:products,listEnd,hotProduct}}"></template>   
+      <!-- <template is="aikucun_hot_product" data="{{...setting,sysWidth,loginUser:loginUser,products:products,listEnd,hotProduct}}"></template>   -->
+      
+         <productList  data="{{hotProduct}}" id="exceplem"  bind:action='bindBuy' bind:showPosters='showPosters'             ></productList>
+      
+
 
     <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson,showShare}}"></template> 
     
@@ -141,3 +145,6 @@
       <!-- bindtap='chooseActive' -->
   </view>
 </view>
+
+<!--  海报-->
+   <posters proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 

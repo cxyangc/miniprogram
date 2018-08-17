@@ -76,7 +76,7 @@
     <view class='data_column' wx:if='{{loginUser.platformUser.managerMendianId}}'>
       <image class='fws_bg' src='../../../images/myImg/fws_bg2.jpg'></image>
       <view class='data_column_top'>
-        <view class='data_left'>
+        <view class='data_left' data-link='mendian_center.html' bindtap='tolinkUrl'>
           <image src='../../../images/myImg/choiceness2.png' style='width:42rpx;height:39rpx;margin-right:8rpx'></image>
           <image src='../../../images/myImg/tunzai2.png' style='width:72rpx;height:39rpx'></image>
         </view>

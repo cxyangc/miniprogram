@@ -8,14 +8,16 @@ App({
       //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
     //  clientUrl: 'http://192.168.40.180:3000/chainalliance/',  // 本地ip 链接地址
     // clientUrl: 'http://www2.aikucun.xyz/chainalliance/',
- clientUrl: 'https://mini.sansancloud.com/chainalliance/',
-  //clientUrl: 'https://mini.tunzai.vip/chainalliance/',
+
+    clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+  //  clientUrl: 'https://mini.tunzai.vip/chainalliance/',
+
   // clientUrl: 'http://192.168.1.12:3000/chainalliance/',
 
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */
-     clientNo: 'jianzhan',   //自定义的项目的名称。
+   clientNo: 'jianzhan',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
@@ -307,7 +309,7 @@ App({
         } else {
             loginToken = this.loginUser.platformUser.loginToken
         }
-        if (url.indexOf("get_product_comment_list")!=-1||url.indexOf("product_detail") != -1 ||url.indexOf("get_platform_setting.html") != -1 ||url.indexOf("more_product_list.html") != -1||url.indexOf("index.html")!=-1){
+        if (url.indexOf("get_product_comment_list")!=-1||url.indexOf("product_detail") != -1 ||url.indexOf("get_platform_setting.html") != -1 ||url.indexOf("more_product_list.html") != -1||url.indexOf("index.html")!=-1||url.indexOf("get_promotions_detail.html")!=-1){
           loginToken="";
           random="tunzai";
         } 

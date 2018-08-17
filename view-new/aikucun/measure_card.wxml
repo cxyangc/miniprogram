@@ -56,8 +56,8 @@
             data-cantadd='{{byNowParams.itemCount > measurementJson.stock?1:0}} '  catchtap='addNum' ></image>
           </view>
       </view>
-
-      <button style='background:{{setting.platformSetting.defaultColor}}' 
+<!--setting.platformSetting.defaultColor  -->
+      <button style='background:linear-gradient(132.2deg,rgba(255,153,110,1),rgba(254,55,55,1));' 
       class='sureButn' disabled='{{measurementJson.stock < byNowParams.itemCount}}' bindtap='buyNow'>确定</button>
     </view>
     
