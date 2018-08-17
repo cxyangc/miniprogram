@@ -13,7 +13,7 @@
     </view>
   </view> 
   <scroll-view scroll-y class='leftScrollType'>
-     <view  class='{{type.active?"activeTypeItem":"TypeItem"}}' data-type="all" bindtap='bindTypeItem'  data-index="-1">全部</view>  
+     <view  class='{{allPro?"activeTypeItem":"TypeItem"}}' data-type="all" bindtap='bindTypeItem'  data-index="0">全部</view>  
      <view
         wx:for="{{shopInfo.shopTypes}}"
         wx:for-item="type" wx:key="{{index}}" data-type="{{type}}"  data-index="{{index}}"

@@ -18,6 +18,7 @@ Page({
     shopInfo: null,
     shopProList: null,
     proTypeState:false,
+    allPro:true,
     topName: {
       SearchProductName: "",//头部搜索的
     },
@@ -85,56 +86,42 @@ Page({
   /* 点击分类大项 */
   bindTypeItem: function (event) {
     console.log('======1======',event.currentTarget.dataset)
-    
-    for (let i = 0; i < this.data.shopInfo.shopTypes.length; i++) {
-      if (this.data.shopInfo.shopTypes[i].id == event.currentTarget.dataset.type.id) {
-        this.data.shopInfo.shopTypes[i].active = true
-      }
-      else {
+    if (event.currentTarget.dataset.type === 'all') {
+      console.log("-=======this.data.shopInfo=========", this.data.shopInfo);
+      let belongShop = this.data.shopInfo.id;
+      let shopProductType = event.currentTarget.dataset.index;
+      let param = Object.assign({}, param, { belongShop: belongShop, shopProductType: shopProductType })
+      this.setData({
+        allPro: true
+      })
+      for (let i = 0; i < this.data.shopInfo.shopTypes.length; i++) {
         this.data.shopInfo.shopTypes[i].active = false
       }
-    }
-    console.log("this.data.shopInfo.shopTypes", this.data.shopInfo.shopTypes)
-    this.setData({
-      shopInfo: this.data.shopInfo,
-    })
-    
-    this.listPage.page = 1
-    this.params.page = 1
-    let param = Object.assign({}, param, {
-      belongShop: event.currentTarget.dataset.type.belongShop, shopProductType: event.currentTarget.dataset.type.id })
-     this.getShopListData(param)
-    if (event.currentTarget.dataset.type == "all") {
-
-      this.params.categoryId = ''
-      this.getShopListData(this.params, 2)
-      this.setData({ showType: false, bindProductTypeIndex: null })
-
-      var allItem = {
-        id: ""
+      this.setData({
+        shopInfo: this.data.shopInfo,
+      })
+      this.getShopListData(param)
+    }else{
+      let belongShop = event.currentTarget.dataset.type.belongShopId;
+      let shopProductType = event.currentTarget.dataset.type.id;
+      let param = Object.assign({}, param, { belongShop: belongShop, shopProductType: shopProductType })
+      this.setData({
+        allPro: false
+      })
+      for (let i = 0; i < this.data.shopInfo.shopTypes.length; i++) {
+        if (this.data.shopInfo.shopTypes[i].id == event.currentTarget.dataset.type.id) {
+          this.data.shopInfo.shopTypes[i].active = true
+        }
+        else {
+          this.data.shopInfo.shopTypes[i].active = false
+        }
       }
+      console.log("this.data.shopInfo.shopTypes", this.data.shopInfo.shopTypes)
       this.setData({
-        focusTypeItem: allItem
+        shopInfo: this.data.shopInfo,
       })
+      this.getShopListData(param)
     }
-    else {
-
-      this.setData({
-        focusTypeItem: event.currentTarget.dataset.type,
-      })
-      var focus = event.currentTarget.dataset.type
-
-      //if (focus.children.length == 0) {
-
-       
-
-        this.params.categoryId = focus.id
-        this.getData(this.params, 2)
-        this.setData({ showType: false, bindProductTypeIndex: null })
-      //}
-
-    }
-
   },
   ChangeParam: function (params) {
     var returnParam = ""
@@ -176,7 +163,7 @@ Page({
       return
     }
 
-    let productData = this.data.productData
+    let productData = this.data.shopProList
     let index = event.currentTarget.dataset.id
     let focusProduct = productData[index]
     console.log(focusProduct)
@@ -207,10 +194,11 @@ Page({
       return
     }
 
-    let productData = this.data.productData
+    let productData = this.data.shopProList
     let index = event.currentTarget.dataset.id
     let focusProduct = productData[index]
-    console.log(focusProduct)
+    console.log('====productData====', productData)
+    console.log('====addNum====',focusProduct)
     ++focusProduct.inCarCount;
    // this.setData({ productData: productData})
 
@@ -343,52 +331,6 @@ Page({
       },
     })
   },
-  /* 获取数据 */
-  getData: function (param, ifAdd) {
-    //根据把param变成&a=1&b=2的模式
-    if (!ifAdd) {
-      ifAdd = 1
-    }
-    var customIndex = app.AddClientUrl("/more_product_list.html", param)
-    wx.showLoading({
-      title: 'loading'
-    })
-    var that = this
-
-
-    wx.request({
-      url: customIndex.url,
-      header: app.header,
-      success: function (res) {
-        console.log(res.data)
-        that.listPage.pageSize = res.data.pageSize
-        that.listPage.curPage = res.data.curPage
-        that.listPage.totalSize = res.data.totalSize
-        let dataArr = that.data.productData
-
-        if (ifAdd == 2) {
-          dataArr = []
-        }
-        if (!res.data.result || res.data.result.length == 0) {
-          that.setData({ productData: null })
-        } else {
-          if (dataArr == null) { dataArr = [] }
-          dataArr = dataArr.concat(res.data.result)
-          that.setData({ productData: dataArr })
-        }
-       
-        wx.hideLoading()
-      },
-      fail: function (res) {
-        console.log("fail")
-        wx.hideLoading()
-        app.loadFail()
-      },
-      complete:function(){
-        that.setData({ canRefresh: true })
-      },
-    })
-  },
   /* 全部参数 */
   params: {
     categoryId: "",
@@ -441,7 +383,7 @@ Page({
         that.setData({
           countGood: res.data.totalCarItemCount,
           countPrice: res.data.totalCarItemPrice,
-          productData: that.data.productData
+          shopProList: that.data.shopProList
         })
         that.getCart()
       },
@@ -644,7 +586,7 @@ Page({
   },
   /* 初始化 选规格 */
   chooseMeasureItem: function (event) {
-    let productData = this.data.productData
+    let productData = this.data.shopProList
     let index = event.currentTarget.dataset.id
     let focusProduct = productData[index]
     for (let i = 0; i < focusProduct.measureTypes.length; i++) {
@@ -716,26 +658,6 @@ Page({
     this.getShopTypeData(options);
     let param = Object.assign({}, param, { belongShop: options.addShopId,shopProductType:0})
     this.getShopListData(param)
-    // if (!!options.productTypeId) {
-    //   options.categoryId = options.productTypeId
-    // }
-    // if (!!options.forceSearch && options.forceSearch == 2) {
-    //   this.setData({ ProductshowWay: 2 })
-    // } else {
-    //   this.setData({ ProductshowWay: 1 })
-    // }
-    // for (let i in options) {
-    //   for (let j in this.params) {
-    //     if (i.toLowerCase() == j.toLowerCase()) { this.params[j] = options[i] }
-    //   }
-    // }
-    // console.log(this.params)
-    // this.getData(this.params, 2);
-
-    // this.setData({
-    //   sysWidth: app.globalData.sysWidth
-    // });
-    
   },
 
   /**
@@ -773,9 +695,9 @@ Page({
   onPullDownRefresh: function () {
 
 
-    this.listPage.page = 1
-    this.params.page = 1
-    this.getData(this.params, 2)
+    // this.listPage.page = 1
+    // this.params.page = 1
+    // this.getData(this.params, 2)
 
     wx.showNavigationBarLoading()
     wx.hideNavigationBarLoading() //完成停止加载

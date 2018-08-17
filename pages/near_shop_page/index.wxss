@@ -14,7 +14,7 @@
 /*店铺顶部信息  */
 .shop_top{
   height: 180rpx;
-  background: #48b250;
+  background: #c53f43;
   display: flex;
   flex-direction: row;
   padding:0 30rpx 0 30rpx;
