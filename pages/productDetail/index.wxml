@@ -24,10 +24,9 @@
       <text class='p1 font_12'>￥{{productData.productInfo.price}}</text>
       <block wx:if='{{productData.productInfo.tagPrice > productData.productInfo.price}}'>
         <text class='p2 '>￥{{productData.productInfo.tagPrice}}</text>
-        <component-tag-name proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></component-tag-name> 
       </block>
     </view>
-    <view class='InfoYunfei font_08' >
+    <view class='InfoYunfei font_08'>
       <text >运费：￥{{productData.productInfo.yunfei}}</text>
     </view>
     <view wx:if='{{productData.productInfo.saleStrategy}}' class='saleStrategy'>

@@ -516,6 +516,9 @@ Page({
   dataFOr_getData:{
     id:'',
     addShopId:''
+  }, 
+  onError:function(options){
+    console.log("on error!!!");
   },
   onLoad: function (options) {
     console.log('--------product----------', options)

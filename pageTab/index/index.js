@@ -38,9 +38,9 @@ Page({
 
    
 
-        wx.reLaunch({
-          url: '/pageTab/' + app.miniIndexPage + '/index'
-        })
+        // wx.reLaunch({
+        //   url: '/pageTab/' + app.miniIndexPage + '/index'
+        // })
 
         // console.log("进入蓝湖")
         // wx.reLaunch({
@@ -48,10 +48,10 @@ Page({
         // })
 
 
-        // console.log("进入蓝湖")
-        // wx.reLaunch({
-        //   url: '/pageTab/lanHu/index/index' 
-        // })
+        console.log("进入蓝湖")
+        wx.reLaunch({
+          url: '/pageTab/lanHu/index/index' 
+        })
 
         // wx.reLaunch({
         //   url: '/page/near_shops/index'

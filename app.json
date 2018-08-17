@@ -52,7 +52,6 @@
       "root": "pages",
       "pages": [
 
-       
         "new_promotion_products/index",
         "new_pay_offline/index",
         "nearby_stores/index",
@@ -149,7 +148,7 @@
   "backgroundColor": "#ffffff",
   "list": [
     {
-      "pagePath": "pageTab/custom_page_index/index",
+      "pagePath": "pageTab/lanHu/index/index",
       "iconPath": "images/icons/home1.png",
       "selectedIconPath": "images/icons/home2.png",
       "text": "首页"

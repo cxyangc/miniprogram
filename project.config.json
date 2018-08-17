@@ -8,9 +8,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.91",
-	"appid": "wx42d98cf6cb1a1316",
-	"projectname": "%E6%88%91%E7%9A%84",
+	"libVersion": "2.0.2",
+	"appid": "wxd60d1dbc224ceead",
+	"projectname": "tunzai",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
@@ -54,7 +54,7 @@
 					"scene": "1011"
 				},
 				{
-					"id": 5,
+					"id": 3,
 					"name": "预览页面",
 					"pathName": "pageTab/lanHu/preApplyMendian/index",
 					"query": "code=111",

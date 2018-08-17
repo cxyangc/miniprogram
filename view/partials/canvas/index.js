@@ -30,6 +30,7 @@ Component({
       platformName: app.setting.platformSetting.platformName
     })
     this.getProInfo();
+    console.log('11111111111111111',this.data.ewmImgUrl)
     console.log('=======', app.setting)
   },
   methods: {
@@ -56,9 +57,59 @@ Component({
           console.log('fail')
         }
       })
+    },
+    // saveImgToPhotosAlbumTap: function () {
+    //   let that = this;
+    //   wx.showToast({
+    //     title: '保存图片中...',
+    //     icon: 'loading',
+    //     duration: 1000
+    //   });
+    //   wx.saveImageToPhotosAlbum({
+    //     filePath: that.data.imagePath,
+    //     success: function (res) {
+    //       console.log(res)
+    //       wx.hideToast()
+    //       wx.showToast({
+    //         title: '保存图片成功',
+    //         icon: 'success',
+    //         duration: 1000
+    //       });
+    //     },
+    //     fail: function (res) {
+    //       console.log(res)
+    //       console.log('fail')
+    //     }
+    //   })
+
+    // },
+    saveImgToPhotosAlbumTap: function () {
+      let that = this;
+      wx.showToast({
+        title: '保存图片中...',
+        icon: 'loading',
+        duration: 1000
+      });
+      wx.saveImageToPhotosAlbum({
+        filePath: that.data.imagePath,
+        success: function (res) {
+          console.log(res)
+          wx.hideToast()
+          wx.showToast({
+            title: '保存图片成功',
+            icon: 'success',
+            duration: 1000
+          });
+        },
+        fail: function (res) {
+          console.log(res)
+          console.log('fail')
+        }
+      })
 
     },
     downFileFun: function (url,typeData) {
+      console.log('=====url=====', url);
       let that = this
       const downloadTask = wx.downloadFile({
         url: url, //仅为示例，并非真实的资源
@@ -66,24 +117,33 @@ Component({
           // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
           console.log('=======downloadTask======', res)
           if (res.statusCode === 200) {
-            if (typeData ==='proImg'){
+            if (typeData === 'proImg') {
+              console.log('=======proImg======', res)
               that.setData({
                 img_l: res.tempFilePath //将下载的图片临时路径赋值给img_l,用于预览图片
               })
-            } else if (typeData === 'showEwm'){
+              that.downFileFun(that.data.ewmImgUrl, 'showEwm')
+            } else if (typeData ==='showEwm') {
+              console.log('=======showEwm======', res)
               that.setData({
                 img_ewm: res.tempFilePath //将下载的图片临时路径赋值给img_l,用于预览图片
               })
+              that.getImgBiLi(that.data.img_l)
             }
           }
-          that.getImgBiLi(that.data.img_l)
+        },
+        fail: function (res) {
+          console.log("fail")
         }
       })
     },
     getImgBiLi:function(url){
       let that = this;
+      console.log("======url=====", url);
       var clientWidth = wx.getSystemInfoSync().screenWidth;
       var imgInfo = { scale_y: 0, scale_x: 0, w: 0, h: 0};
+      //that.customMethod();
+      
       wx.getImageInfo({
         src: url,
         success: function (res) {
@@ -106,7 +166,6 @@ Component({
       wx.showLoading({
         title: 'loading'
       })
-
       let postParam = {}
       postParam.productId =this.data.proId
       postParam.addShopId = this.data.shopId
@@ -118,18 +177,14 @@ Component({
         header: app.header,
         success: function (res) {
           console.log(res.data)
-          console.log('--------------getData-------------')
           that.setData({ productData: res.data })
-          that.downFileFun(that.data.productData.images[0].imagePath,'proImg')
-          that.downFileFun(that.data.ewmImgUrl,'showEwm')
+          that.downFileFun(that.data.productData.productInfo.imagePath.replace('http','https'),'proImg')
+          wx.hideLoading()
         },
         fail: function (res) {
           console.log("fail")
           app.loadFail()
-        },
-        complete: function (res) {
-          wx.hideLoading()
-        },
+        }
       })
     },
     // 这里是一个自定义方法
@@ -138,13 +193,23 @@ Component({
       console.log('4444444444444', this.data.innerText)
       var clientWidth = wx.getSystemInfoSync().screenWidth;
       var context = wx.createCanvasContext('shareCanvas', this)
+      //context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
+      if (that.data.imgInfo.w === that.data.imgInfo.w) {
+        console.log('===that.data.imgInfo.w === that.data.imgInfo.w===')
+        context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
+      } else if (that.data.imgInfo.w > that.data.imgInfo.h) {
+        console.log('===that.data.imgInfo.w > that.data.imgInfo.h===')
+        context.drawImage(that.data.img_l, (that.data.imgInfo.w - clientWidth * 0.65) / 2, 0, that.data.imgInfo.h, that.data.imgInfo.h, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
+      } else if (that.data.imgInfo.w < that.data.imgInfo.h) {
+        console.log('===that.data.imgInfo.w < that.data.imgInfo.h===')
+        context.drawImage(that.data.img_l, 0, (that.data.imgInfo.h - clientWidth * 0.65) / 2, that.data.imgInfo.w, that.data.imgInfo.w, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
+      }
       // if (that.data.imgInfo.h > that.data.imgInfo.w) {
       //   context.drawImage(that.data.img_l, 0, 0, that.data.imgInfo.w, that.data.imgInfo.h, 16, 16, that.data.imgInfo.scale_x, that.data.imgInfo.scale_y);
       // } else {
       //   context.drawImage(that.data.img_l, 0, 0, that.data.imgInfo.w, that.data.imgInfo.h, 16, 16, that.data.imgInfo.scale_x, that.data.imgInfo.scale_y);
       // }
       console.log("55555");
-      context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
       context.setTextAlign('left')    // 文字居中
       context.setFillStyle('#000000')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
@@ -171,13 +236,16 @@ Component({
       context.setFillStyle('#000')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
       context.fillText("长按识别小程序码访问", 16, clientWidth * 0.88 + 16)
+      context.stroke()
+
       console.log("8888");
       context.setTextAlign('left')    // 文字居中
       context.setFillStyle('#999')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
       context.fillText(that.data.platformName, 16, clientWidth * 0.93 + 16)
-      console.log("9999:" + that.data.img_ewm);
-      context.drawImage(that.data.img_ewm, clientWidth * 0.5 - 16, clientWidth * 0.8 + 16, 80, 80)
+ 
+      console.log("9999:" , that.data.imgInfo); 
+      context.drawImage(that.data.img_ewm, clientWidth * 0.5 - 16, clientWidth * 0.82 + 16, 80, 80)
       console.log("55555");
       context.stroke()
       context.draw()
