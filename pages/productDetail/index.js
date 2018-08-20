@@ -532,7 +532,7 @@ Page({
     this.dataFOr_getData.addShopId = options.addShopId
     
     this.getData(options)
-    this.getQrCode();
+    // this.getQrCode();
   },
 
 

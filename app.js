@@ -8,8 +8,8 @@ App({
       //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
     //  clientUrl: 'http://192.168.40.180:3000/chainalliance/',  // 本地ip 链接地址
     // clientUrl: 'http://www2.aikucun.xyz/chainalliance/',
- //clientUrl: 'https://mini.sansancloud.com/chainalliance/',
-    clientUrl: 'https://mini.tunzai.vip/chainalliance/',
+ clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+  //  clientUrl: 'https://mini.tunzai.vip/chainalliance/',
    // clientUrl: 'https://mini.sansancloud.com/chainalliance/',
 
   // clientUrl: 'http://192.168.1.12:3000/chainalliance/',
@@ -17,7 +17,7 @@ App({
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */
-     clientNo: 'tunzai',   //自定义的项目的名称。
+     clientNo: 'jianzhan',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
@@ -175,14 +175,7 @@ App({
             url: '/pageTab/lanHu/index/index',
           })
           return;
-        }
-
-        if(this.clientNo=='tunzai'){
-        wx.switchTab({
-          url: '/pageTab/lanHu/index/index',
-        })
-        return;
-        }
+        } 
         if (this.miniIndexPage) {
             wx.switchTab({
                 url: '/pageTab/' + this.miniIndexPage + '/index',

@@ -734,6 +734,7 @@ Page({
       console.log('nnnnnnnnnn' + shareName)
 
       shareParams.id = id
+   
       console.log("shareParams", shareParams)
 
       return app.shareForFx2('promotion_products', shareName, shareParams, imageUrl)
@@ -742,6 +743,7 @@ Page({
     else {
       let that = this
       let params = that.opt
+      params.SHARE_ENTER_TEMAI_PAGE =this.data.id
       console.log('params:' + params)
       this.closeShowShar();
       return app.shareForFx2('promotion_products', '', params)

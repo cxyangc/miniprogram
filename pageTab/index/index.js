@@ -33,44 +33,35 @@ Page({
 
       }
       else{
-
-      
-
    
-
-        // wx.reLaunch({
-        //   url: '/pageTab/' + app.miniIndexPage + '/index'
-        // })
 
         // console.log("进入蓝湖")
         // wx.reLaunch({
         //   url: '/pageTab/lanHu/preApplyMendian/index?code=' +"LIN567"
         // })
 
-
-        console.log("进入蓝湖")
-        wx.reLaunch({
-          url: '/pageTab/lanHu/index/index' 
+        if (app.clientNo=="tunzai"){
+         console.log("进入蓝湖")
+         wx.reLaunch({
+           url: '/pageTab/lanHu/index/index'
+         })
+         return;
+       }
+       else{
+     wx.reLaunch({
+          url: '/pageTab/' + app.miniIndexPage + '/index'
         })
+     return;
+       }
+     
 
-        // wx.reLaunch({
-        //   url: '/page/near_shops/index'
-        // })
 
    
       }
  
-      // if (app.more_scene && app.more_scene.indexOf("MINI_INVITATION_CODE")!=-1){
-      //   wx.reLaunch({          
-      //     url: '/pages/apply_for_facilitator/apply_for_facilitator?scene=' + app.more_scene,//申请服务商
-      //   })
-      // }else{
-      //   wx.reLaunch({
-      //     url: '/pageTab/' + app.miniIndexPage + '/index'         
-      //   })
-      // }
+
      
-    }, 100)
+    }, 200)
   },
   reloadJs:function(){//重新加載
     this.setData({
@@ -120,9 +111,13 @@ Page({
 
     if (options.APPLY_SERVER_CHANNEL_CODE && options.APPLY_SERVER_CHANNEL_CODE!=""){
       console.log("进服务商页面", options.APPLY_SERVER_CHANNEL_CODE)
-      wx.reLaunch({
-        url: '/pageTab/lanHu/preApplyMendian/index?code=' + options.APPLY_SERVER_CHANNEL_CODE
-      })
+
+
+      setTimeout(function () {
+        wx.reLaunch({
+          url: '/pageTab/lanHu/preApplyMendian/index?code=' + options.APPLY_SERVER_CHANNEL_CODE
+        })
+      }, 200)
 
       return;
    }
@@ -153,13 +148,22 @@ Page({
     
     console.log("options.SHARE_PRODUCT_DETAIL_PAGE", options.SHARE_PRODUCT_DETAIL_PAGE)
       setTimeout(function () {
-
         wx.reLaunch({
-
           url: '/pages/productDetail/index?id=' + options.SHARE_PRODUCT_DETAIL_PAGE + "&addShopId=236"
-
         })
+      }, 200)
+      return;
+    }
 
+    // 分享出来带分享SHARE_ENTER_TEMAI_PAGE跳到产品详情页
+
+    if (options.SHARE_ENTER_TEMAI_PAGE && options.SHARE_ENTER_TEMAI_PAGE != "") {
+
+      console.log("进入特卖页面", options.SHARE_ENTER_TEMAI_PAGE)
+      setTimeout(function () {
+        wx.reLaunch({
+          url: '/pageTab/lanHu/teMai/index?promotionId=' + options.SHARE_ENTER_TEMAI_PAGE
+        })
       }, 200)
       return;
     }
@@ -175,10 +179,13 @@ Page({
     let ENTER_MENDIAN_OFF_PAY = options.ENTER_MENDIAN_OFF_PAY;
         if (!!ENTER_MENDIAN_OFF_PAY) {
           console.log("ENTER_MENDIAN_OFF_PAY" + ENTER_MENDIAN_OFF_PAY)
-          wx.reLaunch({
-            // new_pay_offline/index
-            url: '/pages/new_pay_offline/index?id=' + ENTER_MENDIAN_OFF_PAY,
-          })
+
+          setTimeout(function () {
+            wx.reLaunch({
+              url: '/pages/new_pay_offline/index?id=' + ENTER_MENDIAN_OFF_PAY,
+
+            })
+          }, 200)
           return;
         } 
    else if (app.setting && options.pageName && app.shareParam && app.shareParam.pageName) {
@@ -187,7 +194,7 @@ Page({
           url: '/pageTab/' + app.miniIndexPage + '/index',
      
         })
-      },100)
+      },200)
       
 
     }else{

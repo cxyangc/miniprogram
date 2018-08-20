@@ -149,6 +149,6 @@
   <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template>  
 
 
-
+   
       <view  class='dixian'> 我是有底线的 ~</view> 
  

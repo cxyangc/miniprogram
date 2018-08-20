@@ -9,7 +9,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.2",
-	"appid": "wxd60d1dbc224ceead",
+	"appid": "wx42d98cf6cb1a1316",
 	"projectname": "tunzai",
 	"isGameTourist": false,
 	"condition": {
@@ -81,17 +81,17 @@
 					"scene": "1011"
 				},
 				{
-					"id": 4,
-					"name": "扫码进来携带MendianID",
+					"id": 7,
+					"name": "进入服务商页面",
 					"pathName": "pageTab/index/index",
-					"query": "ENTER_MENDIAN=74",
+					"query": "APPLY_SERVER_CHANNEL_CODE=74",
 					"scene": "1011"
 				},
 				{
 					"id": 8,
 					"name": "转发产品进入",
 					"pathName": "pageTab/index/index",
-					"query": "SHARE_PRODUCT_DETAIL_PAGE=8024&scene=MINI_PLATFORM_USER_ID_66259",
+					"query": "promotionId=49&productName=34150680&id=10233&scene=MINI_PLATFORM_USER_ID_66259&SHARE_PRODUCT_DETAIL_PAGE=10233",
 					"scene": "1011"
 				},
 				{
@@ -112,6 +112,13 @@
 					"name": "qq1",
 					"pathName": "pageTab/lanHu/preApplyMendian/index",
 					"query": "code=222",
+					"scene": "1011"
+				},
+				{
+					"id": 12,
+					"name": "转发特卖进入",
+					"pathName": "pageTab/index/index",
+					"query": "promotionId=45&SHARE_ENTER_TEMAI_PAGE=45&scene=MINI_PLATFORM_USER_ID_66259",
 					"scene": "1011"
 				}
 			]
