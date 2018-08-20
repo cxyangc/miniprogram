@@ -38,9 +38,9 @@ Page({
 
    
 
-        wx.reLaunch({
-          url: '/pageTab/' + app.miniIndexPage + '/index'
-        })
+        // wx.reLaunch({
+        //   url: '/pageTab/' + app.miniIndexPage + '/index'
+        // })
 
         // console.log("进入蓝湖")
         // wx.reLaunch({
@@ -48,10 +48,10 @@ Page({
         // })
 
 
-        // console.log("进入蓝湖")
-        // wx.reLaunch({
-        //   url: '/pageTab/lanHu/index/index' 
-        // })
+        console.log("进入蓝湖")
+        wx.reLaunch({
+          url: '/pageTab/lanHu/index/index' 
+        })
 
         // wx.reLaunch({
         //   url: '/page/near_shops/index'
@@ -117,14 +117,7 @@ Page({
 
       }
 
-    //林做的，以后可以删除（项目）
-    if (options.lanhu) {
-      console.log("进入蓝湖")
-              wx.reLaunch({
-          url: '/pageTab/lanHu/index/index'         
-        })
-        return;
-    } 
+
     if (options.APPLY_SERVER_CHANNEL_CODE && options.APPLY_SERVER_CHANNEL_CODE!=""){
       console.log("进服务商页面", options.APPLY_SERVER_CHANNEL_CODE)
       wx.reLaunch({
@@ -159,13 +152,15 @@ Page({
     if (options.SHARE_PRODUCT_DETAIL_PAGE && options.SHARE_PRODUCT_DETAIL_PAGE!=""){
     
     console.log("options.SHARE_PRODUCT_DETAIL_PAGE", options.SHARE_PRODUCT_DETAIL_PAGE)
-    wx.reLaunch({
+      setTimeout(function () {
 
-      url: '/pages/productDetail/index?id=' + options.SHARE_PRODUCT_DETAIL_PAGE + "&addShopId=236"
-    }) 
-     
-      
- 
+        wx.reLaunch({
+
+          url: '/pages/productDetail/index?id=' + options.SHARE_PRODUCT_DETAIL_PAGE + "&addShopId=236"
+
+        })
+
+      }, 200)
       return;
     }
 

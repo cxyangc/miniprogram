@@ -262,10 +262,11 @@ Page({
   /* 获取数据 */
   getData: function (param, ifAdd, onReachBottom) {
     let that = this
-    if (!ifAdd) {
-      ifAdd = 1
-    }
+    console.log("id", this.data.id)
+    param.promotionId = this.data.id
+
     let customIndex = app.AddClientUrl("/more_product_list.html", param, 'get')
+    console.log("customIndex.url", customIndex.url)
     wx.showLoading({
       title: 'loading'
     })
@@ -554,10 +555,13 @@ Page({
     //公告信息-从活动信息过来的
   },
   onLoad: function (options) {
-    console.log("hahahahahahah", options.promotionId)
+    console.log("hahahahahahah这是id", options.promotionId)
     this.setData({
       id: options.promotionId
     })
+    // let params={};
+    // params.promotionId = options.promotionId;
+
     this.getActiveData();
     this.getData(this.params, 1)//获取商品数据
     this.getCart();
@@ -1198,6 +1202,7 @@ Page({
           that.getActiveData();
         }
         else {
+          console.log("=======id======",id)
           var index = "0"
           for (var i = 0; i < res.data.activityPromotion.length; i++) {
             index = i;
