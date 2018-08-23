@@ -427,7 +427,24 @@ Page({
     var param = {}
     param.productName = product
     let postParam = app.jsonToStr(param)
-    // app.productParam = param
+    wx.navigateTo({
+      url: '/pages/search_product/index' + postParam
+    })
+  },
+  // 搜索中输入文字的时候
+  searchProductValue:function(e){
+    let productName = e.detail.value
+    console.log("productName", productName)
+    this.setData({
+      searchproductName: productName
+    })
+  },
+  searchProductTwo:function(e){
+ 
+    let product = this.data.searchproductName
+    var param = {}
+    param.productName = product
+    let postParam = app.jsonToStr(param)
     wx.navigateTo({
       url: '/pages/search_product/index' + postParam
     })

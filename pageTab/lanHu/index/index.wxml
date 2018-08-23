@@ -34,12 +34,12 @@
 
 
 <!--搜索  -->
- <!-- <view class='search'> -->
+  <view class='search'> 
    <!--输入框  -->
-   <!-- <view class='searchInput'><input placeholder="安耐晒"  bindconfirm='searchProduct' ></input></view> -->
+   <view class='searchInput'><input placeholder="请输入商品名"  bindconfirm='searchProduct'   bindinput="searchProductValue"></input></view> 
    <!--搜索  -->
-     <!-- <view class='searchImg'><image mode='aspectFill' src='../../../images/icon/search.png'></image></view>   -->
- <!-- </view>  -->
+      <view class='searchImg' bindtap='searchProductTwo'><image mode='aspectFill' src='../../../images/icon/search.png'></image></view>  
+  </view>  
 </view>
 
   </view>

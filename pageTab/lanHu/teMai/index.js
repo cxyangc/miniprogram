@@ -279,22 +279,22 @@ Page({
         that.params.pageSize = res.data.pageSize
         that.params.curPage = res.data.curPage
         that.params.totalSize = res.data.totalSize
-        let dataArr = res.data.result
-        let result = res.data.result
-        if (ifAdd == 2) {
-          dataArr = []
+    
+        if (that.data.productData && that.data.productData.length!="0"){
+          let products = that.data.productData
+          console.log("组件商品", products)
+          products = products.concat(res.data.result)
+          that.setData({
+            productData: products
+          })
         }
-        if (!result || result.length == 0) {
-          that.setData({ productData: null })
-        } else {
-          let result2 = that.sliceProductImageList(result)
-
-          if (dataArr == null) { dataArr = [] }
-          dataArr = dataArr.concat(result2)
-          that.setData({ productData: dataArr })
-          console.log(that.data.productData)
-
+        else {
+          console.log("特卖数据", res.data.result)
+          that.setData({
+            productData: res.data.result
+          })
         }
+   
 
         setTimeout(function () {
           that.getAllRects(onReachBottom)
@@ -565,6 +565,8 @@ Page({
     this.getActiveData();
     this.getData(this.params, 1)//获取商品数据
     this.getCart();
+    
+   
    
 
     this.opt = options
@@ -610,9 +612,23 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.params.page = 1
-    this.getData(this.params, 2)
+   
+    this.setData({
+      productData:[]
+    })
+    this.params.page = 1;
+    this.getData(this.params)
+    if (this.data.ProductshowWay == 2){
+      this.params.onPullDownRefresh = true;
+      let id = this.data.id
+      this.selectComponent('#productLists').getNewData(id, this.params.page, this.params.onPullDownRefresh)
 
+      let that = this;
+      setTimeout(function () {
+        that.params.onPullDownRefresh = false;
+      }, 500)
+    }
+  
     wx.showNavigationBarLoading()
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
@@ -623,15 +639,23 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+
     var that = this
     if (that.params.totalSize > that.params.curPage * that.params.pageSize) {
       that.params.page++
       this.getData(this.params, 1, 1);
+
+// 组件内的事件
+      if (this.data.ProductshowWay == 2) {
+      let id = this.data.id;
+      this.selectComponent('#productLists').getNewData(id, that.params.page)
+      }
     } else {
       this.setData({
         listEnd: true
       })
     }
+
   },
   /*  
    * 图片懒加载模块
@@ -653,7 +677,7 @@ Page({
     wx.createSelectorQuery().selectAll('.promotionItem').boundingClientRect(function (rects) {
 
       if (onReachBottom == 1) {
-        that.promotionItemPageOffline = that.zuihoudetuoxie(rects)
+        
       } else {
         that.promotionItemPageOffline = rects
       }
@@ -741,10 +765,13 @@ Page({
     }
 
     else {
-      let that = this
-      let params = that.opt
+      let that = this;
+
+      console.log("==============", that.data.activityPromotion.name)
+      let params = that.opt;
+      params.title = that.data.activityPromotion.name;
       params.SHARE_ENTER_TEMAI_PAGE =this.data.id
-      console.log('params:' + params)
+      console.log('params:' + JSON.stringify(params) )
       this.closeShowShar();
       return app.shareForFx2('promotion_products', '', params)
 
@@ -1036,83 +1063,124 @@ Page({
 
   /* 分类查询 */
   searchProduct: function (event) {
-    var that = this;
+    console.log("排序序号", event.currentTarget.dataset.ordertype)
+    let ordertype = event.currentTarget.dataset.ordertype;
+    let that = this;
+
+    if (ordertype == "102"  ){
+      if (that.data.ProductshowWay == "2"){
+        // 执行组件内的排序
+        console.log("价格排序")
+        this.selectComponent('#productLists').sortingPrice();
+   }else{
+        console.log("价格排序组件内的商品", this.data.productData)
+
+        let products = that.data.productData;
+        // 排序
+        let temp;
+        for (let i = 0; i < products.length; i++) {
+
+          for (let j = i + 1; j < products.length; j++) {
+            if (products[i].price > products[j].price) {
+              temp = products[i];
+              products[i] = products[j];
+              products[j] = temp;
+            }
+          }
+        }
+        console.log("价格排序完的", products)
+        that.setData({
+          productData: products
+        })
+   }
+    
+
+ 
+
+    }
+    if (ordertype == "101") {
+      if (that.data.ProductshowWay == "2"){
+        // 执行组件内的排序
+        console.log("销量排序")
+        that.selectComponent('#productLists').sortingHot();
+      }else{
+        console.log("热度排序组件内的商品", that.data.productData)
+
+        let products1 = this.data.productData;
+        // 排序
+        let temp;
+        for (let i = 0; i < products1.length; i++) {
+
+          for (let j = i + 1; j < products1.length; j++) {
+            if ((products1[i].stock / products1[i].totalStock) > (products1[j].stock / products1[j].totalStock)) {
+              console.log(products1[i].stock / products1[i].totalStock + "===" + products1[j].stock / products1[j].totalStock)
+              temp = products1[i];
+              products1[i] = products1[j];
+              products1[j] = temp;
+            }
+          }
+        }
+
+        that.setData({
+          productData: products1
+        })
+      }
+     
+
+     
+    }
+
+
+    
     this.setData({ showType: false, bindProductTypeIndex: null })
-    console.log(event.currentTarget.dataset)
+    console.log("====event.currentTarget.dataset====",event.currentTarget.dataset)
     var focusKey = event.currentTarget.dataset;
-    console.log(this.params)
+   
     for (let i in focusKey) {
       for (let j in this.params) {
         if (i.toLowerCase() == j.toLowerCase()) { this.params[j] = focusKey[i] }
       }
     }
-    switch (this.params.orderType) {
-      case '0': {
-        this.setData({ typeSearch: '默认排序' }); break;
-      };
-      case '102': {
-        this.setData({ typeSearch: '价格升序' }); break;
-      };
-      case '2': {
-        this.setData({ typeSearch: '价格降序' }); break;
-      };
-      case '104': {
-        this.setData({ typeSearch: '上架日期升' }); break;
-      };
-      case '4': {
-        this.setData({ typeSearch: '上架日期降' }); break;
-      };
-      case '101': {
-        this.setData({ typeSearch: '销量升' }); break;
-      };
-      case '1': {
-        this.setData({ typeSearch: '销量降' }); break;
-      };
-    }
+    console.log("====this.params====", this.params)
 
-    console.log(this.params)
-    this.params.page = 1
-    var customIndex = this.more_product_list_URL(this.params);
-    console.log(customIndex)
-    wx.showLoading({
-      title: 'loading'
-    })
-    that.listPage.page = 1
-    that.params.page = 1
-    wx.request({
-      url: customIndex.url,
-      header: app.header,
-      success: function (res) {
+    // console.log(this.params)
+    // this.params.page = 1
+    // var customIndex = this.more_product_list_URL(this.params);
+    // console.log(customIndex)
+    // wx.showLoading({
+    //   title: 'loading'
+    // })
+    // that.listPage.page = 1
+    // that.params.page = 1
+    // wx.request({
+    //   url: customIndex.url,
+    //   header: app.header,
+    //   success: function (res) {
+    // //     that.listPage.pageSize = res.data.pageSize
+    // //     that.listPage.curPage = res.data.curPage
+    // //     that.listPage.totalSize = res.data.totalSize
 
-        that.listPage.pageSize = res.data.pageSize
-        that.listPage.curPage = res.data.curPage
-        that.listPage.totalSize = res.data.totalSize
-
-        console.log(res.data)
+    // //     console.log(res.data)
 
 
-        wx.hideLoading()
+    //     wx.hideLoading()
 
-        if (!res.data.result || res.data.result.length == 0) {
-          that.setData({ productData: null })
-        } else {
-          let dataArr = []
-          dataArr = dataArr.concat(res.data.result)
-          that.setData({ productData: dataArr })
-        }
+    // //     if (!res.data.result || res.data.result.length == 0) {
+    // //       that.setData({ productData: null })
+    // //     } else {
+    // //       let dataArr = []
+    // //       dataArr = dataArr.concat(res.data.result)
+    // //       that.setData({ productData: dataArr })
+    // //     }
 
-        /* if (!res.data.result || res.data.result.length == 0) {
-          that.setData({ productData: null })
-        } else {
-          that.setData({ productData: res.data.result })
-        } */
+  
 
-      },
-      fail: function () {
-        wx.hideLoading()
-        app.loadFail()
-      }
-    })
+    //   },
+    //   fail: function () {
+    //     wx.hideLoading()
+    //     app.loadFail()
+    //   }
+    // })
   },
 
   more_product_list_URL: function (params) {

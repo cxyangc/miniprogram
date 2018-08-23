@@ -26,6 +26,8 @@ Component({
       })
 
     }, 1000)
+
+
   },
   methods: {
     // 这里是一个自定义方法
@@ -53,7 +55,7 @@ Component({
       let id = e.currentTarget.dataset.id;
       console.log("id", id)
        // 循环products
-      let products = this.data.data
+      let products = this.data.products
       let a = 0;
       for (let i = 0; i < products.length; i++) {
         a = i;
@@ -96,7 +98,7 @@ Component({
     console.log("id", id)
 
     // 循环products
-    let products = this.data.data
+    let products = this.data.products
 
     let a = 0;
     for (let i = 0; i < products.length; i++) {
@@ -136,7 +138,6 @@ Component({
     showPosters: function (e) {
       console.log("eeeeeeeeeeeeeeeeeeeee", e)
       let id = e.target.dataset.id;
-  
 
       let that=this;
       let productsCloseShow = that.data.products
@@ -192,5 +193,151 @@ Component({
       })
 
     },
+    // 获得特卖数据(特卖的上拉加载和下拉刷新)
+    getNewData(id, page, onPullDownRefresh){
+      console.log("1111111111", id, page, onPullDownRefresh)
+     let that = this
+     console.log("id",id)
+     let param={}
+     param.promotionId =id
+     param.page=page
+
+     if (onPullDownRefresh==true){
+     that.setData({
+       products:[]
+     })
+    }
+
+     let customIndex = app.AddClientUrl("/more_product_list.html", param, 'get')
+     console.log("customIndex.url", customIndex.url)
+     wx.showLoading({
+       title: 'loading'
+     })
+
+     wx.request({
+       url: customIndex.url,
+       header: app.header,
+       success: function (res) {
+         if (that.data.products && that.data.products!=""){
+           let products = that.data.products
+           console.log("组件商品", products)
+           products = products.concat(res.data.result)
+           console.log("组件特卖数据", products)
+           that.setData({
+             products: products
+           })
+         }
+         else{
+           console.log("组件特卖数据", res.data.result)
+           that.setData({
+             products: res.data.result
+           })
+         }
+      
+
+    
+         wx.hideLoading()
+       },
+       fail: function (res) {
+         console.log("fail")
+         wx.hideLoading()
+         app.loadFail()
+       }
+     })
+  },
+ 
+    // 获取热销数据
+    getHotProduct: function (page, onPullDownRefresh) {
+      console.log("购物车内的商品上拉加载第几页",page)
+      var that = this
+      let param = {
+        page: page,
+      }
+
+      if (onPullDownRefresh == true) {
+        that.setData({
+          products: []
+        })
+      }
+      var customIndex = app.AddClientUrl("/more_product_list.html", param, 'get', '1')
+ 
+      wx.request({
+        url: customIndex.url,
+        header: app.header,
+        success: function (res) {
+          console.log("获取热销数据", res.data)
+          if (that.data.products && that.data.products != "") {
+            let products = that.data.products
+            products = products.concat(res.data.result)
+            console.log("组件购物车数据", products)
+            that.setData({
+              products: products
+            })
+          }
+          else {
+            console.log("组件特卖数据", res.data.result)
+            that.setData({
+              products: res.data.result
+            })
+          }
+        },
+        fail: function (res) {
+          console.log("fail")
+          app.loadFail()
+        }
+      })
+    },
+
+
+// 特卖中的价格排序
+    sortingPrice:function(){
+      console.log("价格排序组件内的商品", this.data.products)
+      let that=this;
+      let products = this.data.products;
+      // 排序
+      let temp;
+      for (let i = 0; i < products.length;i++){
+   
+        for (let j = i + 1; j < products.length; j++) {
+          if (products[i].price > products[j].price) {
+            temp = products[i];
+            products[i] = products[j];
+            products[j] = temp;
+          }
+        }
+      }
+      console.log("价格排序完的",products)
+     that.setData({
+       products: products
+     })
+
+    },
+
+
+    // 特卖中的热度排序
+    sortingHot:function() {
+      console.log("热度排序组件内的商品", this.data.products)
+      let that = this;
+      let products = this.data.products;
+      // 排序
+      let temp;
+      for (let i = 0; i < products.length; i++) {
+
+        for (let j = i + 1; j < products.length; j++) {
+          if ((products[i].stock/products[i].totalStock) > (products[j].stock/products[j].totalStock) ) {
+            console.log(products[i].stock / products[i].totalStock +"===" +products[j].stock / products[j].totalStock)
+            temp = products[i];
+            products[i] = products[j];
+            products[j] = temp;
+          }
+        }
+      }
+      // console.log("热度排序完的", products[0].stock / products[0].totalStock)
+      that.setData({
+        products: products
+      })
+
+    },
+
   },
 })

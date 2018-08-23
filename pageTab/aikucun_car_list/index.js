@@ -572,10 +572,19 @@ Page({
     console.log(countGood, 'countGood__')
     console.log(countPrice, "countPrice__")
   },
+  /* 全部参数 */
+  params: {
+    page: 1,
+    promotionId: "",
+    productName: '',
+    pageSize: 0,
+    totalSize: 0,
+    curpage: 1
+  },
 // 获取热销数据
   getHotProduct: function () {
     let param = {
-      orderType: 1,
+      page: this.params.page
     }
     var customIndex = app.AddClientUrl("/more_product_list.html", param, 'get', '1')
     var that = this
@@ -583,22 +592,30 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        console.log("获取热销数据",res.data)
-        if (res.data.result) {
-          that.dellProductImage(res.data.result)
+     
+        that.params.pageSize = res.data.pageSize
+        that.params.curPage = res.data.curPage
+        that.params.totalSize = res.data.totalSize
+        
+        if (that.data.hotProduct && that.data.hotProduct.length != "0") {
+          let products = that.data.hotProduct
+          products = products.concat(res.data.result)
+          that.setData({
+            hotProduct: products
+          })
         }
-        let productData = res.data.result;
-        let showShare = that.data.showShare
-        let num = 0;
-        for (var a = 0; a < productData.length; a++) {
-          num = a;
-          showShare[num] = false;
+        else {
+          that.setData({
+            hotProduct: res.data.result
+          })
+        }
 
-        }
-        that.setData({
-          hotProduct: res.data.result,
-          showShare: showShare
-        })
+        console.log("主页面获取热销数据总", that.data.hotProduct)
+
+
+       
+
+   
       },
       fail: function (res) {
         console.log("fail")
@@ -671,6 +688,15 @@ Page({
     this.setData({
       hasMore: false
     })
+
+    this.params.onPullDownRefresh = true;
+    // 组件内的事件
+    this.selectComponent('#productLists').getHotProduct(1, this.params.onPullDownRefresh)
+    let that = this;
+    setTimeout(function () {
+      that.params.onPullDownRefresh = true;
+    }, 500)
+
     wx.stopPullDownRefresh()
   },
   //点击购物车中的商品，跳转到详情页面
@@ -699,9 +725,9 @@ Page({
   console.log(res)
       // 商品id
       let id = res.target.dataset.id
-      let products = this.data.products
+      let products = this.data.hotProduct
 
-      console.log("this.data.products", this.data.products)
+      console.log("this.data.products", this.data.hotProduct)
       let index = 0;
 
       for (let i = 0; i < products.length; i++) {
@@ -711,8 +737,6 @@ Page({
           index = i;
         }
       }
-
-
       let focusData = products[index]
     
       let imageUrl = focusData.imagePath
@@ -734,6 +758,14 @@ Page({
   },
   onReachBottom: function () {
     var that = this
+    if (that.params.totalSize > that.params.curPage * that.params.pageSize) {
+      that.params.page++
+      that.getHotProduct()
+      // 组件内的事件
+      this.selectComponent('#productLists').getHotProduct( that.params.page)
+     
+    }
+
     this.setData({
       listEnd: true
     })
@@ -821,15 +853,16 @@ Page({
       return
     }
 
-    let products = this.data.products
-    let focusData = products[index]
-
-    if (focusData.showShare == false) {
+    let products = this.data.hotProduct
+    console.log("hotProduct", this.data.hotProduct)
+    let focusData = products
+  
+    if (focusData[index].showShare == false) {
       return
     }
-    focusData.showShare = false
+    focusData[index].showShare = false
     this.setData({
-      products: products
+      hotProduct: products
     })
   },
   //开关显示客服的
@@ -908,7 +941,7 @@ Page({
     let index = e.detail.e.target.dataset.index;
     let bindBuy = e.detail.e.target.dataset.bindbuy;
 
-    let products = this.data.products
+    let products = this.data.hotProduct
     let focusData = products[index]
     this.byNowParams.productId = focusData.id
     this.byNowParams.shopId = focusData.belongShopId

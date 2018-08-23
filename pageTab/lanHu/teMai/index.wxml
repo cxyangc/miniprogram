@@ -108,11 +108,8 @@
 
 <!--公告结束 productData -->
      <block wx:if="{{ProductshowWay == 2}}">
-              <productList  data="{{productData}}" id="exceplem"  bind:action='bindAddtocart'    bind:showPosters='showPosters'></productList>
+              <productList  data="{{productData}}" id="productLists"  bind:action='bindAddtocart'    bind:showPosters='showPosters'></productList>
     </block>
-
-
-<!--当右上角的  -->
 
     <block wx:else>
      <view class='product_page_container2'>
@@ -122,10 +119,11 @@
             <view class='product_items2_view1'>
               
               <view>
-                <text>{{result.name}}</text>
+                <text class='priceTextName'>{{result.name}}</text>
                 <text class='price'>￥{{result.price}}</text>
                   
               </view>
+        
               <text class='font2'>销量： {{result.saleCount}}</text>
             </view>
             
@@ -140,6 +138,7 @@
         </block>
       </view>
     </block>
+
   
 </block>
 

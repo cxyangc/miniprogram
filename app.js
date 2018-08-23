@@ -8,9 +8,9 @@ App({
       //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
     //  clientUrl: 'http://192.168.40.180:3000/chainalliance/',  // 本地ip 链接地址
     // clientUrl: 'http://www2.aikucun.xyz/chainalliance/',
- clientUrl: 'https://mini.sansancloud.com/chainalliance/',
-  //  clientUrl: 'https://mini.tunzai.vip/chainalliance/',
-   // clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+   //  clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+    //clientUrl: 'https://mini.tunzai.vip/chainalliance/',
+   clientUrl: 'https://mini.sansancloud.com/chainalliance/',
 
   // clientUrl: 'http://192.168.1.12:3000/chainalliance/',
 
@@ -966,7 +966,7 @@ App({
       console.log("000000000000", pageName)
       console.log("111111111111", pageTitle)
 
-      console.log("333333333333", imageUrl)
+      console.log("333333333333", pageCode)
         let that = this
 
 
@@ -987,6 +987,10 @@ App({
         }
         if (!pageCode) {
             pageCode = {}
+        }
+        // title存在的时候显示活动名
+        if (pageCode.title && pageCode.title!=""){
+          pageTitle = that.clientName + "-" + pageCode.title
         }
         if (this.loginUser && this.loginUser.platformUser) {
         pageCode.scene = 'MINI_PLATFORM_USER_ID_' + this.loginUser.platformUser.id;

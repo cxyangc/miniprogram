@@ -631,3 +631,12 @@ color:rgba(51,51,51,1);
 width: 40rpx;
 height: 40rpx;
 }
+.priceTextName{
+  display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    font-size: 32rpx;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:2;
+}

@@ -76,7 +76,7 @@
     <view class='data_column' wx:if='{{loginUser.platformUser.managerMendianId}}'>
       <image class='fws_bg' src='../../../images/myImg/fws_bg2.jpg'></image>
       <view class='data_column_top'>
-        <view class='data_left' data-link='mendian_center.html' bindtap='tolinkUrl'>
+        <view class='data_left'>
           <image src='../../../images/myImg/choiceness2.png' style='width:42rpx;height:39rpx;margin-right:8rpx'></image>
           <image src='../../../images/myImg/tunzai2.png' style='width:72rpx;height:39rpx'></image>
         </view>
@@ -85,7 +85,7 @@
           <text class='data_left_num'>¥{{mendian.totalEarningAmount}}</text>
           <!--  -->
         </view>
-        <view class='data_right'>
+        <view class='data_right' data-link='mendian_center.html' bindtap='tolinkUrl'>
           <image src='../../../images/myImg/user2.png' style='width:32rpx;height:32rpx;margin-right:8rpx'></image>
           <text class='data_right_id'>ID:{{loginUser.platformUser.id}}</text>
           <image src='../../../images/check.png' style='width:20rpx;height:20rpx;margin-left:24rpx'></image>

@@ -205,7 +205,11 @@ Component({
       let that=this;
       console.log('4444444444444', this.data.innerText)
       var clientWidth = wx.getSystemInfoSync().screenWidth;
+      var clientHeight = wx.getSystemInfoSync().screenHeight;
       var context = wx.createCanvasContext('shareCanvas', this)
+
+      context.setFillStyle('#fff')  // 文字颜色：黑色
+      context.fillRect(0, 0, clientWidth, clientHeight);
       //context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
       if (that.data.imgInfo.w === that.data.imgInfo.w) {
         console.log('===that.data.imgInfo.w === that.data.imgInfo.w===')
@@ -258,7 +262,7 @@ Component({
       context.fillText(that.data.platformName, 16, clientWidth * 0.93 + 16)
  
       console.log("9999:" , that.data.imgInfo); 
-      context.drawImage(that.data.img_ewm, clientWidth * 0.5 - 16, clientWidth * 0.82 + 16, 80, 80)
+      context.drawImage(that.data.img_ewm, clientWidth * 0.5 - 16, clientWidth * 0.82 + 16, 70, 70)
       console.log("55555");
       context.stroke()
       context.draw()
