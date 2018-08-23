@@ -108,7 +108,7 @@ Component({
       })
 
     },
-    downFileFun: function (url,typeData) {
+    downFileFun: function (url,typeData,completeCallback) {
       console.log('=====url=====', url);
       let that = this
       const downloadTask = wx.downloadFile({
@@ -122,7 +122,7 @@ Component({
               that.setData({
                 img_l: res.tempFilePath //将下载的图片临时路径赋值给img_l,用于预览图片
               })
-              that.downFileFun(that.data.ewmImgUrl, 'showEwm')
+              that.downFileFun(that.data.ewmImgUrl, 'showEwm',completeCallback)
             } else if (typeData ==='showEwm') {
               console.log('=======showEwm======', res)
               that.setData({
@@ -131,9 +131,20 @@ Component({
               that.getImgBiLi(that.data.img_l)
             }
           }
+          if (completeCallback){
+            try{
+               
+            completeCallback();
+            }catch(e){}
+          }
         },
         fail: function (res) {
           console.log("fail")
+          if (commpleteCallback) {
+            try {
+              commpleteCallback();
+            } catch (e) { }
+          }
         }
       })
     },
@@ -178,8 +189,10 @@ Component({
         success: function (res) {
           console.log(res.data)
           that.setData({ productData: res.data })
-          that.downFileFun(that.data.productData.productInfo.imagePath.replace('http','https'),'proImg')
-          wx.hideLoading()
+          that.downFileFun(that.data.productData.productInfo.imagePath.replace('http','https'),'proImg',function(){
+            wx.hideLoading()
+          })
+         
         },
         fail: function (res) {
           console.log("fail")
@@ -217,7 +230,7 @@ Component({
       context.lineWidth = 0.8;
       var str = that.data.productData.productInfo.name
       //that.InterceptStr(str, clientWidth * 0.5, clientWidth * 0.7 + 16, context)
-      context.fillText(str.substring(0, 23), 16, clientWidth * 0.7+16)
+      context.fillText(str.substring(0, 21), 16, clientWidth * 0.7+16)
       //this.strFun(str, clientWidth * 0.62, clientWidth * 0.7,context)
       console.log("6666");
       context.setTextAlign('left')    // 文字居中
