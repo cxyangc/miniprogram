@@ -8,6 +8,8 @@ Page({
   data: {
     setting: {},
     loginUser: null,
+    orderData: {},
+    orderState: { pendingPaymentNum: 0, pendingDeliveryNum: 0, pendingGoodsNum:0},
     mendian: {
       account: {
         account: 0,
@@ -16,6 +18,41 @@ Page({
       totalTixianAmount: 0.00,
       waitCompleteOrderDistributeAmount: 0.00
     }
+  },
+  /*获取订单类型数据 */
+  getOrderList: function (params) {
+    let tab = this.data.orderData
+    var customIndex = app.AddClientUrl("/get_order_list.html", params)
+    var that = this
+    wx.showLoading({
+      title: 'loading'
+    })
+    wx.request({
+      url: customIndex.url,
+      header: app.header,
+      success: function (res) {
+
+        console.log('-----------orderList--------')
+        console.log(res.data)
+        let result = res.data.result
+        if (params.easyStatus==2){
+          that.data.orderState.pendingPaymentNum = res.data.totalSize
+        } else if (params.easyStatus == 3) {
+          that.data.orderState.pendingDeliveryNum = res.data.totalSize
+        } else if (params.easyStatus == 4) {
+          that.data.orderState.pendingGoodsNum = res.data.totalSize
+        }
+        that.setData({
+          orderState: that.data.orderState
+        })
+        console.log("===that.data.orderState====", that.data.orderState)
+        wx.hideLoading()
+      },
+      fail: function (res) {
+        wx.hideLoading()
+        app.loadFail()
+      },
+    })
   },
   /* 组件事件集合 */
   tolinkUrl: function (e) {
@@ -221,6 +258,9 @@ Page({
       loginUser: app.loginUser
     })
     console.log('======this.loginUser======', this.data.loginUser)
+    this.getOrderList({ easyStatus: 2 })
+    this.getOrderList({ easyStatus: 3 })
+    this.getOrderList({ easyStatus: 4 })
     if (this.data.loginUser.platformUser.managerMendianId){
       this.getMendianInfo()
       }

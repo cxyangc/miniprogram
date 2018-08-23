@@ -159,14 +159,17 @@
       </view>
       <view class='profit_block_list'>
         <view class='profit_block_items' data-link='order_list_2.html?easyStatus=2&easyStatusName=待付款'   bindtap='tolinkUrl'>
+          <view class='pendingNum' wx:if='{{orderState.pendingPaymentNum!=0}}'><text>{{orderState.pendingPaymentNum}}</text></view>
           <image class='profit_items_img' src='../../../images/myImg/pending_payment2.png' style='width:80rpx;height:80rpx'></image>
           <text class='profit_items_text' style='margin-top:10px'>待付款</text>
         </view>
         <view class='profit_block_items' data-link='order_list_3.html?easyStatus=3&easyStatusName=待发货'   bindtap='tolinkUrl'>
+          <view class='pendingNum' wx:if='{{orderState.pendingDeliveryNum!=0}}'><text>{{orderState.pendingDeliveryNum}}</text></view>
           <image class='profit_items_img' src='../../../images/myImg/pending_delivery2.png' style='width:80rpx;height:80rpx'></image>
           <text class='profit_items_text' style='margin-top:10px'>待发货</text>
         </view>
         <view class='profit_block_items' data-link='order_list_4.html?easyStatus=4&easyStatusName=待收货'   bindtap='tolinkUrl'>
+          <view class='pendingNum' wx:if='{{orderState.pendingGoodsNum!=0}}'><text>{{orderState.pendingGoodsNum}}</text></view>
           <image class='profit_items_img' src='../../../images/myImg/goods_received2.png' style='width:80rpx;height:80rpx'></image>
           <text class='profit_items_text' style='margin-top:10px'>待收货</text>
         </view>
