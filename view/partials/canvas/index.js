@@ -58,56 +58,6 @@ Component({
         }
       })
     },
-    // saveImgToPhotosAlbumTap: function () {
-    //   let that = this;
-    //   wx.showToast({
-    //     title: '保存图片中...',
-    //     icon: 'loading',
-    //     duration: 1000
-    //   });
-    //   wx.saveImageToPhotosAlbum({
-    //     filePath: that.data.imagePath,
-    //     success: function (res) {
-    //       console.log(res)
-    //       wx.hideToast()
-    //       wx.showToast({
-    //         title: '保存图片成功',
-    //         icon: 'success',
-    //         duration: 1000
-    //       });
-    //     },
-    //     fail: function (res) {
-    //       console.log(res)
-    //       console.log('fail')
-    //     }
-    //   })
-
-    // },
-    saveImgToPhotosAlbumTap: function () {
-      let that = this;
-      wx.showToast({
-        title: '保存图片中...',
-        icon: 'loading',
-        duration: 1000
-      });
-      wx.saveImageToPhotosAlbum({
-        filePath: that.data.imagePath,
-        success: function (res) {
-          console.log(res)
-          wx.hideToast()
-          wx.showToast({
-            title: '保存图片成功',
-            icon: 'success',
-            duration: 1000
-          });
-        },
-        fail: function (res) {
-          console.log(res)
-          console.log('fail')
-        }
-      })
-
-    },
     downFileFun: function (url,typeData,completeCallback) {
       console.log('=====url=====', url);
       let that = this
@@ -129,13 +79,8 @@ Component({
                 img_ewm: res.tempFilePath //将下载的图片临时路径赋值给img_l,用于预览图片
               })
               that.getImgBiLi(that.data.img_l)
+              completeCallback()
             }
-          }
-          if (completeCallback){
-            try{
-               
-            completeCallback();
-            }catch(e){}
           }
         },
         fail: function (res) {
@@ -153,8 +98,6 @@ Component({
       console.log("======url=====", url);
       var clientWidth = wx.getSystemInfoSync().screenWidth;
       var imgInfo = { scale_y: 0, scale_x: 0, w: 0, h: 0};
-      //that.customMethod();
-      
       wx.getImageInfo({
         src: url,
         success: function (res) {
@@ -181,7 +124,6 @@ Component({
       postParam.productId =this.data.proId
       postParam.addShopId = this.data.shopId
       let customIndex = app.AddClientUrl("/product_detail.html", postParam)
-
       wx.request({
         /* url: app.clientUrl + app.clientNo + "/product_detail_" + param.id + ".html?jsonOnly=1" + "&addShopId=" + param.addShopId, */
         url: customIndex.url,
@@ -208,7 +150,7 @@ Component({
       var clientHeight = wx.getSystemInfoSync().screenHeight;
       var context = wx.createCanvasContext('shareCanvas', this)
 
-      context.setFillStyle('#fff')  // 文字颜色：黑色
+      context.setFillStyle('#fff')  // 画布背景白色填充
       context.fillRect(0, 0, clientWidth, clientHeight);
       //context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
       if (that.data.imgInfo.w === that.data.imgInfo.w) {
@@ -221,11 +163,6 @@ Component({
         console.log('===that.data.imgInfo.w < that.data.imgInfo.h===')
         context.drawImage(that.data.img_l, 0, (that.data.imgInfo.h - clientWidth * 0.65) / 2, that.data.imgInfo.w, that.data.imgInfo.w, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
       }
-      // if (that.data.imgInfo.h > that.data.imgInfo.w) {
-      //   context.drawImage(that.data.img_l, 0, 0, that.data.imgInfo.w, that.data.imgInfo.h, 16, 16, that.data.imgInfo.scale_x, that.data.imgInfo.scale_y);
-      // } else {
-      //   context.drawImage(that.data.img_l, 0, 0, that.data.imgInfo.w, that.data.imgInfo.h, 16, 16, that.data.imgInfo.scale_x, that.data.imgInfo.scale_y);
-      // }
       console.log("55555");
       context.setTextAlign('left')    // 文字居中
       context.setFillStyle('#000000')  // 文字颜色：黑色
