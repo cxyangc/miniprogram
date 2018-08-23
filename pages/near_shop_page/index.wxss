@@ -79,6 +79,7 @@
   background: #f4f4f4;
   padding: 15px 0;
   font-size: 24rpx;
+  position: relative
 }
 .activeTypeItem{
   width: 100%;
@@ -90,6 +91,7 @@
   background: #ffffff;
   font-size: 24rpx;
   padding: 15px 0;
+  position: relative
 }
 .TypeItem_iamge{
   width: 4em;

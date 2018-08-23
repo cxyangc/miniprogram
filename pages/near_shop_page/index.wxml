@@ -2,8 +2,15 @@
 
 <view class='waimaiContainer'>
   <!-- 左边的导航 -->  
-  <view class='shop_top'>
-    <view class='shop_top_left'><image class='shop_top_img' src='../../../images/icons/logo.jpg'></image></view>
+  <view class='shop_top' style='background:{{setting.platformSetting.defaultColor}};'>
+    <view class='shop_top_left'>
+      <block wx:if="{{shopInfo.shopLogo!=''}}">
+         <image class='shop_top_img' src='{{shopInfo.shopLogo}}'></image>
+       </block>
+      <block wx:else>
+         <image class='shop_top_img' src='{{setting.platformSetting.logo}}'></image>
+      </block>
+    </view>
     <view class='shop_top_right'>
       <view class='shop_top_name'><text>{{shopInfo.shopName}}</text></view>
       <view class='shop_top_decribe'>
@@ -23,17 +30,20 @@
         </block>
         <block wx:else></block> -->
         <text>{{type.typeName}}</text>
+        <block wx:if='{{type.hasInCartCount > 0}}'>
+          <view class='countNumTag countNumInLeft'>{{type.hasInCartCount}}</view>
+        </block>
         </view>
       
       <view class='ToOrderView_container'>
         <block wx:if='{{pushItem.length > 0}}'>
-          <view class='ToOrderView ToOrderView1' data-link='order_list_0.html?easyStatusName=全部订单&easyStatus=0' bindtap='toOrderPage'>
+          <view class='ToOrderView ToOrderView1' data-link='order_list_0.html?easyStatusName=全部订单&easyStatus=0' bindtap='toOrderPage' style='background:{{setting.platformSetting.defaultColor}};'>
             <image mode='aspectFill' src='/images/icons/order_waimai.png'></image>
             <text>订单</text>
           </view>
         </block>
         <block wx:else>
-        <view class='ToOrderView ToOrderView2' data-link='order_list_0.html?easyStatusName=全部订单&easyStatus=0' bindtap='toOrderPage'>
+        <view class='ToOrderView ToOrderView2' data-link='order_list_0.html?easyStatusName=全部订单&easyStatus=0' bindtap='toOrderPage' style='background:{{setting.platformSetting.defaultColor}};'>
           <image mode='aspectFill' src='/images/icons/order_waimai.png'></image>
           <text>订单</text>
         </view>
@@ -88,7 +98,7 @@
 </view>
 
   <block wx:if='{{pushItem.length > 0}}'>
-  <view class='bottomCartContainer'>
+  <view class='bottomCartContainer' style='background:{{setting.platformSetting.defaultColor}};'>
     <view class='cartInfo' bindtap='showZheshao'>
        <view class='imageCartContainer flexCenter'>
          <image src='/images/icons/Cart_waimai.png'></image>
@@ -102,26 +112,26 @@
 
 <view wx:if='{{pushItem.length > 0}}' class='waimai_cart_container_forTap'> 
     <view class='Tap_cart' >
-      <block wx:if='{{!showType}}'><view class='Tap_cart_v1' bindtap='showZheshao'>^</view></block>
+      <block wx:if='{{!showType}}'><view class='Tap_cart_v1' style='background:{{setting.platformSetting.defaultColor}};' bindtap='showZheshao'>^</view></block>
       <block wx:else><view class='Tap_cart_v2' bindtap='showZheshao'>v</view> </block>
      </view>
   <scroll-view scroll-y class='waimai_cart_container' 
     animation="{{animationData}}">
     <view class='waimai_cart_item' wx:for='{{pushItem}}' wx:for-item='cartI' wx:key='{{index}}'>
         <view class='waimai_cart_item_info'>
-          <view class='waimai_cart_item_info_name'>{{cartI.item.name}}</view>
+          <view class='waimai_cart_item_info_name'>{{cartI.name}}</view>
           <block wx:if='{{!!cartI.measureCartensian}}'>
           <view class='waimai_cart_item_info_measureCartensian' >
             <view wx:for='{{cartI.measureCartensian.measurements}}' wx:for-item='mesure' wx:key='{{index}}'>{{mesure.measureName}}</view>
           </view>
           </block>
           <view class='waimai_cart_item_info_price'>
-            ￥<text class='waimai_cart_item_info_price2'>{{cartI.carItemPrice}}</text>
+            ￥<text class='waimai_cart_item_info_price2'>{{cartI.price}}</text>
           </view>
         </view>
         <view class='waimai_cart_item_nums'>
                 <image src='/images/icons/sub_waimai.png' data-id='{{index}}' catchtap='subCartNum'></image>
-                <text class='font1'>{{cartI.count}}</text>
+                <text class='font1'>{{cartI.count_offline}}</text>
             
               <image src='/images/icons/add_waimai.png' data-id='{{index}}' catchtap='addCartNum' ></image>
         </view>
