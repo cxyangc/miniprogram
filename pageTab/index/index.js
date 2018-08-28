@@ -123,10 +123,8 @@ Page({
        })
        console.log(" app.clientNo", app.clientNo)
        app.clientNo = options.ENTER_PLATFORM_NO
-       app.getSetting();
-      
-  return;
-
+       app.getSetting();     
+       return;
       }
 
 
@@ -178,12 +176,12 @@ Page({
 
     // 分享出来带分享SHARE_ENTER_TEMAI_PAGE跳到产品详情页
 
-    if (options.SHARE_ENTER_TEMAI_PAGE && options.SHARE_ENTER_TEMAI_PAGE != "") {
+    if (options.SHARE_PROMOTION_PRODUCTS_PAGE && options.SHARE_PROMOTION_PRODUCTS_PAGE != "") {
 
-      console.log("进入特卖页面", options.SHARE_ENTER_TEMAI_PAGE)
+      console.log("进入特卖页面", options.SHARE_PROMOTION_PRODUCTS_PAGE)
       setTimeout(function () {
         wx.reLaunch({
-          url: '/pageTab/lanHu/teMai/index?promotionId=' + options.SHARE_ENTER_TEMAI_PAGE
+          url: '/pageTab/lanHu/teMai/index?promotionId=' + options.SHARE_PROMOTION_PRODUCTS_PAGE
         })
       }, 200)
       return;
