@@ -758,7 +758,8 @@ Page({
   },
   onReachBottom: function () {
     var that = this
-    if (that.params.totalSize > that.params.curPage * that.params.pageSize) {
+    // 商品数目过多会导致setData的失败，setData有最大数目所以加载8页
+    if (that.params.totalSize > that.params.curPage * that.params.pageSize && that.params.page<8) {
       that.params.page++
       that.getHotProduct()
       // 组件内的事件

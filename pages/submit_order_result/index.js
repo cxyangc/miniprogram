@@ -150,9 +150,33 @@ Page({
       }
     })
   },
-  toIndex:function(){
-    app.toIndex()
-  }, 
+  toIndex: function () {
+    // console.log('首页叫做：' + app.miniIndexPage)
+
+    // console.log('首页叫做：' + app.clientNo)
+    // //这个需要注意  switchTab  和  redirectTo
+    // if (app.clientNo == 'tunzai') {
+    //   console.log("1111111111111")
+    //   wx.switchTab({
+    //     url: '/pageTab/lanHu/index/index',
+    //   })
+    //   return;
+    // }
+    // else if (app.miniIndexPage) {
+    //   console.log("2222222222222")
+    //   wx.switchTab({
+    //     url: '/pageTab/' + app.miniIndexPage + '/index',
+    //   })
+    // } else {
+    //   console.log("33333333333333")
+    //   wx.switchTab({
+    //     url: '/pageTab/custom_page_index/index',
+    //   })
+    // }
+    app.toIndex();
+
+
+  },
   /**
    * 生命周期函数--监听页面加载
    */

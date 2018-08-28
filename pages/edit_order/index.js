@@ -248,56 +248,96 @@ Page({
   /* 确认订单 */
   submitOrder:function(){
     var that = this
-    console.log(this.orderMessage)
-    if (!this.orderMessage.addressId){
-      wx.showModal({
-        title: '提示',
-        content: '请添加收货地址',
-        success: function (res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/add_address/index'
-            })
-          } else if (res.cancel) {
+    console.log(that.orderMessage)
+    // 不允许自提的时候没写地址
+    if (!that.orderMessage.addressId &&that.data.allowMendianZiti == "0"){
+        wx.showModal({
+          title: '提示',
+          content: '请添加收货地址',
+          success: function (res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '/pages/add_address/index'
+              })
+            } else if (res.cancel) {
 
+            }
           }
-        }
-      })
+        })
+      
+  
       
     }else{
-      console.log("这是参数" + JSON.stringify(that.orderMessage) )
-      var customIndex = app.AddClientUrl("/submit_order.html", that.orderMessage,'post')
-      
-      wx.showLoading({
-        title: 'loading',
-        mask: true
-      })
-      wx.request({
-        url: customIndex.url,
-        data: customIndex.params,
-        header:app.headerPost,
-        method: 'POST',
-        success: function (res) {
-          console.log('--------确认订单------- ')
-          console.log(res)
-          console.log(res.data)
-          if(res.data.errcode == '10001'){
-            app.loadLogin()
-          }else{
-            app.payItem = res.data  /* 全局传过去吧... */
-            wx.hideLoading()
-            wx.redirectTo({
-              url: '/pages/submit_order_result/index',
-            })
+      // 如果允许自提但没打勾
+      if (that.data.allowMendianZiti != "0" && that.data.mendianZiti == "0" && !that.orderMessage.addressId){
+        wx.showModal({
+          title: '提示',
+          content: '请添加收货地址',
+          success: function (res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '/pages/add_address/index'
+              })
+            } else if (res.cancel) {
+
+            }
           }
-          
-          
-        },
-        fail: function (res) {
-          wx.hideLoading()
-          app.loadFail()
+        })
         }
-      })
+
+else{
+
+        // 如果是订餐的话携带桌子ID
+        // 查找缓存
+        console.log("22222222222222")
+        try {
+          let tableID = wx.getStorageSync('tableID')
+          if (tableID) {
+            that.orderMessage.tableId = tableID
+          }
+        } catch (e) {
+        }
+        // 判断是否自提
+        console.log("======mendianZiti=========", that.data.mendianZiti)
+        that.orderMessage.mendianZiti = that.data.mendianZiti
+        console.log("=========参数orderMessage===========", JSON.stringify(that.orderMessage))
+        var customIndex = app.AddClientUrl("/submit_order.html", that.orderMessage, 'post')
+
+        wx.showLoading({
+          title: 'loading',
+          mask: true
+        })
+        wx.request({
+          url: customIndex.url,
+          data: customIndex.params,
+          header: app.headerPost,
+          method: 'POST',
+          success: function (res) {
+            console.log('--------确认订单------- ')
+            console.log(res)
+            console.log(res.data)
+            if (res.data.errcode == '10001') {
+              app.loadLogin()
+            } else {
+              app.payItem = res.data  /* 全局传过去吧... */
+              wx.hideLoading()
+              wx.redirectTo({
+                url: '/pages/submit_order_result/index',
+              })
+            }
+
+
+          },
+          fail: function (res) {
+            wx.hideLoading()
+            app.loadFail()
+          }
+        })
+
+}
+
+
+   
     }
   },
 
@@ -398,6 +438,20 @@ Page({
   },
   onLoad: function (o) {
     var that = this
+    console.log("========app.setting======", app.setting)
+    // 查找缓存(先暂时把id当成桌号，后台暂时没有配置桌号，后面再去改)
+    try {
+      var tableID = wx.getStorageSync('tableID')
+      if (tableID && tableID!="") {
+          this.setData({
+            tableID: tableID
+          })
+      }
+    } catch (e) {
+     
+    }
+    console.log("=========tableID===========", tableID)
+
     wx.getLocation({
       type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标  
       success: function (res) {
@@ -417,9 +471,42 @@ Page({
     })
     this.setData({ setting: app.setting })
     this.setData({ loginUser: app.loginUser })
-    console.log(o)
-    if (!!o.orderNo){
-      this.data.orderNo = o.orderNo
+    console.log("==================o===================", o)
+    console.log("==================o===================", JSON.parse(o.orderData))
+    let orderData = JSON.parse(o.orderData)
+    // 获取门店自提
+    console.log(orderData.allowMendianZiti)
+    this.setData({
+      allowMendianZiti: orderData.allowMendianZiti
+    })
+    // 允许但不优先
+    if (this.data.allowMendianZiti=="1"){
+       this.setData({
+         mendianZiti:0
+       })
+    }
+    // 允许并优先
+   else if (this.data.allowMendianZiti == "2"){
+      this.setData({
+        mendianZiti: 1
+      })
+    }
+    // 只允许门店自提
+    else if (this.data.allowMendianZiti == "3") {
+      this.setData({
+        mendianZiti: 1
+      })
+    }
+    else{
+      this.setData({
+        mendianZiti: 1
+      })
+    }
+    console.log("=====mendianZiti======", this.data.mendianZiti)
+
+  //  获取订单号
+    if (!!orderData.orderNo){
+      this.data.orderNo = orderData.orderNo
       this.setData({
         orderData: this.data.orderNo
       })
@@ -428,7 +515,31 @@ Page({
      // that.getAddr()
     }
   },
+  check:function(){
+    if (this.data.allowMendianZiti=="3"){
+      this.setData({
+        mendianZiti: 0
+      })
+    }else{
+      this.setData({
+        mendianZiti: 1
+      })
+    }
+    console.log(this.data.mendianZiti)
+  },
+  uncheck:function(){
+    if (this.data.allowMendianZiti == "3") {
+      this.setData({
+        mendianZiti: 1
+      })
+    } else {
+      this.setData({
+        mendianZiti: 0
+      })
+    }
+    console.log(this.data.mendianZiti)
 
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

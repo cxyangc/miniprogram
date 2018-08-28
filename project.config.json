@@ -120,6 +120,13 @@
 					"pathName": "pageTab/index/index",
 					"query": "promotionId=45&SHARE_ENTER_TEMAI_PAGE=45&scene=MINI_PLATFORM_USER_ID_66259",
 					"scene": "1011"
+				},
+				{
+					"id": 13,
+					"name": "进入订餐",
+					"pathName": "pageTab/index/index",
+					"query": "ENTER_ORDER_MEAL_TABLEID=1&&ADDSHOPID=236",
+					"scene": "1011"
 				}
 			]
 		}

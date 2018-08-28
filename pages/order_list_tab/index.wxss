@@ -139,6 +139,11 @@
   align-items: center;
   border-bottom: 1px solid #dddddd;
   font-size: 0.8em;
+
+  /* background-color: red; */
+}
+.mr80{
+  margin-right: 80rpx;
 }
 .butn_container2 text{
   margin-left: 5px;

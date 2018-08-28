@@ -51,7 +51,7 @@
     {
       "root": "pages",
       "pages": [
-
+        "order_meal/index",
         "new_promotion_products/index",
         "new_pay_offline/index",
         "nearby_stores/index",
@@ -141,7 +141,7 @@
       ]
     }
   ],
- "tabBar": {
+"tabBar": {
   "color": "#7A7E83",
   "selectedColor": "#000000",
   "borderStyle": "black",
@@ -173,6 +173,7 @@
     }
   ]
 },
+
 
   "window": {
     "backgroundTextStyle": "light",

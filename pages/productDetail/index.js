@@ -335,11 +335,12 @@ Page({
       header: app.headerPost,
       method: 'POST',
       success: function (res) {
-        console.log(res)
+        console.log("点击确定后内容",res.data)
+        let data = res.data
         if (!!res.data.orderNo) {
           wx.hideLoading()
           wx.navigateTo({
-            url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
+            url: '/pages/edit_order/index?orderData=' + JSON.stringify(data),
           })
         } else {
           wx.hideLoading()

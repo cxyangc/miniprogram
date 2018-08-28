@@ -17,11 +17,13 @@ Page({
   },
   tolinkUrl: function (e) {
     let linkUrl = e.currentTarget.dataset.link
+    console.log("==========linkUrl========", linkUrl)
     app.linkEvent(linkUrl)
   },
   // 获取附近店铺数据
-  getData: function () {
-
+  getData: function (page) {
+    console.log(page)
+    let newPage=page
     var that = this;
 
     // 店铺名可以从app.setting中拿到
@@ -36,12 +38,19 @@ Page({
         console.log('=========that.data.page============',that.data.page)
 
         // 获取附近店铺数据
-        var nearShopUrl = "/more_near_shops.html"
+        var nearShopUrl = "/more_near_shops.html";
+     
         var pageParam = {
           "longitude": longitude,
           "latitude": latitude,
-       //  "shopTag":"",
-          "page": that.data.page
+     
+        }
+        console.log("=======newPage======",newPage)
+        if (page && page != "") {
+          pageParam.page = newPage
+        }
+        else {
+          pageParam.page = that.data.page
         }
         console.log(nearShopUrl + pageParam)
         var customIndex = app.AddClientUrl(nearShopUrl, pageParam, 'get', 1)
@@ -56,10 +65,17 @@ Page({
           method: 'GET',
           success: function (res) {
             console.log("数据", res.data.relateObj)
-        
-           
+            if (that.data.shops.length==0){
               that.setData({
                 shops: res.data.relateObj.result,
+              })
+          }else{
+              let shops = that.data.shops;
+              shops = shops.concat(res.data.relateObj.result)
+              console.log("=======shops=====",shops)
+          }
+           
+              that.setData({
                 curPage: res.data.relateObj.curPage,
                 pageSize: res.data.relateObj.pageSize,
                 totalSize: res.data.relateObj.totalSize
@@ -71,10 +87,10 @@ Page({
             var userLongitude = longitude;
             var userLatitude = latitude;
             var index = "0"
-            for (var i = 0; i < res.data.relateObj.result.length; i++) {
+            for (var i = 0; i < that.data.shops.length; i++) {
               index = i;
-              var shopLongitude = res.data.relateObj.result[index].longitude;
-              var shopLatitude = res.data.relateObj.result[index].latitude;
+              var shopLongitude = that.data.shops[index].longitude;
+              var shopLatitude = that.data.shops[index].latitude;
 
               that.getGreatCircleDistance(userLongitude, userLatitude, shopLongitude, shopLatitude);
 
@@ -118,7 +134,7 @@ Page({
     lat1 = parseFloat(lat1);
     lng2 = parseFloat(lng2);
     lat2 = parseFloat(lat2);
-    console.log("a,b", lng1, lat1, lng2, lat2)
+    // console.log("a,b", lng1, lat1, lng2, lat2)
     var radLat1 = lat1 * Math.PI / 180.0;
     var radLat2 = lat2 * Math.PI / 180.0;
 
@@ -138,14 +154,15 @@ Page({
     this.setData({
       journey: journey
     })
-    // console.log("公里数", this.data.journey)
+    console.log("公里数", this.data.journey)
     return s;
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getData();
+    let page=1;
+    this.getData(page);
 
   },
 
@@ -186,7 +203,8 @@ Page({
     this.data.Data = []
 
     this.listPage.page = 1
-    this.getData();
+    let page=1;
+    this.getData(page);
     wx.stopPullDownRefresh()
   },
 

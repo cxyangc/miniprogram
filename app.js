@@ -8,16 +8,16 @@ App({
       //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
     //  clientUrl: 'http://192.168.40.180:3000/chainalliance/',  // 本地ip 链接地址
     // clientUrl: 'http://www2.aikucun.xyz/chainalliance/',
-   //  clientUrl: 'https://mini.sansancloud.com/chainalliance/',
-    //clientUrl: 'https://mini.tunzai.vip/chainalliance/',
-   clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+    clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+    // clientUrl: 'https://mini.tunzai.vip/chainalliance/',
+     // clientUrl: 'https://mini.sansancloud.com/chainalliance/',
 
   // clientUrl: 'http://192.168.1.12:3000/chainalliance/',
 
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */
-     clientNo: 'jianzhan',   //自定义的项目的名称。
+   clientNo: 'jianzhan',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
@@ -171,16 +171,19 @@ App({
         console.log('首页叫做：' + this.clientNo)
         //这个需要注意  switchTab  和  redirectTo
         if (this.clientNo == 'tunzai') {
+          console.log("1111111111111")
           wx.switchTab({
             url: '/pageTab/lanHu/index/index',
           })
           return;
         } 
-        if (this.miniIndexPage) {
+         else if (this.miniIndexPage) {
+           console.log("2222222222222")
             wx.switchTab({
                 url: '/pageTab/' + this.miniIndexPage + '/index',
             })
         } else {
+          console.log("33333333333333")
             wx.switchTab({
                 url: '/pageTab/custom_page_index/index',
             })

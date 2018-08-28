@@ -33,6 +33,15 @@
 方法1：把所有的组件都导入进来，然后根据传过来的partials规则里面的排序来渲染组件 
 <template is="{{index%2 === 0 ? 'courseLeft' : 'courseRight'}}" data="{{...item}}"></template>
 -->
+
+
+
+<!--测试用的时间组件  -->
+
+      <!-- <component-tag-nameTime   data="{{timeTime}}"></component-tag-nameTime>  -->
+
+
+
 <view wx:if='{{PaiXuPartials}}' class="container">
   <block wx:for="{{PaiXuPartials}}" wx:key="{{temp}}">
     <!-- <template is="{{item.partialType}}" 
@@ -53,6 +62,9 @@
        data="{{...item.jsonData,...setting,sysWidth,...item,loginUser:loginUser,reportText:reportText}}"></template>  
 
        <!--组件化 -->
+
+
+
       <component-tag-nameNearShop  wx:if='{{item.partialType == "23"}}'  data="{{item}}"></component-tag-nameNearShop> <!-- 附近店铺-->
 
 

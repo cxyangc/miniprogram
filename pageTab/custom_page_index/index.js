@@ -33,6 +33,9 @@ Page({
     countDownMinute: "",
     countDownSecond: "",
 
+    // 测试时间组件用的
+    timeTime:"2019-07-13 14:55:12"
+
   },
 
   // 子组件做出更改后更改相应的样式

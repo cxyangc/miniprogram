@@ -31,9 +31,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 1em 0.6em;
+  margin-top: 1em;
+  margin-left: 0.6em;
+  margin-right: 0.6em;
+  margin-bottom: 10rpx;
   background: #fff;
   border-radius: 0.2em;
+
+
 }
 .addrItems > image{
   width: 1.2em;
@@ -374,4 +379,26 @@
 .address_modify_in_time image{
   width: 1.2em;
   height: 1.2em;
+}
+
+
+/*门店自提  */
+.allowMendianZiti{
+  width: 95%;
+   height: 60rpx;
+   margin: 0 auto;
+   margin-bottom: 0.6em;
+   margin-top: 10px;
+   display: flex;
+   flex-direction: row;
+  
+}
+.add-btn{
+  width: 40rpx;
+}
+.allowMendianZiti text{
+  line-height: 50rpx;
+  font-size: 30rpx;
+  margin-left: 20rpx;
+  
 }

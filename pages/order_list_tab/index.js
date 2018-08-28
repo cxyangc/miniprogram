@@ -229,9 +229,26 @@ Page({
     var orderNo = order.orderNo
     console.log(order)
     this.setData({ reflesh: true })
-    wx.navigateTo({
-      url: '/pages/edit_order/index?orderNo=' + orderNo,
-    })
+    console.log("===========tab======", this.data.tab)
+    let list = this.data.tab;
+    let data =null;
+    for(let i=0;i<list.length;i++){
+      //  console.log(list[i])
+       for (let j = 0; j < list[i].List.length; j++){
+        //  console.log(list[i].List[j])
+         if (orderNo == list[i].List[j].orderNo){
+            data = list[i].List[j];
+           console.log("==========data========", data)
+         }
+       }
+    }
+     
+    setTimeout(function () {
+      wx.navigateTo({
+        url: '/pages/edit_order/index?orderData=' + JSON.stringify(data),
+      })
+    }, 200)
+
 
   },
   /* 取消订单 */

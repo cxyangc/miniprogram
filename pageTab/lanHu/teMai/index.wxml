@@ -124,7 +124,7 @@
                   
               </view>
         
-              <text class='font2'>销量： {{result.saleCount}}</text>
+              <!-- <text class='font2'>销量： {{result.saleCount}}</text> -->
             </view>
             
           </view>

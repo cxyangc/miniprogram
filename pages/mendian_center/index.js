@@ -112,8 +112,14 @@ Page({
         return mendian
     },
     setNav: function (mendian) {
+      console.log('app.setting', app.setting)
         wx.setNavigationBarTitle({
             title: mendian.name,
+        })
+        wx.setNavigationBarColor({
+          frontColor:'#ffffff',
+          backgroundColor: app.setting.platformSetting.defaultColor
+
         })
     },
     //扫一扫 登录后台

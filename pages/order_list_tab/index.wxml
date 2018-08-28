@@ -66,6 +66,8 @@
                       </view>
                       <!-- 订单类型不同，按钮不一样 -->
                       <view wx:if='{{list.easyStatus == 2}}' class='butn_container2'>
+                         <text class='mr80' wx:if="{{list.mendianZiti==1}}">门店自提</text>
+
                           <text data-order='{{list}}' bindtap='editOrder'>编辑订单</text>
                           <text data-order='{{list}}' bindtap='pay'>立即付款</text>
                           <text data-orderNo='{{list.orderNo}}' data-index='{{index}}' bindtap='delectOrder'>删除订单</text>

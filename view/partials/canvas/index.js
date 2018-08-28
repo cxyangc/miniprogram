@@ -171,7 +171,7 @@ Component({
       context.lineWidth = 0.8;
       var str = that.data.productData.productInfo.name
       //that.InterceptStr(str, clientWidth * 0.5, clientWidth * 0.7 + 16, context)
-      context.fillText(str.substring(0, 21), 16, clientWidth * 0.7+16)
+      context.fillText(str.substring(0, 20), 16, clientWidth * 0.7+16)
       //this.strFun(str, clientWidth * 0.62, clientWidth * 0.7,context)
       console.log("6666");
       context.setTextAlign('left')    // 文字居中

@@ -13,8 +13,8 @@
   height: 9rem;
   padding:1em 0;
   color: #fff;
-  background-size: 100% 100%;
-  background-image: url(http://image1.sansancloud.com/aikucun/2018_03/15/10/17/16_175.jpg?x-oss-process=style/preview_120);
+  /* background-size: 100% 100%;
+  background-image: url(http://image1.sansancloud.com/aikucun/2018_03/15/10/17/16_175.jpg?x-oss-process=style/preview_120); */
 }
 
 .tongji_mid{
@@ -36,7 +36,7 @@
   flex-wrap: wrap;
   background: #fff;
   border-radius: 0.4em;
-  box-shadow: 0 0 20px 2px rgba(245, 196, 75, 0.16)
+  box-shadow: 0 0 20px 2px rgba(255, 68, 68, 0.16)
 }
 .tongji_bottom_item{
   display: flex;
@@ -72,7 +72,7 @@
   flex-wrap: wrap;
   background: #fff;
   border-radius: 0.4em;
-  box-shadow: 0 0 20px 2px rgba(245, 196, 75, 0.16)
+  box-shadow: 0 0 20px 2px rgba(255, 68, 68, 0.16)
 }
 .mendian_menu_item{
   display: flex;

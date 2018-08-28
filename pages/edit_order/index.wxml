@@ -1,6 +1,6 @@
   <view class='container'>
    
-  <view class='addrItems' bindtap='showOtherArr'> 
+  <view class='addrItems' bindtap='showOtherArr' wx:if="{{allowMendianZiti!='3'}}"> 
     <view class='addrItems_info'>
       <image mode='aspectFit' src='/images/icons/addr.png'></image>
       <block wx:if='{{orderData.addressId == 0}}'>
@@ -19,9 +19,21 @@
     </view> 
     <image mode='aspectFill' src='/images/icons/right.png'></image>
   </view> 
+<!--上面是单纯不允许自提的情况下 -->
+
+  <view class='allowMendianZiti' wx:if="{{allowMendianZiti!='0'}}">
+     <view class="add-btn"><icon wx:if="{{mendianZiti=='0'}}" bindtap="check" type="circle" color="orange" size="25"></icon> 
+            <icon wx:if="{{mendianZiti=='1'}}" bindtap="uncheck" type="success"></icon>
+        </view>          
+    <text>是否自提</text>
+  </view>
+
+
+<!-- 以下是订单部分 -->
   <view class='server_container'>
      <view>{{orderData.storageName}}</view>
   </view>
+ 
   <view class='cartContainer'> 
     <view class='cartShopName'>
       <view class='font1' class='cart_star'>
@@ -47,6 +59,10 @@
     <view class='butn_container'>
         <text>运费</text>
         <text>￥0</text>
+    </view>
+     <view class='butn_container' wx:if="{{tableID&&tableID!=''}}">
+        <text>桌号</text>
+        <text>{{tableID}}</text>
     </view>
     <!-- 优惠券 -->
     <view class='butn_container' wx:if='{{coupon2.length != 1}}'>

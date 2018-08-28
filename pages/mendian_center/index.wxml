@@ -1,6 +1,6 @@
  
 <view class='container'>
-    <view class='tongji_container' >      
+    <view class='tongji_container' style='background:{{setting.platformSetting.defaultColor}}'>      
       <view class='tongji_mid font_24'>{{mendian.account.account}}</view>
       <view class='tongji_top'>账户余额（￥）</view>
     </view>
@@ -31,7 +31,7 @@
         </view>
       </view>
 
-    <view class='mendian_menu_container' >
+    <view class='mendian_menu_container'>
         <view class='mendian_menu_item' data-link='mendian_zijin.html'   bindtap='tolinkUrl'>
             <view class='imageContainer'>
                 <image src='http://image.aikucun.xyz/aikucun/2018_4/2/14/9/53_216.jpg?imageMogr2/thumbnail/400x/interlace/0 '></image>
@@ -59,7 +59,7 @@
             </view>
         </view>
         
-        <view class='mendian_menu_item' data-link='mendian_back_item.html'   bindtap='tolinkUrl'>
+        <!-- <view class='mendian_menu_item' data-link='mendian_back_item.html'   bindtap='tolinkUrl'>
             <view class='imageContainer'>
                 <image src='http://image.aikucun.xyz/aikucun/2018_4/2/14/11/22_815.jpg?imageMogr2/thumbnail/400x/interlace/0 '></image>
             </view>
@@ -68,7 +68,7 @@
             </view>
             <view class='borderRight'></view>
              <view class='red_poient_num' wx:if='{{mendian.waitHandleBackItem}}'>{{mendian.waitHandleBackItem}}</view>
-        </view>
+        </view> -->
         <view class='mendian_menu_item' data-link='mendian_will_order.html'   bindtap='tolinkUrl'>
             <view class='imageContainer'>
                 <image src='http://image.aikucun.xyz/aikucun/2018_4/2/14/9/46_858.jpg?imageMogr2/thumbnail/400x/interlace/0'></image>

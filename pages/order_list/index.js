@@ -43,6 +43,7 @@ Page({
     var orderNo = order.orderNo
     console.log(order)
     this.setData({ reflesh: true })
+    console.log("=================list===============",list)
     wx.navigateTo({
       url: '/pages/edit_order/index?orderNo=' + orderNo,
     })

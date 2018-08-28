@@ -23,7 +23,9 @@
     
 "component-tag-nameRichText": "../../view/partials/richText/richText",
 "component-tag-nameStores": "../../view/partials/stores/stores",
-"component-tag-nametab": "../../view/partials/tab/index"
+"component-tag-nametab": "../../view/partials/tab/index",
+
+"component-tag-nameTime": "../../view/partials/time/time"
 
     }
 }

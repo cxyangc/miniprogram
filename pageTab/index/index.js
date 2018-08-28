@@ -94,6 +94,27 @@ Page({
         }
       }
     }) 
+
+
+    // 传入值携带桌子二维码的跳到订餐页面
+
+    if (options.ENTER_ORDER_MEAL_TABLEID && options.ENTER_ORDER_MEAL_TABLEID != "" && options.ADDSHOPID && options.ADDSHOPID!="") {
+      console.log("进入订餐页面", options.ENTER_ORDER_MEAL_TABLEID)
+      setTimeout(function () {
+        wx.reLaunch({
+          url: '/pages/order_meal/index?addShopId=' + options.ADDSHOPID
+        })
+      }, 200)
+      // 缓存
+      try {
+        wx.setStorageSync('tableID', options.ENTER_ORDER_MEAL_TABLEID)
+      } catch (e) {
+      }
+      return;
+    }
+
+
+
       // 预览页面 实际上就2点更改clientNo，重新获取setting（自己想多了）
     if (options.ENTER_PLATFORM_NO && options.ENTER_PLATFORM_NO != "" && options.ENTER_PAGE_NAME && options.ENTER_PAGE_NAME!=""){
       console.log("options.page_name", options.ENTER_PAGE_NAME)
