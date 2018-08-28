@@ -1,0 +1,109 @@
+    <!--pages/productDetail/index.wxml-->
+     <import src="../../view-new/aikucun/measure_card2.wxml"/>
+
+<view class='container'>
+
+<view class='SwiperContainer'>
+    <swiper class='SwiperIndex' indicator-dots="true" autoplay="true" interval="5000" duration="500">
+      <block wx:for="{{productData.images}}"  wx:key="{{swiper}}">
+        <swiper-item data-imageUrl='{{productData.images}}' data-index='{{index}}' bindtap='lookBigImage' >
+          <image mode='aspectFit' src="{{item.imagePath}}"  style="border-radius: 20rpx" />
+        </swiper-item> 
+      </block>  
+    </swiper>
+  </view>  
+ 
+  <view class='ProductDetailInfoContainer'>
+    <view class='InfoPrice_content'>
+       <view class='InfoPrice'>
+          <text class='p1 price_font'>￥{{productData.productInfo.price}}</text>
+          <block wx:if='{{productData.productInfo.tagPrice > productData.productInfo.price}}'>
+            <text class='tagPrice_font'>￥{{productData.productInfo.tagPrice}}</text>
+          </block>
+          <view class='product_stock'><text>仅剩{{productData.productInfo.stock}}件</text></view>
+       </view>
+       <view class='share_product' bindtap='showPoster'><image src='http://image.tunzai.vip/tunzai/2018_8/28/9/48/50_64.jpg'></image></view>
+    </view>
+    <view class='InfoName' >{{productData.productInfo.name}}</view>
+    <view class='InfoSubName '>·{{productData.productInfo.name}}</view>
+   
+    <block wx:if='{{!!productData.productInfo.description}}'>
+      <view class='InfoSubName '>·{{productData.productInfo.description}}</view>
+    </block>
+  </view>
+<!-- <view class='helpBlank'></view> -->
+
+   <view class='tap_title'>
+      <view class='tap_title_left'>
+        <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>正品保证</text></view>
+        <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>永久包邮</text></view>
+        <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>7天无理由退换</text></view>
+      </view>
+      <view class='tap_title_right'>
+        <view class='dot_no'></view>
+        <view class='dot_no'></view>
+        <view class='dot_no'></view>
+      </view>
+    </view>
+
+    <view wx:if='{{productData.measures.length!=0}}'>
+      <block wx:if='{{haveMeasuresState}}'>
+        <view class='specifications' data-way='select' bindtap='readyPay2' >
+          <text class='have_select'>已选择</text>
+          <view class='value'>
+            <text class='value_item' wx:for='{{selectTypeData}}' wx:for-item='item' wx:key='{{index}}'>{{item.value}}</text>
+          </view>
+        </view>
+      </block>
+      <block wx:else >
+        <view class='specifications' data-way='select' bindtap='readyPay2' >
+          <text class='no_select' style='color:{{setting.platformSetting.defaultColor}}'>请选择规格</text>
+        </view>
+      </block>
+    </view>
+
+    <view class='product_introduce'>
+      <view class='product_introduce_short' wx:if='{{productData.attrs.length!=0}}'>
+        <text class='product_introduce_title'>商品介绍</text>
+        <view class='product_introduce_item' wx:for='{{productData.attrs}}' wx:for-item='item' wx:key='{{index}}'>
+            <text class='product_introduce_item_name'>{{item.attributeName}}</text>
+            <text class='product_introduce_item_vaule'>{{item.attributeValue}}</text>
+        </view>
+      </view>
+      <view class='product_main_info'><text>图文详情</text></view>
+    </view>
+
+    <import src="../../wxParse/wxParse.wxml"/><!-- 富文本 -->
+
+    <view class="tab_detail_container">
+       <view class='wxParseHtmlContainer'> <template is="1"   data="{{wxParseData:article.nodes}}"></template> </view>
+    </view>
+
+    <view class='price_explain'>
+      <text class='price_explain_title'>价格说明</text>
+      <view class='price_explain_content'>店铺中展示的中间未划横线价格为该店铺的销售价，该价格是交易成交价，是您最终决定是否购买商品的依据。店铺展示的中间划横线价格(显示如¥1000)为参考价，采集自品牌专柜标价、商品吊牌价或由品牌供应商提供的正品零售价由于地区、时间的差异性和市场行情波动，品牌专柜标价、商品吊牌价可能会与您购物时展示的不一致。该价格仅供您参考。</view>
+    </view>
+
+</view>
+
+
+<!-- 底部按钮们 -->
+<view class='bottomHeight'></view>
+<view class='product_detail_bottom_container'>
+ <view class='left_bottom' data-itemId='{{productData.productInfo.productId}}' bindtap='toIndex' >
+   <image mode='aspectFit' src='/images/icons/home2.png'></image>
+   <text style='font-size:22rpx;color:#aaa'>首页</text>
+  </view> 
+  <view class='left_bottom' bindtap='toCart'>
+    <view class='cartNumber' style='background:{{setting.platformSetting.defaultColor}}'>{{countGood}}</view>
+    <image mode='widthFix' src='/images/icons/cartddd.png'></image>
+    <text style='font-size:22rpx;color:#aaa'>购物车</text>
+  </view>
+  <view class='right_bottom addto font_08' data-way='cart' bindtap='readyPay2' style=' border: 2rpx solid {{setting.platformSetting.defaultColor}};'>加入购物车</view>
+  <view class='right_bottom bynow font_08' data-way='buy' bindtap='readyPay2' style='background-image:linear-gradient(to right,{{setting.platformSetting.secondColor}},{{setting.platformSetting.defaultColor}})'>立即购买</view>
+</view>
+
+<posters proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 
+
+ <template is="measure_card2" data="{{setting:setting,showCount,focusData:productData.productInfo,measures:productData.measures,byNowParams:byNowParams,measurementJson:measurementJson,type:bindway}}"></template> 
+

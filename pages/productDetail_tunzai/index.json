@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "产品详细",
+  "usingComponents": {
+    "posters": "/view/partials/canvas/index"
+  }
+}
