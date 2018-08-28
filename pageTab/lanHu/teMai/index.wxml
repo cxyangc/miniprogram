@@ -89,13 +89,17 @@
 
    <!--活动列表  -->
  <view class='activeList' wx:for="{{countDownList}}" wx:key="index">
-      <view class='activeListtImg' > <image mode='aspectFill' src='{{activityPromotion.promotionBanner}}' ></image> 
+      <view class='activeListtImg' > 
+         <image  class='activeListBanner' mode='aspectFill' src='{{activityPromotion.promotionBanner}}' ></image>
+         <view class='shareActive' data-id='{{id}}' data-type='active' catchtap='showPosters'>
+           <image src='http://image.tunzai.vip/tunzai/2018_8/28/14/20/31_970.jpg'></image> 
+         </view> 
        <!-- <view class='priceKode'>价格低至2折起</view> -->
       <view class='time'>
        <view class='jiesu'>距结束</view>
          <view class='timeBoxDay'> <text>{{item.day}}天</text></view>
 
-             <view class='timeBox'> <text>{{item.hou}}</text></view>
+         <view class='timeBox'> <text>{{item.hou}}</text></view>
        
          <view class='timeBox'> <text>{{item.min}}</text></view>
  
@@ -108,7 +112,7 @@
 
 <!--公告结束 productData -->
      <block wx:if="{{ProductshowWay == 2}}">
-              <productList  data="{{productData}}" id="productLists"  bind:action='bindAddtocart'    bind:showPosters='showPosters'></productList>
+        <productList  data="{{productData}}" id="productLists"  bind:action='bindAddtocart'></productList>
     </block>
 
     <block wx:else>
@@ -144,6 +148,7 @@
 
 <!--  海报-->
    <posters proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 
+   <posterActive activeId="{{id}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterActiveState}}' bind:closePoaster="getChilrenPoster"></posterActive> 
 <!--加入购物车的遮罩层  -->
   <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template>  
 

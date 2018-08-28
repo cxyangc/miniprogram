@@ -7,6 +7,7 @@ Page({
    */
   data: {
     posterState:false,
+    posterActiveState:false,
     ProductshowWay: '2',
     setting: null, // setting           
     loginUser: null,
@@ -1264,9 +1265,6 @@ Page({
       success: function (res) {
         console.log("====== res.data=========", res.data.activityPromotion)
         let id = that.data.id;
-
-
-
         wx.hideLoading()
         if (res.data.activityPromotion.length == 0) {
           that.getActiveData();
@@ -1387,43 +1385,49 @@ Page({
   })
   },
 
-
-  // 展示海报
-  showPosters(e) {
-    console.log("showPostersEEEE", e.detail.e.currentTarget.dataset.id)
-    let that = this;
+  // 点击海报
+  showPosters: function (e) {
+    console.log("eeeeeeeeeeeeeeeeeeeee", e)
     this.setData({
-      proId: e.detail.e.currentTarget.dataset.id,
-      shopId: "0",
-      posterState: true,
-
+      posterActiveState: true,
     })
-    this.getQrCode();
+    this.getQrCode(e.currentTarget.dataset.type);
   },
+ 
   // 关闭海报
   getChilrenPoster(e) {
 
     let that = this;
     that.setData({
-      posterState: false,
+      posterActiveState: false,
     })
 
   },
   // 获取二维码
-  getQrCode: function () {
-
+  getQrCode: function (type) {
     let userId = "";
     if (app.loginUser && app.loginUser.platformUser) {
       userId = 'MINI_PLATFORM_USER_ID_' + app.loginUser.platformUser.id
     }
     console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
+    console.log("type", type)
     // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
     let postParam = {}
-    postParam.SHARE_PRODUCT_DETAIL_PAGE = this.data.proId;
+    let str = '';
+    let str2 = '';
+    if (type=='active'){
+      str ='SHARE_PROMOTION_PRODUCTS_PAGE'
+      str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PROMOTION_PRODUCTS_PAGE%3d'
+      postParam[str] = this.data.proId;
+    }else{
+      str = 'SHARE_PRODUCT_DETAIL_PAGE'
+      str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d'
+      postParam[str] = this.data.id;
+    }
     postParam.scene = userId
-
+    console.log(str, str2,postParam)
     // 上面是需要的参数下面的url
-    var customIndex = app.AddClientUrl("/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d" + this.data.proId + "%26scene%3d" + userId, postParam, 'get', '1')
+    var customIndex = app.AddClientUrl(str2 + this.data.proId + "%26scene%3d" + userId, postParam, 'get', '1')
     var result = customIndex.url.split("?");
 
     customIndex.url = result[0] + "?" + result[1]

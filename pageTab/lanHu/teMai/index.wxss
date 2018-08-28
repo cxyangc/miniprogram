@@ -8,11 +8,6 @@ page{
  background-color: #F8FBFF;
 }
  /* typesearch */
-.typeSearchContainer{
-
-  
-}
-  
 .typeSearch{
   position: fixed;
   z-index:111;
@@ -479,18 +474,33 @@ white-space:nowrap;
 .activeListtImg{
   width: 702rpx;
   height: 194rpx;
-    border-radius: 15rpx;
-    overflow: hidden;
-     position: relative; 
-     z-index: 1;
+  border-radius: 15rpx;
+  overflow: hidden;
+  position: relative; 
+  z-index: 1;
 }
-.activeListtImg image{
+.activeListtImg .activeListBanner{
   width: 702rpx;
   height: 194rpx;
-   position: absolute;
+  position: absolute;
   left: 0;
   top: 0; 
-
+}
+.activeListtImg .shareActive{
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border: 2rpx solid #FF996E;
+  border-radius: 40rpx;
+  background: #fff;
+  padding: 6rpx;
+  box-shadow:0px 4px 16px 0px rgba(255,81,70,0.2),0px 4px 8px 0px rgba(255,81,70,0.1);
+}
+.activeListtImg .shareActive image{
+  width: 40rpx;
+  height: 40rpx;
 }
 .priceKode{
   width: 190rpx;
