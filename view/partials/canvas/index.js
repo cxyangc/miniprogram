@@ -153,7 +153,7 @@ Component({
       context.setFillStyle('#fff')  // 画布背景白色填充
       context.fillRect(0, 0, clientWidth, clientHeight);
       //context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
-      if (that.data.imgInfo.w === that.data.imgInfo.w) {
+      if (that.data.imgInfo.w === that.data.imgInfo.h) {
         console.log('===that.data.imgInfo.w === that.data.imgInfo.w===')
         context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
       } else if (that.data.imgInfo.w > that.data.imgInfo.h) {
