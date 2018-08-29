@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "产品详细",
   "usingComponents": {
-    "component-tag-name": "/view/partials/canvas/index"
+    "posters": "/view/partials/canvas/index",
+    "time": "/view/partials/time/time"
   }
 }

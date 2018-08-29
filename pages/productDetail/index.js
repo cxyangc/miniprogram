@@ -24,6 +24,24 @@ Page({
     commitList:[],
     measurementJson:null,
     qrCodeUrl:"",
+    haveMeasuresState:false,
+    selectTypeData:null,
+  },
+  // 关闭海报
+  getChilrenPoster(e) {
+
+    let that = this;
+    that.setData({
+      posterState: false,
+    })
+
+  },
+  showPoster:function(){
+    let that = this;
+    this.getQrCode();
+    that.setData({
+      posterState: true,
+    })
   },
   toIndex: function () {
     app.toIndex()
@@ -249,7 +267,6 @@ Page({
       if (productData.measures.length == 0) {
         this.addtocart()
       } else {
-
         this.setData({ bindway: way })
         this.setData({ showCount: true })
         let info = productData.productInfo
@@ -259,8 +276,16 @@ Page({
         this.setData({ byNowParams: this.byNowParams })
         this.chooseMeasureItem()
       }
+    } else if (way == 'select'){
+        this.setData({ bindway: way })
+        this.setData({ showCount: true })
+        let info = productData.productInfo
+        this.byNowParams.productId = info.productId
+        this.byNowParams.shopId = info.belongShopId
+        this.byNowParams.orderType = 0
+        this.setData({ byNowParams: this.byNowParams })
+        this.chooseMeasureItem()
     }else{
-
         this.setData({ bindway: way })
         this.setData({ showCount: true })
         let info = productData.productInfo
@@ -300,7 +325,7 @@ Page({
     orderType: ''
   },
   /* 立即购买 */
-  buyNow:function(){
+  buyNow:function(e){
     if (!app.checkShopOpenTime()) {
       return
     }
@@ -308,13 +333,20 @@ Page({
     if (!app.checkIfLogin()) {
       return
     }
-    let bindway = this.data.bindway
-    console.log(bindway)
+    let bindway;
+    if (e.currentTarget.dataset.way){
+      bindway = e.currentTarget.dataset.way
+    } else {
+      bindway = this.data.bindway
+    }
+    console.log('=======bindway======',bindway)
   
-    if (bindway == 'cart'){
+    if (bindway == 'cart') {
+      this.setData({ haveMeasuresState: true })
+      this.setData({ selectTypeData: this.data.selectTypeData })
       console.log('-----------addtocart----------')
       this.addtocart()
-    }else{
+    } else{
       console.log('-----------buyNow----------')
       this.createOrder22(this.byNowParams)
     }
@@ -387,7 +419,7 @@ Page({
     params. shopId = this.data.productData.productInfo.belongShopBean.id
     params.count = this.byNowParams.itemCount
     params. type = 'add'
-    
+    console.log('===postParams=====',params)
     this.postParams(params)
 
   },
@@ -659,6 +691,7 @@ Page({
     let param = {}
     param.productId = productId
     param.measureIds = postStr
+    console.log(postStr)
     let customIndex = app.AddClientUrl("/get_measure_cartesion.html", param)
 
     var that = this
@@ -682,33 +715,67 @@ Page({
   },
   /* 初始化 选规格 */
   chooseMeasureItem: function (event) {
-    console.log('----------初始化规格参数-----------')
+    console.log('----------初始化规格参数-----------', event)
     let productData = this.data.productData
     let focusProduct = productData
+    let selectTypeData = []
     for (let i = 0; i < focusProduct.measures.length; i++) {
       focusProduct.measures[i].checkedMeasureItem = 0
       //初始化选择的数据
       let param = {}
+      let selectTypeDataItem = {}
       param.name = focusProduct.measures[i].name
       param.value = focusProduct.measures[i].productAssignMeasure[0].id
-
+      selectTypeDataItem.type = focusProduct.measures[i].name
+      selectTypeDataItem.value = focusProduct.measures[i].productAssignMeasure[0].measureName
+      console.log('=====param=====', param)
       this.MeasureParams.push(param)
-
+      selectTypeData.push(selectTypeDataItem)
     }
+    this.data.selectTypeData = selectTypeData
+
+    console.log('====that.data.selectTypeData======', this.data.selectTypeData)
+    
+
+
+
     this.setData({
       productData: focusProduct
     })
+    console.log('===MeasureParams====', this.MeasureParams)
     this.get_measure_cartesion()
   },
   //选择规格小巷的---显示
   radioChange: function (e) {
+    let that=this
+    let flag=false;
+    console.log("====radioChange=====", e)
+    console.log('====that.data.selectTypeData======', that.data.selectTypeData)
+    if (that.data.selectTypeData){
+      console.log('1111111')
+      for (let i = 0; i < that.data.selectTypeData.length;i++){
+        if (e.currentTarget.dataset.type == that.data.selectTypeData[i].type){
+          that.data.selectTypeData.splice(i, 1, e.currentTarget.dataset)
+          flag=true;
+        }
+      }
+      if (!flag) {
+        that.data.selectTypeData.splice(that.data.selectTypeData.length, 1, e.currentTarget.dataset)
+        flag = false;
+      }
+    } else {
+      console.log('222222')
+      that.data.selectTypeData = [];
+      that.data.selectTypeData.splice(0, 1, e.currentTarget.dataset)
+      that.setData({ selectTypeData: that.data.selectTypeData })
+    }
+    console.log('====that.data.selectTypeData======', that.data.selectTypeData)
     let index = e.currentTarget.dataset.index
     let indexJson = app.getSpaceStr(index, '-')
     //console.log(indexJson)
-
-    let focusItem = this.data.productData
+    let focusItem = that.data.productData
     focusItem.measures[indexJson.str1].checkedMeasureItem = indexJson.str2
-    this.setData({ productData: focusItem })
+    that.setData({ productData: focusItem })
   },
   //选择规格小巷---获取数据
   chooseMeasure: function (e) {
