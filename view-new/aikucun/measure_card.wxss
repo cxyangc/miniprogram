@@ -134,7 +134,16 @@
   align-items: center;
   border-radius: 0.4em;
 }
-
+.sureButnType{
+  width: 45%;
+  height: 2.6em;
+  color: #fff;
+  background: deeppink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.4em;
+}
 .ItemCountDell{
   padding: 0.4em 0;
   height: 3em;
