@@ -41,7 +41,7 @@ Component({
     tolinkUrl: function (e) {
       console.log(e.currentTarget.dataset.id)
       // product_detail.html?productId= 9219;
-      var a = "product_detail.html?productId=" + e.currentTarget.dataset.id;
+      var a = "product_detail_tunzai.html?productId=" + e.currentTarget.dataset.id;
       app.linkEvent(a);
     },
       //点击 ...  显示分享
@@ -123,17 +123,7 @@ Component({
      console.log("e",e)
       this.triggerEvent("action", {e});
     },
-    showPosters(e) {
-      console.log("showPostersEEEE", e.detail.e.currentTarget.dataset.id)
-      let that = this;
-      this.setData({
-        proId: e.detail.e.currentTarget.dataset.id,
-        shopId: "236",
-        posterState: true,
-
-      })
-   
-    },
+  
     // 点击海报
     showPosters: function (e) {
       console.log("eeeeeeeeeeeeeeeeeeeee", e)
@@ -153,12 +143,12 @@ Component({
         posterState:true,
         proId:id
       })
-      this.getQrCode();
+      this.getQrCode(e.target.dataset.type);
 
       // this.triggerEvent("showPosters", { e });
     },
     // 获取二维码
-    getQrCode: function () {
+    getQrCode: function (type) {
 
       let userId = "";
       if (app.loginUser && app.loginUser.platformUser) {
@@ -167,11 +157,21 @@ Component({
       console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
       // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
       let postParam = {}
-      postParam.SHARE_PRODUCT_DETAIL_PAGE = this.data.proId;
+      let str = '';
+      let str2 = '';
+      if (type == 'active') {
+        str = 'SHARE_PROMOTION_PRODUCTS_PAGE'
+        str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PROMOTION_PRODUCTS_PAGE%3d'
+      } else if (type == 'product'){
+        str = 'SHARE_PRODUCT_DETAIL_PAGE'
+        str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d'
+      }
+      console.log(str, str2)
+      postParam[str] = this.data.proId;
       postParam.scene = userId
 
       // 上面是需要的参数下面的url
-      var customIndex = app.AddClientUrl("/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d" + this.data.proId + "%26scene%3d" + userId, postParam, 'get', '1')
+      var customIndex = app.AddClientUrl(str2 + this.data.proId + "%26scene%3d" + userId, postParam, 'get', '1')
       var result = customIndex.url.split("?");
 
       customIndex.url = result[0] + "?" + result[1]

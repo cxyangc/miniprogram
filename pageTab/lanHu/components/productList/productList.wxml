@@ -11,7 +11,7 @@
         <view class='mode1_itemsImg' bindtap='tolinkUrl' data-id='{{products.id}}' >
         <image  mode='aspectFit'  src="{{products.imagePath}}?x-oss-process=style/preview"></image>
         <!--分享  -->     
-        <view class='show' catchtap='showCardShare'data-index='{{index}}'data-id='{{products.id}}'>
+        <view class='show' catchtap='showCardShare' data-index='{{index}}'data-id='{{products.id}}'>
           <image  mode='aspectFit'  src="../../../../images/icon/share6x.png"></image>  
           </view>
        </view>
@@ -28,7 +28,7 @@
             
             </button>
     <!--第二个button  -->
-   <button class='share_box_item'  data-index='{{index}}' data-id='{{products.id}}' catchtap='showPosters'>
+   <button class='share_box_item'  data-index='{{index}}' data-id='{{products.id}}' data-type='product' catchtap='showPosters'>
    <view class='share_box_item_img'>
            <image src='../../../../images/icon/haiBao.png'></image> 
    </view>
