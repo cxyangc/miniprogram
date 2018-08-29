@@ -16,53 +16,80 @@ Page({
     showCount:false,
     byNowParams:{},
     targs:null,
-
+    posterState:false,
+    proId:'',
+    shopId:'',
     bindway:'cart',  //点击的是加入购物车或者立即购买
     showState: 0,
     commitList:[],
     measurementJson:null,
+    qrCodeUrl:"",
+    haveMeasuresState:false,
+    selectTypeData:null,
+  },
+  // 关闭海报
+  getChilrenPoster(e) {
+
+    let that = this;
+    that.setData({
+      posterState: false,
+    })
+
+  },
+  showPoster:function(){
+    let that = this;
+    this.getQrCode();
+    that.setData({
+      posterState: true,
+    })
   },
   toIndex: function () {
     app.toIndex()
   }, 
+  posterStateFun:function(state){
+    console.log('====state====',state)
+    this.setData({
+      posterState: true
+    })
+  },
+  getChilrenPoster:function(e){
+    this.setData({
+      posterState: false
+    })
+  },
+  lookBigImage: function (e) {
+    console.log("111111111", e.currentTarget.dataset)
+    let imgSrc = e.currentTarget.dataset.imageurl
+    let imgArray=[]
+    let index = e.currentTarget.dataset.index
+    let PostImageSrc=[];
+    console.log(imgSrc)
+    for (let i = 0; i < imgSrc.length;i++){
+      imgArray.push(imgSrc[i].imagePath)
+      PostImageSrc.push(imgSrc[i].imagePath.replace(/http/, "https"))
+    }
+    // let PostImageSrc = imgSrc
+    console.log(PostImageSrc)
+    if (!imgSrc) {
+      return
+    }
+    // let urls = []
+    // urls.push(imgSrc)
+    wx.previewImage({
+      current: imgArray[index], // 当前显示图片的http链接
+      urls: imgArray // 需要预览的图片http链接列表
+    })
+  },
+  
   showCouponState: function (e) {
     var index = e.currentTarget.dataset.id
     this.setData({
       showState: index
     })
   },
-  lookBigImage: function (e) {
-    console.log("111111111")
-    let imgSrc = e.currentTarget.dataset.imageurl
-    console.log(imgSrc)
-    let PostImageSrc = imgSrc.replace(/http/, "https")
-    // let PostImageSrc = imgSrc
-    console.log(PostImageSrc)
-    if (!imgSrc) {
-      return
-    }
-    let urls = []
-    urls.push(imgSrc)
-    wx.previewImage({
-      current: imgSrc, // 当前显示图片的http链接
-      urls: urls // 需要预览的图片http链接列表
-    })
-  },
-  saveImageToLocal: function (e) {
-    let imgSrc = e.currentTarget.dataset.imageurl
-    console.log(imgSrc)
-    let PostImageSrc = imgSrc.replace(/http/, "https")
-    // let PostImageSrc = imgSrc
-    console.log(PostImageSrc)
-    if (!imgSrc) {
-      return
-    }
-    let urls = []
-    urls.push(imgSrc)
-    wx.previewImage({
-      current: imgSrc, // 当前显示图片的http链接
-      urls: urls // 需要预览的图片http链接列表
-    })
+  aaaaa: function (e) {
+    console.log("hello")
+    app.linkEvent("product_detail_9218.html");
   },
   /* 删除收藏 */
   removeFavourite: function (e) {
@@ -77,7 +104,6 @@ Page({
     let productData = this.data.productData
 
     postData.itemId = e.currentTarget.dataset.itemid
-    console.log(postData)
     
     var customIndex = app.AddClientUrl("/remove_favorite.html", postData,'post')
     wx.request({
@@ -211,8 +237,9 @@ Page({
    
   },
   toCart:function(){
+    console.warn("cart")
     wx.switchTab({
-      url: '/pages/shopping_car_list/index',
+      url: '../../pageTab/aikucun_car_list/index',
     })
   },
   /* 找到购物车里面的内容 */
@@ -240,7 +267,6 @@ Page({
       if (productData.measures.length == 0) {
         this.addtocart()
       } else {
-
         this.setData({ bindway: way })
         this.setData({ showCount: true })
         let info = productData.productInfo
@@ -250,8 +276,16 @@ Page({
         this.setData({ byNowParams: this.byNowParams })
         this.chooseMeasureItem()
       }
+    } else if (way == 'select'){
+        this.setData({ bindway: way })
+        this.setData({ showCount: true })
+        let info = productData.productInfo
+        this.byNowParams.productId = info.productId
+        this.byNowParams.shopId = info.belongShopId
+        this.byNowParams.orderType = 0
+        this.setData({ byNowParams: this.byNowParams })
+        this.chooseMeasureItem()
     }else{
-
         this.setData({ bindway: way })
         this.setData({ showCount: true })
         let info = productData.productInfo
@@ -291,7 +325,7 @@ Page({
     orderType: ''
   },
   /* 立即购买 */
-  buyNow:function(){
+  buyNow:function(e){
     if (!app.checkShopOpenTime()) {
       return
     }
@@ -299,13 +333,20 @@ Page({
     if (!app.checkIfLogin()) {
       return
     }
-    let bindway = this.data.bindway
-    console.log(bindway)
+    let bindway;
+    if (e.currentTarget.dataset.way){
+      bindway = e.currentTarget.dataset.way
+    } else {
+      bindway = this.data.bindway
+    }
+    console.log('=======bindway======',bindway)
   
-    if (bindway == 'cart'){
+    if (bindway == 'cart') {
+      this.setData({ haveMeasuresState: true })
+      this.setData({ selectTypeData: this.data.selectTypeData })
       console.log('-----------addtocart----------')
       this.addtocart()
-    }else{
+    } else{
       console.log('-----------buyNow----------')
       this.createOrder22(this.byNowParams)
     }
@@ -326,11 +367,12 @@ Page({
       header: app.headerPost,
       method: 'POST',
       success: function (res) {
-        console.log(res)
+        console.log("点击确定后内容",res.data)
+        let data = res.data
         if (!!res.data.orderNo) {
           wx.hideLoading()
           wx.navigateTo({
-            url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
+            url: '/pages/edit_order/index?orderData=' + JSON.stringify(data),
           })
         } else {
           wx.hideLoading()
@@ -377,7 +419,7 @@ Page({
     params. shopId = this.data.productData.productInfo.belongShopBean.id
     params.count = this.byNowParams.itemCount
     params. type = 'add'
-    
+    console.log('===postParams=====',params)
     this.postParams(params)
 
   },
@@ -507,17 +549,23 @@ Page({
   dataFOr_getData:{
     id:'',
     addShopId:''
+  }, 
+  onError:function(options){
+    console.log("on error!!!");
   },
   onLoad: function (options) {
-    console.log('--------product----------')
+    console.log('--------product----------', options)
     this.setData({
-      sysWidth: app.globalData.sysWidth
+      sysWidth: app.globalData.sysWidth,
+      proId: options.id,
+      shopId: options.addShopId
     });
-    console.log(options)
+    console.log("商品id和店铺id",options)
     this.dataFOr_getData.id = options.id
     this.dataFOr_getData.addShopId = options.addShopId
     
     this.getData(options)
+    // this.getQrCode();
   },
 
 
@@ -643,6 +691,7 @@ Page({
     let param = {}
     param.productId = productId
     param.measureIds = postStr
+    console.log(postStr)
     let customIndex = app.AddClientUrl("/get_measure_cartesion.html", param)
 
     var that = this
@@ -666,33 +715,67 @@ Page({
   },
   /* 初始化 选规格 */
   chooseMeasureItem: function (event) {
-    console.log('----------初始化规格参数-----------')
+    console.log('----------初始化规格参数-----------', event)
     let productData = this.data.productData
     let focusProduct = productData
+    let selectTypeData = []
     for (let i = 0; i < focusProduct.measures.length; i++) {
       focusProduct.measures[i].checkedMeasureItem = 0
       //初始化选择的数据
       let param = {}
+      let selectTypeDataItem = {}
       param.name = focusProduct.measures[i].name
       param.value = focusProduct.measures[i].productAssignMeasure[0].id
-
+      selectTypeDataItem.type = focusProduct.measures[i].name
+      selectTypeDataItem.value = focusProduct.measures[i].productAssignMeasure[0].measureName
+      console.log('=====param=====', param)
       this.MeasureParams.push(param)
-
+      selectTypeData.push(selectTypeDataItem)
     }
+    this.data.selectTypeData = selectTypeData
+
+    console.log('====that.data.selectTypeData======', this.data.selectTypeData)
+    
+
+
+
     this.setData({
       productData: focusProduct
     })
+    console.log('===MeasureParams====', this.MeasureParams)
     this.get_measure_cartesion()
   },
   //选择规格小巷的---显示
   radioChange: function (e) {
+    let that=this
+    let flag=false;
+    console.log("====radioChange=====", e)
+    console.log('====that.data.selectTypeData======', that.data.selectTypeData)
+    if (that.data.selectTypeData){
+      console.log('1111111')
+      for (let i = 0; i < that.data.selectTypeData.length;i++){
+        if (e.currentTarget.dataset.type == that.data.selectTypeData[i].type){
+          that.data.selectTypeData.splice(i, 1, e.currentTarget.dataset)
+          flag=true;
+        }
+      }
+      if (!flag) {
+        that.data.selectTypeData.splice(that.data.selectTypeData.length, 1, e.currentTarget.dataset)
+        flag = false;
+      }
+    } else {
+      console.log('222222')
+      that.data.selectTypeData = [];
+      that.data.selectTypeData.splice(0, 1, e.currentTarget.dataset)
+      that.setData({ selectTypeData: that.data.selectTypeData })
+    }
+    console.log('====that.data.selectTypeData======', that.data.selectTypeData)
     let index = e.currentTarget.dataset.index
     let indexJson = app.getSpaceStr(index, '-')
     //console.log(indexJson)
-
-    let focusItem = this.data.productData
+    let focusItem = that.data.productData
     focusItem.measures[indexJson.str1].checkedMeasureItem = indexJson.str2
-    this.setData({ productData: focusItem })
+    that.setData({ productData: focusItem })
   },
   //选择规格小巷---获取数据
   chooseMeasure: function (e) {
@@ -712,5 +795,32 @@ Page({
     this.setData({ showGuigeType: false })
     this.MeasureParams = []
   },
+  // 获取二维码
+  getQrCode:function() {
 
+    let userId = "";
+    if (app.loginUser && app.loginUser.platformUser) {
+      userId = 'MINI_PLATFORM_USER_ID_' + app.loginUser.platformUser.id
+    }
+    console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
+    // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
+    let postParam = {}
+    postParam.SHARE_PRODUCT_DETAIL_PAGE = this.data.proId;
+    postParam.scene = userId
+
+    // 上面是需要的参数下面的url
+    
+    var customIndex = app.AddClientUrl("/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d" + this.data.proId + "%26scene%3d" + userId, postParam, 'get', '1')
+    var result = customIndex.url.split("?");
+
+    customIndex.url = result[0] + "?" + result[1]
+
+    console.log("customIndex", customIndex.url, result[0])
+
+    var that = this
+    that.setData({
+      qrCodeUrl: customIndex.url
+    })
+
+  }
 })
