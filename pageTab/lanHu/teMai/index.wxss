@@ -473,7 +473,7 @@ white-space:nowrap;
 }
 .activeListtImg{
   width: 702rpx;
-  height: 194rpx;
+  height: 280rpx;
   border-radius: 15rpx;
   overflow: hidden;
   position: relative; 
@@ -481,7 +481,7 @@ white-space:nowrap;
 }
 .activeListtImg .activeListBanner{
   width: 702rpx;
-  height: 194rpx;
+  height: 280rpx;
   position: absolute;
   left: 0;
   top: 0; 
