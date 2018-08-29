@@ -301,6 +301,9 @@ Page({
     var that=this;
     this.getSessionUserInfo(function(loginUser){
       console.log("====get login user===");
+      that.getOrderList({ easyStatus: 2 })
+      that.getOrderList({ easyStatus: 3 })
+      that.getOrderList({ easyStatus: 4 })
       if (loginUser.platformUser.managerMendianId) {
         that.getMendianInfo()
       }

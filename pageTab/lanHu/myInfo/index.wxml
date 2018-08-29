@@ -98,7 +98,7 @@
                 <image src='../../../images/myImg/eye2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
                 <text class='data_bottom_text'>今日浏览</text>
             </view>
-            <text class='data_bottom_num'>0</text>
+            <text class='data_bottom_num'>{{mendian.todayLogin}}</text>
          </view>
 
           <view class='data_bottom_items'>

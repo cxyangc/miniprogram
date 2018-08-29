@@ -379,4 +379,5 @@
   position: absolute;
   right: 15rpx;
   top :-15rpx;
+  min-width: 20rpx
 }
