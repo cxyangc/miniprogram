@@ -13,7 +13,7 @@
   height: 9rem;
   padding:1em 0;
   color: #fff;
-  background:#ffc73e;
+  /* background:#ffc73e; */
   /* background-size: 100% 100%;
   background-image: url(http://image1.sansancloud.com/aikucun/2018_03/15/10/17/16_175.jpg?x-oss-process=style/preview_120); */
 }
