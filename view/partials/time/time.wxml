@@ -2,7 +2,7 @@
 
 
      <view class='time'>
-       <view class='timeBoxDay'> <text>{{countDownDay}}天</text></view>
+       <view class='timeBoxDay'> <text>{{countDownDay}}</text></view>
              <view class='timeBox'> <text>{{countDownHour}}</text></view>
        
          <view class='timeBox'> <text>{{countDownMinute}}</text></view>
