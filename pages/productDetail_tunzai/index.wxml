@@ -5,12 +5,19 @@
 
 <view class='SwiperContainer'>
     <swiper class='SwiperIndex' indicator-dots="true" autoplay="true" interval="5000" duration="500">
-      <block wx:for="{{productData.images}}"  wx:key="{{swiper}}">
-        <swiper-item data-imageUrl='{{productData.images}}' data-index='{{index}}' bindtap='lookBigImage' >
+      <block wx:for="{{productData.images}}"  wx:key="{{swiper}}" style="border-radius: 20rpx">
+        <swiper-item data-imageUrl='{{productData.images}}' data-index='{{index}}' bindtap='lookBigImage' style="border-radius: 20rpx">
           <image mode='aspectFit' src="{{item.imagePath}}"  style="border-radius: 20rpx" />
         </swiper-item> 
-      </block>  
+      </block>
     </swiper>
+    <block wx:if="{{productData.productInfo.promotionBean}}">
+      <view class='timeCountDownBg'></view>
+      <view class='timeCountDown'>
+        <image class='timeLeftImg' src='http://image.tunzai.vip/tunzai/2018_8/29/10/29/14_880.jpg'></image>
+        <view class='timeItem'><text class='timeText'>距结束仅剩</text><time data="{{productData.productInfo.promotionBean.endDate}}"></time></view>
+      </view>
+    </block>
   </view>  
  
   <view class='ProductDetailInfoContainer'>
@@ -25,8 +32,6 @@
        <view class='share_product' bindtap='showPoster'><image src='http://image.tunzai.vip/tunzai/2018_8/28/9/48/50_64.jpg'></image></view>
     </view>
     <view class='InfoName' >{{productData.productInfo.name}}</view>
-    <view class='InfoSubName '>·{{productData.productInfo.name}}</view>
-   
     <block wx:if='{{!!productData.productInfo.description}}'>
       <view class='InfoSubName '>·{{productData.productInfo.description}}</view>
     </block>

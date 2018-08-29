@@ -14,22 +14,64 @@ font-size: 0.8em;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden
+  overflow: hidden;
+  position: relative;
 }
 .SwiperIndex{
-  margin: 18rpx 66rpx 8rpx 66rpx;
+  margin: 18rpx 66rpx 18rpx 66rpx;
   width: 620rpx; 
   height: 620rpx;
   border-radius: 20rpx;
   box-shadow: 0px 0px 18px rgba(0, 0,0, 0.16);
-  overflow: hidden
+  overflow: hidden;
 }
 .SwiperIndex image{
   height:100%;
   width: 100%;
   border-radius: 20rpx;
 }
-
+.timeCountDown{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height:44rpx;
+  width:608rpx;
+  border-radius:12rpx;
+  bottom: 24rpx;
+}
+.timeCountDownBg{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height:44rpx;
+  width:606rpx;
+  background:linear-gradient(116deg,rgba(255,153,110,1) 0%,rgba(254,55,55,1) 100%);
+  opacity:0.5;
+  border-radius:12rpx;
+  bottom: 24rpx;
+}
+.timeItem{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 24rpx;
+}
+.timeText{
+  font-size:20rpx;
+  font-weight:500;
+  color: #fff;
+  height:28rpx;
+  margin-right: 10rpx
+}
+.timeLeftImg{
+  width:132rpx;
+  height:32rpx;
+  margin-left: 24rpx
+}
 /* 产品信息 */
 .ProductDetailInfoContainer{
   padding: 0 48rpx 40rpx 48rpx;
@@ -52,21 +94,23 @@ font-size: 0.8em;
   margin-top: 8rpx
 }
 .InfoPrice_content{
-  margin-top: 44rpx;
+  margin-top: 30rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content:space-between;
-  height: 96rpx;
+  height: 86rpx;
+  overflow: hidden;
 }
 .InfoPrice{
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  overflow: hidden
 }
 .price_font{
   font-size: 48rpx;
-  line-height:48rpx;
+  line-height:40rpx;
 }
 .tagPrice_font{
   font-size: 24rpx;

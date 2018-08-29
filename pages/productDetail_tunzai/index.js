@@ -267,7 +267,6 @@ Page({
       if (productData.measures.length == 0) {
         this.addtocart()
       } else {
-
         this.setData({ bindway: way })
         this.setData({ showCount: true })
         let info = productData.productInfo
@@ -278,8 +277,6 @@ Page({
         this.chooseMeasureItem()
       }
     } else if (way == 'select'){
-
-        this.setData({ haveMeasuresState: false })
         this.setData({ bindway: way })
         this.setData({ showCount: true })
         let info = productData.productInfo
@@ -346,6 +343,7 @@ Page({
   
     if (bindway == 'cart') {
       this.setData({ haveMeasuresState: true })
+      this.setData({ selectTypeData: this.data.selectTypeData })
       console.log('-----------addtocart----------')
       this.addtocart()
     } else{
@@ -692,6 +690,7 @@ Page({
     let param = {}
     param.productId = productId
     param.measureIds = postStr
+    console.log(postStr)
     let customIndex = app.AddClientUrl("/get_measure_cartesion.html", param)
 
     var that = this
@@ -718,19 +717,31 @@ Page({
     console.log('----------初始化规格参数-----------', event)
     let productData = this.data.productData
     let focusProduct = productData
+    let selectTypeData = []
     for (let i = 0; i < focusProduct.measures.length; i++) {
       focusProduct.measures[i].checkedMeasureItem = 0
       //初始化选择的数据
       let param = {}
+      let selectTypeDataItem = {}
       param.name = focusProduct.measures[i].name
       param.value = focusProduct.measures[i].productAssignMeasure[0].id
+      selectTypeDataItem.type = focusProduct.measures[i].name
+      selectTypeDataItem.value = focusProduct.measures[i].productAssignMeasure[0].measureName
       console.log('=====param=====', param)
       this.MeasureParams.push(param)
-
+      selectTypeData.push(selectTypeDataItem)
     }
+    this.data.selectTypeData = selectTypeData
+
+    console.log('====that.data.selectTypeData======', this.data.selectTypeData)
+    
+
+
+
     this.setData({
       productData: focusProduct
     })
+    console.log('===MeasureParams====', this.MeasureParams)
     this.get_measure_cartesion()
   },
   //选择规格小巷的---显示
@@ -751,7 +762,6 @@ Page({
         that.data.selectTypeData.splice(that.data.selectTypeData.length, 1, e.currentTarget.dataset)
         flag = false;
       }
-      that.setData({ selectTypeData: that.data.selectTypeData })
     } else {
       console.log('222222')
       that.data.selectTypeData = [];
