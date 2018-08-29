@@ -1418,16 +1418,16 @@ Page({
     if (type=='active'){
       str ='SHARE_PROMOTION_PRODUCTS_PAGE'
       str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PROMOTION_PRODUCTS_PAGE%3d'
-      postParam[str] = this.data.proId;
+      postParam[str] = this.data.id;
     }else{
       str = 'SHARE_PRODUCT_DETAIL_PAGE'
       str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d'
-      postParam[str] = this.data.id;
+      postParam[str] = this.data.proId;
     }
     postParam.scene = userId
     console.log(str, str2,postParam)
     // 上面是需要的参数下面的url
-    var customIndex = app.AddClientUrl(str2 + this.data.proId + "%26scene%3d" + userId, postParam, 'get', '1')
+    var customIndex = app.AddClientUrl(str2 + postParam[str] + "%26scene%3d" + userId, postParam, 'get', '1')
     var result = customIndex.url.split("?");
 
     customIndex.url = result[0] + "?" + result[1]
