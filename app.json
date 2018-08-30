@@ -83,6 +83,8 @@
         "product_type2/index",
         "search_product2/index",
         "productDetail/index",
+        "productDetail_old/index",
+        "productDetail_tunzai/index",
         "edit_order/index",
         "order_list/index",
         "order_detail/index",
@@ -141,7 +143,7 @@
       ]
     }
   ],
-"tabBar": {
+ "tabBar": {
   "color": "#7A7E83",
   "selectedColor": "#000000",
   "borderStyle": "black",
@@ -173,7 +175,6 @@
     }
   ]
 },
-
 
   "window": {
     "backgroundTextStyle": "light",

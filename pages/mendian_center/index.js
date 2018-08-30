@@ -111,15 +111,17 @@ Page({
         mendian.waitCompleteOrderDistributeAmount = app.toFix(mendian.waitCompleteOrderDistributeAmount)
         return mendian
     },
+    setNavColor:function(){
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: app.setting.platformSetting.defaultColor
+
+      })
+    },
     setNav: function (mendian) {
       console.log('app.setting', app.setting)
         wx.setNavigationBarTitle({
             title: mendian.name,
-        })
-        wx.setNavigationBarColor({
-          frontColor:'#ffffff',
-          backgroundColor: app.setting.platformSetting.defaultColor
-
         })
     },
     //扫一扫 登录后台
@@ -170,7 +172,7 @@ Page({
             setting: app.setting,
             loginUser: app.loginUser
         })
-
+        this.setNavColor()
         this.getMendianInfo()
     },
 

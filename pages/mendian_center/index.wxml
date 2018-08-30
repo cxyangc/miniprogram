@@ -108,12 +108,12 @@
             <form bindsubmit="submitFormId" report-submit='true' >
               <button form-type="submit" style='background:none !important; border:none !important;'></button>
             </form>
-            <view class='imageContainer'>
+            <!-- <view class='imageContainer'>
                 <image src='../../images/icons/saoyisao.png'></image>
-            </view>
-            <view class='item_text'>
+            </view> -->
+            <!-- <view class='item_text'>
                 <text>申请服务商</text>
-            </view>
+            </view> -->
             <view class='borderRight'></view>
         </view>
             

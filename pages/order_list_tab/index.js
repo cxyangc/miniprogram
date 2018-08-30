@@ -242,10 +242,14 @@ Page({
          }
        }
     }
-     
+    let orderData = [];
+    orderData = orderData.concat(data.orderNo)
+    orderData = orderData.concat(data.allowMendianZiti)
+    console.log("orderData", orderData)
     setTimeout(function () {
+     
       wx.navigateTo({
-        url: '/pages/edit_order/index?orderData=' + JSON.stringify(data),
+        url: '/pages/edit_order/index?orderData=' + JSON.stringify(orderData),
       })
     }, 200)
 

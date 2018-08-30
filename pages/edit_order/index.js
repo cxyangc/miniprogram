@@ -475,9 +475,9 @@ else{
     console.log("==================o===================", JSON.parse(o.orderData))
     let orderData = JSON.parse(o.orderData)
     // 获取门店自提
-    console.log(orderData.allowMendianZiti)
+    console.log(orderData[1])
     this.setData({
-      allowMendianZiti: orderData.allowMendianZiti
+      allowMendianZiti: orderData[1]
     })
     // 允许但不优先
     if (this.data.allowMendianZiti=="1"){
@@ -505,8 +505,8 @@ else{
     console.log("=====mendianZiti======", this.data.mendianZiti)
 
   //  获取订单号
-    if (!!orderData.orderNo){
-      this.data.orderNo = orderData.orderNo
+    if (!!orderData[0] && orderData[0]!=""){
+      this.data.orderNo = orderData[0]
       this.setData({
         orderData: this.data.orderNo
       })

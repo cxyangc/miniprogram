@@ -38,7 +38,7 @@
 
 <!--测试用的时间组件  -->
 
-      <!-- <component-tag-nameTime   data="{{timeTime}}"></component-tag-nameTime>  -->
+       <!-- <component-tag-nameTime   data="{{timeTime}}"></component-tag-nameTime>   -->
 
 
 
