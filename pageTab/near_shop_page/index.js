@@ -451,10 +451,14 @@ Page({
       method: 'POST',
       success: function (res) {
 
-        console.log(res)
+        console.log("=======+++++++=======",res)
         if (!!res.data.orderNo) {
+          let orderData = [];
+          orderData = orderData.concat(res.data.orderNo)
+          orderData = orderData.concat(res.data.allowMendianZiti)
+          console.log("orderData", orderData)
           wx.navigateTo({
-            url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
+            url: '/pages/edit_order/index?orderData=' + JSON.stringify(orderData),
           })
         } else {
           wx.showToast({
