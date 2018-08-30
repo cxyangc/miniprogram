@@ -138,6 +138,7 @@ Component({
         },
         fail: function (res) {
           console.log("fail")
+          wx.hideLoading()
           app.loadFail()
         }
       })

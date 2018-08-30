@@ -1,6 +1,11 @@
  <!-- 外卖模式的点单 --> 
 
 <view class='waimaiContainer'>
+<!--分享  -->
+  <view class='share_shop' style='background:{{setting.platformSetting.secondColor}};' catchtap='shareShop'>
+    <text class='share_shop_title'>分享店铺</text>
+  </view>
+  <posterActive shopId="{{shopInfo.id}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterShopState}}' bind:closePoaster="getChilrenPoster"></posterActive>
   <!-- 左边的导航 -->  
   <view class='shop_top' style='background:{{setting.platformSetting.defaultColor}};'>
     <view class='shop_top_left'>

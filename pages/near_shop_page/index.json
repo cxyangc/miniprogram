@@ -3,5 +3,8 @@
   "backgroundColor": "#f1f1f1",
   "backgroundTextStyle": "#000000",
   "navigationBarBackgroundColor": "#ffffff",
-  "enablePullDownRefresh":true
+  "enablePullDownRefresh":true,
+  "usingComponents": {
+    "posterActive": "../../view/partials/canvas_shop/index"
+  }
 }

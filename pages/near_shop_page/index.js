@@ -28,12 +28,12 @@ Page({
     bindProductTypeIndex: null,
 
     ProductshowWay: 1, // ProductshowWay列表显示方法 
-
+    posterShopState:false,
     typeSearch: '', // typeSearch的字体 
     canRefresh: true,
     /* 购物车 */
     cart: [],
-    pushItem: [],
+    pushItem:[],
     countGood: 0,
     countPrice: 0,
 
@@ -46,8 +46,53 @@ Page({
       price: 0
     },  //规格价格
   },
+  getChilrenPoster(e) {
+
+    let that = this;
+    that.setData({
+      posterShopState: false,
+    })
+
+  },
+  shareShop: function () {
+    let that = this;
+    this.getQrCode();
+    that.setData({
+      posterShopState: true,
+    })
+  },
+  // 获取二维码
+  getQrCode: function () {
+
+    let userId = "";
+    console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
+    if (app.loginUser && app.loginUser.platformUser) {
+      userId = 'MINI_PLATFORM_USER_ID_' + app.loginUser.platformUser.id
+    }
+    console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
+    // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
+    let postParam = {}
+    postParam.SHARE_PRODUCT_DETAIL_PAGE = this.params.belongShop;
+    postParam.scene = userId
+
+    // 上面是需要的参数下面的url
+
+    var customIndex = app.AddClientUrl("/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d" + this.params.belongShop + "%26scene%3d" + userId, postParam, 'get', '1')
+    var result = customIndex.url.split("?");
+
+    customIndex.url = result[0] + "?" + result[1]
+
+    console.log("customIndex", customIndex.url, result[0])
+
+    var that = this
+    that.setData({
+      qrCodeUrl: customIndex.url
+    })
+
+  },
   setAppCart: function () {
-    app.cart_offline = this.data.pushItem
+    let belongShopId = 'belongShopId_' + this.params.belongShop
+    app.cart_offline[belongShopId] = this.data.pushItem
   },
   //跳转到订单页面
   toOrderPage: function (e) {
@@ -385,13 +430,15 @@ Page({
     console.log('=====this.data.shopInfo.shopTypes=====', this.data.shopInfo.shopTypes)
     console.log('=====this.data.pushItem=====', this.data.pushItem)
     let categories = this.data.shopInfo.shopTypes
-    for (let j = 0; j < categories.length; j++) {
-      categories[j].hasInCartCount = 0
-    }
-    for (let i = 0; i < pushItem.length; i++) {
+    if (this.data.shopInfo.shopTypes){
       for (let j = 0; j < categories.length; j++) {
-        if (pushItem[i].shopProductType == categories[j].id) {
-          categories[j].hasInCartCount += pushItem[i].count_offline
+        categories[j].hasInCartCount = 0
+      }
+      for (let i = 0; i < pushItem.length; i++) {
+        for (let j = 0; j < categories.length; j++) {
+          if (pushItem[i].shopProductType == categories[j].id) {
+            categories[j].hasInCartCount += pushItem[i].count_offline
+          }
         }
       }
     }
@@ -517,7 +564,7 @@ Page({
         } else {
           that.setData({ shopInfo: dataArr })
         }
-
+        that.getShopListData(that.params, 2)
         wx.hideLoading()
       },
       fail: function (res) {
@@ -535,6 +582,7 @@ Page({
     if (!ifAdd) {
       ifAdd = 1
     }
+    console.log('====getShopListData.param======',param)
     //根据把param变成&a=1&b=2的模式
     var customIndex = app.AddClientUrl('/more_product_list.html', param)
     wx.showLoading({
@@ -890,12 +938,16 @@ Page({
       console.log(this.data.setting)
     }
 
-    this.setData({ pushItem: app.cart_offline })
+    this.params.belongShop = options.addShopId;
+    let belongShopId = 'belongShopId_' + options.addShopId 
+    if (app.cart_offline[belongShopId]) {
+      this.setData({ pushItem: app.cart_offline[belongShopId] })
+    }else{
+      this.setData({ pushItem: []})
+    }
     console.log("app.cart_offline", app.cart_offline)
-    this.params.belongshop = options.addShopId;
     this.params.shopProductType = 0;
     this.getShopTypeData(options);
-    this.getShopListData(this.params,2)
   },
 
 

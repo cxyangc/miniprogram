@@ -41,7 +41,7 @@ Component({
     tolinkUrl: function (e) {
       console.log(e.currentTarget.dataset.id)
       // product_detail.html?productId= 9219;
-      var a = "product_detail_tunzai.html?productId=" + e.currentTarget.dataset.id;
+      var a = "product_detail.html?productId=" + e.currentTarget.dataset.id;
       app.linkEvent(a);
     },
       //点击 ...  显示分享

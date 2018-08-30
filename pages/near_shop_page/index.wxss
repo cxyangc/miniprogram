@@ -11,6 +11,23 @@
   background: #fff;
   overflow: hidden;
 }
+/*分享  */
+.share_shop{
+  position: absolute;
+  height: 40rpx;
+  width: 110rpx;
+  top:30rpx;
+  right: 0;
+  background: #000;
+  border-top-left-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  color: #fff;
+  line-height: 40rpx;
+  font-size: 20rpx
+}
+.share_shop_title{
+  margin-left: 20rpx;
+}
 /*店铺顶部信息  */
 .shop_top{
   height: 180rpx;

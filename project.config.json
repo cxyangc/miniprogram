@@ -9,7 +9,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.2",
-	"appid": "wx42d98cf6cb1a1316",
+	"appid": "wxd60d1dbc224ceead",
 	"projectname": "tunzai",
 	"isGameTourist": false,
 	"condition": {
@@ -56,8 +56,8 @@
 				{
 					"id": 3,
 					"name": "预览页面",
-					"pathName": "pageTab/lanHu/preApplyMendian/index",
-					"query": "code=111",
+					"pathName": "pageTab/index/index",
+					"query": "SHARE_PROMOTION_PRODUCTS_PAGE=84",
 					"scene": "1011"
 				},
 				{
