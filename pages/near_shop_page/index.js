@@ -65,11 +65,11 @@ Page({
   getQrCode: function () {
 
     let userId = "";
-    console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
+  
     if (app.loginUser && app.loginUser.platformUser) {
       userId = 'MINI_PLATFORM_USER_ID_' + app.loginUser.platformUser.id
     }
-    console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
+  
     // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
     let postParam = {}
     postParam.SHARE_PRODUCT_DETAIL_PAGE = this.params.belongShop;
@@ -88,7 +88,7 @@ Page({
     that.setData({
       qrCodeUrl: customIndex.url
     })
-
+   console.log()
   },
   setAppCart: function () {
     let belongShopId = 'belongShopId_' + this.params.belongShop
@@ -742,12 +742,8 @@ Page({
           return
         }
         if (!!res.data.orderNo) {
-          let orderData = [];
-          orderData = orderData.concat(res.data.orderNo)
-          orderData = orderData.concat(res.data.allowMendianZiti)
-          console.log("orderData", orderData)
           wx.navigateTo({
-            url: '/pages/edit_order/index?orderData=' + JSON.stringify(orderData),
+            url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
           })
         } else {
           wx.showToast({
@@ -1019,7 +1015,24 @@ Page({
     wx.stopPullDownRefresh() //停止下拉刷新
 
   },
-
+  /* 分享 */
+  onShareAppMessage: function (res) {
+      // 分享页面
+    let userId = "";
+    //console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
+    if (app.loginUser && app.loginUser.platformUser) {
+      userId = 'MINI_PLATFORM_USER_ID_' + app.loginUser.platformUser.id
+    }
+   // console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
+    // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
+    let postParam = {}
+    postParam.belongShop = this.params.belongShop;
+    postParam.scene = userId
+     
+    console.log("分享页面", postParam)
+    app.shareForFx2(app.miniIndexPage,'', postParam)
+    return;
+  },
   /**
    * 页面上拉触底事件的处理函数
    */

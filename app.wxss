@@ -2,6 +2,18 @@
 @import 'app_font.wxss';/*6 */
 /* background: #8B572A;
  */
+ page{
+     /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;   */
+
+ }
+ /* page text{
+     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
+ }
+  page view{
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  
+ } */
 .tip_tags{
   padding: 0.2em 0.4em;
   background: #e24148;

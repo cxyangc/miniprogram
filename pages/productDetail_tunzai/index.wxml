@@ -81,7 +81,9 @@
     <import src="../../wxParse/wxParse.wxml"/><!-- 富文本 -->
 
     <view class="tab_detail_container">
-       <view class='wxParseHtmlContainer'> <template is="1"   data="{{wxParseData:article.nodes}}"></template> </view>
+       <view class='wxParseHtmlContainer'> 
+       <template is="1"  data="{{wxParseData:article.nodes}}"></template> 
+       </view>
     </view>
 
     <view class='price_explain'>

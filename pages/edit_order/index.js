@@ -231,10 +231,43 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        console.log("orde detail",res)
+        console.log("=====orde detail=======",res)
 
         that.setData({ getEditOrderDetailData:res.data })
         that.setData({ orderData:res.data})
+
+  // 获取门店自提
+        let allowMendianZiti = res.data.allowMendianZiti
+        console.log(allowMendianZiti)
+        that.setData({
+      allowMendianZiti: allowMendianZiti
+    })
+    // 允许但不优先
+        if (that.data.allowMendianZiti=="1"){
+          that.setData({
+         mendianZiti:0
+       })
+    }
+    // 允许并优先
+        else if (that.data.allowMendianZiti == "2"){
+          that.setData({
+        mendianZiti: 1
+      })
+    }
+    // 只允许门店自提
+        else if (that.data.allowMendianZiti == "3") {
+          that.setData({
+        mendianZiti: 1
+      })
+    }
+    else{
+          that.setData({
+        mendianZiti: 1
+      })
+    }
+        console.log("=====mendianZiti======", that.data.mendianZiti)
+
+
         that.getavailableCouponsArr()
         that.loadMessage()
         wx.hideLoading()
@@ -472,47 +505,19 @@ else{
     this.setData({ setting: app.setting })
     this.setData({ loginUser: app.loginUser })
     console.log("==================o===================", o)
-    console.log("==================o===================", JSON.parse(o.orderData))
-    let orderData = JSON.parse(o.orderData)
-    // 获取门店自提
-    console.log(orderData[1])
-    this.setData({
-      allowMendianZiti: orderData[1]
-    })
-    // 允许但不优先
-    if (this.data.allowMendianZiti=="1"){
-       this.setData({
-         mendianZiti:0
-       })
-    }
-    // 允许并优先
-   else if (this.data.allowMendianZiti == "2"){
-      this.setData({
-        mendianZiti: 1
-      })
-    }
-    // 只允许门店自提
-    else if (this.data.allowMendianZiti == "3") {
-      this.setData({
-        mendianZiti: 1
-      })
-    }
-    else{
-      this.setData({
-        mendianZiti: 1
-      })
-    }
-    console.log("=====mendianZiti======", this.data.mendianZiti)
+    console.log("==================o===================", o.orderNo)
+    let orderData = o.orderNo
+  
 
   //  获取订单号
-    if (!!orderData[0] && orderData[0]!=""){
-      this.data.orderNo = orderData[0]
+    if (!!orderData && orderData!=""){
+      this.data.orderNo = orderData
       this.setData({
-        orderData: this.data.orderNo
+        orderData: orderData
       })
      
       that.getEditOrderDetail()
-     // that.getAddr()
+      console.log("===================", this.data.orderData)
     }
   },
   check:function(){

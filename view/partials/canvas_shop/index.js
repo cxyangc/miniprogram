@@ -21,13 +21,17 @@ Component({
 
   },
   ready:function(){
-    this.setData({
-      color: app.setting.platformSetting.defaultColor,
-      platformName: app.setting.platformSetting.platformName
-    })
+   
     this.getActiveInfo();
     console.log('11111111111111111',this.data.ewmImgUrl)
     console.log('=======', app.setting)
+    if (app.setting){
+      this.setData({
+        platformSetting: app.setting.platformSetting,
+        color: app.setting.platformSetting.defaultColor,
+        platformName: app.setting.platformSetting.platformName
+      })
+    }
   },
   methods: {
     saveImgToPhotosAlbumTap: function () {
@@ -57,6 +61,11 @@ Component({
     downFileFun: function (url,typeData,completeCallback) {
       console.log('=====url=====', url);
       let that = this
+      if (typeData === 'proImg' && url==''){
+        that.setData({
+          img_l: null //将下载的图片临时路径赋值给img_l,用于预览图片
+        })
+      }
       const downloadTask = wx.downloadFile({
         url: url, //仅为示例，并非真实的资源
         success: function (res) {
@@ -128,9 +137,16 @@ Component({
           that.setData({ shopData: that.data.shopData })
           console.log("=======that.data.shopData ====", that.data.shopData )
           if (that.data.shopData){
-            that.downFileFun(that.data.shopData.shopInfo.shopLogo.replace('http', 'https'), 'proImg', function () {
-              wx.hideLoading()
-            })
+            if (that.data.shopData.shopInfo.shopBanner && that.data.shopData.shopInfo.shopBanner!=''){
+              that.downFileFun(that.data.shopData.shopInfo.shopBanner.replace('http', 'https'), 'proImg', function () {
+                wx.hideLoading()
+              })
+            }else{
+              that.downFileFun(that.data.platformSetting.shopBanner.replace('http', 'https'), 'proImg', function () {
+                wx.hideLoading()
+              })
+            }
+            
           } else {
             wx.showToast({
               title: '分享图片失败',
@@ -157,7 +173,9 @@ Component({
 
       context.setFillStyle('#fff')  // 画布背景白色填充
       context.fillRect(0, 0, clientWidth, clientHeight);
-      context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.25)
+      if (that.data.img_l){
+        context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.25)
+      }
       // if (that.data.imgInfo.w === that.data.imgInfo.h) {
       //   context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
       // } else if (that.data.imgInfo.w > that.data.imgInfo.h) {
@@ -180,7 +198,7 @@ Component({
       context.setFillStyle('#ff4444')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
       var str1 = that.data.shopData.shopInfo.serviceStartTime
-      context.fillText(' 开始时间 ：' + str1+'时', clientWidth * 0.36, clientWidth * 0.4 + 16)
+      context.fillText(' 开始时间 ：' + str1+' 时', clientWidth * 0.36, clientWidth * 0.4 + 16)
       context.setTextAlign('center')    // 文字居中
       context.setFillStyle('#ff4444')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px

@@ -378,12 +378,9 @@ Page({
         let data = res.data
         if (!!res.data.orderNo) {
           wx.hideLoading()
-          let orderData = [];
-          orderData = orderData.concat(res.data.orderNo)
-          orderData = orderData.concat(res.data.allowMendianZiti)
-          console.log("orderData", orderData)
+        
           wx.navigateTo({
-            url: '/pages/edit_order/index?orderData=' + JSON.stringify(orderData),
+            url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
           })
         } else {
           wx.hideLoading()

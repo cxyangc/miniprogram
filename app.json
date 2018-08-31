@@ -6,6 +6,7 @@
     "pageTab/near_shop_page/index",
     "pageTab/aikucun_userinfo/index",
     "pageTab/aikucun_car_list/index",
+    "pageTab/shopping_car_list/index",
     "pageTab/fx_center/index",
     "pageTab/product_waimai_offline/index",
     "pageTab/product_waimai/index",
@@ -143,14 +144,15 @@
       ]
     }
   ],
- "tabBar": {
+
+"tabBar": {
   "color": "#7A7E83",
   "selectedColor": "#000000",
   "borderStyle": "black",
   "backgroundColor": "#ffffff",
   "list": [
     {
-      "pagePath": "pageTab/lanHu/index/index",
+      "pagePath": "pageTab/custom_page_index/index",
       "iconPath": "images/icons/home1.png",
       "selectedIconPath": "images/icons/home2.png",
       "text": "首页"
@@ -162,19 +164,22 @@
       "text": "产品列表"
     },
     {
-      "pagePath": "pageTab/aikucun_car_list/index",
+      "pagePath": "pageTab/shopping_car_list/index",
       "iconPath": "images/icons/cart1.png",
       "selectedIconPath": "images/icons/cart2.png",
       "text": "购物车"
     },
     {
-      "pagePath": "pageTab/lanHu/myInfo/index",
+      "pagePath": "pageTab/aikucun_userinfo/index",
       "iconPath": "images/icons/me1.png",
       "selectedIconPath": "images/icons/me2.png",
       "text": "我的"
     }
   ]
 },
+
+
+
 
   "window": {
     "backgroundTextStyle": "light",

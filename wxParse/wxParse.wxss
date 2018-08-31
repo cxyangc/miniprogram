@@ -70,7 +70,7 @@ view{
 .wxParse-i,.wxParse-cite,.wxParse-em,.wxParse-var,.wxParse-address{font-style:italic}
 .wxParse-pre,.wxParse-tt,.wxParse-code,.wxParse-kbd,.wxParse-samp{font-family:monospace}
 .wxParse-pre{white-space:pre}
-.wxParse-p{padding: 2.5px 0;}
+.wxParse-p{padding:0px 0;}
 .wxParse-br{padding: 5px 0;}
 .wxParse-big{font-size:1.17em}
 .wxParse-small,.wxParse-sub,.wxParse-sup{font-size:.83em}

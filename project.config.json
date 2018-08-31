@@ -9,7 +9,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.2",
-	"appid": "wxd60d1dbc224ceead",
+	"appid": "wx42d98cf6cb1a1316",
 	"projectname": "tunzai",
 	"isGameTourist": false,
 	"condition": {
@@ -43,14 +43,14 @@
 					"id": 1,
 					"name": "囤仔转发后进入",
 					"pathName": "pageTab/index/index",
-					"query": "pageName=index&scene=MINI_PLATFORM_USER_ID_66259",
+					"query": "belongShop=236&scene=MINI_PLATFORM_USER_ID_112544&ENTER_SHOP=236",
 					"scene": "1044"
 				},
 				{
-					"id": 4,
+					"id": 2,
 					"name": "扫码进来携带MendianID",
 					"pathName": "pageTab/index/index",
-					"query": "ENTER_MENDIAN=74",
+					"query": "ENTER_SHOP=236",
 					"scene": "1011"
 				},
 				{
@@ -95,10 +95,10 @@
 					"scene": "1011"
 				},
 				{
-					"id": 6,
-					"name": "lanhu",
+					"id": 9,
+					"name": "转发产品详情",
 					"pathName": "pageTab/index/index",
-					"query": "lanhu=shuiguodianpu",
+					"query": "id=12655&addShopId=236&scene=MINI_PLATFORM_USER_ID_91902&SHARE_PRODUCT_DETAIL_PAGE=12655",
 					"scene": "1011"
 				},
 				{
@@ -118,7 +118,7 @@
 					"id": 12,
 					"name": "转发特卖进入",
 					"pathName": "pageTab/index/index",
-					"query": "promotionId=45&SHARE_ENTER_TEMAI_PAGE=45&scene=MINI_PLATFORM_USER_ID_66259",
+					"query": "promotionId=99&title=魔雀数码&SHARE_PROMOTION_PRODUCTS_PAGE=99&scene=MINI_PLATFORM_USER_ID_91902",
 					"scene": "1011"
 				},
 				{
@@ -126,6 +126,13 @@
 					"name": "进入订餐",
 					"pathName": "pageTab/index/index",
 					"query": "ENTER_ORDER_MEAL_TABLEID=1&&ADDSHOPID=236",
+					"scene": "1011"
+				},
+				{
+					"id": 14,
+					"name": "携带桌子",
+					"pathName": "pageTab/index/index",
+					"query": "ENTER_ORDER_MEAL_TABLEID=1&ADDSHOPID=236",
 					"scene": "1011"
 				}
 			]
