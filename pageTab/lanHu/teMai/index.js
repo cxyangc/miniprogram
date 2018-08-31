@@ -560,6 +560,12 @@ Page({
     this.setData({
       id: options.promotionId
     })
+    console.log("======getCurrentPages============",getCurrentPages())
+    // if (getCurrentPages().length === 5) {
+    //   my.redirectTo('/xx');
+    // } else {
+    //   my.navigateTo('/xx');
+    // }
     // let params={};
     // params.promotionId = options.promotionId;
 
@@ -771,7 +777,7 @@ Page({
       console.log("==============", that.data.activityPromotion.name)
       let params = that.opt;
       params.title = that.data.activityPromotion.name;
-      params.SHARE_ENTER_TEMAI_PAGE =this.data.id
+      params.SHARE_PROMOTION_PRODUCTS_PAGE =this.data.id
       console.log('params:' + JSON.stringify(params) )
       this.closeShowShar();
       return app.shareForFx2('promotion_products', '', params)

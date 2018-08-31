@@ -80,7 +80,7 @@
   </view>
 </view>
 <!--银行信息  -->
-<view class='bank'>
+<!-- <view class='bank'>
    <view class='bankIfon'>
      <view class='shopIfonTitle'>银行信息</view>
      <view class='shopIfonImg'>i</view>
@@ -105,7 +105,7 @@
       <view class='userIfonNameTitle'>开户行</view>
       <view class='userIfonNameInput'><input placeholder="具体到某某支行"bindinput="bankName"></input></view>
   </view>
-</view>
+</view> -->
 
 <!--提交按钮  -->
 <view class='tiJiao'><button formType="submit" class='btn'>提交</button></view>

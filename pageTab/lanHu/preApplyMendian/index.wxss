@@ -21,7 +21,6 @@
   z-index: 100;  
   width: 550rpx;
   border-radius: 100rpx;
-  background: #000;
 }
 .btn1{
   position: fixed;

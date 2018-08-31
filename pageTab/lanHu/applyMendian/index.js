@@ -308,53 +308,57 @@ this.setData({
                            }
                          }
                        });
-                     }else{
+                     }
+                     else{
                     
-                       if (this.data.bankUserName == "") {
-                         wx.showModal({
-                           content: '请填写开户姓名',
-                           showCancel: false,
-                           success: function (res) {
-                             if (res.confirm) {
-                               console.log('用户点击确定')
-                             }
-                           }
-                         });
-                       }else{
-                         if (this.data.bankPhone == "") {
-                           wx.showModal({
-                             content: '请填写绑定的手机号',
-                             showCancel: false,
-                             success: function (res) {
-                               if (res.confirm) {
-                                 console.log('用户点击确定')
-                               }
-                             }
-                           });
-                         }
-                         else{
-                           if (this.data.bankNumber == "") {
-                             wx.showModal({
-                               content: '请填写银行卡号',
-                               showCancel: false,
-                               success: function (res) {
-                                 if (res.confirm) {
-                                   console.log('用户点击确定')
-                                 }
-                               }
-                             });
-                           }else{
-                             if (this.data.bankName == "") {
-                               wx.showModal({
-                                 content: '请填写开户行',
-                                 showCancel: false,
-                                 success: function (res) {
-                                   if (res.confirm) {
-                                     console.log('用户点击确定')
-                                   }
-                                 }
-                               });
-                             }else{
+                      //  if (this.data.bankUserName == "") {
+                      //    wx.showModal({
+                      //      content: '请填写开户姓名',
+                      //      showCancel: false,
+                      //      success: function (res) {
+                      //        if (res.confirm) {
+                      //          console.log('用户点击确定')
+                      //        }
+                      //      }
+                      //    });
+                      //  }
+                      //  else{
+                        //  if (this.data.bankPhone == "") {
+                        //    wx.showModal({
+                        //      content: '请填写绑定的手机号',
+                        //      showCancel: false,
+                        //      success: function (res) {
+                        //        if (res.confirm) {
+                        //          console.log('用户点击确定')
+                        //        }
+                        //      }
+                        //    });
+                        //  }
+                        //  else{
+                          //  if (this.data.bankNumber == "") {
+                          //    wx.showModal({
+                          //      content: '请填写银行卡号',
+                          //      showCancel: false,
+                          //      success: function (res) {
+                          //        if (res.confirm) {
+                          //          console.log('用户点击确定')
+                          //        }
+                          //      }
+                          //    });
+                          //  }
+                          //  else{
+                            //  if (this.data.bankName == "") {
+                            //    wx.showModal({
+                            //      content: '请填写开户行',
+                            //      showCancel: false,
+                            //      success: function (res) {
+                            //        if (res.confirm) {
+                            //          console.log('用户点击确定')
+                            //        }
+                            //      }
+                            //    });
+                            //  }
+                            //  else{
                                if (this.data.shopName.length>"9"){
                                  wx.showModal({
                                    content: '店铺名不能超过9个字符',
@@ -377,19 +381,21 @@ this.setData({
                                        }
                                      }
                                    });
-                                 }else{
-   let bankPhone = this.data.bankPhone;
-   if (!(/^1[34578]\d{9}$/.test(bankPhone))) {
-     wx.showModal({
-       content: '绑定银行手机号码错误',
-       showCancel: false,
-       success: function (res) {
-         if (res.confirm) {
-           console.log('用户点击确定')
-         }
-       }
-     });
-   }else{
+                                 }
+  //                                else{
+  //  let bankPhone = this.data.bankPhone;
+  //  if (!(/^1[34578]\d{9}$/.test(bankPhone))) {
+  //    wx.showModal({
+  //      content: '绑定银行手机号码错误',
+  //      showCancel: false,
+  //      success: function (res) {
+  //        if (res.confirm) {
+  //          console.log('用户点击确定')
+  //        }
+  //      }
+  //    });
+  //  }
+  //  else{
 
   
                                
@@ -410,12 +416,12 @@ this.setData({
        city: this.data.city,
        area: this.data.area,
        school: this.data.schoolName,
-       checkCode: this.data.code,
+      //  checkCode: this.data.code,
 
-       bankName: this.data.bankName,  //开户行
-       bankPhone: this.data.bankPhone,//银行电话
-       bankNumber: this.data.bankNumber,//银行账户
-       bankUserName: this.data.bankUserName,//开户名
+      //  bankName: this.data.bankName,  //开户行
+      //  bankPhone: this.data.bankPhone,//银行电话
+      //  bankNumber: this.data.bankNumber,//银行账户
+      //  bankUserName: this.data.bankUserName,//开户名
        learn: this.data.learn,
        formId: formId,
 
@@ -454,13 +460,13 @@ this.setData({
 
 
 
-                             }
-                           }
+                            //  }
+                          //  }
                                }
-                             }
-                         }
-                       }
-                     }
+                            //  }
+                        //  }
+                      //  }
+                    //  }
                    }
                  }
                }

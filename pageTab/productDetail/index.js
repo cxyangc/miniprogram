@@ -372,7 +372,7 @@ Page({
         if (!!res.data.orderNo) {
           wx.hideLoading()
           wx.navigateTo({
-            url: '/pages/edit_order/index?orderData=' + JSON.stringify(data),
+            url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
           })
         } else {
           wx.hideLoading()
