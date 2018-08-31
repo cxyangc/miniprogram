@@ -77,7 +77,7 @@ Page({
 
     // 上面是需要的参数下面的url
 
-    var customIndex = app.AddClientUrl("/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d" + this.params.belongShop + "%26scene%3d" + userId, postParam, 'get', '1')
+    var customIndex = app.AddClientUrl("/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fENTER_SHOP%3d" + this.params.belongShop + "%26scene%3d" + userId, postParam, 'get', '1')
     var result = customIndex.url.split("?");
 
     customIndex.url = result[0] + "?" + result[1]
