@@ -30,6 +30,14 @@ font-size: 0.8em;
   width: 100%;
   border-radius: 20rpx;
 }
+.swiperItemIndex{
+  position: absolute;
+  margin: 18rpx 66rpx 18rpx 66rpx;
+  top:16rpx;
+  right: 32rpx;
+  color:#ddd;
+  font-size: 18rpx;
+}
 .timeCountDown{
   position: absolute;
   display: flex;

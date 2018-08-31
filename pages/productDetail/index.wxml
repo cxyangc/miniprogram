@@ -4,13 +4,14 @@
 <view class='container'>
 
 <view class='SwiperContainer'>
-    <swiper class='SwiperIndex' indicator-dots="true" autoplay="true" interval="5000" duration="500">
+    <swiper class='SwiperIndex' autoplay="true" interval="5000" duration="500" bindchange="swiperChange">
       <block wx:for="{{productData.images}}"  wx:key="{{swiper}}" style="border-radius: 20rpx">
         <swiper-item data-imageUrl='{{productData.images}}' data-index='{{index}}' bindtap='lookBigImage' style="border-radius: 20rpx">
           <image mode='aspectFit' src="{{item.imagePath}}"  style="border-radius: 20rpx" />
         </swiper-item> 
       </block>
     </swiper>
+    <view class='swiperItemIndex'>{{swiperIndex}}/{{totalImg}}</view>
     <block wx:if="{{productData.productInfo.promotionBean}}">
       <view class='timeCountDownBg'></view>
       <view class='timeCountDown'>
@@ -42,7 +43,7 @@
       <view class='tap_title_left'>
         <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>正品保证</text></view>
         <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>永久包邮</text></view>
-        <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>7天无理由退换</text></view>
+        <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>一对一专属售后</text></view>
       </view>
       <view class='tap_title_right'>
         <view class='dot_no'></view>

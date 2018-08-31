@@ -26,6 +26,12 @@ Page({
     qrCodeUrl:"",
     haveMeasuresState:false,
     selectTypeData:null,
+    swiperIndex:1,
+    totalImg:0
+  },
+  /*轮播图下标*/
+  swiperChange: function (e) {
+    this.setData({ swiperIndex: e.detail.current + 1 })
   },
   // 关闭海报
   getChilrenPoster(e) {
@@ -324,6 +330,7 @@ Page({
     fromSource: '', 
     orderType: ''
   },
+  
   /* 立即购买 */
   buyNow:function(e){
     if (!app.checkShopOpenTime()) {
@@ -514,7 +521,9 @@ Page({
         console.log('--------------getData-------------')
         
         that.setData({ productData: res.data })
-        
+        if (res.data.images){
+          that.setData({ totalImg: res.data.images.length })
+        }
         if (res.data.productInfo && res.data.productInfo.tags){
           let tagsStr = res.data.p11roductInfo.tags
           let tagsStr2 = tagsStr.replace(/\[/g, '');
@@ -526,6 +535,7 @@ Page({
         }
         if (res.data.description && res.data.description.description){
           WxParse.wxParse('article', 'html', res.data.description.description, that, 10);
+          console.log('====article====', that.data.article)
         }
         if (!!res.data.productInfo){
           let info = res.data.productInfo
