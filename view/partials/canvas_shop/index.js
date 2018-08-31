@@ -169,24 +169,23 @@ Component({
       context.setFillStyle('#000000')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
       context.lineWidth = 0.8;
-      var str = that.data.activetData.name
+      var str = that.data.shopData.shopInfo.shopName
       context.fillText("---" + str.substring(0, 21) + '---', clientWidth*0.36, clientWidth * 0.3+16)
       context.setTextAlign('center')    // 文字居中
       context.setFillStyle('#000000')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
       context.lineWidth = 0.8;
-      var str = that.data.activetData.name
       context.fillText('【活动时间】', clientWidth * 0.36, clientWidth * 0.35 + 16)
       context.setTextAlign('center')    // 文字居中
       context.setFillStyle('#ff4444')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
-      var str1 = that.data.activetData.startDate
-      context.fillText(' 开始时间 ：' + str1, clientWidth * 0.36, clientWidth * 0.4 + 16)
+      var str1 = that.data.shopData.shopInfo.serviceStartTime
+      context.fillText(' 开始时间 ：' + str1+'时', clientWidth * 0.36, clientWidth * 0.4 + 16)
       context.setTextAlign('center')    // 文字居中
       context.setFillStyle('#ff4444')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
-      var str2 = that.data.activetData.endDate
-      context.fillText(' 结束时间 ：' + str2, clientWidth * 0.36, clientWidth * 0.45 + 16)
+      var str2 = that.data.shopData.shopInfo.serviceEndTime
+      context.fillText(' 结束时间 ：' + str2 + '时', clientWidth * 0.36, clientWidth * 0.45 + 16)
 
 
 
