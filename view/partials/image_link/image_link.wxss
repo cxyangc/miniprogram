@@ -1,1 +1,3 @@
-/* view/partials/image_link/image_link.wxss */
+
+
+@import 'popimage/popimage.wxss';/* 引入弹窗图片 */

@@ -1,15 +1,20 @@
 
 <!-- 门店组件 -->
 <import src="simpleStores.wxml"/>  <!-- 简单的 -->
+<import src="second_logo_is_in_radians/second_logo_is_in_radians.wxml"/>  <!-- logo携带弧度的-->
 
     <!-- 当 androidTemplate为空的时候去引入普通列表样式 -->  
   <block wx:if='{{data.androidTemplate == ""}}'>
   <template is="simpleStores" 
        data="{{...data,belongShopName,name,logo,arr,img}}"></template> 
   </block>
-<!-- <view>{{img}}</view> -->
-<!-- <view>{{arr.length}}</view> -->
 
+
+
+  <block wx:if='{{data.androidTemplate == "second_logo_is_in_radians"}}'>
+  <template is="second_logo_is_in_radians" 
+       data="{{...data,belongShopName,name,logo,arr,img}}"></template> 
+  </block>
 
 
 <slot></slot>

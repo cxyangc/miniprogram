@@ -1,3 +1,6 @@
+@import 'second_logo_is_in_radians/second_logo_is_in_radians.wxss';/* 引入logo带有弧度的 */
+
+
 .name{
   width: 750rpx;
   height: 100rpx;

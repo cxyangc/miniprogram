@@ -37,7 +37,8 @@
 
 
 <!--测试用的时间组件  -->
-
+     <!-- <component-tag-nameScanQrCode ></component-tag-nameScanQrCode>     -->
+   <!--时间组件  -->
        <!-- <component-tag-nameTime   data="{{timeTime}}"></component-tag-nameTime>   -->
 
 

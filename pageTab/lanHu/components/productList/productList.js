@@ -312,6 +312,29 @@ Component({
      })
 
     },
+    // 特卖中的价格降排序
+    sortingPriceFalling: function () {
+      console.log("价格排序组件内的商品", this.data.products)
+      let that = this;
+      let products = this.data.products;
+      // 排序
+      let temp;
+      for (let i = 0; i < products.length; i++) {
+
+        for (let j = i + 1; j < products.length; j++) {
+          if (products[i].price <products[j].price) {
+            temp = products[i];
+            products[i] = products[j];
+            products[j] = temp;
+          }
+        }
+      }
+      console.log("价格排序完的", products)
+      that.setData({
+        products: products
+      })
+
+    },
 
 
     // 特卖中的热度排序

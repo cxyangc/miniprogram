@@ -1,0 +1,44 @@
+.bg{
+  position: fixed;
+  width:100%;
+  height: 100%;
+  top:0;
+  left: 0;
+  background: #000;
+  opacity:0.6;  
+  -moz-opacity:0.6;
+  -khtml-opacity: 0.6;
+  z-index:1000;
+}
+.concent{
+  width: 400rpx;
+  position: fixed;
+  top:300rpx;
+  height: 500rpx;
+  left: 175rpx;
+  background: #fff;
+  z-index: 1001;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.concent image{
+  width: 100%;
+  height: 100%;
+}
+
+
+.close{
+  position: fixed;
+  top:230rpx;
+  right:100rpx;
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50rpx;
+  border: 1px solid white;
+  color: #fff;
+  line-height: 45rpx;
+  text-align: center;
+  z-index: 1002
+}

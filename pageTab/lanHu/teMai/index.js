@@ -1,11 +1,12 @@
 const app = getApp()
-
+var clickSortingPriceTime="0";
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    imgUrl:'../../../images/icons/topSel.png',
     posterState:false,
     posterActiveState:false,
     ProductshowWay: '2',
@@ -1070,31 +1071,74 @@ Page({
 
   /* 分类查询 */
   searchProduct: function (event) {
+    // 每次点击的时候clickSortingPriceTime++；
+    clickSortingPriceTime++;
     console.log("排序序号", event.currentTarget.dataset.ordertype)
     let ordertype = event.currentTarget.dataset.ordertype;
     let that = this;
 
     if (ordertype == "102"  ){
       if (that.data.ProductshowWay == "2"){
-        // 执行组件内的排序
-        console.log("价格排序")
-        this.selectComponent('#productLists').sortingPrice();
+        // 判断是价格升序还是降序
+        console.log("that.data.imgUrl", that.data.imgUrl)
+        // 降序topSel.png，，，点击后要升序
+        if (that.data.imgUrl =='../../../images/icons/topSel.png'){
+          that.setData({
+            imgUrl:'../../../images/icons/bottomSel.png'
+          })
+          // 执行组件内的排序
+          console.log("价格升排序")
+          this.selectComponent('#productLists').sortingPrice();
+        }
+        // 升序bottomSel.png，，，点击后要降序
+        else{
+          that.setData({
+            imgUrl: '../../../images/icons/topSel.png'
+          })
+          // 执行组件内的排序
+          console.log("价格降排序")
+          this.selectComponent('#productLists').sortingPriceFalling();
+        }
+       
    }else{
         console.log("价格排序组件内的商品", this.data.productData)
 
         let products = that.data.productData;
         // 排序
-        let temp;
-        for (let i = 0; i < products.length; i++) {
+        // 降序topSel.png，，，点击后要升序
+        if (that.data.imgUrl == '../../../images/icons/topSel.png') {
+          that.setData({
+            imgUrl: '../../../images/icons/bottomSel.png'
+          })
+          let temp;
+          for (let i = 0; i < products.length; i++) {
 
-          for (let j = i + 1; j < products.length; j++) {
-            if (products[i].price > products[j].price) {
-              temp = products[i];
-              products[i] = products[j];
-              products[j] = temp;
+            for (let j = i + 1; j < products.length; j++) {
+              if (products[i].price > products[j].price) {
+                temp = products[i];
+                products[i] = products[j];
+                products[j] = temp;
+              }
             }
           }
         }
+        else{
+          that.setData({
+            imgUrl: '../../../images/icons/topSel.png'
+          })
+          let temp;
+          for (let i = 0; i < products.length; i++) {
+
+            for (let j = i + 1; j < products.length; j++) {
+              if (products[i].price < products[j].price) {
+                temp = products[i];
+                products[i] = products[j];
+                products[j] = temp;
+              }
+            }
+          }
+        }
+  
         console.log("价格排序完的", products)
         that.setData({
           productData: products

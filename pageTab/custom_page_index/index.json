@@ -25,7 +25,9 @@
 "component-tag-nameStores": "../../view/partials/stores/stores",
 "component-tag-nametab": "../../view/partials/tab/index",
 
-"component-tag-nameTime": "../../view/partials/time/time"
+"component-tag-nameTime": "../../view/partials/time/time",
+
+"component-tag-nameScanQrCode": "../../view/partials/scanQrCode/scanQrCode"
 
     }
 }

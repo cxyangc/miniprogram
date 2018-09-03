@@ -19,7 +19,7 @@
 "text": "产品列表"
 },
 {
-"pagePath": "pageTab/aikucun_car_list/index",
+"pagePath": "pageTab/shopping_car_list/index",
 "iconPath": "images/icons/cart1.png",
 "selectedIconPath": "images/icons/cart2.png",
 "text": "购物车"

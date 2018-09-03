@@ -25,7 +25,7 @@ Component({
   console.log("===================");
   },
      ready:function(){
-     
+     console.log("===========data======",this.data.data)
       var oldData=this.data;
       var that=this;
     //  封装一个函数把mendianType传进去

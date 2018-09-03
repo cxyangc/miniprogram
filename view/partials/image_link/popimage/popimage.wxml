@@ -1,0 +1,12 @@
+
+<template name="popimage">
+   <view style='display:{{display}}'>
+   <view class='bg'></view>
+   <view class='close' bindtap='closeFun' data-url="{{jsonData.imageUrl}}">x</view>
+   <view class='concent'  >
+         <image mode="aspectFill" src="{{jsonData.imageUrl}}" 
+  data-link='{{jsonData.linkUrl}}' data-url="{{jsonData.imageUrl}}" bindtap='tolinkUrl'></image> 
+   </view>
+
+</view>
+</template> 

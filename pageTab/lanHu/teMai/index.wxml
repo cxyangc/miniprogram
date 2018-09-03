@@ -5,7 +5,9 @@
  <view class="typeSearchContainer"> 
     <view class="typeSearch">
      <view class='flexCenter1' data-ordertype="102" bindtap='searchProduct'>价格</view>
-     <view class='flexCenter1Img'><image src='../../../images/icons/topSel.png'></image></view>
+     <view class='flexCenter1Img'>
+     <!-- bottomSel.png   topSel.png -->
+     <image src='{{imgUrl}}'></image></view>
      <view class='flexCenter2' data-ordertype="101"  bindtap='searchProduct'>
         <!-- <block wx:if="{{!!typeSearch}}">{{typeSearch}}</block> -->
         <block >热度</block>

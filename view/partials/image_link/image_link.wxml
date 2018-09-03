@@ -1,11 +1,19 @@
 <!-- 图片导航 -->
 
 <import src="firstImageLink.wxml"/>  <!-- 正常的图片 -->
+<import src="popimage/popimage.wxml"/>  <!-- 正常的图片 -->
 
 
    <block wx:if='{{data.androidTemplate == ""}}'>
   <template is="firstImageLink" 
        data="{{...data}}"></template> 
+
+  </block> 
+
+  <!--弹窗  -->
+     <block wx:if='{{data.androidTemplate == "popimage"}}'>
+  <template is="popimage" 
+       data="{{...data,display}}"></template> 
 
   </block> 
 
