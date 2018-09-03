@@ -388,7 +388,7 @@ Page({
     for (let i = 0; i < activityPromotion.length; i++) {
       a = i;
       //  console.log(activityPromotion[a].products)
-      if (activityPromotion[a].products.length > 0) {
+      if (activityPromotion[a].products&&activityPromotion[a].products.length > 0) {
         for (let j = 0; j < activityPromotion[a].products.length; j++) {
           b = j;  
             activityPromotion[a].products[b].productShow = false
@@ -401,7 +401,7 @@ Page({
   },
   click:function (e) {
     console.log(e)
-    this.closeShowShar();
+    // this.closeShowShar();
     wx.navigateTo({
       url: '/pageTab/lanHu/teMai/index?promotionId=' + e.currentTarget.dataset.id,
     })

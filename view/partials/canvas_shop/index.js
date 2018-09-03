@@ -21,17 +21,17 @@ Component({
 
   },
   ready:function(){
-   
-    this.getActiveInfo();
-    console.log('11111111111111111',this.data.ewmImgUrl)
+   let that=this;
+   console.log('11111111111111111', that.data.ewmImgUrl)
     console.log('=======', app.setting)
     if (app.setting){
-      this.setData({
+      that.setData({
         platformSetting: app.setting.platformSetting,
         color: app.setting.platformSetting.defaultColor,
         platformName: app.setting.platformSetting.platformName
       })
     }
+    that.getActiveInfo();
   },
   methods: {
     saveImgToPhotosAlbumTap: function () {
@@ -65,6 +65,8 @@ Component({
         that.setData({
           img_l: null //将下载的图片临时路径赋值给img_l,用于预览图片
         })
+        that.downFileFun(that.data.ewmImgUrl, 'showEwm', completeCallback)
+        return;
       }
       const downloadTask = wx.downloadFile({
         url: url, //仅为示例，并非真实的资源
@@ -103,22 +105,26 @@ Component({
       console.log("======url=====", url);
       var clientWidth = wx.getSystemInfoSync().screenWidth;
       var imgInfo = { scale_y: 0, scale_x: 0, w: 0, h: 0};
-      wx.getImageInfo({
-        src: url,
-        success: function (res) {
-          console.log('==getImageInfo===', res.width)
-          console.log('==getImageInfo===', res.height)
-          imgInfo.w = res.width     //图片真实宽度
-          imgInfo.h = res.height   //图片真实高度
-          imgInfo.scale_x = clientWidth * imgInfo.w / imgInfo.h;
-          imgInfo.scale_y = clientWidth * imgInfo.h / imgInfo.w ;
-          that.setData({
-            imgInfo: imgInfo //将下载的图片临时路径赋值给img_l,用于预览图片
-          })
-          console.log('==getImageInfo===', that.data.imgInfo)
-          that.customMethod();
-        }
-      })
+      if(url){
+        wx.getImageInfo({
+          src: url,
+          success: function (res) {
+            console.log('==getImageInfo===', res.width)
+            console.log('==getImageInfo===', res.height)
+            imgInfo.w = res.width     //图片真实宽度
+            imgInfo.h = res.height   //图片真实高度
+            imgInfo.scale_x = clientWidth * imgInfo.w / imgInfo.h;
+            imgInfo.scale_y = clientWidth * imgInfo.h / imgInfo.w;
+            that.setData({
+              imgInfo: imgInfo //将下载的图片临时路径赋值给img_l,用于预览图片
+            })
+            console.log('==getImageInfo===', that.data.imgInfo)
+            that.customMethod();
+          }
+        })
+      }else{
+        that.customMethod();
+      }
     },
     getActiveInfo: function () {
       let that = this
@@ -137,12 +143,19 @@ Component({
           that.setData({ shopData: that.data.shopData })
           console.log("=======that.data.shopData ====", that.data.shopData )
           if (that.data.shopData){
-            if (that.data.shopData.shopInfo.shopBanner && that.data.shopData.shopInfo.shopBanner!=''){
+            if (that.data.shopData.shopInfo.shopBanner && that.data.shopData.shopInfo.shopBanner != '') {
+              console.log("=======1====", that.data.shopData.shopInfo.shopBanner)
               that.downFileFun(that.data.shopData.shopInfo.shopBanner.replace('http', 'https'), 'proImg', function () {
                 wx.hideLoading()
               })
-            }else{
+            } else if (that.data.platformSetting.shopBanner&&that.data.platformSetting.shopBanner != '') {
+              console.log("=======2 ====", that.data.platformSetting.shopBanner)
               that.downFileFun(that.data.platformSetting.shopBanner.replace('http', 'https'), 'proImg', function () {
+                wx.hideLoading()
+              })
+            } else {
+              console.log("=======3 ====", '')
+              that.downFileFun('', 'proImg', function () {
                 wx.hideLoading()
               })
             }

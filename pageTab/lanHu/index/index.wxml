@@ -87,7 +87,7 @@
        data="{{...item,setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson,showShare}}"></template> 
   </block> -->
 
-   <productList  data="{{item.products}}" id="exceplem"  bind:action='bindAddtocart' bind:showPosters='showPosters'            ></productList>
+   <!-- <productList  data="{{item.products}}" id="exceplem"  bind:action='bindAddtocart' bind:showPosters='showPosters'            ></productList> -->
  </view>
 
 <!--未开始活动列表  -->

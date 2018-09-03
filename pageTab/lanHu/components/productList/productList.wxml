@@ -67,9 +67,9 @@
    <posters proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 
 
 
-<block wx:if="{{products.length==0}}">
+<!-- <block wx:if="{{products.length==0}}">
             <view class="noproduct">
               <image mode="widthFix" src='/images/icons/no-product.png'></image>
               <text>没有相关商品</text>
             </view>
-          </block>
+          </block> -->
