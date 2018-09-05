@@ -34,7 +34,7 @@
     <view class='mendian_menu_container'>
         <view class='mendian_menu_item' data-link='mendian_zijin.html'   bindtap='tolinkUrl'>
             <view class='imageContainer'>
-                <image src='http://image.aikucun.xyz/aikucun/2018_4/2/14/9/53_216.jpg?imageMogr2/thumbnail/400x/interlace/0 '></image>
+                <image src='http://image1.sansancloud.com/xianhua/2018_9/5/16/19/25_19.jpg?x-oss-process=style/preview_120'></image>
             </view>
             <view class='item_text'>
                 <text>资金记录</text>
@@ -43,7 +43,7 @@
         </view>
         <view class='mendian_menu_item' data-link='mendian_order.html'   bindtap='tolinkUrl'>
             <view class='imageContainer'>
-                <image src='http://image.aikucun.xyz/aikucun/2018_4/2/14/9/50_540.jpg?imageMogr2/thumbnail/400x/interlace/0 '></image>
+                <image src='http://image1.sansancloud.com/xianhua/2018_9/5/16/19/25_14.jpg?x-oss-process=style/preview_120'></image>
             </view>
             <view class='item_text'>
                 <text>订单列表</text>
@@ -52,7 +52,7 @@
         </view>
         <view class='mendian_menu_item' data-link='mendian_user.html?fxLevel=1'   bindtap='tolinkUrl'>
             <view class='imageContainer'>
-                <image src='http://image.aikucun.xyz/aikucun/2018_4/2/14/9/40_790.jpg?imageMogr2/thumbnail/400x/interlace/0 '></image>
+                <image src='http://image1.sansancloud.com/xianhua/2018_9/5/16/19/25_53.jpg?x-oss-process=style/preview_120'></image>
             </view>
             <view class='item_text'>
                 <text>我的客户</text>
@@ -71,7 +71,7 @@
         </view> -->
         <view class='mendian_menu_item' data-link='mendian_will_order.html'   bindtap='tolinkUrl'>
             <view class='imageContainer'>
-                <image src='http://image.aikucun.xyz/aikucun/2018_4/2/14/9/46_858.jpg?imageMogr2/thumbnail/400x/interlace/0'></image>
+                <image src='http://image1.sansancloud.com/xianhua/2018_9/5/16/19/25_55.jpg?x-oss-process=style/preview_120'></image>
             </view>
             <view class='item_text'>
                 <text>待实现收入</text>
@@ -80,7 +80,7 @@
         </view>
         <view class='mendian_menu_item' data-link='news_list.html?newsTypeId=6&pageNage=帮助中心'   bindtap='tolinkUrl'>
             <view class='imageContainer'>
-                <image src='http://image.aikucun.xyz/aikucun/2018_4/2/14/9/42_765.jpg?imageMogr2/thumbnail/400x/interlace/0'></image>
+                <image src='http://image1.sansancloud.com/xianhua/2018_9/5/16/19/25_64.jpg?x-oss-process=style/preview_120'></image>
             </view>
             <view class='item_text'>
                 <text>帮助</text>
@@ -88,7 +88,7 @@
         </view>
         <view class='mendian_menu_item' data-link='mendian_qrcode.html'   bindtap='tolinkUrl'>
             <view class='imageContainer'>
-                <image src='http://image.aikucun.xyz/aikucun/2018_4/3/21/32/2_952.jpg?imageMogr2/thumbnail/400x/interlace/0'></image>
+                <image src='http://image1.sansancloud.com/xianhua/2018_9/5/16/19/25_60.jpg?x-oss-process=style/preview_120'></image>
             </view>
             <view class='item_text'>
                 <text>二维码</text>

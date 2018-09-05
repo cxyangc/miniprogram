@@ -44,7 +44,7 @@ Page({
     
     cells:[
       {
-        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/11/53/58_653.jpg",
+        iconPath: "http://image1.sansancloud.com/xianhua/2018_9/5/16/47/6_417.jpg",
         linkUrl: "order_list_2.html?easyStatus=2&easyStatusName=待付款",
         text: "待付款",
         color: "#777777",
@@ -52,21 +52,21 @@ Page({
         
       },
       {
-        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/11/54/1_475.jpg",
+        iconPath: "http://image1.sansancloud.com/xianhua/2018_9/5/16/45/21_802.jpg",
         linkUrl: "order_list_3.html?easyStatus=3&easyStatusName=待发货" ,
         text: "待发货",
         color: "#777777",
         showCountNum:0,
       },
       {
-        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/11/54/5_90.jpg",
+        iconPath: "http://image1.sansancloud.com/xianhua/2018_9/5/16/45/21_775.jpg",
         linkUrl: "order_list_4.html?easyStatus=4&easyStatusName=待收货",
         text: "待收货" ,
         color: "#777777",
         showCountNum:0,
       },
       {
-        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/11/54/7_742.jpg",
+        iconPath: "http://image1.sansancloud.com/xianhua/2018_9/5/16/45/22_291.jpg",
         linkUrl: "back_item_list.html",
         text: "售后",
         color: "#777777"
@@ -80,19 +80,19 @@ Page({
   ListData:{
     cells: [
       {
-        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/12/0/27_922.jpg",
+        iconPath: "http://image1.sansancloud.com/xianhua/2018_9/5/16/54/39_501.jpg",
         linkUrl: "address.html",
         text: "收货地址" ,
         color: "#777777"
       },
       {
-        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/12/0/30_584.jpg" ,
+        iconPath: "http://image1.sansancloud.com/xianhua/2018_9/5/16/52/10_637.jpg" ,
         linkUrl: "yijian_fankui.html",
         text: "意见反馈" ,
         color: "#777777"
       },
       {
-        iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/12/0/32_522.jpg",
+        iconPath: "http://image1.sansancloud.com/xianhua/2018_9/5/16/45/22_284.jpg",
         linkUrl: "news_list.html?newsTypeId=5&pageNage=关于我们",
         text: "关于我们",
         color: "#777777"

@@ -5,7 +5,7 @@
 .userinfo_list{
   display: flex;
   flex-direction: column;
-  margin: 0 30rpx;
+  margin: 20rpx 30rpx;
   box-sizing: border-box;
   border-radius:18rpx;
   background: #fff;
