@@ -21,10 +21,14 @@
                 </block>
                 <block wx:else> 
                     <view class='cartContainer' wx:for='{{tab.List}}' wx:for-item='list' wx:for-index='i' wx:key='{{i}}'>
+                       <view class='promotionNameItem' wx:if='{{list.promotionName}}'>
+                          <view class='promotionNameLine'></view>
+                          <view class='promotionName' style='background:{{setting.platformSetting.defaultColor}}'><text>{{list.promotionName}}</text></view>
+                       </view>
                       <view class='cartShopName'> 
-                        <!-- <text class='font1'>{{list.belongShopName}}</text> -->
-                        <text class="vity_tag" wx:if='{{list.promotionName}}'>{{list.promotionName}}</text>
-                        <text wx:else></text>
+                        <view class='storageName' wx:if='{{list.storageName}}'><text>{{list.storageName}}</text></view>
+                        <!-- <text class="vity_tag" wx:if='{{list.storageName}}'>{{list.storageName}}</text> 
+                        <text class="vity_tag" wx:if='{{list.promotionName}}'>{{list.promotionName}}</text> -->
                         <block wx:if='{{list.easyStatusStr == "作废"}}'> 
                           <text class='' style='color:{{setting.platformSetting.defaultColor}}'>已作废</text>
                         </block>
@@ -60,6 +64,23 @@
                       </view>
 
                       <view  class='butn_container'>
+                          <view>
+                            <view class='orderType' wx:if="{{list.orderType==0}}">
+                              <image class='orderTypeIcon' src='http://image1.sansancloud.com/sansancloud/2018_9/4/16/40/15_518.jpg?x-oss-process=style/preview_120'></image>
+                            </view>
+                            <view class='orderType' wx:elif="{{list.orderType==10}}">
+                               <image class='orderTypeIcon' src='http://image1.sansancloud.com/sansancloud/2018_9/4/16/40/15_511.jpg?x-oss-process=style/preview_120'></image>
+                            </view>
+                            <view class='orderType' wx:elif="{{list.orderType==11}}">
+                               <image class='orderTypeIcon' src='http://image1.sansancloud.com/sansancloud/2018_9/4/16/40/15_535.jpg?x-oss-process=style/preview_120'></image>
+                            </view>
+                            <view class='orderType' wx:elif="{{list.orderType==4}}">
+                              <image class='orderTypeIcon' src='http://image1.sansancloud.com/sansancloud/2018_9/4/16/40/15_530.jpg?x-oss-process=style/preview_120'></image>
+                            </view>
+                            <view class='orderType' wx:elif="{{list.orderType==7}}">
+                               <image class='orderTypeIcon' src='http://image1.sansancloud.com/sansancloud/2018_9/4/16/40/15_466.jpg?x-oss-process=style/preview_120'></image>
+                            </view>
+                          </view>
                           <text>订单金额￥{{list.goodsAmount - list.youhuiAmount}}</text>
                           <text>（优惠￥{{list.youhuiAmount}}）</text>
                           <text>（运费￥{{list.yunfeiAmount}}）</text>

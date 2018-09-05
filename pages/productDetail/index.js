@@ -187,41 +187,41 @@ Page({
   },
   /* 查看评价 */
   
-  getCommitData: function (param) {
-    //productInfo  var paramStr = 'page=1&productId=' + info.productId+'&shopId=' + info.belongShopId
-    //var info = e.currentTarget.dataset.info
-    //根据把param变成&a=1&b=2的模式
-   // var postParam = this.ChangeParam(param)
-    console.log('-----getcommit-------------')
-    //console.log(postParam)
-    var customIndex = app.AddClientUrl("/get_product_comment_list.html", param)
-    wx.showLoading({
-      title: 'loading'
-    })
-    var that = this
-    wx.request({
-      url: customIndex.url,
-      header: app.header,
-      success: function (res) {
-        console.log('-----------评价--------')
-        console.log(res.data)
-        if (!res.data.result || res.data.result.length == 0){
-          that.setData({ commitList: null })
-        }
-        else{
-          that.setData({ commitList: res.data.result })
-        }
+  // getCommitData: function (param) {
+  //   //productInfo  var paramStr = 'page=1&productId=' + info.productId+'&shopId=' + info.belongShopId
+  //   //var info = e.currentTarget.dataset.info
+  //   //根据把param变成&a=1&b=2的模式
+  //  // var postParam = this.ChangeParam(param)
+  //   console.log('-----getcommit-------------')
+  //   //console.log(postParam)
+  //   var customIndex = app.AddClientUrl("/get_product_comment_list.html", param)
+  //   wx.showLoading({
+  //     title: 'loading'
+  //   })
+  //   var that = this
+  //   wx.request({
+  //     url: customIndex.url,
+  //     header: app.header,
+  //     success: function (res) {
+  //       console.log('-----------评价--------')
+  //       console.log(res.data)
+  //       if (!res.data.result || res.data.result.length == 0){
+  //         that.setData({ commitList: null })
+  //       }
+  //       else{
+  //         that.setData({ commitList: res.data.result })
+  //       }
         
-      },
-      fail: function (res) {
-        console.log("fail")
-        app.loadFail()
-      },
-      complete: function (res) {
-        wx.hideLoading()
-      }
-    })
-  },
+  //     },
+  //     fail: function (res) {
+  //       console.log("fail")
+  //       app.loadFail()
+  //     },
+  //     complete: function (res) {
+  //       wx.hideLoading()
+  //     }
+  //   })
+  // },
   ChangeParam: function (params) {
     var returnParam = ""
     for (let i in params) {
@@ -541,7 +541,7 @@ Page({
           postPatam.page = 1
           postPatam.productId = info.productId
           postPatam.shopId = info.belongShopId
-          that.getCommitData(postPatam)
+          // that.getCommitData(postPatam)
           that.getCart()
         }
         
@@ -813,7 +813,7 @@ Page({
     if (app.loginUser && app.loginUser.platformUser) {
       userId = 'MINI_PLATFORM_USER_ID_' + app.loginUser.platformUser.id
     }
-    console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
+   // console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
     // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
     let postParam = {}
     postParam.SHARE_PRODUCT_DETAIL_PAGE = this.data.proId;

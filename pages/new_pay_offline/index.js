@@ -8,10 +8,12 @@ Page({
   data: {
     money: 100,
     payway: 3,
+    orderNo:0,
     butn_show_loading: false,
     mendianId:"",
     mendianImg:"",
     mendianName:"111",
+    successState:'normal',
   },
   // 返回首页
   login: function(e) {
@@ -21,6 +23,9 @@ Page({
   },
   getBuyerScript: function (e) {
     this.setData({ money: e.detail.value })
+  },
+  getBuyerRemark:function(e){
+    this.setData({ remark: e.detail.value })
   },
   getPayWay: function (e) {
     this.setData({
@@ -32,6 +37,7 @@ Page({
     var that = this
     let money = this.data.money
     let payWay = this.data.payway
+    let remark = this.data.remark
     let wxChatPayParam = {
       payAmount: '',
       payType: 3,
@@ -40,6 +46,7 @@ Page({
 
     wxChatPayParam.payAmount = money
     wxChatPayParam.payType = payWay
+    wxChatPayParam.remark = remark
     console.log("ff==========",wxChatPayParam)
     this.setData({ butn_show_loading: true })
     let customIndex = app.AddClientUrl("/create_mendian_offline_pay_order.html", wxChatPayParam, 'post')
@@ -59,6 +66,7 @@ Page({
           console.log('--------失败-------')
         }
        else if (res.data.relateObj.payType == 3) {
+          that.setData({ orderNo: orderNo })
           that.payByWechat(orderNo)
          
         }else{
@@ -114,16 +122,23 @@ Page({
           'success': function (res) {
             console.log('------成功--------')
             console.log(res)
-            wx.showToast({
-              title: '支付成功',
-              icon: 'success',
-              duration: 2000
+            let successData = { remark: that.data.remark, orderNo: that.data.orderNo,goodsAmount: that.data.money, payTypeStr: that.data.payway,}
+            that.setData({
+              successData: successData
             })
+            that.setData({
+              successState: 'success'
+            })
+            // wx.showToast({
+            //   title: '支付成功',
+            //   icon: 'success',
+            //   duration: 2000
+            // })
         
             // 支付成功跳到首页
-                wx.reLaunch({
-                  url: '/pageTab/' + app.miniIndexPage + '/index',
-                })
+                // wx.reLaunch({
+                //   url: '/pages/success_pay/index',
+                // })
              
 
 

@@ -82,7 +82,7 @@ Page({
                 let username = wx.getStorageSync('loginUser').name
                 console.log(username)
                 wx.request({
-                  url: 'http://192.168.40.180:3000/chainalliance/aikucun/wx_mini_scan_login.html',
+                  url: 'http://106.14.213.48:8080/chainalliance/tunzai/wx_mini_scan_login.html',
                     data: {
                         username: username,
                         uuid: scan_result

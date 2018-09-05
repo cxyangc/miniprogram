@@ -63,6 +63,7 @@ Component({
       let that = this
       const downloadTask = wx.downloadFile({
         url: url, //仅为示例，并非真实的资源
+        header:'Content-type:image/jpg',
         success: function (res) {
           // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
           console.log('=======downloadTask======', res)
@@ -75,6 +76,7 @@ Component({
               that.downFileFun(that.data.ewmImgUrl, 'showEwm',completeCallback)
             } else if (typeData ==='showEwm') {
               console.log('=======showEwm======', res)
+              console.log('=======showEwm======', res.tempFilePath)
               that.setData({
                 img_ewm: res.tempFilePath //将下载的图片临时路径赋值给img_l,用于预览图片
               })
@@ -85,11 +87,16 @@ Component({
         },
         fail: function (res) {
           console.log("fail")
-          if (commpleteCallback) {
+          if (completeCallback) {
             try {
-              commpleteCallback();
+              completeCallback();
             } catch (e) { }
           }
+          wx.showToast({
+            title: '下载图片失败',
+            icon: 'fail',
+            duration: 1000
+          });
         }
       })
     },

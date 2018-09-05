@@ -25,6 +25,15 @@
 .tab_page_list_container{
   width: 100%;
 }
+.orderType{
+  width:50rpx;
+  height: 50rpx;
+  margin-right:20rpx;
+}
+.orderTypeIcon{
+  width: 50rpx;
+  height: 50rpx;
+}
 
 
 
@@ -50,12 +59,47 @@
   border-bottom: 1em solid #f2f2f2; 
 }
 .cartShopName{
-  padding: 1em;
+  padding:60rpx 25rpx 25rpx 25rpx;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1rpx solid #eee;
+  position: relative;
+}
+.storageName{
+  position: absolute;
+  top: 10rpx;
+  left: 0;
+  padding:5rpx 10rpx 5rpx 10rpx;
+  border:3rpx solid #7fdb8a;
+  border-bottom-right-radius:15rpx;
+  border-top-right-radius:15rpx;
+  color:#7fdb8a;
+  font-size:20rpx;
+  border-left:none;
+
+}
+.promotionNameItem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.promotionName{
+  font-size:20rpx;
+  text-align:center;
+  /* background:#FE3737; */
+  color:#fff;
+  padding:6rpx 15rpx 6rpx 15rpx;
+  opacity:0.8;
+  border-radius:10rpx;
+
+}
+.promotionNameLine{
+  height: 10rpx;
+  width: 50rpx;
+  border-left:4rpx solid #eee;
+  border-right:4rpx solid #eee 
 }
 .cartItems{
   display: flex;
@@ -71,6 +115,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
+  position: relative;
 }
 .itemCheckbox image{
   width: 5em;
