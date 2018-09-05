@@ -3,8 +3,8 @@
     <view class='userHead'>
       <view wx:if='{{mendianImg!=""}}' class='ListDataItemImage'><image mode='aspectFill' src='{{mendianImg}}'></image></view>
       <view class='mendianText'>
-        <text style='color:#fff;font-size:36rpx;border: 4rpx dotted {{setting.platformSetting.defaultColor}};'>
-          <text style='background:{{setting.platformSetting.defaultColor}};padding: 2rpx 16rpx;'>{{mendianName}}</text>
+        <text style='color:#fff;font-size:36rpx;border: 4rpx dotted {{setting.platformSetting.defaultColor}};;border-radius:10rpx'>
+          <text style='background:{{setting.platformSetting.defaultColor}};padding: 2rpx 16rpx;border-radius:10rpx'>{{mendianName}}</text>
         </text>
       </view>
     </view>
