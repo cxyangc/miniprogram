@@ -1027,10 +1027,11 @@ Page({
     // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
     let postParam = {}
     postParam.belongShop = this.params.belongShop;
+    postParam.shopName = this.data.shopInfo.shopName;
     postParam.scene = userId
      
     console.log("分享页面", postParam)
-    app.shareForFx2(app.miniIndexPage,'', postParam)
+    app.shareForFx2(app.miniIndexPage, postParam.shopName, postParam)
     return;
   },
   /**

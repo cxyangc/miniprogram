@@ -103,7 +103,7 @@ Page({
   },
 
   serverData:{
-    iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/12/4/20_993.jpg?imageMogr2/thumbnail/120x/interlace/0 ",
+    iconPath: "http://image1.sansancloud.com/jianzhan/2018_9/5/19/17/45_862.jpg?x-oss-process=style/preview_120",
     linkUrl: "mendian_center.html",
     text: "我是服务商",
     color: "#777777"

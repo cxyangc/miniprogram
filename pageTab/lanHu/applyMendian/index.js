@@ -91,15 +91,10 @@ Page({
   },
   // 验证码识别
   getCode: function () {
-    if (this.data.phone.length == 0) {
+     
+    if (!this.data.phone || this.data.phone.length!=11) {
       wx.showToast({
-        title: '手机号不能为空',
-        icon: 'loading',
-        duration: 2000
-      })
-    } else if (!(/^1[34578]\d{9}$/.test(this.data.phone))) {
-      wx.showToast({
-        title: '手机号码错误',
+        title: '手机号不正确',
         icon: 'loading',
         duration: 2000
       })
@@ -213,7 +208,7 @@ this.setData({
     let formId = e.detail.formId;
   
        let that=this;
-       if (this.data.shopName==""){
+       if (that.data.shopName==""){
          wx.showModal({
            content: '请填写店铺名',
            showCancel: false,
@@ -223,258 +218,130 @@ this.setData({
              }
            }
          });
-       }
-       else{
-         if (this.data.userName == "") {
-           wx.showModal({
-             content: '请填写真实姓名',
-             showCancel: false,
-             success: function (res) {
-               if (res.confirm) {
-                 console.log('用户点击确定')
-               }
-             }
-           });
+       } else if (that.data.userName == ""){
+            wx.showModal({
+              content: '请填写真实姓名',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+              }
+            });
+       } else if (!that.data.phone || that.data.phone.length != 11){
+            wx.showModal({
+              content: '请填写正确的手机号',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+              }
+            });
+       } else if (that.data.age == ""){
+            wx.showModal({
+              content: '请填写年龄',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+              }
+            });
+       } else if (that.data.province == "" || that.data.city == "" || that.data.area == ""){
+            wx.showModal({
+              content: '请选择城市',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+              }
+            });
+       } else if (that.data.schoolName == ""){
+            wx.showModal({
+              content: '请填写学校名称',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+              }
+            });
+       } else if (that.data.learn == ""){
+            wx.showModal({
+              content: '请填写专业名称',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+              }
+            });
+       } else if (that.data.shopName.length > 9){
+            wx.showModal({
+              content: '店铺名不能超过9个字符',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+              }
+            });
+       }else{
+         console.log("成功了")
+
+         let params = {
+           shopName: this.data.shopName,
+           invitationCode: this.data.inviteCode,
+           userName: this.data.userName,
+           telno: this.data.phone,
+           idCard: "",
+           age: this.data.age,
+           sex: this.data.sex,
+           province: this.data.province,
+           city: this.data.city,
+           area: this.data.area,
+           school: this.data.schoolName,
+           //  checkCode: this.data.code,
+
+           //  bankName: this.data.bankName,  //开户行
+           //  bankPhone: this.data.bankPhone,//银行电话
+           //  bankNumber: this.data.bankNumber,//银行账户
+           //  bankUserName: this.data.bankUserName,//开户名
+           learn: this.data.learn,
+           formId: formId,
          }
-         else{
- 
-           if (this.data.phone == "") {
-             wx.showModal({
-               content: '请填写正确的手机号',
-               showCancel: false,
-               success: function (res) {
-                 if (res.confirm) {
-                   console.log('用户点击确定')
-                 }
-               }
-             });
-           }else{
-             if (this.data.age == "") {
-               wx.showModal({
-                 content: '请填写年龄',
-                 showCancel: false,
-                 success: function (res) {
-                   if (res.confirm) {
-                     console.log('用户点击确定')
-                   }
-                 }
-               });
+         var customIndex = app.AddClientUrl("/applyServer.html", params, 'post')
+
+         wx.showLoading({
+           title: 'loading'
+         })
+         wx.request({
+           url: customIndex.url,
+           data: customIndex.params,
+           header: app.headerPost,
+           method: 'POST',
+           success: function (res) {
+
+             console.log("数据", res)
+             if (res.data.errcode == '0') {
+               wx.reLaunch({
+                 url: '../success/index'
+               })
+             } else {
+               console.log('error')
              }
-             else{
-              //  if (this.data.code == "") {
-              //    console.log("验证码")
-                //  wx.showModal({
-                //    content: '请填写验证码',
-                //    showCancel: false,
-                //    success: function (res) {
-                //      if (res.confirm) {
-                //        console.log('用户点击确定')
-                //      }
-                //    }
-                //  });
-              //  }
-              //  else{
-            
-
-                 if (this.data.province == "" || this.data.city == "" || this.data.area == "") {
-                   wx.showModal({
-                     content: '请选择城市',
-                     showCancel: false,
-                     success: function (res) {
-                       if (res.confirm) {
-                         console.log('用户点击确定')
-                       }
-                     }
-                   });
-                 }else{
-                   if (this.data.schoolName == "") {
-                     wx.showModal({
-                       content: '请填写学校名称',
-                       showCancel: false,
-                       success: function (res) {
-                         if (res.confirm) {
-                           console.log('用户点击确定')
-                         }
-                       }
-                     });
-                   }else{
-                     if (this.data.learn == "") {
-                       wx.showModal({
-                         content: '请填写专业名称',
-                         showCancel: false,
-                         success: function (res) {
-                           if (res.confirm) {
-                             console.log('用户点击确定')
-                           }
-                         }
-                       });
-                     }
-                     else{
-                    
-                      //  if (this.data.bankUserName == "") {
-                      //    wx.showModal({
-                      //      content: '请填写开户姓名',
-                      //      showCancel: false,
-                      //      success: function (res) {
-                      //        if (res.confirm) {
-                      //          console.log('用户点击确定')
-                      //        }
-                      //      }
-                      //    });
-                      //  }
-                      //  else{
-                        //  if (this.data.bankPhone == "") {
-                        //    wx.showModal({
-                        //      content: '请填写绑定的手机号',
-                        //      showCancel: false,
-                        //      success: function (res) {
-                        //        if (res.confirm) {
-                        //          console.log('用户点击确定')
-                        //        }
-                        //      }
-                        //    });
-                        //  }
-                        //  else{
-                          //  if (this.data.bankNumber == "") {
-                          //    wx.showModal({
-                          //      content: '请填写银行卡号',
-                          //      showCancel: false,
-                          //      success: function (res) {
-                          //        if (res.confirm) {
-                          //          console.log('用户点击确定')
-                          //        }
-                          //      }
-                          //    });
-                          //  }
-                          //  else{
-                            //  if (this.data.bankName == "") {
-                            //    wx.showModal({
-                            //      content: '请填写开户行',
-                            //      showCancel: false,
-                            //      success: function (res) {
-                            //        if (res.confirm) {
-                            //          console.log('用户点击确定')
-                            //        }
-                            //      }
-                            //    });
-                            //  }
-                            //  else{
-                               if (this.data.shopName.length>"9"){
-                                 wx.showModal({
-                                   content: '店铺名不能超过9个字符',
-                                   showCancel: false,
-                                   success: function (res) {
-                                     if (res.confirm) {
-                                       console.log('用户点击确定')
-                                     }
-                                   }
-                                 });
-                               }else{
-                                 let phone = this.data.phone;          
- if (!(/^1[34578]\d{9}$/.test(phone))) {
-                                   wx.showModal({
-                                     content: '个人手机号码错误',
-                                     showCancel: false,
-                                     success: function (res) {
-                                       if (res.confirm) {
-                                         console.log('用户点击确定')
-                                       }
-                                     }
-                                   });
-                                 }
-  //                                else{
-  //  let bankPhone = this.data.bankPhone;
-  //  if (!(/^1[34578]\d{9}$/.test(bankPhone))) {
-  //    wx.showModal({
-  //      content: '绑定银行手机号码错误',
-  //      showCancel: false,
-  //      success: function (res) {
-  //        if (res.confirm) {
-  //          console.log('用户点击确定')
-  //        }
-  //      }
-  //    });
-  //  }
-  //  else{
-
-  
-                               
-
-                      
-
-     console.log("成功了")
-                      
-     let params ={
-       shopName: this.data.shopName,
-       invitationCode: this.data.inviteCode,
-       userName: this.data.userName,
-       telno: this.data.phone,
-       idCard:"",
-       age: this.data.age,
-       sex: this.data.sex,
-       province: this.data.province,
-       city: this.data.city,
-       area: this.data.area,
-       school: this.data.schoolName,
-      //  checkCode: this.data.code,
-
-      //  bankName: this.data.bankName,  //开户行
-      //  bankPhone: this.data.bankPhone,//银行电话
-      //  bankNumber: this.data.bankNumber,//银行账户
-      //  bankUserName: this.data.bankUserName,//开户名
-       learn: this.data.learn,
-       formId: formId,
-
-     }
-
- 
-     var customIndex = app.AddClientUrl("/applyServer.html", params, 'post')
- 
-     wx.showLoading({
-       title: 'loading'
-     })
-     wx.request({
-       url: customIndex.url,
-       data: customIndex.params,
-       header: app.headerPost,
-       method: 'POST',
-       success: function (res) {
-
-         console.log("数据",res)
-         if (res.data.errcode == '0') {
-           wx.reLaunch({
-             url: '../success/index'
-           })
-         } else {
-           console.log('error')
-         }
-         wx.hideLoading()
-       },
-       fail: function (res) {
-         wx.hideLoading()
-         app.loadFail()
-       }
-     })
-
-
-
-
-
-                            //  }
-                          //  }
-                               }
-                            //  }
-                        //  }
-                      //  }
-                    //  }
-                   }
-                 }
-               }
-            //  }
+             wx.hideLoading()
+           },
+           fail: function (res) {
+             wx.hideLoading()
+             app.loadFail()
            }
-         }
+         })
+
        }
-       }
+//        
   },
 
 

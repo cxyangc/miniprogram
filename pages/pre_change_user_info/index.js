@@ -123,10 +123,10 @@ Page({
     var userInfo = e.detail.value
 
     //检测手机号
-    var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1})|(19[0-9]{1})|(16[0-9]{1})|(14[0-9]{1}))+\d{8})$/;
+   // var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1})|(19[0-9]{1})|(16[0-9]{1})|(14[0-9]{1}))+\d{8})$/;
     
     let phoneNo = userInfo.telno
-    if (!myreg.test(phoneNo)) {
+    if (!phoneNo||phoneNo.length!=11) {
       wx.showToast({
         title: "号码格式错误",
         image: '/images/icons/tip.png',

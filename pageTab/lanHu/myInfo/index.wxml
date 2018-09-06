@@ -39,7 +39,7 @@
 <!--我的订单(user) start -->
     <view class="profit_block_user" wx:if='{{!loginUser.platformUser.managerMendianId}}'>
         <view class='profit_block_order_border'>
-            <view class='profit_block_top' data-link='mendian_order.html' bindtap='tolinkUrl'>
+            <view class='profit_block_top' data-link='order_list_0.html?easyStatus=0&easyStatusName=全部订单' bindtap='tolinkUrl'>
               <view class='profit_top_name'>
                 <text>我的订单</text>
               </view>

@@ -45,8 +45,9 @@ Page({
   },
 
   dellAddrSpace:function(e){
-    let phoneTest = new RegExp('^1[3|4|5|7|8][0-9]{9}$', 'g');
-    let testphone = phoneTest.test(e.telno)
+    // let phoneTest = new RegExp('^1[3|4|5|7|8][0-9]{9}$', 'g');
+     let testphone = e.telno
+     
     let pass = '0'
       if (e.contactName == ''){
       pass = '收货人为空'
@@ -63,11 +64,10 @@ Page({
       pass = '正在定位请稍等提交'
     } if (e.latitude == '') {
       pass = '正在定位请稍等提交'
-    } */
-    if (!testphone) {
+    } */ 
+    if (!testphone || testphone.length != 11) {
       pass = '手机号码不正确'
     }
-    
     return pass
   },
   subMitArrFrom: function(e) {
