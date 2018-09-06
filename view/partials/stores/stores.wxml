@@ -5,8 +5,7 @@
 
     <!-- 当 androidTemplate为空的时候去引入普通列表样式 -->  
   <block wx:if='{{data.androidTemplate == ""}}'>
-  <template is="simpleStores" 
-       data="{{...data,belongShopName,name,logo,arr,img}}"></template> 
+     <template is="simpleStores" data="{{...data,belongShopName,name,logo,arr,img}}"></template> 
   </block>
 
 

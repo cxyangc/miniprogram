@@ -58,7 +58,7 @@ Page({
     }
     console.log("setting", app.setting.platformSetting.logo)
     this.setData({
-      logo: app.setting.platformSetting.logo
+      platformSetting: app.setting.platformSetting
     })
     var that=this;
     app.addLoginListener(this);
@@ -586,11 +586,21 @@ Page({
       this.setData({ byNowParams: this.byNowParams })
     }
   },
-
+  selectFun: function (data) {
+    let that = this
+    console.log('===selectFun====', data)
+    let typeData = data.detail.sendData.type;
+    let reqdata = data.detail.sendData.data;
+    if (typeData == 'addCat') {
+      that.bindAddtocart(reqdata)
+    } else if (typeData == 'getProData') {
+      that.resProData(reqdata)
+    }
+  },
   //点击加入购物车或立即下单
   bindAddtocart: function (e) {
-    console.log("56565555555555555555555555", e.detail.e.target.dataset.id);
-    var id = e.detail.e.target.dataset.id;
+    console.log("56565555555555555555555555", e.id);
+    var id = e.id;
     console.log("id", id)
     this.dellBindItem(id, 'addto')
   },

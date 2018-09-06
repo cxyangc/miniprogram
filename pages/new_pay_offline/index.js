@@ -16,6 +16,9 @@ Page({
     successState:'normal',
   },
   // 返回首页
+  toIndex:function(){
+    app.toIndex();
+  },
   login: function(e) {
     wx.switchTab({
       url: '../../pageTab/custom_page_index/index',

@@ -19,7 +19,6 @@ Component({
 
      var interval = setInterval(function () {
        var t1 = this.data.data;
-
        var d1 = t1.replace(/\-/g, "/");
        var date1 = new Date(d1);
 

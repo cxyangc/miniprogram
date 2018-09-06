@@ -4,11 +4,16 @@
 
  <view class="typeSearchContainer"> 
     <view class="typeSearch">
-     <view class='flexCenter1' data-ordertype="102" bindtap='searchProduct'>价格</view>
+     <view class='flexCenter1' data-type='price' bindtap='searchProduct'>价格</view>
      <view class='flexCenter1Img'>
-     <!-- bottomSel.png   topSel.png -->
-     <image src='{{imgUrl}}'></image></view>
-     <view class='flexCenter2' data-ordertype="101"  bindtap='searchProduct'>
+     <block wx:if='{{ordertypeState}}'>
+        <image src='../../../images/icons/topSel.png'></image>
+      </block >
+      <block wx:else>
+        <image src='../../../images/icons/bottomSel.png'></image>
+      </block >
+     </view>
+     <view class='flexCenter2' data-type='hot' bindtap='searchProduct'>
         <!-- <block wx:if="{{!!typeSearch}}">{{typeSearch}}</block> -->
         <block >热度</block>
         <view class='flexCenter1Img1'><image src='../../../images/icons/file.png'></image>     </view>
@@ -97,16 +102,15 @@
            <image src='http://image.tunzai.vip/tunzai/2018_8/28/14/20/31_970.jpg'></image> 
          </view> 
        <!-- <view class='priceKode'>价格低至2折起</view> -->
+      <view class='timeBg' style='background-color:{{platformSetting.defaultColor}}'></view>
       <view class='time'>
-       <view class='jiesu'>距结束</view>
-         <view class='timeBoxDay'> <text>{{item.day}}天</text></view>
-
-         <view class='timeBox'> <text>{{item.hou}}</text></view>
-       
-         <view class='timeBox'> <text>{{item.min}}</text></view>
- 
-         <view class='timeBox'> <text>{{item.sec}}</text></view>
-
+         <view class='jiesu'>距结束</view>
+         <view class='timeBoxDay' style='background-color:{{platformSetting.defaultColor}}'> <text>{{item.day}}/D</text></view>
+         <view class='timeBox' style='background-color:{{platformSetting.defaultColor}}'> <text>{{item.hou}}</text></view>
+         <view class='timeDot'>:</view>
+         <view class='timeBox' style='background-color:{{platformSetting.defaultColor}}'> <text>{{item.min}}</text></view>
+         <view class='timeDot'>:</view>
+         <view class='timeBox' style='background-color:{{platformSetting.defaultColor}}'> <text>{{item.sec}}</text></view>
         <!-- <view class='timeBox1'> <text class='timeBox1Text1'>仅剩</text><text class='timeBox1Text2'>53%</text></view> -->
       </view> 
       </view> 
@@ -114,7 +118,7 @@
 
 <!--公告结束 productData -->
      <block wx:if="{{ProductshowWay == 2}}">
-        <productList  data="{{productData}}" id="productLists"  bind:action='bindAddtocart'></productList>
+        <productList  data="{{productData}}" id="productLists"  bind:action='selectFun' bind:resProData='resProData'></productList>
     </block>
 
     <block wx:else>

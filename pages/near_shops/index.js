@@ -8,12 +8,13 @@ Page({
    */
   data: {
     page: "1",
-    shops: [],
+    shops: null,
     journey: [],//公里数
 
     curPage:1,
     pageSize :10,
-    totalSize : 1
+    totalSize : 1,
+    reqState:false,
   },
   tolinkUrl: function (e) {
     let linkUrl = e.currentTarget.dataset.link
@@ -21,7 +22,10 @@ Page({
     app.linkEvent(linkUrl)
   },
   // 获取附近店铺数据
-  getData: function (page) {
+  getData: function (page,isAdd) {
+    if (!isAdd) {
+      isAdd =false
+    }
     console.log(page)
     let newPage=page
     var that = this;
@@ -64,24 +68,24 @@ Page({
           header: app.header,
           method: 'GET',
           success: function (res) {
+            that.setData({reqState:true})
             console.log("数据", res.data.relateObj)
-            if (that.data.shops.length==0){
-              that.setData({
-                shops: res.data.relateObj.result,
-              })
-          }else{
-              let shops = that.data.shops;
-              shops = shops.concat(res.data.relateObj.result)
-              console.log("=======shops=====",shops)
-          }
-           
               that.setData({
                 curPage: res.data.relateObj.curPage,
                 pageSize: res.data.relateObj.pageSize,
                 totalSize: res.data.relateObj.totalSize
-              })
-            
-         
+            })
+            let dataArr = that.data.shops//将之前的数据赋给变量
+            if (!isAdd) {
+              dataArr = []//正常时候先将数据制空
+            }
+            if (!res.data.relateObj.result || res.data.relateObj.result.length == 0) {
+              that.setData({ shops: null })
+            } else {
+              if (dataArr == null) { dataArr = [] }
+              dataArr = dataArr.concat(res.data.relateObj.result)
+              that.setData({ shops: dataArr })
+            }
 
             // 获取公里数
             var userLongitude = longitude;
@@ -117,7 +121,10 @@ Page({
           fail: function (res) {
             wx.hideLoading()
             app.loadFail()
-          }
+          },
+          complete: function () {
+            that.setData({ reqState: true })
+          },
         })
       }
 
@@ -220,21 +227,17 @@ Page({
    */
   onReachBottom: function () {
     var that = this
-    if (that.data.totalSize > that.data.curPage * that.data.pageSize) {
-      that.data.page++;
       // 如果跳到下一页把上一页的数据加进去
-      let shoparr = that.data.shops
     //  现获取数据，当翻页后把上一页的内容加进去
-      this.getData();
-
-      if (that.data.page > 1) {
-        shoparr = shoparr.concat(that.data.shops);
-        that.setData({
-          shops: shoparr,
-       
-        })
+      if(that.data.reqState){
+        this.setData({ reqState: false })
+        setTimeout(function () {
+          if (that.data.totalSize > that.data.curPage * that.data.pageSize) {
+            that.data.page++
+            that.getData(that.data.page,true);
+          }
+        }, 300);
       }
-    }
   },
 
 })

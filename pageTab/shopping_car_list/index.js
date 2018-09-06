@@ -935,13 +935,23 @@ Page({
       })
     }
   },
-
+  selectFun: function (data) {
+    let that = this
+    console.log('===selectFun====', data)
+    let typeData = data.detail.sendData.type;
+    let reqdata = data.detail.sendData.data;
+    if (typeData == 'addCat') {
+      that.bindBuy(reqdata)
+    } else if (typeData == 'getProData') {
+      that.resProData(reqdata)
+    }
+  },
   //点击加入购物车或立即下单
 
   bindBuy: function (e) {
     console.log(e)
-    let index = e.detail.e.target.dataset.index;
-    let bindBuy = e.detail.e.target.dataset.bindbuy;
+    let index = e.index;
+    let bindBuy = e.bindbuy;
 
     let products = this.data.hotProduct
     let focusData = products[index]

@@ -608,7 +608,6 @@ Page({
           dataArr = dataArr.concat(res.data.result)
           that.setData({ shopProList: dataArr })
         }
-
         wx.hideLoading()
         that.setCartInProduct()
       },
@@ -1031,8 +1030,7 @@ Page({
     postParam.scene = userId
      
     console.log("分享页面", postParam)
-    app.shareForFx2(app.miniIndexPage, postParam.shopName, postParam)
-    return;
+   return app.shareForFx2(app.miniIndexPage, postParam.shopName, postParam)
   },
   /**
    * 页面上拉触底事件的处理函数

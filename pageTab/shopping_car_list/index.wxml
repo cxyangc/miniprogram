@@ -99,7 +99,7 @@
 <!--新的  -->
       <!-- <template is="aikucun_hot_product" data="{{...setting,sysWidth,loginUser:loginUser,products:products,listEnd,hotProduct}}"></template>   -->
       
-         <productList  data="{{hotProduct}}" id="productLists"  bind:action='bindBuy' bind:showPosters='showPosters'             ></productList>
+         <productList  data="{{hotProduct}}" id="productLists"  bind:action='selectFun' bind:showPosters='showPosters'             ></productList>
       
 
 

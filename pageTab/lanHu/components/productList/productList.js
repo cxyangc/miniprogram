@@ -12,7 +12,8 @@ Component({
   },
   data: {
     // 这里是一些组件内部数据
-    someData: {}
+    someData: {},
+    orderType:'0',
   }, timer: null,
   ready: function () {
 
@@ -119,9 +120,10 @@ Component({
 
   },
   // 加入购物车
-    bindAddtocart: function (e) {
+    clickReqFun: function (e) {
      console.log("e",e)
-      this.triggerEvent("action", {e});
+     let sendData = { type: e.target.dataset.type, data: e.target.dataset}
+     this.triggerEvent("action", { sendData});
     },
   
     // 点击海报
@@ -201,7 +203,7 @@ Component({
      let param={}
      param.promotionId =id
      param.page=page
-
+     param.orderType=that.data.orderType
      if (onPullDownRefresh==true){
      that.setData({
        products:[]
@@ -233,9 +235,8 @@ Component({
              products: res.data.result
            })
          }
-      
-
-    
+         let sendData = { pageSize: res.data.pageSize, totalSize: res.data.totalSize, curPage: res.data.curPage}
+         that.triggerEvent("resProData", { sendData});
          wx.hideLoading()
        },
        fail: function (res) {
@@ -290,26 +291,29 @@ Component({
 
 
 // 特卖中的价格排序
-    sortingPrice:function(){
-      console.log("价格排序组件内的商品", this.data.products)
+    sortingPrice:function(promotionId,orderType){
+      console.log("价格排序组件内的商品", orderType)
       let that=this;
-      let products = this.data.products;
-      // 排序
-      let temp;
-      for (let i = 0; i < products.length;i++){
+      that.data.orderType = orderType
+      console.log('===that.data.orderType=====',that.data.orderType)
+      that.getNewData(promotionId,1,true)
+    //   let products = this.data.products;
+    //   // 排序
+    //   let temp;
+    //   for (let i = 0; i < products.length;i++){
    
-        for (let j = i + 1; j < products.length; j++) {
-          if (products[i].price > products[j].price) {
-            temp = products[i];
-            products[i] = products[j];
-            products[j] = temp;
-          }
-        }
-      }
-      console.log("价格排序完的",products)
-     that.setData({
-       products: products
-     })
+    //     for (let j = i + 1; j < products.length; j++) {
+    //       if (products[i].price > products[j].price) {
+    //         temp = products[i];
+    //         products[i] = products[j];
+    //         products[j] = temp;
+    //       }
+    //     }
+    //   }
+    //   console.log("价格排序完的",products)
+    //  that.setData({
+    //    products: products
+    //  })
 
     },
     // 特卖中的价格降排序

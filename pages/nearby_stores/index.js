@@ -6,8 +6,8 @@ Page({
    */
   // arr不能为空的原因：组件的ready事件在页面的加载事件之后，如果为空，那么就会先把arr判断为空。页面上就会先跳出来暂无门店。然后才会去更改
   data: {
-arr:[1],
-  
+     arr:null,
+     reqDataState:false,
   },
 
   /**
@@ -34,7 +34,10 @@ arr:[1],
    
   },
   onLoad: function (option) {
-    var that = this 
+    this.getMendianData(option)
+  },
+  getMendianData: function (option){
+    var that = this
     wx.getLocation({
       type: 'wgs84',
       success: function (res) {
@@ -45,44 +48,84 @@ arr:[1],
           longitude: longitude1,
           latitude: latitude1
         }
-
+        that.setData({
+          menDian: menDian
+        })
         // longitude 经度        
         // 获取门店的样式
- 
-        let menDianYangShi = app.AddClientUrl("/find_mendians.html", menDian, 'get')
-        // console.log("customIndex--------" + JSON.stringify(menDianYangShi))
-        // console.log("customIndex--------" + menDianYangShi.url)
-        wx.request({
-          url: menDianYangShi.url,
-          data: menDianYangShi.params,
-          header: app.headerPost,
-          method: 'GET',
-          success: function (res) {
-            console.log(res)
-            console.log(res.data.relateObj.result)
-            if (res.data.errcode == "-1") {
-              wx.showToast({
-                title: res.data.errMessage,
-                image: '/images/icons/tip.png',
-                duration: 2000
-              })
-            }
-            else {
-              that.setData({
-                arr: res.data.relateObj.result,
-              })
+        that.getData(that.data.menDian);
 
-            }
-
-
-          }
-        })
-      }
+      },
+      fail: function (err) {
+        console.log(err)
+        let menDian = {
+          longitude: "",
+          latitude: ""
+        }
+        // longitude 经度        
+        // 获取门店的样式
+        that.getData(menDian);
+      },
 
     })
-
-
-
+  },
+  listPage: {
+    page: 1,
+    pageSize: 0,
+    totalSize: 0,
+    curpage: 1
+  },
+  getData: function (menDian,isAdd){
+    let that=this;
+    if (!isAdd){
+      isAdd=2
+    }
+    console.log("========menDian===========", menDian)
+    let menDianYangShi = app.AddClientUrl("/find_mendians.html", menDian, 'get')
+    // console.log("customIndex--------" + JSON.stringify(menDianYangShi))
+    // console.log("customIndex--------" + menDianYangShi.url)
+    wx.request({
+      url: menDianYangShi.url,
+      data: menDianYangShi.params,
+      header: app.headerPost,
+      method: 'GET',
+      success: function (res) {
+        console.log(res)
+        if (res.data.errcode == "-1") {
+          console.log('-------')
+          wx.showToast({
+            title: res.data.errMessage,
+            image: '/images/icons/tip.png',
+            duration: 2000
+          })
+        }else {
+          console.log('========')
+          that.listPage.pageSize = res.data.relateObj.pageSize
+          that.listPage.curPage = res.data.relateObj.curPage
+          that.listPage.totalSize = res.data.relateObj.totalSize
+          let dataArr = that.data.arr
+          if (isAdd == 1) {
+            dataArr = []
+          }
+          if (!res.data.relateObj.result || res.data.relateObj.result.length == 0) {
+            that.setData({ arr: null })
+          } else {
+            if (dataArr == null) { dataArr = [] }
+            dataArr = dataArr.concat(res.data.relateObj.result)
+            that.setData({ arr: dataArr })
+            console.log('===1111====', that.data.arr)
+          }
+        }
+      },
+      fail: function (res) {
+        console.log("fail")
+        wx.hideLoading()
+        app.loadFail()
+      },
+      complete: function () {
+        that.setData({ reqState: true })
+      },
+    })
   },
   // 设置门店
   setUpMenDian: function (MenDianID) {
@@ -166,6 +209,17 @@ arr:[1],
    */
   onReachBottom: function () {
 
+    var that = this
+    if(reqState){
+      that.setData({ reqState:false})
+    if (that.params.totalSize > that.params.curPage * that.params.pageSize) {
+      that.params.page++
+      // 组件内的事件
+      that.getData(that.data.menDian,1)
+    } else {
+      console.log('到底了', that.params.curPage)
+    }
+    }
   },
 
 })

@@ -5,9 +5,8 @@
 
 
      <block wx:if='{{data.androidTemplate == ""}}'>
-  <template is="simpleNearShop" 
-       data="{{...data,shops,journey}}"></template> 
-  </block>
+        <template is="simpleNearShop" data="{{...data,shops,journey}}"></template> 
+     </block>
 
 
    <block wx:if='{{data.androidTemplate == "near_shop_slide"}}'>
