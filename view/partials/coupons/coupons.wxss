@@ -85,7 +85,6 @@ font-size: 30rpx;
 /*更多好卷  */
 
 .moreCouponsText{
-
   height: 176rpx;
    background-color: #FE3D53; 
 }

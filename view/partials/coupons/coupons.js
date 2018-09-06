@@ -16,7 +16,20 @@ Component({
     color: ["#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53", "#FE3D53"]
   },
   ready:function(){
-    console.log("999999999999999999210")
+    if (app.setting.platformSetting.defaultColor && app.setting.platformSetting.defaultColor != "") {
+      console.log("=========app.setting.platformSetting.defaultColor ==========", app.setting.platformSetting.defaultColor)
+      // 有默认色
+      this.setData({
+        defaultColor: app.setting.platformSetting.defaultColor
+      })
+
+    }
+    else {
+      // 没有默认色
+      this.setData({
+        defaultColor: app.setting.platformSetting.defaultColor
+      })
+    }
   },
   methods: {
 

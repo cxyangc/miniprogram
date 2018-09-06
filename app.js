@@ -8,7 +8,7 @@ App({
      *   切换项目的开关 ↓↓↓↓↓
      */
 
-     clientNo: 'jianzhan',   //自定义的项目的名称。
+     clientNo: 'shuiguodianpu',   //自定义的项目的名称。
 
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销

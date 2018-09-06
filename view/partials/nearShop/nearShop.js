@@ -20,6 +20,21 @@ Component({
   },
   ready:function(){
     this.getData();
+    if (app.setting.platformSetting.defaultColor && app.setting.platformSetting.defaultColor !=""){
+      console.log("=========app.setting.platformSetting.defaultColor ==========", app.setting.platformSetting.defaultColor )
+      // 有默认色
+      this.setData({
+        defaultColor: app.setting.platformSetting.defaultColor
+      })
+      
+    }
+    else{
+      // 没有默认色
+      this.setData({
+        defaultColor: app.setting.platformSetting.defaultColor
+      })
+    }
+  
  
   },
   methods: {
@@ -70,7 +85,23 @@ Component({
               that.setData({
                 shops: res.data.relateObj.result
               })
-           
+              // 店铺标签是带【】的字符串需要改
+              console.log("=====shops=====", that.data.shops)
+              let shops = that.data.shops;
+              for (let j = 0; j < shops.length;j++){
+                if (shops[j].shopTag &&shops[j].shopTag!=""){
+                  let shopTag = that.data.shops[j].shopTag
+                  shopTag = shopTag.replace(/\[/g, '')
+                  shopTag= shopTag.split(']')
+                  console.log(shopTag);
+                  shops[j].shopTag = shopTag
+                  that.setData({
+                    shops: shops
+                  })
+                }
+               
+              }
+              console.log("=========shops=======", that.data.shops)
               // 获取公里数
               var userLongitude = longitude;
               var userLatitude = latitude;
@@ -115,7 +146,7 @@ Component({
     lat1=parseFloat(lat1);
     lng2=parseFloat(lng2);
     lat2=parseFloat(lat2);
-    console.log("a,b", lng1, lat1, lng2, lat2)
+    // console.log("a,b", lng1, lat1, lng2, lat2)
     var radLat1 = lat1 * Math.PI / 180.0;
     var radLat2 = lat2 * Math.PI / 180.0;
 

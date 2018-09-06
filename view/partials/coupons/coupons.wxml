@@ -14,7 +14,7 @@
   <!--第二种样式携带阴影且右边有立即领取  -->
     <block wx:if='{{data.androidTemplate == "second_coupons_with_boxshadow"}}'>
   <template is="second_coupons_with_boxshadow" 
-       data="{{...data,color}}"></template> 
+       data="{{...data,color,defaultColor}}"></template> 
 
   </block>  
 

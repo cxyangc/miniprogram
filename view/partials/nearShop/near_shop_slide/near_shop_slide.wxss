@@ -36,21 +36,82 @@ line-height:50rpx;
   height: 364rpx;
   white-space: nowrap;
   display: flex;
-  flex-direction: row;
 }
 
 .near_shop_box {
    width: 320rpx;
    height: 360rpx;
    display: inline-block;
-   border: 1px solid #F7D346; 
    margin-left: 24rpx;
-   position: relative
+   position: relative;
 }
 
 .near_shop_banner{
   width: 320rpx;
   height: 264rpx;
-  background-color: red;
+  overflow: hidden;
   position: relative;
+}
+.near_shop_banner_img{
+  width: 320rpx;
+  height: 220rpx;
+  overflow: hidden;
+}
+.near_shop_banner_img image{
+  width: 100%;
+  height: 100%;
+
+}
+/*  */
+.haoPing{
+height:40rpx;
+font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(175,179,187,1);
+line-height:40rpx;
+
+}
+/* 定位的logo */
+.near_shop_logo{
+  width:58rpx;
+  height:58rpx;
+  border-radius: 68rpx;
+  padding: 10rpx;
+  position: absolute;
+  right: 40rpx;
+  bottom: 0rpx;
+  background-color:white;
+  overflow: hidden;
+}
+.near_shop_logo image{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+
+}
+/* 店铺名 */
+.near_shop_name{
+ height:40rpx;
+font-size:28rpx;
+font-family:PingFangSC-Regular;
+font-weight:400;
+color:rgba(51,51,51,1);
+line-height:40rpx;
+
+}
+
+/* 店铺标签 */
+.near_shop_shopTag{
+height:54rpx;
+display: flex;
+flex-direction: row;
+}
+.near_shop_shopTag_item{
+height:34rpx;
+border-radius:8rpx;
+font-size: 20rpx;
+margin-right: 10rpx;
+padding: 5rpx;
+line-height: 34rpx;
 }

@@ -12,7 +12,7 @@
 
    <block wx:if='{{data.androidTemplate == "near_shop_slide"}}'>
   <template is="near_shop_slide" 
-       data="{{...data,shops,journey}}"></template> 
+       data="{{...data,shops,journey,defaultColor}}"></template> 
   </block>
 
 <slot></slot>
