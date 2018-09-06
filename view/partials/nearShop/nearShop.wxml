@@ -1,5 +1,6 @@
 <import src="../../../wxParse/wxParse.wxml"/><!-- 富文本 -->
-<import src="simpleNearShop.wxml"/>  <!-- 普通的新闻列表 -->
+<import src="simpleNearShop.wxml"/>  <!-- 普通的附近店铺列表 -->
+<import src="near_shop_slide/near_shop_slide.wxml"/>  <!-- 滑动的附近店铺列表 -->
 
 
 
@@ -9,7 +10,10 @@
   </block>
 
 
-
+   <block wx:if='{{data.androidTemplate == "near_shop_slide"}}'>
+  <template is="near_shop_slide" 
+       data="{{...data,shops,journey}}"></template> 
+  </block>
 
 <slot></slot>
 

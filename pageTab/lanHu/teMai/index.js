@@ -1,14 +1,14 @@
 const app = getApp()
-var clickSortingPriceTime="0";
+var clickSortingPriceTime = "0";
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    imgUrl:'../../../images/icons/topSel.png',
-    posterState:false,
-    posterActiveState:false,
+    imgUrl: '../../../images/icons/topSel.png',
+    posterState: false,
+    posterActiveState: false,
     ProductshowWay: '2',
     setting: null, // setting           
     loginUser: null,
@@ -125,7 +125,7 @@ Page({
 
     let productData = this.data.productData
     let focusData = productData
-   
+
 
 
     if (oldIndex == index) {
@@ -150,7 +150,7 @@ Page({
   },
   //关闭
   closeCardShare: function (oldIndex) {
-   
+
     let index = this.data.focusIndex
     if (!isNaN(oldIndex) && oldIndex > -1) {
       index = oldIndex
@@ -166,12 +166,12 @@ Page({
     }
     focusData.showShare = false;
 
-   
-    let a=0;
-    for (let i = 0; i < productData.length;i++){
-      a=i;
-      productData[a].showShare=false
-   }
+
+    let a = 0;
+    for (let i = 0; i < productData.length; i++) {
+      a = i;
+      productData[a].showShare = false
+    }
     console.log("productData", productData)
 
     this.setData({
@@ -277,12 +277,12 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        console.log("特卖数据",res.data)
+        console.log("特卖数据", res.data)
         that.params.pageSize = res.data.pageSize
         that.params.curPage = res.data.curPage
         that.params.totalSize = res.data.totalSize
-    
-        if (that.data.productData && that.data.productData.length!="0"){
+
+        if (that.data.productData && that.data.productData.length != "0") {
           let products = that.data.productData
           console.log("组件商品", products)
           products = products.concat(res.data.result)
@@ -296,7 +296,7 @@ Page({
             productData: res.data.result
           })
         }
-   
+
 
         setTimeout(function () {
           that.getAllRects(onReachBottom)
@@ -561,7 +561,7 @@ Page({
     this.setData({
       id: options.promotionId
     })
-    console.log("======getCurrentPages============",getCurrentPages())
+    console.log("======getCurrentPages============", getCurrentPages())
     // if (getCurrentPages().length === 5) {
     //   my.redirectTo('/xx');
     // } else {
@@ -573,9 +573,9 @@ Page({
     this.getActiveData();
     this.getData(this.params, 1)//获取商品数据
     this.getCart();
-    
-   
-   
+
+
+
 
     this.opt = options
     this.loadOpt(options)
@@ -620,13 +620,13 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-   
+
     this.setData({
-      productData:[]
+      productData: []
     })
     this.params.page = 1;
     this.getData(this.params)
-    if (this.data.ProductshowWay == 2){
+    if (this.data.ProductshowWay == 2) {
       this.params.onPullDownRefresh = true;
       let id = this.data.id
       this.selectComponent('#productLists').getNewData(id, this.params.page, this.params.onPullDownRefresh)
@@ -636,7 +636,7 @@ Page({
         that.params.onPullDownRefresh = false;
       }, 500)
     }
-  
+
     wx.showNavigationBarLoading()
     wx.hideNavigationBarLoading() //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
@@ -653,10 +653,10 @@ Page({
       that.params.page++
       this.getData(this.params, 1, 1);
 
-// 组件内的事件
+      // 组件内的事件
       if (this.data.ProductshowWay == 2) {
-      let id = this.data.id;
-      this.selectComponent('#productLists').getNewData(id, that.params.page)
+        let id = this.data.id;
+        this.selectComponent('#productLists').getNewData(id, that.params.page)
       }
     } else {
       this.setData({
@@ -685,7 +685,7 @@ Page({
     wx.createSelectorQuery().selectAll('.promotionItem').boundingClientRect(function (rects) {
 
       if (onReachBottom == 1) {
-        
+
       } else {
         that.promotionItemPageOffline = rects
       }
@@ -734,7 +734,7 @@ Page({
    */
   onShareAppMessage: function (res) {
     console.log(res)
-   
+
     if (res.from == "button") {
       console.log(res)
       // 商品id
@@ -751,7 +751,7 @@ Page({
           index = i;
         }
       }
-      let oldIndex=index
+      let oldIndex = index
       this.closeCardShare(oldIndex)
       let focusData = productData[index]
       if (!focusData.brandName || focusData.brandName == "") {
@@ -766,7 +766,7 @@ Page({
       console.log('nnnnnnnnnn' + shareName)
 
       shareParams.id = id
-   
+
       console.log("shareParams", shareParams)
 
       return app.shareForFx2('promotion_products', shareName, shareParams, imageUrl)
@@ -778,8 +778,8 @@ Page({
       console.log("==============", that.data.activityPromotion.name)
       let params = that.opt;
       params.title = that.data.activityPromotion.name;
-      params.SHARE_PROMOTION_PRODUCTS_PAGE =this.data.id
-      console.log('params:' + JSON.stringify(params) )
+      params.SHARE_PROMOTION_PRODUCTS_PAGE = this.data.id
+      console.log('params:' + JSON.stringify(params))
       this.closeShowShar();
       return app.shareForFx2('promotion_products', '', params)
 
@@ -1077,21 +1077,21 @@ Page({
     let ordertype = event.currentTarget.dataset.ordertype;
     let that = this;
 
-    if (ordertype == "102"  ){
-      if (that.data.ProductshowWay == "2"){
+    if (ordertype == "102") {
+      if (that.data.ProductshowWay == "2") {
         // 判断是价格升序还是降序
         console.log("that.data.imgUrl", that.data.imgUrl)
         // 降序topSel.png，，，点击后要升序
-        if (that.data.imgUrl =='../../../images/icons/topSel.png'){
+        if (that.data.imgUrl == '../../../images/icons/topSel.png') {
           that.setData({
-            imgUrl:'../../../images/icons/bottomSel.png'
+            imgUrl: '../../../images/icons/bottomSel.png'
           })
           // 执行组件内的排序
           console.log("价格升排序")
           this.selectComponent('#productLists').sortingPrice();
         }
         // 升序bottomSel.png，，，点击后要降序
-        else{
+        else {
           that.setData({
             imgUrl: '../../../images/icons/topSel.png'
           })
@@ -1099,8 +1099,8 @@ Page({
           console.log("价格降排序")
           this.selectComponent('#productLists').sortingPriceFalling();
         }
-       
-   }else{
+
+      } else {
         console.log("价格排序组件内的商品", this.data.productData)
 
         let products = that.data.productData;
@@ -1122,7 +1122,7 @@ Page({
             }
           }
         }
-        else{
+        else {
           that.setData({
             imgUrl: '../../../images/icons/topSel.png'
           })
@@ -1138,23 +1138,23 @@ Page({
             }
           }
         }
-  
+
         console.log("价格排序完的", products)
         that.setData({
           productData: products
         })
-   }
-    
+      }
 
- 
+
+
 
     }
     if (ordertype == "101") {
-      if (that.data.ProductshowWay == "2"){
+      if (that.data.ProductshowWay == "2") {
         // 执行组件内的排序
         console.log("销量排序")
         that.selectComponent('#productLists').sortingHot();
-      }else{
+      } else {
         console.log("热度排序组件内的商品", that.data.productData)
 
         let products1 = this.data.productData;
@@ -1176,17 +1176,17 @@ Page({
           productData: products1
         })
       }
-     
 
-     
+
+
     }
 
 
-    
+
     this.setData({ showType: false, bindProductTypeIndex: null })
-    console.log("====event.currentTarget.dataset====",event.currentTarget.dataset)
+    console.log("====event.currentTarget.dataset====", event.currentTarget.dataset)
     var focusKey = event.currentTarget.dataset;
-   
+
     for (let i in focusKey) {
       for (let j in this.params) {
         if (i.toLowerCase() == j.toLowerCase()) { this.params[j] = focusKey[i] }
@@ -1224,7 +1224,7 @@ Page({
     // //       that.setData({ productData: dataArr })
     // //     }
 
-  
+
 
     //   },
     //   fail: function () {
@@ -1320,7 +1320,7 @@ Page({
           that.getActiveData();
         }
         else {
-          console.log("=======id======",id)
+          console.log("=======id======", id)
           var index = "0"
           for (var i = 0; i < res.data.activityPromotion.length; i++) {
             index = i;
@@ -1420,19 +1420,19 @@ Page({
     app.linkEvent(a);
   },
   closeShowShar: function (e) {
-    console.log("this.data.productData",this.data.productData)
+    console.log("this.data.productData", this.data.productData)
     let productData = this.data.productData;
-    let index=0;
-    for (let i = 0; i < productData.length;i++){
-      index=i;
+    let index = 0;
+    for (let i = 0; i < productData.length; i++) {
+      index = i;
       console.log(productData[i].showShare)
-      if (productData[index].showShare){
+      if (productData[index].showShare) {
         productData[index].showShare = !productData[index].showShare
       }
     }
-  this.setData({
-    productData: productData
-  })
+    this.setData({
+      productData: productData
+    })
   },
 
   // 点击海报
@@ -1443,7 +1443,7 @@ Page({
     })
     this.getQrCode(e.currentTarget.dataset.type);
   },
- 
+
   // 关闭海报
   getChilrenPoster(e) {
 
@@ -1465,17 +1465,17 @@ Page({
     let postParam = {}
     let str = '';
     let str2 = '';
-    if (type=='active'){
-      str ='SHARE_PROMOTION_PRODUCTS_PAGE'
+    if (type == 'active') {
+      str = 'SHARE_PROMOTION_PRODUCTS_PAGE'
       str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PROMOTION_PRODUCTS_PAGE%3d'
       postParam[str] = this.data.id;
-    }else{
+    } else {
       str = 'SHARE_PRODUCT_DETAIL_PAGE'
       str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d'
       postParam[str] = this.data.proId;
     }
     postParam.scene = userId
-    console.log(str, str2,postParam)
+    console.log(str, str2, postParam)
     // 上面是需要的参数下面的url
     var customIndex = app.AddClientUrl(str2 + postParam[str] + "%26scene%3d" + userId, postParam, 'get', '1')
     var result = customIndex.url.split("?");

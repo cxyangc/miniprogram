@@ -12,7 +12,7 @@ Component({
   data: {
     // 这里是一些组件内部数据
     someData: {},
-    display:"block"
+    display:""
   },
   ready:function(){
     console.log("popimage数据", this.data.data.jsonData.imageUrl)

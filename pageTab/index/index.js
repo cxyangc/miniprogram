@@ -80,7 +80,12 @@ Page({
     })
   },
   onLoad: function (options) {
-    console.log("=====options=====", options)
+    console.log("=====options携带的参数=====", options)
+    if (options.params && options.params != "") {
+      let aaa = JSON.parse(options.params)
+      console.log(aaa)
+      options = aaa
+    }
     let that = this
     wx.getNetworkType({
       success: function (res) {

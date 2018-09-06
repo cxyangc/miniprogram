@@ -1,0 +1,56 @@
+
+
+.top{
+  width: 684rpx;
+  height: 75rpx;
+  display: flex;
+  flex-direction: row;
+  padding-top: 25rpx;
+  padding-left: 34rpx;
+  padding-right: 32rpx;
+  justify-content: space-between;
+}
+
+.topTitle{
+  width:154rpx;
+height:50rpx;
+font-size:36rpx;
+font-family:PingFangSC-Medium;
+font-weight:500;
+color:rgba(51,51,51,1);
+line-height:50rpx;
+}
+.topImg{
+  width: 30rpx;
+  height: 38rpx;
+}
+.topImg image{
+  width: 100%;
+  height: 100%;
+ 
+}
+
+/* 滑动部分 */
+.near_shop_wrapp{
+  width: 100%;
+  height: 364rpx;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+}
+
+.near_shop_box {
+   width: 320rpx;
+   height: 360rpx;
+   display: inline-block;
+   border: 1px solid #F7D346; 
+   margin-left: 24rpx;
+   position: relative
+}
+
+.near_shop_banner{
+  width: 320rpx;
+  height: 264rpx;
+  background-color: red;
+  position: relative;
+}

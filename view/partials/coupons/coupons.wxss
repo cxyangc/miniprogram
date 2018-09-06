@@ -1,3 +1,6 @@
+@import 'second_coupons_with_boxshadow/second_coupons_with_boxshadow.wxss';/* 引入第二种优惠卷样式 */
+
+
 .recommend_scroll_x_box {
   height: 200rpx;
   white-space: nowrap;

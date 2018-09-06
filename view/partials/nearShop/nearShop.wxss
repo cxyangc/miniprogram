@@ -1,3 +1,5 @@
+@import 'near_shop_slide/near_shop_slide.wxss';/* 引入滑动的附近店铺列表 */
+
 
 /*没有相关商品  */
 .noproduct{

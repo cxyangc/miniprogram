@@ -1,3 +1,7 @@
+@import 'second_navigation_with_shadow/second_navigation_with_shadow.wxss';/* 引入带有阴影的 */
+
+
+
 .showTypeContainer{
   display: flex;
   flex-direction: row;

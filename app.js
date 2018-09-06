@@ -2,8 +2,8 @@
 import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
 App({
- 
-    clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+
+   clientUrl: 'https://mini.sansancloud.com/chainalliance/',
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */

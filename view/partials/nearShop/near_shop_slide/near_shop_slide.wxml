@@ -1,0 +1,40 @@
+
+<template name="near_shop_slide">
+  <block wx:if='{{shops.length >= "1"}}'>
+  <!-- 头部的优质商家 -->
+     <view class='top'>
+       <view class='topTitle'>优质商家</view>
+       <view class='topImg'><image mode='aspectFit' src='/images/icons/right.png'></image></view>
+     </view>
+
+     <!-- 滑动的部分 -->
+      <scroll-view class="near_shop_wrapp" scroll-x="true">
+
+ <block wx:for="{{shops}}"  wx:key="index" >
+
+
+    <view class="near_shop_box"  bindtap='click' data-id='{{item.id}}' data-index="{{index}}">
+          <!-- 分为3个部分 -->
+          <!-- 首先banner+logo -->
+          <view class='near_shop_banner'>
+             <view class='near_shop_banner_img'><image  mode='aspectFit'src=""></image></view>
+          </view>
+
+    </view>
+     
+         </block> 
+    </scroll-view>
+
+  </block>
+<block wx:if="{{shops.length==0}}">
+            <view class="noproduct">
+              <image mode="widthFix" src='/images/icons/no-product.png'></image>
+              <text>没有相关店铺</text>
+            </view>
+          </block>
+
+
+
+
+
+</template> 

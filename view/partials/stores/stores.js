@@ -12,48 +12,46 @@ Component({
   data: {
     // 这里是一些组件内部数据
     someData: {},
-    belongShopName:"",
-    longitude:"",
-    latitude:"",
-    logo:"",
-    arr:[],
-    img:""
+    belongShopName: "",
+    longitude: "",
+    latitude: "",
+    logo: "",
+    arr: [],
+    img: ""
   },
 
 
-  moved :function(){
-  console.log("===================");
+  moved: function () {
+    console.log("===================");
   },
-     ready:function(){
-     console.log("===========data======",this.data.data)
-      var oldData=this.data;
-      var that=this;
+  ready: function () {
+    console.log("===========data======", this.data.data)
+    var oldData = this.data;
+    var that = this;
     //  封装一个函数把mendianType传进去
-      that.getMenDianIfon(oldData.data.jsonData.mendianType)
+    that.getMenDianIfon(oldData.data.jsonData.mendianType)
 
 
-      
+
 
   },
-     
+
   methods: {
     // 这里是一个自定义方法
 
 
-  
-// 您还没有归属店铺的跳转
+
+    // 您还没有归属店铺的跳转
     click: function (e) {
       console.log(this.data.arr)
-      if (this.data.arr.name == "您还没有归属店铺" ){
-         return;
-      }
-      else if (this.data.arr.name == "您还未登录"){
-        // wx.navigateTo({
-        //   url: '../../pages/login_wx/index',
-        // })
+      if (this.data.arr.name == "您还没有归属店铺") {
         return;
       }
-      else{
+      else if (this.data.arr.name == "您还未登录") {
+
+        return;
+      }
+      else {
         console.log(this.data.arr.latitude)
         console.log(this.data.arr.longitude)
         var latitude = this.data.arr.latitude;
@@ -66,28 +64,28 @@ Component({
         })
       }
 
-    },  
+    },
 
     // 跳转（附近门店跳到下一个页面）
     click1: function (e) {
-            var that=this; 
-            wx.navigateTo({
-              url: '../../pages/nearby_stores/index',
-             success:function(){
-               app.currentMendianComponentCallback = that.callback;
-               app.currentMendianComponent=that;
-             }
-              
-            })
-          
-    
+      var that = this;
+      wx.navigateTo({
+        url: '../../pages/nearby_stores/index',
+        success: function () {
+          app.currentMendianComponentCallback = that.callback;
+          app.currentMendianComponent = that;
+        }
 
-    }, 
+      })
+
+
+
+    },
     // 返回的信息
-    callback:function(mendianBean){
-      console.log("===call back====",mendianBean)
- 
-       app.currentMendianComponent.setData({
+    callback: function (mendianBean) {
+      console.log("===call back====", mendianBean)
+
+      app.currentMendianComponent.setData({
         arr: mendianBean,
       })
     },
@@ -106,18 +104,18 @@ Component({
 
 
 
-  
+
     // 封装的新函数
     getMenDianIfon: function (mendianType) {
-       let that=this;
+      let that = this;
       console.log(mendianType)
       // 附近门店内，当传入的参数为门店ID的时候先用传进去的(扫码优先)
-      if (app.enterMenDianID && app.enterMenDianID!="") {
+      if (app.enterMenDianID && app.enterMenDianID != "") {
         console.log("二维码携带的enterMenDianID" + app.enterMenDianID)
         //  app.enterMenDianID即扫码所带的id，先查询该id所指的门店的具体信息，将信息改到附近门店。
         that.findMenDianIfon(app.enterMenDianID)
       }
-      else{
+      else {
         // 以下三种情况非扫码登录
         //1. 默认门店
         if (mendianType == 0 && app.defaultMendianID != "") {
@@ -161,14 +159,14 @@ Component({
 
         //3.附近门店
         if (mendianType == 1) {
-            that.getNearMenDian();
+          that.getNearMenDian();
 
         }
       }
 
-// 当存在mendianId
+      // 当存在mendianId
 
-    }, 
+    },
     // 扫描二维码所带的id查看门店信息
     findMenDianIfon: function (mendianId) {
       console.log(mendianId)
@@ -259,7 +257,7 @@ Component({
             header: app.headerPost,
             method: 'GET',
             success: function (res) {
-              // console.log("0000000000000" + JSON.stringify(res.data))
+
               if (res.data.errcode == "-1") {
                 wx.showToast({
                   title: res.data.errMessage,
@@ -313,6 +311,17 @@ Component({
         }
       })
     },
+
+    // 拨打电话
+    callPhone: function (e) {
+      if (e.currentTarget.dataset.phone && e.currentTarget.dataset.phone != "") {
+        console.log("=====phone======", e.currentTarget.dataset.phone)
+        wx.makePhoneCall({
+          phoneNumber: e.currentTarget.dataset.phone
+        })
+      }
+
+    }
 
   },
 })

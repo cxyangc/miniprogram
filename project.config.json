@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -74,10 +74,10 @@
 					"query": "APPLY_SERVER_CHANNEL_CODE=LIN456"
 				},
 				{
-					"id": 8,
+					"id": 6,
 					"name": "qq1",
-					"pathName": "pageTab/lanHu/preApplyMendian/index",
-					"query": "code=222",
+					"pathName": "pageTab/index/index",
+					"query": "ENTER_MENDIAN_OFF_PAY=79",
 					"scene": "1011"
 				},
 				{

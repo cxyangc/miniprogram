@@ -52,6 +52,7 @@
     {
       "root": "pages",
       "pages": [
+        "scan_urcode/index",
         "order_meal/index",
         "new_promotion_products/index",
         "new_pay_offline/index",
