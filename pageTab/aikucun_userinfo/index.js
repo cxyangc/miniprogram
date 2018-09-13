@@ -78,7 +78,12 @@ Page({
   },
 
   ListData:{
-    cells: [
+    cells: [{
+      iconPath: "http://image1.sansancloud.com/sansancloud/2018_9/11/14/41/49_530.jpg",
+      linkUrl: "order_pintuan.html?payStatus=1&orderType=12",
+      text: "我的拼单",
+      color: "#777777"
+    },
       {
         iconPath: "http://image1.sansancloud.com/xianhua/2018_9/5/16/54/39_501.jpg",
         linkUrl: "address.html",

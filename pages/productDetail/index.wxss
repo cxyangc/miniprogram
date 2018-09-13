@@ -57,7 +57,6 @@ font-size: 0.8em;
   justify-content: space-between;
   height:44rpx;
   width:606rpx;
-  background:linear-gradient(116deg,rgba(255,153,110,1) 0%,rgba(254,55,55,1) 100%);
   opacity:0.5;
   border-radius:12rpx;
   bottom: 24rpx;
@@ -240,7 +239,6 @@ font-size: 0.8em;
 .product_introduce_short{
   display: flex;
   flex-direction: column;
-  height:484rpx;
 }
 .product_introduce_title{
   font-size: 28rpx;
@@ -545,12 +543,170 @@ button {
   color:#FF5146;
 }
 .bynow{
-  background-image: linear-gradient(to right,#FF996E,#FE3737);
   box-shadow:0px 0px 6px 0px rgba(255,61,61,0.5);
   color: #fff;
 }
+/*拼团  */
+.pintuan_block{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #fff;
+  margin-top: 16rpx;
+  margin-bottom: 16rpx
+}
+.pintuan_title_padding{
+  padding:0rpx 48rpx 0 48rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pintuan_title{
+  height: 80rpx;
+  width: 100%;
+  border-bottom:1rpx solid #eee; 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.pintuan_title_left{
+  font-size: 26rpx;
+}
+.pintuan_title_right{
+  font-size: 24rpx;
+  color: #aaa;
+}
+.pintuan_title_right .check_more{
+  margin-left: 10rpx;
+  color: #aaa
+}
+.pintuan_list{
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.unpintuan_list{
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+}
+.pintuan_item{
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom:1rpx solid #eee; 
+  box-sizing: border-box
+}
+/* .pintuan_item:nth-child(2n-1){
+  border-bottom:1rpx solid #eee; 
+} */
+.border_bottom{
+  border-bottom:1rpx solid #eee; 
+}
+.pintuan_item_left{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: 48rpx;
+  font-size: 24rpx;
+}
+.pintuan_item_left .user_head_img{
+  height: 80rpx;
+  width: 80rpx;
+}
+.pintuan_item_left .user_name{
+  margin-left: 20rpx;
+}
+.pintuan_item_right{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 48rpx;
+}
+.pintuan_item_data{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.pintuan_item_data .pintuan_item_num{
+  font-size: 22rpx;
+}
+.pintuan_item_data .pintuan_item_time{
+  font-size: 20rpx;
+  letter-spacing: 1rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  color: #888;
 
-
+}
+.pintuan_button{
+  border-radius: 10rpx;
+  padding: 10rpx 20rpx 10rpx 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left:20rpx;
+}
+.pintuan_button_text{
+  color: #fff;
+  font-size: 24rpx;
+}
+/* 导航 */
+.navigation_to_map{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items: center;
+  background:#fff;
+  margin-top:16rpx;
+  margin-bottom:16rpx;
+  padding: 10rpx 0;
+}
+.navigation_addr{
+  display:flex;
+  flex-direction:row;
+  align-items: center;
+  margin-left: 48rpx;
+}
+.navigation_addr_value{
+  font-size: 26rpx;
+  color: #888
+}
+.navigation_addr_img{
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+.navigation_button{
+  margin-right: 48rpx;
+  border-radius: 30rpx;
+  width: 90rpx;
+  height: 30rpx;
+  padding: 10rpx 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.navigation_button_img{
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 6rpx;
+}
+.navigation_button_value{
+  font-size: 22rpx;
+  color: #fff;
+}
 /* 数量 */
 /* .countContainer{
   position: fixed;

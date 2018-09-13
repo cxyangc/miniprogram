@@ -124,9 +124,9 @@ Page({
 
 
 
-      this.params.categoryId = focus.id
-      this.getData(this.params, 2)
-      this.setData({ showType: false, bindProductTypeIndex: null })
+        this.params.categoryId = focus.id
+        this.getData(this.params, 2)
+        this.setData({ showType: false, bindProductTypeIndex: null })
       }
 
     }
@@ -148,7 +148,7 @@ Page({
     }
     //var postParam = this.ChangeParam(param)
     //param.page = this.listPage.page
-    var customIndex = app.AddClientUrl("/more_product_list.html", param)
+    var customIndex = app.AddClientUrl("/more_product_list.html", param, 'get', '1')
     wx.showLoading({
       title: 'loading'
     })
@@ -387,7 +387,7 @@ Page({
    */
   onLoad: function (options) {
 
-    if (options.productTypeId) {
+    if (!!options.productTypeId) {
       options.categoryId = options.productTypeId
     }
     if (!!options.forceSearch && options.forceSearch == 2) {
@@ -413,6 +413,8 @@ Page({
    */
   onReady: function () {
     this.setData({ setting: app.setting })
+   
+
 
   },
 

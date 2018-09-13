@@ -13,10 +13,12 @@
     </swiper>
     <view class='swiperItemIndex'>{{swiperIndex}}/{{totalImg}}</view>
     <block wx:if="{{productData.productInfo.promotionBean}}">
-      <view class='timeCountDownBg'></view>
-      <view class='timeCountDown'>
-        <image class='timeLeftImg' src='http://image.tunzai.vip/tunzai/2018_8/29/10/29/14_880.jpg'></image>
-        <view class='timeItem'><text class='timeText'>距结束仅剩</text><time data="{{productData.productInfo.promotionBean.endDate}}"></time></view>
+      <view class='timeCountDownBg' style='background:linear-gradient(116deg,{{setting.platformSetting.secondColor}} 0%,{{color}} 100%);' wx:if="{{productData.productInfo.promotionBean.promotionStatus==1}}"></view>
+      <view class='timeCountDownBg' style='background:linear-gradient(116deg,#eee 0%,#999 100%);' wx:else></view>
+      <view class='timeCountDown' wx:if="{{productData.productInfo.promotionBean.promotionStatus!=0}}">
+        <image class='timeLeftImg' src='http://image.tunzai.vip/tunzai/2018_8/29/10/29/14_880.jpg' wx:if="{{productData.productInfo.promotionBean.promotionStatus==1}}"></image>
+        <image class='timeLeftImg' src='http://image.tunzai.vip/tunzai/2018_9/12/17/6/41_92.jpg' wx:else></image>
+        <view class='timeItem'><text class='timeText'>距结束仅剩</text><time wx:if="{{productData!=null}}" data="{{productData.productInfo.promotionBean.endDate}}"></time></view>
       </view>
     </block>
   </view>  
@@ -50,6 +52,54 @@
         <view class='dot_no'></view>
         <view class='dot_no'></view>
       </view>
+    </view>
+    <!-- 导航 -->
+    <view class='navigation_to_map' wx:if='{{productData.productInfo.latitude!=0}}'>
+      <view class='navigation_addr'>
+        <image class='navigation_addr_img' src='http://image1.sansancloud.com/xianhua/2018_9/13/17/57/21_219.jpg?x-oss-process=style/preview_120'></image>
+        <text class='navigation_addr_value'>{{productData.productInfo.location}}</text>
+      </view>
+      <view class='navigation_button' style='background:{{setting.platformSetting.defaultColor}}' bindtap='clickCatch'>
+        <image class='navigation_button_img' src='http://image1.sansancloud.com/xianhua/2018_9/13/21/22/3_772.jpg?x-oss-process=style/preview_120'></image>
+        <text class='navigation_button_value'>导航</text>
+      </view>
+    </view>
+<!--拼团  -->
+    <view class='pintuan_block' wx:if='{{pintuanState}}'>
+       <view class='pintuan_title_padding'>
+          <view class='pintuan_title'>
+            <view class='pintuan_title_left'>
+               <text style='color:{{setting.platformSetting.defaultColor}}'>{{pintuanListData.length}}</text>
+               <text>人在拼单，可直接参与</text></view>
+            <view class='pintuan_title_right' catchtap='showPintuan'  wx:if='{{pintuanListData.length!=0}}'><text>查看更多</text><text class='check_more'>></text></view>
+          </view>
+       </view>
+       <!-- <scroll-view scroll-y="true" style="height: 200rpx;"  class='pintuan_list'> -->
+       <!-- <view class='pintuan_list'> -->
+       <view class='unpintuan_list' wx:if='{{pintuanListData.length==0}}'>
+         <text style='color:{{setting.platformSetting.defaultColor}}'>暂无人员拼单</text>
+       </view>
+       <swiper autoplay="true" interval="5000" duration='500' vertical='true' display-multiple-items='{{visiblePintuanNum}}' class='pintuan_list' wx:else>
+          <!-- <view class='pintuan_item'> -->
+          <swiper-item class='pintuan_item ' wx:for="{{pintuanListData}}" wx:for-item='item' wx:key='{{index}}'>
+              <view class='pintuan_item_left'>
+                <image class='user_head_img' src='{{item.createPlatformUserIcon}}'></image>
+                <text class='user_name'>{{item.createPlatformUserName}}</text>
+              </view>
+              <view class='pintuan_item_right'>
+                <view class='pintuan_item_data'>
+                  <view class='pintuan_item_num'>还差<text style='color:{{setting.platformSetting.defaultColor}}'>{{item.userCountLimit-item.attendedUserCount}}人</text>拼成</view>
+                  <view class='pintuan_item_time'>剩余:<time data="{{item.endTime}}"></time></view>
+                </view>
+                <view class='pintuan_button' style='background:{{setting.platformSetting.defaultColor}}' data-pintuanid='{{item.id}}' data-way='addPintuan' bindtap='readyPay2'>
+                  <text class='pintuan_button_text'>去拼团</text>
+                </view>
+              </view>
+          </swiper-item>
+          <!-- </view> -->
+        </swiper>
+       <!-- </view> -->
+       <!-- </scroll-view> -->
     </view>
 
     <view wx:if='{{productData.measures.length!=0}}'>
@@ -101,15 +151,22 @@
    <text style='font-size:22rpx;color:#aaa'>首页</text>
   </view> 
   <view class='left_bottom' bindtap='toCart'>
-    <view class='cartNumber' style='background:{{setting.platformSetting.defaultColor}}'>{{countGood}}</view>
+    <view class='cartNumber' style='background:{{color}}'>{{countGood}}</view>
     <image mode='widthFix' src='/images/icons/cartddd.png'></image>
     <text style='font-size:22rpx;color:#aaa'>购物车</text>
   </view>
-  <view class='right_bottom addto font_08' data-way='cart' bindtap='readyPay2' style=' border: 2rpx solid {{setting.platformSetting.defaultColor}};'>加入购物车</view>
-  <view class='right_bottom bynow font_08' data-way='buy' bindtap='readyPay2' style='background-image:linear-gradient(to right,{{setting.platformSetting.secondColor}},{{setting.platformSetting.defaultColor}})'>立即购买</view>
+  <block wx:if='{{!pintuanState}}'>
+    <view class='right_bottom addto font_08' data-way='cart' bindtap='readyPay2' style=' border: 2rpx solid {{scolor}};color:{{color}}'>加入购物车</view>
+  <view class='right_bottom bynow font_08' data-way='buy' bindtap='readyPay2' style='background-image:linear-gradient(to right,{{setting.platformSetting.secondColor}},{{color}});box-shadow:0px 0px 6px 0px {{color}};'>立即购买</view>
+  </block>
+  <block wx:else>
+    <view class='right_bottom addto font_08' data-way='pintuanOne' bindtap='readyPay2' style=' border: 2rpx solid {{color}};color: {{color}}'>单独购买</view>
+  <view class='right_bottom bynow font_08' data-way='pintuanMore' bindtap='readyPay2' style='background-image:linear-gradient(to right,{{setting.platformSetting.secondColor}},{{color}});box-shadow:0px 0px 6px 0px {{color}};'>发起拼单</view>
+  </block>
 </view>
 
 <posters proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 
+<pintuan pintuanParam="{{pintuanParam}}" wx:if='{{pintuanPopupState}}' bind:closePintuan="getChilrenPintuan" bind:goPintuan='readyPay2'></pintuan> 
 
  <template is="measure_card2" data="{{setting:setting,showCount,focusData:productData.productInfo,measures:productData.measures,byNowParams:byNowParams,measurementJson:measurementJson,type:bindway}}"></template> 
 

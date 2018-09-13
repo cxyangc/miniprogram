@@ -99,6 +99,9 @@ Page({
     let linkUrl = e.currentTarget.dataset.link
     app.linkEvent(linkUrl)
   },
+  toMy: function (e) {
+    app.toMy();
+  },
   /* 点击遮罩层 */
   closeZhezhao: function () {
     this.getShopListData(this.params, 2)

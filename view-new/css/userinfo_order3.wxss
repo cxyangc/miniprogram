@@ -15,7 +15,7 @@
   justify-content: space-between; 
   align-items: center;
   width: 100%;
-  padding: 28rpx 0;
+  padding: 26rpx 0;
   overflow: hidden;
 }
 .userinfo_order3_topView view{
@@ -39,7 +39,7 @@
 
 }
 .userinfo_order3_list_item{
-  margin-top: 0.5em;
+  margin-top: 26rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;

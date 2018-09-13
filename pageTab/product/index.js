@@ -360,7 +360,7 @@ Page({
   bindProductshowWay: function () {
     if (this.data.ProductshowWay == 1) {
       this.setData({ ProductshowWay: 2 })
-    } else {
+    }else {
       this.setData({ ProductshowWay: 1 })
     }
 

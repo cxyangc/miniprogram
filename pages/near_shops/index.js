@@ -10,7 +10,6 @@ Page({
     page: "1",
     shops: null,
     journey: [],//公里数
-
     curPage:1,
     pageSize :10,
     totalSize : 1,

@@ -499,23 +499,23 @@ Page({
     console.log("hahaha",res)
     if (res.from == "button") {
       // 商品id
-      let id = res.target.dataset.id
-      let productData = this.data.productData
+      let id = res.target.dataset.proinfo.id
+  //     let productData = this.data.productData
 
-      console.log("this.data.productData", this.data.productData)
-  let index = 0;
+  //     console.log("this.data.productData", this.data.productData)
+  // let index = 0;
 
-  for (let i = 0; i < productData.length;i++){
+  // for (let i = 0; i < productData.length;i++){
         
-    if (productData[i].id==id ){
-      console.log(productData[i],i)
-          index=i;
-          }
-      }
+  //   if (productData[i].id==id ){
+  //     console.log(productData[i],i)
+  //         index=i;
+  //         }
+  //     }
 
    
 
-      let focusData = productData[index]
+  let focusData = res.target.dataset.proinfo
 
       console.log("focusData", focusData)
       if (!focusData.brandName || focusData.brandName == "") {
@@ -528,7 +528,6 @@ Page({
       let shareParams = this.opt
       shareParams.productName = focusData.productCode
       console.log('nnnnnnnnnn' + shareName)
-      console.log("MMMMMMMMMMMMMMM", index)
 
  
       
@@ -600,27 +599,27 @@ Page({
   //点击加入购物车或立即下单
   bindAddtocart: function (e) {
     console.log("56565555555555555555555555", e.id);
-    var id = e.id;
-    console.log("id", id)
-    this.dellBindItem(id, 'addto')
+    var info = e.info;
+    console.log("info", info)
+    this.dellBindItem(info, e.bindbuy)
   },
   bindBuy: function (e) {
     var index = e.currentTarget.dataset.index;
     this.dellBindItem(index, 'tobuy')
   },
-  dellBindItem: function (id, bindType) {
+  dellBindItem: function (info, bindType) {
    
-    let productData = this.data.productData
-    console.log("productData", productData,id)
-    let index=0;
-      let focusData = "";
-    for (let i = 0; i < productData.length;i++){
-     index=i;
-      if (productData[index].id==id){
-        console.log(productData[index])
-        focusData = productData[index]
-     }
-    }
+    // let productData = this.data.productData
+    // console.log("productData", productData,id)
+    // let index=0;
+    let focusData = info;
+    // for (let i = 0; i < productData.length;i++){
+    //  index=i;
+    //   if (productData[index].id==id){
+    //     console.log(productData[index])
+    //     focusData = productData[index]
+    //  }
+    // }
 
 
     this.byNowParams.productId = focusData.id

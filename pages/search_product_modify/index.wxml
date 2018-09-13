@@ -1,0 +1,183 @@
+ <!-- <import src="../../view-new/partials/product_search.wxml"/> -->
+
+<!-- <import src="../../view/partials/type_search.wxml"/> --><!-- type_search -->
+
+<view class="container" style='height:100%'> 
+  
+
+  
+<!--   <template is="product_search" data="{{...topName,...setting}}"></template>  -->
+  <!-- <template is="typeSearch" data="{{...setting.platformSetting.categories}}"></template>  -->
+<!-- 头部 -->
+ <view class="typeSearchContainer" > 
+    <view class="typeSearch">
+     <view class='flexCenter' data-index="0" bindtap='bindProductType'>分类<view class='border_right'></view></view>
+     <view class='flexCenter' data-index="1" bindtap='bindProductType'>
+        <block wx:if="{{!!typeSearch}}">{{typeSearch}}</block>
+        <block wx:else>智能排序</block>
+        <view class='border_right'></view>
+     </view>
+     <view class='flexCenter ' data-index="2" bindtap='bindProductType'>
+        <block wx:if="{{!!s_price.startPrice || !!s_price.endPrice}}">
+          <text class='smoprice'>￥ {{s_price.startPrice}} - {{s_price.endPrice}}</text>
+        </block>
+        <block wx:else>价格不限</block>
+        <view class='border_right'></view>
+     </view>
+     <view class='flexCenter' bindtap='bindProductshowWay'>
+        <block wx:if="{{ProductshowWay == 1}}">
+          <image src='/images/icons/liebiao2.png'></image>
+        </block>
+        <block wx:if="{{ProductshowWay == 0}}">
+          <image src='http://image1.sansancloud.com/xianhua/2018_9/13/12/1/42_584.jpg'></image>
+        </block>
+        <block wx:if="{{ProductshowWay == 2}}">
+          <image src='/images/icons/liebiao.png'></image>
+        </block>
+     </view>
+    </view>
+
+    <view class="typeSearch_view_height"></view>
+  </view>
+
+<!-- 分类 -->
+  <cover-view class='typeSearch_item_container' wx:if="{{showType && show0}}" >
+
+     <cover-view class='typeSearch_item_left_container'>
+        <cover-view wx:for="{{setting.platformSetting.categories}}"
+          wx:for-item="type" wx:key="{{index}}" data-type="{{type}}"
+          bindtap='bindTypeItem' class='{{type.active?"active":""}}'>{{type.name}}</cover-view>
+     </cover-view>
+     <cover-view class='typeSearch_item_right_container'>
+        <cover-view data-categoryId="{{focusTypeItem.id}}" bindtap='searchProduct'>全部</cover-view>
+        <cover-view wx:for="{{focusTypeItem.children}}" wx:for-item="child" wx:key="{{index}}"
+          data-categoryId="{{child.id}}" bindtap='searchProduct'>{{child.name}}</cover-view>
+     </cover-view>
+  </cover-view>
+
+  <!-- 排序 -->
+  <view class='typeSearch_item_container' wx:if="{{showType && show1}}" >
+    <view class='typeSearch_Sort_container'>
+      <view data-orderType="0" bindtap='searchProduct'>默认排序</view>
+      <view data-orderType="102" bindtap='searchProduct'>价格升序</view>
+      <view data-orderType="2" bindtap='searchProduct'>价格降序</view>
+      <view data-orderType="104" bindtap='searchProduct'>上架日期升</view>
+      <view data-orderType="4" bindtap='searchProduct'>上架日期降</view>
+      <view data-orderType="101" bindtap='searchProduct'>销量升</view>
+      <view data-orderType="1" bindtap='searchProduct'>销量降</view>
+    </view>
+  </view>
+
+    <!-- 价格排序 -->
+  <view class='typeSearch_item_container' wx:if="{{showType && show2}}" >
+    <view class='typeSearch_price_container'>
+      <view>
+        <text>起始价</text>
+        <input type='number' style='color:{{setting.platformSetting.defaultColor}}' bindinput="getStartValue" value='{{s_price.startPrice}}' placeholder='不限制'></input>
+      </view>
+       <view>
+        <text>最高价</text>
+        <input type='number' style='color:{{setting.platformSetting.defaultColor}}' bindinput="getEndValue" value='{{s_price.endPrice}}' placeholder='不限制'></input>
+      </view>
+      <button  bindtap='searchProductbyPrice' style='background:{{setting.platformSetting.defaultColor}}'
+      hover-class="none" type="primary" size="default" loading="{{loading}}"> 查询 </button>
+    </view>
+  </view>
+  <view class='zhezhao' wx:if="{{showType}}" bindtap='closeZhezhao'></view>
+  
+
+
+    <block wx:if="{{ProductshowWay == 1}}">
+        <view class='product_page_container'>
+          <block wx:if = "{{!! productData}}">
+            <view class='product_items' wx:for="{{productData}}" wx:key='{{index}}' wx:for-item="result" 
+                   data-info='{{result}}' bindtap='toProductDetail'>
+              <image mode="aspectFit" style='height:{{sysWidth*44/100}}px;width:100%;' src='{{result.imagePath}}?x-oss-process=style/preview'></image>
+              <view>{{result.name}}</view>
+              
+              <view>
+                <text class='price'>￥{{result.price}}</text>
+                <block wx:if='{{result.price < result.tagPrice}}'>
+                  <text class='priceTagLine'>￥{{result.tagPrice}}</text>
+                </block>
+              </view>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="noproduct">
+              <image mode="widthFix" src='/images/icons/no-product.png'></image>
+              <text>没有相关商品</text>
+            </view>
+          </block>
+        </view>
+    </block>
+
+
+    <block wx:if='{{ProductshowWay == 2}}'>
+     <view class='product_page_container2'>
+        <block wx:if = "{{!! productData}}">
+          <view class='product_items2' data-info='{{result}}' bindtap='toProductDetail' wx:for="{{productData}}" wx:for-item="result" wx:key="{{result.id}}">
+            <image mode="aspectFill" src='{{result.imagePath}}?x-oss-process=style/preview'></image>
+            <view class='product_items2_view1'>
+              
+              <view>
+                <text>{{result.name}}</text>
+                <text class='price'>￥{{result.price}}</text>
+                  
+              </view>
+              <text class='font2'>销量： {{result.saleCount}}</text>
+            </view>
+            
+          </view>
+        </block>
+
+        <block wx:else>
+          <view class="noproduct">
+            <image mode="widthFix" src='/images/icons/no-product.png'></image>
+            <text>没有相关商品</text>
+          </view>
+        </block>
+      </view>
+    </block>
+
+
+    <block wx:if='{{ProductshowWay == 0}}'>
+     <view class='product_page_container2'>
+          <map class='mapItem' id="map" longitude="{{local.longitude}}" latitude="{{local.latitude}}" scale="14" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap"  bindregionchange="regionchange" show-location='true' style="width: 100%; height: 100%;" bindtap='hiddenProInfo'>
+            <cover-view class="play" >
+               <cover-image class="img" src="../../images/icon/map.png" style='width:80rpx;height:80rpx;' />
+            </cover-view>
+          </map>
+          <cover-view class='bottom_tap'>
+            <cover-view class='return_index'>
+              <cover-image src='http://image1.sansancloud.com/xianhua/2018_9/13/16/50/14_226.jpg' class='return_index_img' bindtap='toIndex'></cover-image>
+            </cover-view>
+            <cover-view class='location'>
+              <cover-image src='http://image1.sansancloud.com/xianhua/2018_9/13/16/50/14_232.jpg' class='location_img' bindtap='clickcontrol'></cover-image>
+            </cover-view>
+          </cover-view>
+          <cover-view class='product_data' wx:if="{{productDetail!=null}}">
+            <cover-view class='product_info'>
+              <cover-image class='product_info_left' src="{{productDetail.productInfo.imagePath+'?x-oss-process=style/preview_120'}}"></cover-image>
+              <cover-view class='product_info_center'>
+                <cover-view class='product_info_name'>{{productDetail.productInfo.name}}</cover-view>
+                <cover-view class='product_info_service_time'>
+                  <cover-image class='product_info_service_time_img' src='http://image1.sansancloud.com/xianhua/2018_9/13/17/57/21_230.jpg'></cover-image>
+                  <cover-view class='product_info_service_time_value'>周一至周日 0{{productDetail.productInfo.serviceStartTime}}:00-{{productDetail.productInfo.serviceEndTime}}:00</cover-view>
+                </cover-view>
+                <cover-view class='product_info_service_addr'>
+                  <cover-image class='product_info_service_addr_img' src='http://image1.sansancloud.com/xianhua/2018_9/13/17/57/21_219.jpg'></cover-image>
+                  <cover-view class='product_info_service_addr_value'>{{productDetail.productInfo.location}}</cover-view>
+                </cover-view>
+              </cover-view>
+              <cover-view class='product_info_right' bindtap='toProductDetail' data-info='{{productDetail.productInfo}}'>
+                <cover-view class='line'></cover-view>
+                <cover-image src='http://image1.sansancloud.com/xianhua/2018_9/13/20/11/36_801.jpg?x-oss-process=style/preview_120' class='navigation'></cover-image>
+              </cover-view>
+            </cover-view>
+          </cover-view>
+      </view>
+    </block>
+  
+
+</view>

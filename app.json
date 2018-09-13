@@ -52,6 +52,9 @@
     {
       "root": "pages",
       "pages": [
+        "order_pintuan_list/index",
+        "order_pintuan_detail/index",
+        "pintuan_invitation/index",
         "scan_urcode/index",
         "order_meal/index",
         "new_promotion_products/index",
@@ -157,12 +160,6 @@
       "iconPath": "images/icons/home1.png",
       "selectedIconPath": "images/icons/home2.png",
       "text": "首页"
-    },
-    {
-      "pagePath": "pageTab/product/index",
-      "iconPath": "images/icons/good1.png",
-      "selectedIconPath": "images/icons/good2.png",
-      "text": "产品列表"
     },
     {
       "pagePath": "pageTab/shopping_car_list/index",

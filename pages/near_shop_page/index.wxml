@@ -40,7 +40,7 @@
         </block>
         </view>
       
-      <view class='ToOrderView_container'>
+      <!-- <view class='ToOrderView_container'>
         <block wx:if='{{pushItem.length > 0}}'>
           <view class='ToOrderView ToOrderView1' data-link='order_list_0.html?easyStatusName=全部订单&easyStatus=0' bindtap='toOrderPage' style='background:{{setting.platformSetting.defaultColor}};'>
             <image mode='aspectFill' src='/images/icons/order_waimai.png'></image>
@@ -51,6 +51,20 @@
         <view class='ToOrderView ToOrderView2' data-link='order_list_0.html?easyStatusName=全部订单&easyStatus=0' bindtap='toOrderPage' style='background:{{setting.platformSetting.defaultColor}};'>
           <image mode='aspectFill' src='/images/icons/order_waimai.png'></image>
           <text>订单</text>
+        </view>
+       </block>
+      </view> -->
+      <view class='ToOrderView_container'>
+        <block wx:if='{{pushItem.length > 0}}'>
+          <view class='ToOrderView ToOrderView1' bindtap='toMy' style='background:{{setting.platformSetting.defaultColor}};'>
+            <image mode='aspectFill' src='/images/icons/order_waimai.png'></image>
+            <text>我的</text>
+          </view>
+        </block>
+        <block wx:else>
+        <view class='ToOrderView ToOrderView2' bindtap='toMy' style='background:{{setting.platformSetting.defaultColor}};'>
+          <image mode='aspectFill' src='/images/icons/order_waimai.png'></image>
+          <text>我的</text>
         </view>
        </block>
       </view>

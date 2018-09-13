@@ -88,30 +88,23 @@ Component({
         })
    
    
-      }, 5000)
+      }, 111000)
      
  
     
     },
-  closeCardShare: function (e) {
+  sharePages: function (e) {
     // 找到商品id
-    let id = e.currentTarget.dataset.id;
+    console.log('===sharePages==',e)
+    let id = e.currentTarget.dataset.proinfo.id;
     console.log("id", id)
 
     // 循环products
     let products = this.data.products
 
-    let a = 0;
     for (let i = 0; i < products.length; i++) {
-      a = i;
-      if (products[a].id == id) {
 
-        products[a].productShow = false
-        console.log(products[a])
-      }
-      else {
-        products[a].productShow = false
-      }
+      products[i].productShow = false
     }
     this.setData({
       products: products,

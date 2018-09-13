@@ -2,6 +2,7 @@
   "navigationBarTitleText": "产品详细",
   "usingComponents": {
     "posters": "/view/partials/canvas/index",
-    "time": "/view/partials/time/time"
+    "time": "/view/partials/time/time",
+    "pintuan": "/view/partials/pintuan_popup/index"
   }
 }

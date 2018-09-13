@@ -73,9 +73,15 @@ Page({
               icon: 'success',
               duration: 2000
             }) */
-            wx.redirectTo({
-              url: '/pages/order_list_tab/index',
-            })
+            if (that.data.success.orderType==12){
+              wx.redirectTo({
+                url: '/pages/order_pintuan_detail/index?orderNo=' + that.data.success.orderNo,
+              })
+            }else{
+              wx.redirectTo({
+                url: '/pages/order_list_tab/index',
+              })
+            }
             /* setTimeout(function () {
               
             }, 2000) */

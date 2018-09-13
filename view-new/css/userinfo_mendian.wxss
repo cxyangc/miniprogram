@@ -1,6 +1,6 @@
 
 .userinfo_mendian{
-  padding:46rpx 12rpx;
+  padding:40rpx 12rpx;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

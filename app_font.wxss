@@ -40,7 +40,7 @@
   font-size: 0.6em;
 }
 .font_08{
-  font-size: 0.8em;
+  font-size: 28rpx;
 }
 .font_09{
   font-size: 0.9em;

@@ -16,7 +16,8 @@ Page({
     showCount:false,
     byNowParams:{},
     targs:null,
-    posterState:false,
+    posterState: false,
+    pintuanPopupState: false,
     proId:'',
     shopId:'',
     bindway:'cart',  //点击的是加入购物车或者立即购买
@@ -26,21 +27,37 @@ Page({
     qrCodeUrl:"",
     haveMeasuresState:false,
     selectTypeData:null,
-    swiperIndex:1,
-    totalImg:0
+    swiperIndex: 1,
+    totalImg:0,
+    pintuanId:0,
+    pintuanState: false,
+    pintuanListData: [],
+    color:'',
   },
   /*轮播图下标*/
   swiperChange: function (e) {
     this.setData({ swiperIndex: e.detail.current + 1 })
   },
+
   // 关闭海报
   getChilrenPoster(e) {
-
     let that = this;
     that.setData({
       posterState: false,
     })
-
+  },
+  getChilrenPintuan(e){
+    let that = this;
+    that.setData({
+      pintuanPopupState: false,
+    })
+  },
+  showPintuan: function () {
+    console.log('=======')
+    let that = this;
+    that.setData({
+      pintuanPopupState: true,
+    })
   },
   showPoster:function(){
     let that = this;
@@ -59,6 +76,7 @@ Page({
     })
   },
   getChilrenPoster:function(e){
+    console.log('=======',e)
     this.setData({
       posterState: false
     })
@@ -263,49 +281,64 @@ Page({
     this.setData({ byNowParams: this.byNowParams})
   },
   readyPay2: function (e) {
+    console.log('====e=====',e)
     if (!app.checkIfLogin()) {
       return
     }
+    if (this.data.productData.productInfo.promotionBean && this.data.productData.productInfo.promotionBean.promotionStatus==2) {
+      console.log('活动已结束！')
+      wx.showToast({
+        title: '活动已结束！',
+        image: '/images/icons/tip.png',
+        duration: 1000
+      })
+      return
+    }
     let productData = this.data.productData
+    let way;
     console.log(productData)
-    let way = e.currentTarget.dataset.way
+    if (e.currentTarget.dataset.way){
+       way = e.currentTarget.dataset.way
+    }else{
+      way = e.detail.data.way
+    }
+    this.setData({ bindway: way })
+    this.setData({ showCount: true })
+    let info = productData.productInfo
+    this.byNowParams.productId = info.productId
+    this.byNowParams.shopId = info.belongShopId
+    this.setData({ byNowParams: this.byNowParams })
     if (way == 'cart'){
       if (productData.measures.length == 0) {
         this.addtocart()
       } else {
-        this.setData({ bindway: way })
-        this.setData({ showCount: true })
-        let info = productData.productInfo
-        this.byNowParams.productId = info.productId
-        this.byNowParams.shopId = info.belongShopId
         this.byNowParams.orderType = 0
-        this.setData({ byNowParams: this.byNowParams })
         this.chooseMeasureItem()
       }
-    } else if (way == 'select'){
-        this.setData({ bindway: way })
-        this.setData({ showCount: true })
-        let info = productData.productInfo
-        this.byNowParams.productId = info.productId
-        this.byNowParams.shopId = info.belongShopId
+    } else if (way == 'pintuanOne'){
         this.byNowParams.orderType = 0
-        this.setData({ byNowParams: this.byNowParams })
+        this.byNowParams.pintuanRecordId =0
         this.chooseMeasureItem()
+    } else if (way == 'pintuanMore') {
+      this.byNowParams.pintuanCreateType = 1
+      this.byNowParams.orderType = 0
+      this.byNowParams.pintuanRecordId = 0
+      this.setData({ byNowParams: this.byNowParams })
+      this.chooseMeasureItem()
+    } else if (way == 'addPintuan') {
+      this.setData({ pintuanId: e.currentTarget.dataset.pintuanid })
+      this.setData({ pintuanPopupState:false })
+      this.byNowParams.pintuanCreateType = 2
+      this.byNowParams.orderType = 0
+      this.byNowParams.pintuanRecordId = this.data.pintuanId
+      this.chooseMeasureItem()
+    } else if (way == 'select') {
+      this.byNowParams.orderType = 0
+      this.chooseMeasureItem()
     }else{
-        this.setData({ bindway: way })
-        this.setData({ showCount: true })
-        let info = productData.productInfo
-        this.byNowParams.productId = info.productId
-        this.byNowParams.shopId = info.belongShopId
-        this.byNowParams.orderType = 0
-        this.setData({ byNowParams: this.byNowParams })
-        this.chooseMeasureItem()
-      
+      this.byNowParams.orderType = 0
+      this.chooseMeasureItem()
     }
-    
-
-   
-
   },
   closeZhezhao: function () {
     this.setData({ showCount: false })
@@ -328,7 +361,9 @@ Page({
     cartesianId: '0', 
     chatOrder: '',
     fromSource: '', 
-    orderType: ''
+    orderType: '',
+    pintuanCreateType:0,
+    pintuanRecordId:0
   },
   
   /* 立即购买 */
@@ -353,7 +388,22 @@ Page({
       this.setData({ selectTypeData: this.data.selectTypeData })
       console.log('-----------addtocart----------')
       this.addtocart()
-    } else{
+    }else if (bindway == 'pintuanOne') {
+      this.setData({ haveMeasuresState: true })
+      this.setData({ selectTypeData: this.data.selectTypeData })
+      console.log('-----------addtocart----------')
+      this.createOrder22(this.byNowParams)
+    } else if (bindway == 'pintuanMore') {
+      this.setData({ haveMeasuresState: true })
+      this.setData({ selectTypeData: this.data.selectTypeData })
+      console.log('-----------addtocart----------')
+      this.createOrder22(this.byNowParams)
+    } else if (bindway == 'addPintuan') {
+      this.setData({ haveMeasuresState: true })
+      this.setData({ selectTypeData: this.data.selectTypeData })
+      console.log('-----------addtocart----------')
+      this.createOrder22(this.byNowParams)
+    }  else{
       console.log('-----------buyNow----------')
       this.createOrder22(this.byNowParams)
     }
@@ -490,6 +540,39 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  getPintuanData: function (productId, promotionId){
+    let that=this;
+    let data={
+      status:1 ,
+      productId:productId,
+      promotionId:promotionId 
+    }
+    that.setData({ pintuanParam: data})
+    var pintuanUrl = app.AddClientUrl("/wx_find_pintuan_records.html", data, 'post')
+    wx.request({
+      url: pintuanUrl.url,
+      data: pintuanUrl.params,
+      header: app.headerPost,
+      method: 'POST',
+      success: function (res) {
+        console.log('--------add----------')
+        console.log(res.data)
+        that.setData({ pintuanListData: res.data.relateObj.result })
+        if (that.data.pintuanListData.length==1){
+          that.setData({ visiblePintuanNum: 1 })
+        }else{
+          that.setData({ visiblePintuanNum: 2 })
+        }
+
+      },
+      fail: function (res) {
+        app.loadFail()
+      },
+      complete: function () {
+        wx.hideLoading()
+      }
+    })
+  },
   getData:function(options){
     let param = {}
     let that = this
@@ -513,10 +596,16 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        console.log(res.data)
-       
+        console.log(res)
+        that.setData({ pintuanState: false })
         console.log('--------------getData-------------')
-        
+        if (res.data.productInfo && res.data.productInfo.promotionBean && res.data.productInfo.promotionBean.pintuanStrategy && res.data.productInfo.promotionBean.pintuanStrategy.id){
+          if (res.data.productInfo.promotionBean.promotionStatus==2){
+            that.setData({ color: '#888' })
+          }
+          that.setData({ pintuanState: true })
+          that.getPintuanData(res.data.productInfo.productId, res.data.productInfo.promotionBean.id);
+        }
         that.setData({ productData: res.data })
         if (res.data.images){
           that.setData({ totalImg: res.data.images.length })
@@ -544,9 +633,6 @@ Page({
           // that.getCommitData(postPatam)
           that.getCart()
         }
-        
-
-        
       },
       fail: function (res) {
         console.log("fail")
@@ -566,17 +652,19 @@ Page({
   },
   onLoad: function (options) {
     console.log('--------product----------', options)
-    this.setData({
+    let that = this;
+    that.setData({ setting: app.setting })
+    that.setData({
       sysWidth: app.globalData.sysWidth,
       proId: options.id,
-      shopId: options.addShopId
+      shopId: options.addShopId,
+      color: that.data.setting.platformSetting.defaultColor
     });
     console.log("商品id和店铺id",options)
-    this.dataFOr_getData.id = options.id
-    this.dataFOr_getData.addShopId = options.addShopId
-    
-    this.getData(options)
-    // this.getQrCode();
+    that.dataFOr_getData.id = options.id
+    that.dataFOr_getData.addShopId = options.addShopId
+    that.setData({ dataFOr_getData:that.dataFOr_getData})
+    that.getData(options)
   },
 
 
@@ -746,10 +834,6 @@ Page({
     this.data.selectTypeData = selectTypeData
 
     console.log('====that.data.selectTypeData======', this.data.selectTypeData)
-    
-
-
-
     this.setData({
       productData: focusProduct
     })
@@ -833,5 +917,17 @@ Page({
       qrCodeUrl: customIndex.url
     })
 
-  }
+  },
+  // 定位
+  clickCatch: function (e) {
+    console.log(this.data.productData.productInfo)
+    let latitude = this.data.productData.productInfo.latitude;
+    let longitude = this.data.productData.productInfo.longitude;
+    wx.openLocation({
+      latitude: latitude,
+      longitude: longitude,
+      scale: 12,
+
+    })
+  },
 })

@@ -2,14 +2,19 @@
 import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
 App({
+     // clientUrl: 'http://10.1.1.15:3000/chainalliance/',  // 链接地址
+     //clientUrl: 'http://192.168.30.92:3000/chainalliance/',  //勇哥ip 链接地址
+     //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
+    //  clientUrl: 'http://192.168.40.180:3000/chainalliance/',  // 本地ip 链接地址
+       //clientUrl: 'https://mini.tunzai.vip/chainalliance/',
+      clientUrl: 'https://mini.sansancloud.com/chainalliance/',
 
-   clientUrl: 'https://mini.sansancloud.com/chainalliance/',
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */
 
-     clientNo: 'shuiguodianpu',   //自定义的项目的名称。
 
+   clientNo: 'xianhua',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
@@ -183,7 +188,24 @@ App({
 
 
     },
+    toMy: function () {
+      console.log('我的叫做：' + this.clientNo)
+      //这个需要注意  switchTab  和  redirectTo
+      if (this.clientNo == 'tunzai') {
+        console.log("1111111111111")
+        wx.switchTab({
+          url: '/pageTab/lanHu/myInfo/index',
+        })
+        return;
+      }else{
+        console.log("222222")
+        wx.switchTab({
+          url: '/pageTab/aikucun_userinfo/index',
+        })
+      }
 
+
+    },
     echoErr: function (errMessage) {
         wx.showToast({
             title: errMessage,
@@ -403,7 +425,12 @@ App({
                 url: '/pages/' + 'order_list_tab' + '/index' + urlData.param,
             })
         }
-       
+        else if (linkUrl.substr(0, 13) == 'order_pintuan') {
+
+          wx.navigateTo({
+            url: '/pages/' + 'order_pintuan_list' + '/index' + urlData.param,
+          })
+        }
         else if (linkUrl.substr(0, 14) == 'product_detail') {
             let productId = linkUrl.replace(/[^0-9]/ig, "");
             console.log(linkUrl.substr(15, 6))
@@ -927,7 +954,26 @@ App({
             }
         })
     },
-
+    // 拼团转发
+    sharePintuan: function (pageName, pageTitle, pageCode) {
+      console.log('pageCode', pageName,pageTitle,pageCode)
+      let that = this
+      let AllCode = ''
+      if (!pageCode) {
+        pageCode = ''
+      }
+      AllCode = pageCode
+      console.log('AllCode', AllCode)
+      return {
+        title: pageTitle,
+        path: '/pages/' + pageName + '/index?' + AllCode,
+        success: function (res) {
+          console.log('转发出去的参数集合：   ' + AllCode)
+        },
+        fail: function (res) {
+        }
+      }
+    },
     //带参转发
     shareForFx: function (pageName, pageTitle, pageCode) {
         let that = this
@@ -950,6 +996,7 @@ App({
         } else {
             AllCode = fxCode + '&' + pageCode
         }
+        console.log('AllCode', AllCode)
         return {
             title: pageTitle,
             path: '/pages/' + pageName + '/index?' + AllCode,
@@ -960,7 +1007,7 @@ App({
             }
         }
     },
-
+    
     shareForFx2: function (pageName, pageTitle, pageCode, imageUrl) {
         //组合参数，交给custompage_index 解析
         // 组合参数所带
@@ -969,8 +1016,6 @@ App({
 
       console.log("333333333333", pageCode)
         let that = this
-
-
         let AllCode = ''
         let fxCode = ''  //userId
         if (this.loginUser&&this.loginUser.platformUser) {
@@ -992,6 +1037,10 @@ App({
         // title存在的时候显示活动名
         if (pageCode.title && pageCode.title!=""){
           pageTitle = that.clientName + "-" + pageCode.title
+        }
+        if (pageCode.shopName){
+          console.log("=========shopName=====", pageCode.shopName);
+          pageTitle =  pageCode.shopName
         }
         if (this.loginUser && this.loginUser.platformUser) {
         pageCode.scene = 'MINI_PLATFORM_USER_ID_' + this.loginUser.platformUser.id;
@@ -1017,6 +1066,7 @@ App({
 
         console.log('转发出去的参数集合：   ' + AllCode)
         console.log('转发出去的imageUrl：   ' + imageUrl)
+        console.log('转发出去的pageTitle：   ' + pageTitle)
         return {
             title: pageTitle,
             path: '/pageTab/index/index?' + AllCode,

@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
@@ -91,7 +91,7 @@
 					"id": 8,
 					"name": "转发产品进入",
 					"pathName": "pageTab/index/index",
-					"query": "promotionId=49&productName=34150680&id=10233&scene=MINI_PLATFORM_USER_ID_66259&SHARE_PRODUCT_DETAIL_PAGE=10233",
+					"query": "promotionId=49&productName=卓立旗金银滴&id=8219&scene=MINI_PLATFORM_USER_ID_66259&SHARE_PRODUCT_DETAIL_PAGE=8219",
 					"scene": "1011"
 				},
 				{
@@ -118,7 +118,7 @@
 					"id": 12,
 					"name": "转发特卖进入",
 					"pathName": "pageTab/index/index",
-					"query": "promotionId=99&title=魔雀数码&SHARE_PROMOTION_PRODUCTS_PAGE=99&scene=MINI_PLATFORM_USER_ID_91902",
+					"query": "promotionId=156&title=手表名品专场&SHARE_PROMOTION_PRODUCTS_PAGE=156&scene=MINI_PLATFORM_USER_ID_91902",
 					"scene": "1011"
 				},
 				{
@@ -134,6 +134,27 @@
 					"pathName": "pageTab/index/index",
 					"query": "ENTER_ORDER_MEAL_TABLEID=1&ADDSHOPID=236",
 					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "转发产品进入",
+					"pathName": "pages/edit_order/index",
+					"query": "orderNo=11111",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "转发产品进入",
+					"pathName": "pages/edit_order/index",
+					"query": "orderNo=20180910164259929351",
+					"scene": "1011"
+				},
+				{
+					"id": 17,
+					"name": "拼团转发",
+					"pathName": "pages/pintuan_invitation/index",
+					"query": "pintuanRecordId=22",
+					"scene": "1001"
 				}
 			]
 		}

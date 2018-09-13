@@ -52,7 +52,7 @@
 <!--中间的文字  -->
   <view class='nameText'> <text>{{arr.name}}</text></view>
   <!--右边的地图图标  -->
-    <view class='nameImg'catchtap='clickCatch' > <image src='../../../images/icons/mendian.png'></image></view>
+    <view class='nameImg' catchtap='clickCatch' > <image src='../../../images/icons/mendian.png'></image></view>
   </view>
 </view>
 
