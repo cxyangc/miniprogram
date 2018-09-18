@@ -11,17 +11,19 @@
   z-index:1000;
 }
 .concent{
-  width: 400rpx;
-  position: fixed;
-  top:300rpx;
-  height: 500rpx;
-  left: 175rpx;
-  background: #fff;
-  z-index: 1001;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width:550rpx;
+  position:fixed;
+  top:50%;
+  height:700rpx;
+  left:50%;
+  background:#fff;
+  z-index:1001;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-left:-275rpx;
+  margin-top:-400rpx;
 }
 .concent image{
   width: 100%;
@@ -30,15 +32,17 @@
 
 
 .close{
-  position: fixed;
-  top:230rpx;
-  right:100rpx;
-  width: 50rpx;
-  height: 50rpx;
-  border-radius: 50rpx;
-  border: 1px solid white;
-  color: #fff;
-  line-height: 45rpx;
-  text-align: center;
-  z-index: 1002
+ position:fixed;
+  bottom:50rpx;
+  right:50%;
+  width:70rpx;
+  height:70rpx;
+  border-radius:50rpx;
+  border:1px solid white;
+  color:#fff;
+  line-height:65rpx;
+  text-align:center;
+  z-index:1002;
+  margin-right:-35rpx;
+  font-size:40rpx;
 }

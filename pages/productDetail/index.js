@@ -33,6 +33,7 @@ Page({
     pintuanState: false,
     pintuanListData: [],
     color:'',
+    clientNo:'',
   },
   /*轮播图下标*/
   swiperChange: function (e) {
@@ -60,6 +61,7 @@ Page({
     })
   },
   showPoster:function(){
+    console.log('===showPoster====', app.clientNo)
     let that = this;
     this.getQrCode();
     that.setData({
@@ -303,7 +305,6 @@ Page({
       way = e.detail.data.way
     }
     this.setData({ bindway: way })
-    this.setData({ showCount: true })
     let info = productData.productInfo
     this.byNowParams.productId = info.productId
     this.byNowParams.shopId = info.belongShopId
@@ -315,17 +316,20 @@ Page({
         this.byNowParams.orderType = 0
         this.chooseMeasureItem()
       }
-    } else if (way == 'pintuanOne'){
+    } else if (way == 'pintuanOne') {
+        this.setData({ showCount: true })
         this.byNowParams.orderType = 0
         this.byNowParams.pintuanRecordId =0
         this.chooseMeasureItem()
     } else if (way == 'pintuanMore') {
+      this.setData({ showCount: true })
       this.byNowParams.pintuanCreateType = 1
       this.byNowParams.orderType = 0
       this.byNowParams.pintuanRecordId = 0
       this.setData({ byNowParams: this.byNowParams })
       this.chooseMeasureItem()
     } else if (way == 'addPintuan') {
+      this.setData({ showCount: true })
       this.setData({ pintuanId: e.currentTarget.dataset.pintuanid })
       this.setData({ pintuanPopupState:false })
       this.byNowParams.pintuanCreateType = 2
@@ -333,9 +337,11 @@ Page({
       this.byNowParams.pintuanRecordId = this.data.pintuanId
       this.chooseMeasureItem()
     } else if (way == 'select') {
+      this.setData({ showCount: true })
       this.byNowParams.orderType = 0
       this.chooseMeasureItem()
     }else{
+      this.setData({ showCount: true })
       this.byNowParams.orderType = 0
       this.chooseMeasureItem()
     }
@@ -611,13 +617,14 @@ Page({
           that.setData({ totalImg: res.data.images.length })
         }
         if (res.data.productInfo && res.data.productInfo.tags){
-          let tagsStr = res.data.p11roductInfo.tags
+          let tagsStr = res.data.productInfo.tags
           let tagsStr2 = tagsStr.replace(/\[/g, '');
           let tagArr = tagsStr2.split(']')
           tagArr.length --;
           that.setData({
             targs: tagArr
           })
+          console.log('targs', that.data.targs)
         }
         if (res.data.description && res.data.description.description){
           WxParse.wxParse('article', 'html', res.data.description.description, that, 10);
@@ -658,6 +665,7 @@ Page({
       sysWidth: app.globalData.sysWidth,
       proId: options.id,
       shopId: options.addShopId,
+      clientNo: app.clientNo,
       color: that.data.setting.platformSetting.defaultColor
     });
     console.log("商品id和店铺id",options)

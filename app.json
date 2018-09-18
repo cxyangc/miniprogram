@@ -52,6 +52,8 @@
     {
       "root": "pages",
       "pages": [
+        "coupon_detail/index",
+        "location_products/index",
         "order_pintuan_list/index",
         "order_pintuan_detail/index",
         "pintuan_invitation/index",

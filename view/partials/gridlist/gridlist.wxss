@@ -21,8 +21,8 @@
   
 }
 .grid_cell image{
-  width: 36px;
-  height:36px;
+  width: 80rpx;
+  height:80rpx;
 }
 .grid_cell view{
   margin-top: 4px;

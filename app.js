@@ -4,10 +4,10 @@ import { dellUrl } from "/public/requestUrl.js";
 App({
      // clientUrl: 'http://10.1.1.15:3000/chainalliance/',  // 链接地址
      //clientUrl: 'http://192.168.30.92:3000/chainalliance/',  //勇哥ip 链接地址
-     //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
+     clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
     //  clientUrl: 'http://192.168.40.180:3000/chainalliance/',  // 本地ip 链接地址
        //clientUrl: 'https://mini.tunzai.vip/chainalliance/',
-      clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+      //clientUrl: 'https://mini.sansancloud.com/chainalliance/',
 
     /**
      *   切换项目的开关 ↓↓↓↓↓
@@ -19,7 +19,7 @@ App({
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
  
-    miniIndexPage: '',
+  miniIndexPage: '',
     setting: null,  // 全局设置
     loginUser: "", //登陆返回的个人信息
     cookie: null,

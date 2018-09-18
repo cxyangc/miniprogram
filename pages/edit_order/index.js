@@ -49,6 +49,8 @@ Page({
     let jifen = e.detail.value[0]
     if (jifen){
     this.orderMessage.jifenDikou = jifen
+    }else{
+      this.orderMessage.jifenDikou = 0
     }
   },
   /* 获取地址列表 */

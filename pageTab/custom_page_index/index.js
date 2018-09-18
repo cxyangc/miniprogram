@@ -98,11 +98,23 @@ Page({
     //排序
     if (partials && partials.length){
     for (let i = 0; i < partials.length; i++){
+      // 产品标签的转化为数组start
+      if (partials[i].partialType == 15 && partials[i].relateBean && partials[i].relateBean.length != 0) {
+        for (let j = 0; j < partials[i].relateBean.length; j++) {
+          if (partials[i].relateBean[j].tags && partials[i].relateBean[j].tags != '') {
+            let tagArray = partials[i].relateBean[j].tags.slice(1, -1).split("][")
+            partials[i].relateBean[j].tagArray = tagArray;
+          }
+        }
+      }
+     // 产品标签的转化为数组end
       if (typeof (partials[i].jsonData) == "string"){
         partials[i].jsonData = JSON.parse(partials[i].jsonData)
       }else{
         continue;
       }
+
+      console.log("=====partials=====", partials)
       PaiXuPartials.push(partials[i]);
     }}
     this.setData({ PaiXuPartials: PaiXuPartials  })

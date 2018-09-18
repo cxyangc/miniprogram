@@ -11,16 +11,28 @@ Component({
   },
   data: {
     // 这里是一些组件内部数据
-    someData: {}
+    productList: []
   },
      ready:function(){
        // 主色调
-       console.log(JSON.stringify(app.setting.platformSetting.defaultColor));
+       console.log(JSON.stringify(app.setting.platformSetting.defaultColor), this.data.data);
        console.log(JSON.stringify(app.setting.platformSetting.secondColor));
        this.setData({
          defaultColor: app.setting.platformSetting.defaultColor,
          secondColor: app.setting.platformSetting.secondColor
        })
+      //  if (this.data.data.relateBean&&this.data.data.relateBean.length!=0){
+      //    this.data.productList = this.data.data.relateBean;
+      //    let tagArray=[];
+      //    for (let i = 0; i < this.data.productList.length; i++) {
+      //      if (this.data.productList[i].tags && this.data.productList[i].tags != '') {
+      //        tagArray = this.data.productList[i].tags.slice(1, -1).split("][")
+      //        this.data.productList[i].tagArray = tagArray;
+      //      }
+      //    }
+      //    this.setData({ productList: this.data.productList})
+      //    console.log(' === this.data.productList===',this.data.productList)
+      //  }
   },
   methods: {
     // 这里是一个自定义方法

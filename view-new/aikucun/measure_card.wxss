@@ -120,7 +120,7 @@
 }
 .activeMeasure{
    /* border: 1px solid red !important; */
-   background: #e24148 !important;
+   /* background: #e24148 !important; */
    color: #fff !important;
 }
 

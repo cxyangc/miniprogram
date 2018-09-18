@@ -30,13 +30,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
-					"name": "囤仔转发后进入",
-					"pathName": "pageTab/index/index",
-					"query": "APPLY_SERVER_CHANNEL_CODE=LIN567",
+					"name": "我的优惠券",
+					"pathName": "pages/coupon_detail/index",
+					"query": "couponId=81",
 					"scene": "1011"
 				},
 				{

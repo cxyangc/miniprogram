@@ -12,8 +12,8 @@
         <view class='countContainer_top_product_info_container'>
            <view class='font_1'>{{focusData.name}}</view>
            <view class='font_aaa font_08'>商品编号: {{focusData.orderNumber}}</view>
-           <text class='price font_14' wx:if='{{focusData.measureItem != 0}}'>￥{{focusData.price}}</text>
-           <view class='price font_14' wx:else>￥{{measurementJson.price}}</view>
+           <text class='price font_14' wx:if='{{measures.length == 0||!measures}}'>￥{{focusData.price}}</text>
+           <view class='price font_14' wx:else>￥{{measurementJson.price}}<text class='tagPrice_font'>{{focusData.tagPrice}}</text></view>
         </view>
      </view>
     <view class='measureItemContainer' >
@@ -22,7 +22,7 @@
           <radio-group class='cardMidGuigeContainer' name='{{types.name}}' bindchange='chooseMeasure'>
             <label class='font_08' wx:for='{{types.productAssignMeasure}}' wx:for-item='Measure' wx:for-index="i" wx:key='{{i}}'
             data-index='{{index}}-{{i}}' bindtap='radioChange' data-value='{{Measure.measureName}}' data-type='{{types.name}}'>
-              <view class='{{types.checkedMeasureItem == i? "activeMeasure":""}}'>{{Measure.measureName}}</view>
+              <view class='{{types.checkedMeasureItem == i? "activeMeasure":""}}' style='background:{{types.checkedMeasureItem == i? setting.platformSetting.defaultColor:""}};color:{{types.checkedMeasureItem == i? "#fff":setting.platformSetting.defaultColor}}'>{{Measure.measureName}}</view>
               <radio checked='{{types.checkedMeasureItem == i}}' value='{{Measure.measureTypeName}}-{{Measure.id}}' hidden='true'></radio>
             </label>
           </radio-group>

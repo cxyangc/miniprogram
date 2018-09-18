@@ -40,19 +40,37 @@
     </block>
   </view>
 <!-- <view class='helpBlank'></view> -->
-
-   <view class='tap_title'>
-      <view class='tap_title_left'>
-        <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>正品保证</text></view>
-        <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>永久包邮</text></view>
-        <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>一对一专属售后</text></view>
+   <block wx:if="{{clientNo=='tunzai'}}">
+    <view class='tap_title'>
+        <view class='tap_title_left'>
+          <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>正品保证</text></view>
+          <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>永久包邮</text></view>
+          <view class='tap_title_item'><view class='dot'></view><text class='tap_title_font'>一对一专属售后</text></view>
+        </view>
+        <view class='tap_title_right'>
+          <view class='dot_no'></view>
+          <view class='dot_no'></view>
+          <view class='dot_no'></view>
+        </view>
       </view>
-      <view class='tap_title_right'>
-        <view class='dot_no'></view>
-        <view class='dot_no'></view>
-        <view class='dot_no'></view>
+    </block>
+    <block wx:else>
+      <block wx:if='{{targs}}'>
+        <view class='tap_title'>
+        <view class='tap_title_left'>
+          <view class='tap_title_item'  wx:for="{{targs}}" wx:for-item='item' wx:key='{{index}}'>
+            <view class='dot' style='background:{{setting.platformSetting.defaultColor+55}};border:2rpx solid {{setting.platformSetting.defaultColor+22}};box-shadow:0px 4rpx 14rpx 0px {{setting.platformSetting.defaultColor+22}},0px 4rpx 6rpx 0rpx {{setting.platformSetting.defaultColor+11}};'></view>
+            <text class='tap_title_font'>{{item}}</text>
+          </view>
+        </view>
+        <view class='tap_title_right'>
+          <view class='dot_no'></view>
+          <view class='dot_no'></view>
+          <view class='dot_no'></view>
+        </view>
       </view>
-    </view>
+      </block>
+    </block>
     <!-- 导航 -->
     <view class='navigation_to_map' wx:if='{{productData.productInfo.latitude!=0}}'>
       <view class='navigation_addr'>
