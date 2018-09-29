@@ -12,16 +12,12 @@
       </view>
     </view>
     <view class="typeSearch">
-     <view class='flexCenter' data-index="0" style='width:85%'>
-       <scroll-view scroll-x class="tab-h">
-         <view  wx:for="{{setting.platformSetting.categories}}"
+     <view class='flexCenter' style='width:85%'>
+       <scroll-view scroll-x='true' class="tab-h" scroll-left='100'>
+         <view wx:for="{{setting.platformSetting.tagsMap['产品']}}"
           wx:for-item="type" wx:key="{{index}}" data-type="{{type}}"
-          bindtap='bindTypeItem' class='tab-item {{type.active?"active":""}}' style='color:{{type.colorAtive}}'>{{type.name}}</view>
+          bindtap='bindProductTags' class='tab-item {{type.active?"active":""}}' style='color:{{type.colorAtive}}'>{{type.tagName}}</view>
        </scroll-view>
-       <!-- <view class='item_icon'>
-         <image  wx:if="{{showType && show0}}" src='http://image1.sansancloud.com/xianhua/2018_9/14/14/27/23_169.jpg?x-oss-process=style/preview_120'></image>
-         <image  wx:else src='http://image1.sansancloud.com/xianhua/2018_9/14/14/27/23_159.jpg?x-oss-process=style/preview_120'></image>
-       </view> -->
      </view>
     
      <view class='flexCenter' bindtap='bindProductshowWay' style='width:100rpx'>

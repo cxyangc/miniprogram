@@ -94,6 +94,42 @@ Page({
     console.log(e)
     this.setData({productDetail:null})
   },
+  // 点击标签
+  bindProductTags(e){
+    console.log('==bindProductTags==',e)
+    let settingData = this.data.setting.platformSetting.tagsMap['产品'];
+    let tagName='';
+    if (e&&e.currentTarget) {
+      tagName = e.currentTarget.dataset.type.tagName
+      this.params.tagName = e.currentTarget.dataset.type.tagName;
+    } else if (e && !e.currentTarget){
+      tagName = e
+      this.params.tagName = e;
+    }
+    if (e){
+      for (let i = 0; i < settingData.length; i++) {
+        if (settingData[i].tagName == tagName) {
+          settingData[i].active = true
+          console.log(this.data.setting.platformSetting.defaultColor)
+          settingData[i].colorAtive = this.data.setting.platformSetting.defaultColor;
+        }
+        else {
+          settingData[i].active = false
+          settingData[i].colorAtive = '#888';
+        }
+      }
+      this.setData({ params: this.params})
+      console.log(this.params)
+      this.getData(this.params, 2);
+    }else{
+      settingData[0].active = true
+      console.log(this.data.setting.platformSetting.defaultColor)
+      settingData[0].colorAtive = this.data.setting.platformSetting.defaultColor;
+    }
+    this.setData({
+      setting: this.data.setting,
+    })
+  },
   /* 点击分类 */
   bindProductType: function (e) {
     console.log(e)
@@ -281,8 +317,9 @@ Page({
     shopProductType: "",
     latitude:'0',
     longitude:'0',
+    tagName:'',
 
-  },
+  }, 
   /* 查找商品 */
   getSearchProductName: function (e) {
     console.log(e)
@@ -524,6 +561,7 @@ Page({
    */
   onLoad: function (options) {
     let that = this;
+    that.setData({ setting: app.setting })
     wx.getLocation({
       type: 'gcj02', //返回可以用于wx.openLocation的经纬度
       success: function (res) {
@@ -533,6 +571,13 @@ Page({
         that.params.latitude = res.latitude
         that.params.longitude = res.longitude
         console.log("options", options)
+        if (options.tagName){
+          that.params.tagName = options.tagName;
+          that.bindProductTags(options.tagName)
+        } else {
+          that.params.tagName = that.data.setting.platformSetting.tagsMap['产品'][0].tagName;
+          that.bindProductTags()
+        }
         if (options.productTypeId) {
           options.categoryId = options.productTypeId
         }
@@ -561,7 +606,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.setData({ setting: app.setting })
+    
     for (let i = 0; i < this.data.setting.platformSetting.categories.length; i++){
       this.data.setting.platformSetting.categories[i].colorAtive = '#888';
     }

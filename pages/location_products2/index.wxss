@@ -79,7 +79,6 @@ page{
   width: 25%;
   box-sizing: border-box;
   font-size: small;
-  padding: 20rpx 0;
   position: relative;
 }
 .item_icon{
@@ -320,7 +319,7 @@ page{
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-top:170rpx;
+  margin-top:150rpx;
 }
 .play{
   position: absolute;
@@ -391,7 +390,7 @@ page{
 }
 
 .active{
-background: #fff !important;
+  border-bottom: 2rpx solid #FE5722;
 
 }
 .mapItem{
@@ -554,7 +553,13 @@ background: #fff !important;
     white-space: nowrap;
 
      }
-     .tab-item{
-     margin-left: 24rpx;
+  .tab-item{
+     margin-left: 60rpx;
+     height: 60rpx;
+     display: inline-block;
+   }
+   .tab-item:first-child{
+     margin-left: 40rpx;
+     height: 60rpx;
      display: inline-block;
    }

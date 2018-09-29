@@ -15,6 +15,7 @@ Component({
   },
      ready:function(){
        // 主色调
+       console.log('pro============',this.data.data)
        console.log(JSON.stringify(app.setting.platformSetting.defaultColor), this.data.data);
        console.log(JSON.stringify(app.setting.platformSetting.secondColor));
        this.setData({

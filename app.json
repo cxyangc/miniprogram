@@ -54,6 +54,7 @@
       "pages": [
         "coupon_detail/index",
         "location_products/index",
+        "location_products2/index",
         "order_pintuan_list/index",
         "order_pintuan_detail/index",
         "pintuan_invitation/index",
