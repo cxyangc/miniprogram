@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 18,
 			"list": [
 				{
 					"id": 0,
@@ -155,6 +155,12 @@
 					"pathName": "pages/pintuan_invitation/index",
 					"query": "pintuanRecordId=22",
 					"scene": "1001"
+				},
+				{
+					"id": 18,
+					"name": "地图",
+					"pathName": "pages/location_products/index",
+					"query": ""
 				}
 			]
 		}

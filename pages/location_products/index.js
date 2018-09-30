@@ -9,7 +9,7 @@ Page({
     setting: null, // setting   
     productData: [], // 商品数据 
     sysWidth: 320,//图片大小
-
+    positionTab:'',
     /* 显示或影藏 */
     showType: false,
     show0: false,
@@ -18,8 +18,6 @@ Page({
     topName: {
     SearchProductName: "",//头部搜索的
     },
-
-
     focusTypeItem: null,
     bindProductTypeIndex: null,
 
@@ -145,12 +143,21 @@ Page({
 
   /* 点击分类大项 */
   bindTypeItem: function (event) {
-    console.log(event.currentTarget.dataset.type)
+    let onId;
+    if (event && event.currentTarget){
+      onId = event.currentTarget.dataset.type.id
+      console.log('====bindTypeItem currentTarget====',onId)
+    } else if (event && !event.currentTarget){
+      onId = event
+      console.log('====bindTypeItem event====',onId)
+    }
+    console.log(event)
+    console.log("this.data.setting.platformSetting",this.data.setting)
     for (let i = 0; i < this.data.setting.platformSetting.categories.length; i++) {
-      if (this.data.setting.platformSetting.categories[i].id == event.currentTarget.dataset.type.id) {
+      if (this.data.setting.platformSetting.categories[i].id == onId ) {
         this.data.setting.platformSetting.categories[i].active = true
         console.log(this.data.setting.platformSetting.defaultColor)
-        this.data.setting.platformSetting.categories[i].colorAtive = this.data.setting.platformSetting.defaultColor;
+        this.data.setting.platformSetting.categories[i].colorAtive =                      this.data.setting.platformSetting.defaultColor;
       }
       else {
         this.data.setting.platformSetting.categories[i].active = false
@@ -164,37 +171,15 @@ Page({
     this.listPage.page = 1
     this.params.page = 1
 
-    if (event.currentTarget.dataset.type.id == "all") {
+    if (onId == "all") {
 
       this.params.categoryId = ''
       this.getData(this.params, 2)
       this.setData({ showType: false, bindProductTypeIndex: null })
-
-      var allItem = {
-        id: ""
-      }
-      this.setData({
-        focusTypeItem: allItem
-      })
-    }
-    else {
-
-      this.setData({
-        focusTypeItem: event.currentTarget.dataset.type,
-      })
-      var focus = event.currentTarget.dataset.type
-
-      if (focus.children.length == 0) {
-
-
-
-      this.params.categoryId = focus.id
+    } else {
+      this.params.categoryId = onId
       this.getData(this.params, 2)
-      this.setData({ showType: false, bindProductTypeIndex: null })
-      }
-
     }
-
   },
   ChangeParam: function (params) {
     var returnParam = ""
@@ -524,6 +509,7 @@ Page({
    */
   onLoad: function (options) {
     let that = this;
+    that.initSetting();
     wx.getLocation({
       type: 'gcj02', //返回可以用于wx.openLocation的经纬度
       success: function (res) {
@@ -534,7 +520,9 @@ Page({
         that.params.longitude = res.longitude
         console.log("options", options)
         if (options.productTypeId) {
+          that.setData({ positionTab: options.productTypeId })
           options.categoryId = options.productTypeId
+          that.bindTypeItem(options.productTypeId)
         }
         if (!!options.forceSearch && options.forceSearch == 2) {
           that.setData({ ProductshowWay: 2 })
@@ -561,16 +549,18 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    
+  },
+  initSetting(){
     this.setData({ setting: app.setting })
-    for (let i = 0; i < this.data.setting.platformSetting.categories.length; i++){
+    for (let i = 0; i < this.data.setting.platformSetting.categories.length; i++) {
       this.data.setting.platformSetting.categories[i].colorAtive = '#888';
     }
     this.data.setting.platformSetting.categories[0].colorAtive = this.data.setting.platformSetting.defaultColor;
     this.setData({
       setting: this.data.setting,
     })
-  },
-
+},
   /**
    * 生命周期函数--监听页面显示
    */

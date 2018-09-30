@@ -16,7 +16,6 @@
   top:50%;
   height:700rpx;
   left:50%;
-  background:#fff;
   z-index:1001;
   overflow:hidden;
   display:flex;

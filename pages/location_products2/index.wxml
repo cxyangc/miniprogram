@@ -35,7 +35,7 @@
   </view>
 
 <!-- 分类 -->
-  <cover-view class='typeSearch_item_container' wx:if="{{showType && show0}}" >
+  <!-- <cover-view class='typeSearch_item_container' wx:if="{{showType && show0}}" >
 
      <cover-view class='typeSearch_item_left_container'>
         <cover-view wx:for="{{setting.platformSetting.categories}}"
@@ -59,7 +59,7 @@
         </cover-view>
      </cover-view>
   </cover-view>
-  <view class='zhezhao' wx:if="{{showType}}" bindtap='closeZhezhao'></view>
+  <view class='zhezhao' wx:if="{{showType}}" bindtap='closeZhezhao'></view> -->
 
 
     <block wx:if='{{ProductshowWay == 2}}' >

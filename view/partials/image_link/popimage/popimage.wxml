@@ -4,7 +4,7 @@
    <view class='bg'></view>
    <view class='close' bindtap='closeFun' data-url="{{jsonData.imageUrl}}">x</view>
    <view class='concent'  >
-         <image mode="aspectFill" src="{{jsonData.imageUrl}}" 
+         <image mode="aspectFit" src="{{jsonData.imageUrl}}" 
   data-link='{{jsonData.linkUrl}}' data-url="{{jsonData.imageUrl}}" bindtap='tolinkUrl'></image> 
    </view>
 

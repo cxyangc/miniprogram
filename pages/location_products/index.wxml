@@ -13,10 +13,10 @@
     </view>
     <view class="typeSearch">
      <view class='flexCenter' data-index="0" style='width:85%'>
-       <scroll-view scroll-x class="tab-h">
+       <scroll-view scroll-x class="tab-h" scroll-into-view="{{'tab_'+positionTab}}" scroll-with-animation='true'>
          <view  wx:for="{{setting.platformSetting.categories}}"
           wx:for-item="type" wx:key="{{index}}" data-type="{{type}}"
-          bindtap='bindTypeItem' class='tab-item {{type.active?"active":""}}' style='color:{{type.colorAtive}}'>{{type.name}}</view>
+          bindtap='bindTypeItem' id="{{'tab_'+type.id}}" class='tab-item {{type.active?"active":""}}' style='color:{{type.colorAtive}}'>{{type.name}}</view>
        </scroll-view>
        <!-- <view class='item_icon'>
          <image  wx:if="{{showType && show0}}" src='http://image1.sansancloud.com/xianhua/2018_9/14/14/27/23_169.jpg?x-oss-process=style/preview_120'></image>
@@ -39,7 +39,7 @@
   </view>
 
 <!-- 分类 -->
-  <cover-view class='typeSearch_item_container' wx:if="{{showType && show0}}" >
+  <!-- <cover-view class='typeSearch_item_container' wx:if="{{showType && show0}}" >
 
      <cover-view class='typeSearch_item_left_container'>
         <cover-view wx:for="{{setting.platformSetting.categories}}"
@@ -63,7 +63,7 @@
         </cover-view>
      </cover-view>
   </cover-view>
-  <view class='zhezhao' wx:if="{{showType}}" bindtap='closeZhezhao'></view>
+  <view class='zhezhao' wx:if="{{showType}}" bindtap='closeZhezhao'></view> -->
 
 
     <block wx:if='{{ProductshowWay == 2}}' >
