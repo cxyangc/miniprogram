@@ -3,6 +3,7 @@
   "usingComponents": {
     "posters": "/view/partials/canvas/index",
     "time": "/view/partials/time/time",
-    "pintuan": "/view/partials/pintuan_popup/index"
+    "pintuan": "/view/partials/pintuan_popup/index",
+    "component-tag-customPage": "/view/partials/custom_page/index"
   }
 }

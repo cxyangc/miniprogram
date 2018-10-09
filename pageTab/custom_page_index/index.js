@@ -130,14 +130,6 @@ Page({
     })
   },
 
- 
-
-
-
-
-
-  
-
   toProductDetail: function (event) {
     console.log("--------toProductDetail------")
     console.log(event.currentTarget.dataset)
@@ -150,12 +142,6 @@ Page({
   
   },
 
-  
-
-
-
-
-  
   onUnload:function(e){
     
   },
@@ -168,10 +154,6 @@ Page({
       hasUserInfo: true
     })
   },
-
-
-
-
  
   setNavBar: function (){
     console.warn("1111111111111")
@@ -217,9 +199,6 @@ Page({
         }else{
           that.getPartials();
         }
-        
-     
-        
       },
       fail: function (res) {
         console.log('------------2222222-----------')

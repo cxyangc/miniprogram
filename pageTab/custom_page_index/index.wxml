@@ -1,120 +1,16 @@
-<!--index.wxml-->
-<!--完成重组的：先判断partialType后判断androidTemplate  -->
 
-
-
-
-<import src="../../wxParse/wxParse.wxml"/>
-<!-- 1 富文本 -->
-
+<import src="../../wxParse/wxParse.wxml"/><!-- 1 富文本 -->
 <import src="../../view/partials/mofang.wxml"/>  <!-- 2 辅助线 -->
 
-
-
-
-<import src="../../view/partials/footer_tab.wxml"/> <!-- 11 -->
-<import src="../../view/partials/mofang.wxml"/> <!-- 14 --> 
-
-
-<import src="../../view-new/aikucun/aikucun_index_head.wxml"/>
-<import src="../../view-new/aikucun/aikucun_index_report.wxml"/>
-<import src="../../view-new/aikucun/aikucun_activity_ing.wxml"/>
-<import src="../../view-new/aikucun/aikucun_activity_will.wxml"/>
-<import src="../../view-new/aikucun/aikucun_hot_product.wxml"/>
-<import src="../../view-new/aikucun/aikucun_title1.wxml"/>
-
-
-
-
-<import src="../../view/partials/activitiesList.wxml"/> 
-
-
-<!-- 
-方法1：把所有的组件都导入进来，然后根据传过来的partials规则里面的排序来渲染组件 
-<template is="{{index%2 === 0 ? 'courseLeft' : 'courseRight'}}" data="{{...item}}"></template>
--->
-
-
-
-<!--测试用的时间组件  -->
-     <!-- <component-tag-nameScanQrCode ></component-tag-nameScanQrCode>     -->
-   <!--时间组件  -->
-       <!-- <component-tag-nameTime   data="{{timeTime}}"></component-tag-nameTime>   -->
-
-
-
 <view wx:if='{{PaiXuPartials}}' class="container">
-  <block wx:for="{{PaiXuPartials}}" wx:key="{{temp}}">
-    <!-- <template is="{{item.partialType}}" 
-       data="{{...item.jsonData,...setting,sysWidth}}"></template>
-
-
-       <template is="pt_{{item.partialType}}" 
-       data="{{...item.jsonData,...setting,sysWidth}}"></template>
- -->
-
- <!-- <template is="pt_{{ item.partialType }}" 
-       data="{{...item.jsonData,...setting,sysWidth,...item,loginUser:loginUser,reportText:reportText}}"></template> -->
-        <!-- <template is="pt_{{!!item.partialType ? item.partialType : item.androidTemplate  }}" 
-       data="{{...item.jsonData,...setting,sysWidth,...item,loginUser:loginUser,reportText:reportText}}"></template>  -->
-
-
-    <template is="14"  wx:if='{{item.partialType =="14"}}' 
-       data="{{...item.jsonData,...setting,sysWidth,...item,loginUser:loginUser,reportText:reportText}}"></template>  
-
-       <!--组件化 -->
-
-
-
-      <component-tag-nameNearShop  wx:if='{{item.partialType == "23"}}'  data="{{item}}"></component-tag-nameNearShop> <!-- 附近店铺-->
-
-
-
-
-      <component-tag-nametab id="tabPage{{index}}" wx:if='{{item.partialType == "13"}}'  data="{{item}}"   bind:action='exFun'></component-tag-nametab> <!-- 13 -->
-
-     <component-tag-nameBanner wx:if='{{item.partialType =="7"}}' data="{{item}}"></component-tag-nameBanner><!-- 7 Banner-->
- <component-tag-name wx:if='{{item.partialType =="4"}}' data="{{item}}"></component-tag-name>  <!-- 4 标题 -->
-        <component-tag-nameImageLink wx:if='{{item.partialType =="6"}}' data="{{item}}"></component-tag-nameImageLink><!-- 6 图片-->
-
-          <component-tag-nameGridList wx:if='{{item.partialType =="8"}}' data="{{item}}"></component-tag-nameGridList><!-- 8 导航-->
-
-  <component-tag-nameHelpBlank wx:if='{{item.partialType =="3"}}' data="{{item}}"></component-tag-nameHelpBlank><!-- 3 留白-->
-
-    <component-tag-nameTextLink wx:if='{{item.partialType =="5"}}' data="{{item}}"></component-tag-nameTextLink><!-- 5 超链接-->
-
-        <component-tag-namedetailList wx:if='{{item.partialType =="9"}}' data="{{item}}"></component-tag-namedetailList><!-- 9 列表样式-->
-
-          <component-tag-nameProductList wx:if='{{item.partialType =="15"}}' data="{{item}}"></component-tag-nameProductList><!-- 15 产品列表-->
-
-           <component-tag-nameNewsList wx:if='{{item.partialType =="16"}}' data="{{item}}"></component-tag-nameNewsList><!-- 16 产品列表-->
-
-          <component-tag-nameVideo wx:if='{{item.partialType =="20"}}' data="{{item}}"></component-tag-nameVideo><!-- 20 视频-->
-                    <component-tag-nameAudio wx:if='{{item.partialType =="21"}}' data="{{item}}"></component-tag-nameAudio><!-- 21 音频-->
-                
-                <component-tag-nameCoupons wx:if='{{item.partialType =="19"}}' data="{{item}}"></component-tag-nameCoupons><!-- 19 优惠卷-->
-
-            <component-tag-nameActivitiesGoods wx:if='{{item.partialType =="18"}}' data="{{item}}" ></component-tag-nameActivitiesGoods><!-- 18 活动商品-->
-         
-           <component-tag-nameActivitiesList wx:if='{{item.partialType =="17"}}' data="{{item}}" ></component-tag-nameActivitiesList><!-- 17 活动列表-->
-
-            <component-tag-nameRichText wx:if='{{item.partialType =="1"}}' data="{{item}}" ></component-tag-nameRichText><!-- 1 富文本-->
-
-<component-tag-nameStores  wx:if='{{item.partialType =="22"}}' data="{{item}}" ></component-tag-nameStores><!-- 22 门店-->
-    
-
-
-
+  <block>
+    <component-tag-customPage data="{{PaiXuPartials}}"></component-tag-customPage> <!-- 首页组件-->
   </block>
-      <!--技术支持  -->
-       <view class='buttom' bindtap='buttom'><text>技术支持:福州三三网络科技有限公司
-</text></view>
+    <!--技术支持  -->
+    <view class='buttom' bindtap='buttom'><text>技术支持:福州三三网络科技有限公司</text></view>
 </view>   
 <view wx:else class="blankPage">
-   <view class='blankPage_image'>
-
-   </view>
-   
+   <view class='blankPage_image'></view>
    <text>网络异常，请刷新本页</text>
    <button></button>
 </view>

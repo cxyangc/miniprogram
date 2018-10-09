@@ -187,4 +187,4 @@
 <pintuan pintuanParam="{{pintuanParam}}" wx:if='{{pintuanPopupState}}' bind:closePintuan="getChilrenPintuan" bind:goPintuan='readyPay2'></pintuan> 
 
  <template is="measure_card2" data="{{setting:setting,showCount,focusData:productData.productInfo,measures:productData.measures,byNowParams:byNowParams,measurementJson:measurementJson,type:bindway}}"></template> 
-
+ <component-tag-customPage data="{{partials}}"></component-tag-customPage> <!-- 首页组件-->

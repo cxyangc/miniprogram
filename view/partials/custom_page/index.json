@@ -17,7 +17,9 @@
     "component-tag-nameActivitiesGoods": "../activitiesGoods/activitiesGoods",
     "component-tag-nameActivitiesList": "../activitiesList/activitiesList",
     "component-tag-nameRichText": "../richText/richText",
-    "component-tag-nameStores": "../stores/stores"
+    "component-tag-nameStores": "../stores/stores",
+    "component-tag-nametab": "../tab/index",
+    "component-tag-mofang": "../mofang/index"
   }
   
 }

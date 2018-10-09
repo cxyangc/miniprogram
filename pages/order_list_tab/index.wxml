@@ -27,7 +27,8 @@
                        </view>
                       <view class='cartShopName'> 
                         <view class='storageName' wx:if='{{list.storageName}}'><text>{{list.storageName}}</text></view>
-                        <view class='storageName' wx:if='{{list.orderType==4}}'><text>充值订单</text></view>
+                        <view class='storageName' wx:elif='{{list.orderType==4}}'><text>充值订单</text></view>
+                        <view wx:else><text></text></view>
                         <!-- <text class="vity_tag" wx:if='{{list.storageName}}'>{{list.storageName}}</text> 
                         <text class="vity_tag" wx:if='{{list.promotionName}}'>{{list.promotionName}}</text> -->
                         <block wx:if='{{list.easyStatusStr == "作废"}}'> 
