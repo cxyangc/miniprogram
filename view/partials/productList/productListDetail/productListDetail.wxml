@@ -12,9 +12,9 @@
         <text class='product_name'>{{result.name}}</text>
         <text class='location_name' wx:if="{{result.longitude>0}}">{{result.location}}</text>
         <text class='location_name' wx:else>{{result.description}}</text>
-        <view class='tags_content'>
+        <scroll-view class='tags_content' scroll-x>
           <text class='tags_item' wx:if="{{result.tagArray}}" wx:for='{{result.tagArray}}' wx:for-item="tags" wx:key='{{index}}'>{{tags}}</text>
-        </view>
+        </scroll-view>
         <text class='product_price'>￥{{result.price}}</text>
       </view>
             

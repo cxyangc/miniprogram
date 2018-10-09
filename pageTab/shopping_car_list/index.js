@@ -193,7 +193,9 @@ Page({
   /* 购物车操作  */
 
   createOrder_car: function () {
+    console.log('=====ss------')
     if (!app.checkShopOpenTime()) {
+      console.log('=====kong------')
       return
     }
     if (this.data.maskLoad) {
@@ -201,6 +203,7 @@ Page({
       return
     }
 
+    console.log('=====tt------')
 
     var listPro = {
       shopId: '',
@@ -209,6 +212,11 @@ Page({
 
     var pushItem = this.data.pushItem
     if (pushItem.length == 0) {
+      wx.showToast({
+        title: '请选择下单商品',
+        image: '/images/icons/tip.png',
+        duration: 2000
+      })
       return
     }
     for (let i = 0; i < pushItem.length; i++) {
@@ -277,6 +285,7 @@ Page({
     this.checkedActive = e.detail.value
   },
   chooseActive: function (e) {
+    console.log('----kong----')
     if (this.checkedActive == -1) {
       return
     }

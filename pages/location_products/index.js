@@ -202,8 +202,6 @@ Page({
       title: 'loading'
     })
     var that = this
-
-
     wx.request({
       url: customIndex.url,
       header: app.header,
@@ -230,11 +228,23 @@ Page({
           }
           that.setData({ productData: dataArr })
         }
-
+        let conut=0
         that.setData({ markers: that.data.productData })
         if (that.data.markers){
           for (let i = 0; i < that.data.markers.length; i++) {
-            that.data.markers[i].iconPath = '../../images/icon/mapItem.png'
+            if (that.data.markers[i].categoryIcon){
+              conut++;
+              if (conut == that.data.markers.length) {return}
+              that.downProIcon(that.data.markers[i].categoryIcon,function(url){
+                console.log('=====over======',url)
+                that.data.markers[i].iconPath = url;
+                that.setData({ markers: that.data.markers})
+              })
+            }else{
+              conut++;
+              if (conut == that.data.markers.length) {return}
+              that.data.markers[i].iconPath = '../../images/icon/mapItem.png'
+            }
           }
           that.setData({ markers: that.data.markers })
         }
@@ -247,6 +257,24 @@ Page({
         app.loadFail()
       }
     })
+  },
+  downProIcon:function(url,callback){
+    var _this = this;
+    if ( app.mapProIconArray[url]){
+      console.log('已存在')
+      callback(app.mapProIconArray[url])
+      return
+    }
+    const downloadTask = wx.downloadFile({ 
+      url: url,
+      success: function (res) {
+        console.log('下载图片',res)       
+        if(res.statusCode === 200){  
+          app.mapProIconArray[url] = res.tempFilePath
+          callback(res.tempFilePath);        
+        }      
+      }    
+    })    
   },
   /* 全部参数 */
   params: {
@@ -364,7 +392,6 @@ Page({
         that.listPage.totalSize = res.data.totalSize
 
         console.log(res.data)
-
 
         wx.hideLoading()
 

@@ -34,6 +34,7 @@ Page({
     pintuanListData: [],
     color:'',
     clientNo:'',
+    waitDataState:false,
   },
   /*轮播图下标*/
   swiperChange: function (e) {
@@ -785,7 +786,8 @@ Page({
   },
   //获取规格价格参数
   get_measure_cartesion: function () {
-    
+    console.log('get_measure_cartesion')
+    this.setData({ measurementJson: { waitDataState: false}})
     let productId = this.data.productData.productInfo.productId
     let postStr = ''
     if (this.MeasureParams.length == 0){
@@ -800,17 +802,19 @@ Page({
     param.measureIds = postStr
     console.log(postStr)
     let customIndex = app.AddClientUrl("/get_measure_cartesion.html", param)
-
     var that = this
     wx.request({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
         console.log(res.data)
+        that.setData({ waitDataState: true })
         that.byNowParams.cartesianId = res.data.id
         that.setData({
           measurementJson: res.data
         })
+        that.data.measurementJson.waitDataState = true
+        that.setData({ measurementJson: that.data.measurementJson })
       },
       fail: function (res) {
         console.log("fail")

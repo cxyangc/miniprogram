@@ -13,7 +13,12 @@
            <view class='font_1'>{{focusData.name}}</view>
            <view class='font_aaa font_08'>商品编号: {{focusData.orderNumber}}</view>
            <text class='price font_14' wx:if='{{measures.length == 0||!measures}}'>￥{{focusData.price}}</text>
-           <view class='price font_14' wx:else>￥{{measurementJson.price}}<text class='tagPrice_font'>{{focusData.tagPrice}}</text></view>
+           <view class='price font_14' wx:else>￥{{measurementJson.price}}
+              <text class='tagPrice_font'>￥{{measurementJson.tagPrice}}</text>
+              <text style='color:#aaa;font-size:24rpx;margin-left:8rpx;' wx:if='{{(measures.length == 0||!measures)&&focusData.stock<=10}}'>(仅剩：{{focusData.stock}})</text>
+              <text style='color:#aaa;font-size:24rpx;margin-left:8rpx' wx:if="{{(measures.length != 0&&measures)&&measurementJson.stock<=10}}">(仅剩：{{measurementJson.stock}})</text>
+           </view>
+           
         </view>
      </view>
     <view class='measureItemContainer' >
@@ -21,7 +26,7 @@
           <view class='cardMidName'>{{types.name}}</view>
           <radio-group class='cardMidGuigeContainer' name='{{types.name}}' bindchange='chooseMeasure'>
             <label class='font_08' wx:for='{{types.productAssignMeasure}}' wx:for-item='Measure' wx:for-index="i" wx:key='{{i}}'
-            data-index='{{index}}-{{i}}' bindtap='radioChange' data-value='{{Measure.measureName}}' data-type='{{types.name}}'>
+            data-index='{{index}}-{{i}}' catchtap='radioChange' data-value='{{Measure.measureName}}' data-type='{{types.name}}'>
               <view class='{{types.checkedMeasureItem == i? "activeMeasure":""}}' style='background:{{types.checkedMeasureItem == i? setting.platformSetting.defaultColor:""}};color:{{types.checkedMeasureItem == i? "#fff":setting.platformSetting.defaultColor}}'>{{Measure.measureName}}</view>
               <radio checked='{{types.checkedMeasureItem == i}}' value='{{Measure.measureTypeName}}-{{Measure.id}}' hidden='true'></radio>
             </label>
@@ -54,7 +59,7 @@
           </view>
       </view>
       <button wx:if="{{type !== 'select'}}" style='background:{{setting.platformSetting.defaultColor}}' 
-      class='sureButn' disabled='{{byNowParams.itemCount > measurementJson.stock}}' bindtap='buyNow'>确定</button>
+      class='sureButn' disabled='{{byNowParams.itemCount > measurementJson.stock||!measurementJson.waitDataState}}' bindtap='buyNow'>确定</button>
       <view class='selectType'>
           <button wx:if="{{type == 'select'}}" style='background:{{setting.platformSetting.defaultColor}}' 
             class='sureButnType' disabled='{{byNowParams.itemCount > measurementJson.stock}}' data-way='cart' bindtap='buyNow'>加入购物车</button>

@@ -58,10 +58,10 @@
       <block wx:if='{{targs}}'>
         <view class='tap_title'>
         <view class='tap_title_left'>
-          <view class='tap_title_item'  wx:for="{{targs}}" wx:for-item='item' wx:key='{{index}}'>
-            <view class='dot' style='background:{{setting.platformSetting.defaultColor+55}};border:2rpx solid {{setting.platformSetting.defaultColor+22}};box-shadow:0px 4rpx 14rpx 0px {{setting.platformSetting.defaultColor+22}},0px 4rpx 6rpx 0rpx {{setting.platformSetting.defaultColor+11}};'></view>
-            <text class='tap_title_font'>{{item}}</text>
-          </view>
+            <view class='tap_title_item'  wx:for="{{targs}}" wx:for-item='item' wx:key='{{index}}'>
+              <view class='dot' style='background:{{setting.platformSetting.defaultColor+55}};border:2rpx solid {{setting.platformSetting.defaultColor+22}};box-shadow:0px 4rpx 14rpx 0px {{setting.platformSetting.defaultColor+22}},0px 4rpx 6rpx 0rpx {{setting.platformSetting.defaultColor+11}};'></view>
+              <text class='tap_title_font'>{{item}}</text>
+            </view>
         </view>
         <view class='tap_title_right'>
           <view class='dot_no'></view>
@@ -72,14 +72,14 @@
       </block>
     </block>
     <!-- 导航 -->
-    <view class='navigation_to_map' wx:if='{{productData.productInfo.latitude!=0}}'>
+    <view class='navigation_to_map' wx:if='{{productData.productInfo.latitude&&productData.productInfo.latitude!=0}}'>
       <view class='navigation_addr'>
         <image class='navigation_addr_img' src='http://image1.sansancloud.com/xianhua/2018_9/13/17/57/21_219.jpg?x-oss-process=style/preview_120'></image>
         <text class='navigation_addr_value'>{{productData.productInfo.location}}</text>
       </view>
       <view class='navigation_button' style='background:{{setting.platformSetting.defaultColor}}' bindtap='clickCatch'>
         <image class='navigation_button_img' src='http://image1.sansancloud.com/xianhua/2018_9/13/21/22/3_772.jpg?x-oss-process=style/preview_120'></image>
-        <text class='navigation_button_value'>导航</text>
+        <text class='navigation_button_value'>位置</text>
       </view>
     </view>
 <!--拼团  -->

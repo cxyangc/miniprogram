@@ -2,9 +2,8 @@
 <!--积分商城  -->
 <view class='wrap'>
   <!--头部的积分  -->
-  <!-- <view class='jiFen'> -->
-    <!--当前积分  -->
-    <!-- <view class='box' bindtap='click'>
+  <!-- <view class='jiFen'>
+    <view class='box' bindtap='click'>
       <view class='jiFenBox'><text>{{jiFen}}</text></view>
        <view class='jiFenImg' ><image src='../../images/icons/right1.png'></image></view> 
     </view>

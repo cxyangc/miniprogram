@@ -85,6 +85,18 @@ Page({
       color: "#777777"
     },
       {
+        iconPath: "http://image1.sansancloud.com/sansancloud/2018_9/11/14/41/49_530.jpg",
+        linkUrl: "user_jifen_events.html",
+        text: "我的积分",
+        color: "#777777"
+      },
+      {
+        iconPath: "http://image1.sansancloud.com/sansancloud/2018_9/11/14/41/49_530.jpg",
+        linkUrl: "my_coupons.html",
+        text: "我的优惠券",
+        color: "#777777"
+      },
+      {
         iconPath: "http://image1.sansancloud.com/xianhua/2018_9/5/16/54/39_501.jpg",
         linkUrl: "address.html",
         text: "收货地址" ,
