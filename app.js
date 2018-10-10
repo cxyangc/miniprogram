@@ -11,7 +11,7 @@ App({
      */
 
 
-   clientNo: 'xianhua',   //自定义的项目的名称。
+   clientNo: 'jianzhan',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数

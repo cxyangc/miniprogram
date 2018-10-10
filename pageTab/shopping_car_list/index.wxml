@@ -72,7 +72,10 @@
             <text class='x_butn'>x</text>
             <text class='flexCenter font1'>{{cart.count}}</text>
           </view>
-          <view  class='item_infomation_money'>￥ {{cart.carItemPrice}}</view>
+          <view  class='item_infomation_money'>
+          ￥ {{cart.carItemPrice}}
+          <text wx:if='{{cart.unitShow}}' style='color:#bbb;font-size:20rpx;margin-left:4rpx;letter-spacing:4rpx;'>/{{cart.unitShow}}</text>
+          </view>
         </view>
 
 

@@ -35,6 +35,8 @@ Page({
     markers: [{
       iconPath: "../../images/icon/mapItem.png",
       id: 0,
+      width:20,
+      heigth:20,
       latitude: 26.060701172100124,
       longitude: 119.30130341796878,
     }]
@@ -76,9 +78,17 @@ Page({
     }) //获取当前地图的中心经纬度
   },
   regionchange(e) {
-    console.log(e.type)
+    console.log('===regionchange===',e)
     if (e.type == 'end') {
-      this.getCenterPoint(this.getData(this.params, 2));
+      if (e.causedBy =='scale'){
+        console.log('====scale====')
+      } else if(e.causedBy == 'drag') {
+        console.log('====drag====');
+        this.getCenterPoint(this.getData(this.params, 2));
+        }else{
+        console.log('====all====');
+        this.getCenterPoint(this.getData(this.params, 2));
+        }
     }
   },
   markertap(e) {
@@ -157,7 +167,7 @@ Page({
       if (this.data.setting.platformSetting.categories[i].id == onId ) {
         this.data.setting.platformSetting.categories[i].active = true
         console.log(this.data.setting.platformSetting.defaultColor)
-        this.data.setting.platformSetting.categories[i].colorAtive =                      this.data.setting.platformSetting.defaultColor;
+        this.data.setting.platformSetting.categories[i].colorAtive =this.data.setting.platformSetting.defaultColor;
       }
       else {
         this.data.setting.platformSetting.categories[i].active = false
@@ -198,14 +208,15 @@ Page({
     //var postParam = this.ChangeParam(param)
     //param.page = this.listPage.page
     var customIndex = app.AddClientUrl("/more_product_list.html", param)
-    wx.showLoading({
-      title: 'loading'
-    })
+    // wx.showLoading({
+    //   title: 'loading'
+    // })
     var that = this
     wx.request({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
+        wx.hideLoading()
         console.log(res.data)
         that.listPage.pageSize = res.data.pageSize
         that.listPage.curPage = res.data.curPage
@@ -228,50 +239,57 @@ Page({
           }
           that.setData({ productData: dataArr })
         }
-        let conut=0
         that.setData({ markers: that.data.productData })
-        if (that.data.markers){
+        let conut=0;
+        if (that.data.markers) {
           for (let i = 0; i < that.data.markers.length; i++) {
-            if (that.data.markers[i].categoryIcon){
-              conut++;
-              if (conut == that.data.markers.length) {return}
+            if (that.data.markers[i].categoryIcon) {
               that.downProIcon(that.data.markers[i].categoryIcon,function(url){
-                console.log('=====over======',url)
+                conut++;
                 that.data.markers[i].iconPath = url;
-                that.setData({ markers: that.data.markers})
+                that.data.markers[i].width=32;
+                that.data.markers[i].height = 32;
+                if (conut == that.data.markers.length) {
+                  that.setData({ markers: that.data.markers })
+                  console.log('==that.data.markersHave===', that.data.markers);
+                }
               })
-            }else{
+            } else {
               conut++;
-              if (conut == that.data.markers.length) {return}
-              that.data.markers[i].iconPath = '../../images/icon/mapItem.png'
+              that.data.markers[i].iconPath = '../../images/icon/mapItem.png';
+              that.data.markers[i].width = 32;
+              that.data.markers[i].height = 32;
+              if (conut == that.data.markers.length) {
+                that.setData({ markers: that.data.markers })
+                console.log('==that.data.markers===', that.data.markers);
+              }
             }
+            
           }
-          that.setData({ markers: that.data.markers })
         }
-        console.log('==that.data.markers===', that.data.markers);
-        wx.hideLoading()
+        // wx.hideLoading()
       },
       fail: function (res) {
         console.log("fail")
-        wx.hideLoading()
+        // wx.hideLoading()
         app.loadFail()
       }
     })
   },
   downProIcon:function(url,callback){
     var _this = this;
-    if ( app.mapProIconArray[url]){
-      console.log('已存在')
-      callback(app.mapProIconArray[url])
+    if (app.mapProIconArray[encodeURIComponent(url)]){
+      console.log('已存在', encodeURIComponent(url))
+      callback(app.mapProIconArray[encodeURIComponent(url)])
       return
     }
-    const downloadTask = wx.downloadFile({ 
-      url: url,
+    wx.downloadFile({ 
+      url: url.replace('http', 'https'),
       success: function (res) {
         console.log('下载图片',res)       
-        if(res.statusCode === 200){  
-          app.mapProIconArray[url] = res.tempFilePath
-          callback(res.tempFilePath);        
+        if (res.statusCode == 200) {
+          callback(res.tempFilePath);   
+          app.mapProIconArray[encodeURIComponent(url)] = res.tempFilePath     
         }      
       }    
     })    

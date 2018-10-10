@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.2",
+	"libVersion": "2.3.0",
 	"appid": "wx37b3f495891dd60c",
 	"projectname": "xianhua",
 	"isGameTourist": false,

@@ -20,6 +20,9 @@ Component({
     console.log('=====items====', this.data.items)
   },
   methods: {
-    
+    tolinkUrl: function (e) {
+      let linkUrl = e.currentTarget.dataset.link
+      app.linkEvent(linkUrl)
+    }
   }
 })

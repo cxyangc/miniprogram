@@ -118,6 +118,7 @@ font-size: 0.8em;
 .price_font{
   font-size: 48rpx;
   line-height:40rpx;
+  overflow: hidden
 }
 .tagPrice_font{
   font-size: 24rpx;
@@ -137,6 +138,7 @@ font-size: 0.8em;
 .share_product{
   width: 86rpx;
   height: 86rpx;
+  overflow: hidden
 }
 .share_product image{
   width: 86rpx;
@@ -180,7 +182,7 @@ font-size: 0.8em;
 }
 .tap_title_font{
   font-size: 20rpx;
-  color: #ddd;
+  color: #ccc;
   white-space:nowrap;
 }
 .tap_title_item .dot{
@@ -259,10 +261,12 @@ font-size: 0.8em;
   color: #ccc;
   margin-right: 50rpx;
   width: 96rpx;
+  white-space: nowrap
 }
 .product_introduce_item_vaule{
   font-size: 24rpx;
   color: #888;
+  white-space: 
 }
 .product_main_info{
   font-size: 28rpx;

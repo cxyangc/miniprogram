@@ -34,7 +34,6 @@ Page({
     pintuanListData: [],
     color:'',
     clientNo:'',
-    waitDataState:false,
   },
   /*轮播图下标*/
   swiperChange: function (e) {
@@ -310,10 +309,11 @@ Page({
     this.byNowParams.productId = info.productId
     this.byNowParams.shopId = info.belongShopId
     this.setData({ byNowParams: this.byNowParams })
-    if (way == 'cart'){
+    if (way == 'cart') {
       if (productData.measures.length == 0) {
         this.addtocart()
       } else {
+        this.setData({ showCount: true })
         this.byNowParams.orderType = 0
         this.chooseMeasureItem()
       }
@@ -792,6 +792,7 @@ Page({
     let postStr = ''
     if (this.MeasureParams.length == 0){
       this.byNowParams.cartesianId = '0'
+      this.setData({ measurementJson: { waitDataState: true } })//没有规格时 不需要等待请求
       return
     }
     for (let i = 0; i < this.MeasureParams.length; i++) {
@@ -808,7 +809,6 @@ Page({
       header: app.header,
       success: function (res) {
         console.log(res.data)
-        that.setData({ waitDataState: true })
         that.byNowParams.cartesianId = res.data.id
         that.setData({
           measurementJson: res.data
@@ -916,7 +916,7 @@ Page({
     postParam.scene = userId
 
     // 上面是需要的参数下面的url
-    
+    console.log('====pp======',"/super_shop_manager_get_mini_code.html?mini=1&path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d" + this.data.proId + "%26scene%3d" + userId)
     var customIndex = app.AddClientUrl("/super_shop_manager_get_mini_code.html?mini=1&path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d" + this.data.proId + "%26scene%3d" + userId, postParam, 'get', '1')
     var result = customIndex.url.split("?");
 
@@ -935,11 +935,14 @@ Page({
     console.log(this.data.productData.productInfo)
     let latitude = this.data.productData.productInfo.latitude;
     let longitude = this.data.productData.productInfo.longitude;
+    let name = this.data.productData.productInfo.name;
+    let address = this.data.productData.productInfo.location;
     wx.openLocation({
       latitude: latitude,
       longitude: longitude,
       scale: 12,
-
+      name: name,
+      address: address
     })
   },
 })

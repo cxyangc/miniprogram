@@ -15,7 +15,10 @@
         <scroll-view class='tags_content' scroll-x>
           <text class='tags_item' wx:if="{{result.tagArray}}" wx:for='{{result.tagArray}}' wx:for-item="tags" wx:key='{{index}}'>{{tags}}</text>
         </scroll-view>
-        <text class='product_price'>￥{{result.price}}</text>
+        <view class='product_price'>
+          ￥{{result.price}}
+          <text wx:if='{{result.unitShow}}' style='color:#bbb;font-size:24rpx;margin-left:4rpx;letter-spacing:4rpx;'>/{{result.unitShow}}</text>
+        </view>
       </view>
             
     </view>

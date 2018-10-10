@@ -32,7 +32,7 @@
           <radio-group class='cardMidGuigeContainer' name='{{types.name}}' bindchange='chooseMeasure'>
             <label class='font_08' wx:for='{{types.productAssignMeasure}}' wx:for-item='Measure' wx:for-index="i" wx:key='{{i}}'
             data-index='{{index}}-{{i}}' bindtap='radioChange'>
-              <view class='{{types.checkedMeasureItem == i? "activeMeasure":""}}'>{{Measure.measureName}}</view>
+              <view class='{{types.checkedMeasureItem == i? "activeMeasure":""}}' style='background:{{types.checkedMeasureItem == i? setting.platformSetting.defaultColor:""}};color:{{types.checkedMeasureItem == i? "#fff":setting.platformSetting.defaultColor}}'>{{Measure.measureName}}</view>
               <radio checked='{{types.checkedMeasureItem == i}}' value='{{Measure.measureTypeName}}-{{Measure.id}}' hidden='true'></radio>
             </label>
           </radio-group>
