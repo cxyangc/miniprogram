@@ -91,7 +91,7 @@
  </view>
 
 <!--未开始活动列表  -->
- <view class='activeList'wx:if="{{unactivityPromotion.length!=0}}" wx:for="{{unactivityPromotion}}"  id="{{'inToView'+item.id}}" bindtap='click1' data-id='{{item.id}}'>
+ <view class='activeList'wx:if="{{unactivityPromotion.length!=0}}" wx:for="{{unactivityPromotion}}" wx:key='{{index}}' id="{{'inToView'+item.id}}" bindtap='click1' data-id='{{item.id}}'>
       <view class='activeListtImg'>  <image mode='aspectFill' src='{{item.promotionBanner}}'></image> 
          <!-- <view class='priceKode'>价格低至2折起</view> -->
       <view class='timeBg' style='background-color:{{platformSetting.defaultColor}}'></view>

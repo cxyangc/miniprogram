@@ -71,6 +71,13 @@
           <view class='item_infomation_nums_cart_not_add'> 
             <text class='x_butn'>x</text>
             <text class='flexCenter font1'>{{cart.count}}</text>
+            <!-- <view class='dellCart_butn_container_1'>
+              <image src='/images/icons/add2.png' class='{{cart.count == 1? "cantAdd":""}}' 
+                  data-id='{{index}}' data-cantadd='{{cart.count == 1}}' data-count='{{cart.count}}' catchtap='subCarNum'></image>
+              <text class='flexCenter font1'>{{cart.count}}</text>
+              <image src='/images/icons/add.png' class='{{cart.count == cart.stock ? "cantAdd":""}}' 
+                  data-id='{{index}}' data-cantadd='{{cart.count == cart.stock}}' data-count='{{cart.count}}' catchtap='addCarNum' ></image>
+            </view> -->
           </view>
           <view  class='item_infomation_money'>
           ￥ {{cart.carItemPrice}}

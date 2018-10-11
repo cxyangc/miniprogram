@@ -382,6 +382,7 @@ Page({
     type: 'change',
   },
   addCarNum: function (e) {
+    console.log(e)
     let that = this
     let index = e.currentTarget.dataset.id
     let count = e.currentTarget.dataset.count
@@ -396,7 +397,7 @@ Page({
     let focusCartItem = cartData[0].carItems[index]
     focusCartItem.count2 = ++count
     this.CartParamWaitPost.count = count
-
+    cartData[0].carItems[index].count = count
     that.setData({
       cartData: cartData
     })

@@ -18,11 +18,11 @@
            
            <view  wx:if='{{focusData.measureItem==0}}'>
               <text class='price font_14' wx:if='{{focusData.measureItem == 0}}'>￥{{focusData.price}}</text>
-              <text class='marginleft' wx:if='{{focusData.measureItem==0}}'>(剩余库存：{{focusData.stock}})</text>
+              <text class='marginleft' wx:if='{{focusData.measureItem==0&&focusData.stock<=10}}'>(仅剩：{{focusData.stock}})</text>
            </view>
            <view  wx:if='{{focusData.measureItem==1}}'>
             <text class='price font_14'>￥{{measurementJson.price}}</text>
-            <text class='marginleft' wx:if='{{focusData.measureItem==1}}'>(剩余库存：{{measurementJson.stock}})</text>
+            <text class='marginleft' wx:if='{{focusData.measureItem==1&&measurementJson.stock<=10}}'>(仅剩：{{measurementJson.stock}})</text>
            </view>
         </view>
       </view>

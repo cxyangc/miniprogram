@@ -8,6 +8,7 @@
   flex-direction: column;
 
 }
+
 .noproduct image{
   width: 150rpx;
   height: 150rpx;
@@ -19,7 +20,11 @@ font-size: 30rpx;
   
 }
 
-
+.tags_content::-webkit-scrollbar{
+width: 0;
+height: 0;
+color: transparent;
+}
 
 .ListDataContainer{
   display: flex;

@@ -118,12 +118,12 @@
               <cover-view class='product_info_center'>
                 <cover-view class='product_info_name'>{{productDetail.productInfo.name}}</cover-view>
                 <cover-view class='product_info_service_time'>
-                  <cover-image class='product_info_service_time_img' src='http://image1.sansancloud.com/xianhua/2018_9/13/17/57/21_230.jpg'></cover-image>
-                  <cover-view class='product_info_service_time_value'>周一至周日 0{{productDetail.productInfo.serviceStartTime}}:00-{{productDetail.productInfo.serviceEndTime}}:00</cover-view>
+                  <cover-image class='product_info_service_time_img' src='http://image1.sansancloud.com/santigongxiang/2018_10/10/18/22/0_933.jpg'></cover-image>
+                  <cover-view class='product_info_service_time_value'>{{productDetail.productInfo.categoryName}}</cover-view>
                 </cover-view>
                 <cover-view class='product_info_service_addr'>
                   <cover-image class='product_info_service_addr_img' src='http://image1.sansancloud.com/xianhua/2018_9/13/17/57/21_219.jpg'></cover-image>
-                  <cover-view class='product_info_service_addr_value'>{{productDetail.productInfo.location}}</cover-view>
+                  <cover-view class='product_info_service_addr_value' style='width:96%; word-break: break-all;text-overflow: ellipsis;white-space: nowrap;'>{{productDetail.productInfo.location}}</cover-view>
                 </cover-view>
               </cover-view>
               <cover-view class='product_info_right' bindtap='toProductDetail' data-info='{{productDetail.productInfo}}'>

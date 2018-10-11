@@ -44,10 +44,11 @@
                 <view class='price'>
                   ￥{{products.price}}
                   <text wx:if='{{products.unitShow}}' style='color:#bbb;font-size:20rpx;margin-left:4rpx;letter-spacing:4rpx;'>/{{products.unitShow}}</text>
+                  <block wx:if='{{products.price < products.tagPrice}}'>
+                    <text class='priceTagLine'>￥{{products.tagPrice}}</text>
+                  </block>
                 </view>
-                <block wx:if='{{products.price < products.tagPrice}}'>
-                  <text class='priceTagLine'>￥{{products.tagPrice}}</text>
-                </block>
+                
                
 
             

@@ -14,7 +14,7 @@
            <view class='font_aaa font_08'>商品编号: {{focusData.orderNumber}}</view>
            <text class='price font_14' wx:if='{{measures.length == 0||!measures}}'>￥{{focusData.price}}</text>
            <view class='price font_14' wx:else>￥{{measurementJson.price}}
-              <text class='tagPrice_font'>￥{{measurementJson.tagPrice}}</text>
+              <text class='tagPrice_font' wx:if='{{measurementJson.price<measurementJson.tagPrice}}'>￥{{measurementJson.tagPrice}}</text>
               <text style='color:#aaa;font-size:24rpx;margin-left:8rpx;' wx:if='{{(measures.length == 0||!measures)&&focusData.stock<=10}}'>(仅剩：{{focusData.stock}})</text>
               <text style='color:#aaa;font-size:24rpx;margin-left:8rpx' wx:if="{{(measures.length != 0&&measures)&&measurementJson.stock<=10}}">(仅剩：{{measurementJson.stock}})</text>
            </view>
