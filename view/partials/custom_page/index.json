@@ -19,7 +19,8 @@
     "component-tag-nameRichText": "../richText/richText",
     "component-tag-nameStores": "../stores/stores",
     "component-tag-nametab": "../tab/index",
-    "component-tag-mofang": "../mofang/index"
+    "component-tag-mofang": "../mofang/index",
+    "component-tag-kefu": "../kefu/kefu"
   }
   
 }

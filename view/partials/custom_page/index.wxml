@@ -1,6 +1,6 @@
 
 <view class="container">
-  <block wx:for="{{data}}" wx:key="{{temp}}">
+  <block wx:for="{{data}}" wx:key="{{temp}}" >
     <!--组件化 -->
     <component-tag-nameNearShop  wx:if='{{item.partialType == "23"}}'  data="{{item}}"></component-tag-nameNearShop> <!-- 附近店铺-->
 
@@ -39,5 +39,7 @@
     <component-tag-nameRichText wx:if='{{item.partialType =="1"}}' data="{{item}}" ></component-tag-nameRichText><!-- 1 富文本-->
 
     <component-tag-nameStores  wx:if='{{item.partialType =="22"}}' data="{{item}}" ></component-tag-nameStores><!-- 22 门店-->
+
+    <component-tag-kefu  wx:if='{{item.partialType =="24"}}' data="{{item}}"></component-tag-kefu><!--24 客服-->
   </block>
 </view>
