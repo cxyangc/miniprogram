@@ -29,14 +29,20 @@ Page({
       success: function (res) {
         console.log('---------s---------')
         console.log(res.data)
-        wx.showToast({
-          title: '领取成功',
-          icon: 'success',
-          duration: 1000
-        })
-        
-        that.freshData(data.couponId)
-
+        if (!res.data.errcode){
+          wx.showToast({
+            title: '领取成功',
+            icon: 'success',
+            duration: 1000
+          })
+          that.freshData(data.couponId)
+        }else{
+          wx.showToast({
+            title: res.data.errMsg,
+            icon: 'none',
+            duration: 1000
+          })
+        }
       },
       fail: function (res) {
         wx.hideLoading()
@@ -63,6 +69,14 @@ Page({
       e[i].endDate = e[i].endDate.substring(0, 10)
     }
     return e;
+  },
+  toCouponDetail(data){
+    console.log("--------toCouponDetail------", data)
+    console.log(data.currentTarget.dataset.id)
+    var id = data.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '../../pages/coupon_detail/index?couponId=' + id,
+    })
   },
   getNewCouponsList:function(){
       var that = this

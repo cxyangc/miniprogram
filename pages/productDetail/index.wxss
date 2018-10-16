@@ -2,7 +2,11 @@
  @import"../../wxParse/wxParse.wxss";/* 富文本 */
 @import '../../view-new/aikucun/measure_card.wxss';/*  detail_list_card  */ 
 
-
+::-webkit-scrollbar{
+width: 0;
+height: 0;
+color: transparent;
+}
 .container{
 background: #F8FBFF;
 font-size: 0.8em;

@@ -117,7 +117,7 @@ Component({
           that.setData({
             imgInfo: imgInfo //将下载的图片临时路径赋值给img_l,用于预览图片
           })
-          console.log('==getImageInfo===', that.data.imgInfo)
+          console.log('==getImageInfo===', that.data.imgInfo, clientWidth,)
           that.customMethod();
         }
       })
@@ -138,7 +138,8 @@ Component({
         success: function (res) {
           console.log(res.data)
           that.setData({ productData: res.data })
-          that.downFileFun(that.data.productData.productInfo.imagePath.replace('http','https'),'proImg',function(){
+          let url = that.data.productData.productInfo.imagePath + '?x-oss-process=style/normal';
+          that.downFileFun(url.replace('http','https'),'proImg',function(){
             wx.hideLoading()
           })
          
@@ -153,7 +154,6 @@ Component({
     // 这里是一个自定义方法
     customMethod: function () {
       let that=this;
-      console.log('4444444444444', this.data.innerText)
       var clientWidth = wx.getSystemInfoSync().screenWidth;
       var clientHeight = wx.getSystemInfoSync().screenHeight;
       var context = wx.createCanvasContext('shareCanvas', this)
@@ -166,28 +166,34 @@ Component({
         context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
       } else if (that.data.imgInfo.w > that.data.imgInfo.h) {
         console.log('===that.data.imgInfo.w > that.data.imgInfo.h===')
-        context.drawImage(that.data.img_l, (that.data.imgInfo.w - clientWidth * 0.65) / 2, 0, that.data.imgInfo.h, that.data.imgInfo.h, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
+        context.drawImage(that.data.img_l, (that.data.imgInfo.w - that.data.imgInfo.h) / 2, 0, that.data.imgInfo.h, that.data.imgInfo.h, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
       } else if (that.data.imgInfo.w < that.data.imgInfo.h) {
         console.log('===that.data.imgInfo.w < that.data.imgInfo.h===')
-        context.drawImage(that.data.img_l, 0, (that.data.imgInfo.h - clientWidth * 0.65) / 2, that.data.imgInfo.w, that.data.imgInfo.w, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
+        context.drawImage(that.data.img_l, 0, (that.data.imgInfo.h - that.data.imgInfo.w) / 2, that.data.imgInfo.w, that.data.imgInfo.w, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
       }
       console.log("55555");
       context.setTextAlign('left')    // 文字居中
       context.setFillStyle('#000000')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
-      //context.fillText("叶礼旺大师，极品青兔毫！口径14.8×5.5cm", 0, clientWidth * 0.7)
       context.lineWidth = 0.8;
       var str = that.data.productData.productInfo.name
-      //that.InterceptStr(str, clientWidth * 0.5, clientWidth * 0.7 + 16, context)
       context.fillText(str.substring(0, 20), 16, clientWidth * 0.7+16)
-      //this.strFun(str, clientWidth * 0.62, clientWidth * 0.7,context)
       console.log("6666");
       context.setTextAlign('left')    // 文字居中
       context.setFillStyle('#ff4444')  // 文字颜色：黑色
       context.setFontSize(18)         // 文字字号：22px
       var str1 = that.data.productData.productInfo.price
       //that.InterceptStr("￥"+str1, clientWidth * 0.62, clientWidth * 0.9 + 16, context)
+      let priceLength = String(str1).length+1
+      console.log('priceLength', priceLength)
       context.fillText("￥" + str1, 16, clientWidth * 0.78 + 16)
+      // 单位
+      context.setTextAlign('left')    // 文字居中
+      context.setFillStyle('#ccc')  // 文字颜色：黑色
+      context.setFontSize(12)         // 文字字号：22px
+      var str1 = that.data.productData.productInfo.unitShow
+      //that.InterceptStr("￥"+str1, clientWidth * 0.62, clientWidth * 0.9 + 16, context)
+      context.fillText("/" + str1, 16+priceLength*14, clientWidth * 0.78 + 16)
       // 横线
       console.log("7777");
       context.moveTo(16, clientWidth * 0.8 + 16);

@@ -12,11 +12,10 @@ Page({
     couponUserState: true,
     couponEnableState: true,
     couponState: true,
+    couponCountState: true,
+    couponTimetState: true,
     clickStyle:'receive'
   },
-
-  
-
   getData: function () {
     let that = this
     let customIndex = app.AddClientUrl("/get_coupon_detail.html", that.optParam, 'get')
@@ -37,7 +36,7 @@ Page({
             wx.showToast({
               title: '你已经领过了',
               icon: 'success',
-              duration: 1000
+              duration: 2000
             })
             if (that.data.couponDetail.userGotCoupon[0].isUsed == 0) {
               that.setData({ couponUserState: true })//0未使用
@@ -58,6 +57,25 @@ Page({
           that.setData({ couponEnableState: false })//不可用
           that.setData({ color: '#E7E7E7' })
           that.setData({ clickStyle: 'noClick' })//点击类型
+          if (that.data.couponDetail.count!=0&&that.data.couponDetail.count <= that.data.couponDetail.gotCount) {
+            that.setData({ couponCountState: false })//已领完
+          } else {
+            that.setData({ couponCountState: true })//已领完
+          }
+          let nowData = new Date();
+          let couponData = that.data.couponDetail.endDate
+          couponData = couponData.replace(/-/g, "/");
+          couponData = new Date(couponData);
+          console.log('===couponData===', couponData)
+          console.log('===nowData===', nowData)
+          let days1 = parseInt(couponData.getTime() / (1000 * 60 * 60 * 24));
+          let days2 = parseInt(nowData.getTime() / (1000 * 60 * 60 * 24));
+          console.log('===days1===', days1, days2)
+          if (days1 > days2) {
+            that.setData({ couponTimetState: true })//未到期
+          } else {
+            that.setData({ couponTimetState: false })//已到期
+          }
         }
         console.log(that.data.couponDetail)
         wx.hideLoading()
@@ -91,13 +109,15 @@ Page({
       header: app.headerPost,
       success: function (res) {
         console.log(res.data);
-        if (res.data.errcode && res.data.errcode==-1){
+        if (res.data.errcode && res.data.errcode == -1) {
+          console.log('===1====')
           wx.showToast({
             title: res.data.relateObj,
             icon: 'success',
             duration: 1000
           })
-        }else{
+        } else if (!res.data.errcode){
+          console.log('===2====')
           if (res.data.newGot == 0 && res.data.otherGot == 0) {
             wx.showToast({
               title: '你已经领过了',
@@ -112,15 +132,16 @@ Page({
               duration: 1000
             })
           }
-          else if (res.data.newGot == 0) {
+          else if (res.data.newGot == 1) {
             wx.showToast({
               title: '领取成功',
               icon: 'success',
               duration: 1000
             })
+            that.setData({ couponState: true })//已领取
+            that.setData({ clickStyle: 'used' })//点击类型
           }
         }
-        wx.hideLoading()
       },
       fail: function (res) {
         console.log('fail')
@@ -160,6 +181,7 @@ Page({
       sysWidth: app.globalData.sysWidth,
       sysHeight: app.globalData.sysHeight,
     });
+    console.log('setting', this.data.setting)
   },
 
   /**
@@ -187,13 +209,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
-    this.data.List = {
-      tab: [],
-      listData: []
-    }
-    this.onLoad()
-
+    this.getData(this.optParam )
     wx.stopPullDownRefresh()
   },
 

@@ -14,6 +14,7 @@ Page({
     productData: [], // 商品数据  
     sysWidth: 320,//图片大小
     acReport: '正品低价，买！买！买！',
+    minCount:'1',
     focusIndex: 0,
     carCount: 0,
     //规格信息
@@ -328,7 +329,12 @@ Page({
     orderType: ''
   },
   subNum: function () {
-    if (this.byNowParams.itemCount == 1) {
+    if (this.data.measurementJson.id) {
+      this.setData({ minCount: this.data.measurementJson.minSaleCount })
+    } else {
+      this.setData({ minCount: 1 })
+    }
+    if (this.byNowParams.itemCount == this.data.minCount) {
       return
     }
     this.byNowParams.itemCount--;
@@ -873,9 +879,10 @@ Page({
         }
         console.log(res.data)
         that.byNowParams.cartesianId = res.data.id
-        that.setData({
-          measurementJson: res.data
-        })
+        that.setData({measurementJson: res.data})
+        that.byNowParams.itemCount = that.data.measurementJson.minSaleCount
+        that.setData({ byNowParams: that.byNowParams })
+        that.setData({ minCount: that.byNowParams.itemCount })
       },
       fail: function (res) {
         console.log("fail")

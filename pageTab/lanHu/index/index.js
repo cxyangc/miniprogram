@@ -16,14 +16,14 @@ Page({
     unactivityPromotion:[],//还未开始的活动
     sysWidth: "",
     currentTab: "",
-    platformSetting:"",//信息
+    setting:"",//信息
     countDownList:[],
     countDownList1:[],
     toView: 'inToView01',
     getProductData:[],//商品列表
     activityPromotionAll:[],
     productData:[],//加入购物车用的商品数据
-
+    minCount:'1',
     //规格信息
     showCount: false,
     focusData: null,
@@ -58,7 +58,7 @@ Page({
     }
     console.log("setting", app.setting.platformSetting.logo)
     this.setData({
-      platformSetting: app.setting.platformSetting
+     setting: app.setting
     })
     var that=this;
     app.addLoginListener(this);
@@ -125,9 +125,10 @@ Page({
           title: '提示',
           content: '加载失败，点击【确定】重新加载',
           success: function (res) {
-
+            console.log('', res)
             if (res.confirm) {
-              that.getParac()
+              that.getData();
+              // that.getParac()
             } else if (res.cancel) {
               app.toIndex()
             }
@@ -570,7 +571,12 @@ Page({
     orderType: ''
   },
   subNum: function () {
-    if (this.byNowParams.itemCount == 1) {
+    if (this.data.measurementJson.id) {
+      this.setData({ minCount: this.data.measurementJson.minSaleCount })
+    } else {
+      this.setData({ minCount: 1})
+    }
+    if (this.byNowParams.itemCount == this.data.minCount) {
       return
     }
     this.byNowParams.itemCount--;
@@ -844,9 +850,10 @@ Page({
         }
         console.log(res.data)
         that.byNowParams.cartesianId = res.data.id
-        that.setData({
-          measurementJson: res.data
-        })
+        that.setData({measurementJson: res.data})
+        that.byNowParams.itemCount = that.data.measurementJson.minSaleCount
+        that.setData({ byNowParams: that.byNowParams })
+        that.setData({ minCount: that.byNowParams.itemCount })
       },
       fail: function (res) {
         console.log("fail")

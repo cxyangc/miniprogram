@@ -15,6 +15,7 @@ Component({
     display:""
   },
   ready:function(){
+    let that=this;
     console.log("客服数据", this.data.data)
     app.kefuCount++
     this.setData({ kefuCount: app.kefuCount})
@@ -23,6 +24,15 @@ Component({
       settingData: app.setting.platformSetting
     })
     console.log('settingData', this.data.settingData)
+    wx.getSystemInfo({
+      success: function (res) {
+        console.log('===getSystemInfo====',res.windowWidth);
+        console.log(res.windowHeight);
+        that.setData({
+          defaultTop: res.windowHeight*0.618-20
+        })
+      },
+    })
   },
   methods: {
     // 这里是一个自定义方法

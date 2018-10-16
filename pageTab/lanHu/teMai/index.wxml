@@ -156,7 +156,7 @@
    <posters proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 
    <posterActive activeId="{{id}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterActiveState}}' bind:closePoaster="getChilrenPoster"></posterActive> 
 <!--加入购物车的遮罩层  -->
-  <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template>  
+  <template is="measure_card" data="{{setting:setting,minCount,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template>  
 
 
    

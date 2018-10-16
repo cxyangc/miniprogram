@@ -34,6 +34,7 @@ Page({
     pintuanListData: [],
     color:'',
     clientNo:'',
+    minCount:'1',
   },
   /*轮播图下标*/
   swiperChange: function (e) {
@@ -265,7 +266,7 @@ Page({
   toCart:function(){
     console.warn("cart")
     wx.switchTab({
-      url: '../../pageTab/shopping_car_list/index',
+      url: '../../pageTab/shopping_car_list_new/index',
     })
   },
   /* 找到购物车里面的内容 */
@@ -351,7 +352,12 @@ Page({
     this.setData({ showCount: false })
   },
   subNum: function () {
-    if (this.byNowParams.itemCount == 1){
+    if (this.data.measurementJson.id){
+        this.setData({ minCount: this.data.measurementJson.minSaleCount})
+    }else{
+      this.setData({ minCount:1 })
+    }
+    if (this.byNowParams.itemCount == this.data.minCount){
       return
     }
     this.byNowParams.itemCount--;
@@ -815,6 +821,9 @@ Page({
         })
         that.data.measurementJson.waitDataState = true
         that.setData({ measurementJson: that.data.measurementJson })
+        that.byNowParams.itemCount = that.data.measurementJson.minSaleCount
+        that.setData({ byNowParams: that.byNowParams })
+        that.setData({ minCount: that.byNowParams.itemCount })
       },
       fail: function (res) {
         console.log("fail")

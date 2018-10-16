@@ -24,10 +24,8 @@ Page({
     })
   },
   /* 回首页 */
-  toproduct:function(){
-    wx.navigateTo({
-      url: '/pages/search_product/index'
-    })
+  toIndex:function(){
+    app.toIndex();
   },
   /**
    * 生命周期函数--监听页面加载

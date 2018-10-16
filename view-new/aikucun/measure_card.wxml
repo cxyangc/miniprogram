@@ -46,10 +46,10 @@
 
 
       <view class='ItemCountDell'>
-        <view class='font_777 font_09'>购买数量</view>
+        <view class='font_777 font_09'>购买数量{{minCount}}</view>
         <view class='item_infomation_nums'> 
             <image style='border-top-left-radius: 0.2em;border-bottom-left-radius: 0.2em;' 
-              src='/images/icons/add2.png' class='{{byNowParams.itemCount == 1 ?"noadd":""}}'  catchtap='subNum'></image>
+              src='/images/icons/add2.png' class='{{byNowParams.itemCount == minCount?"noadd":""}}'  catchtap='subNum'></image>
             <text class='flexCenter'>{{byNowParams.itemCount}}</text>
             <image style='border-top-right-radius: 0.2em; border-bottom-right-radius: 0.2em;' 
               src='/images/icons/add.png' class='{{byNowParams.itemCount > measurementJson.stock?"noadd":""}}'

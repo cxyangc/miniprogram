@@ -45,12 +45,10 @@
                     <view>
                       <view class='ccc'>满{{cou.coupon.orderAmount}}可用</view>
                       <view>{{cou.state}}</view>
-                      <view bindtap='toproduct'>点击前往使用优惠券</view>
+                      <view bindtap='toIndex'>点击前往使用优惠券</view>
                     </view>
                   </view>
                   <view class='itemBottom'>{{cou.couponStartDate}} 至 {{cou.couponEndDate}}</view>
-              
-
             </view>
             </view>
             
