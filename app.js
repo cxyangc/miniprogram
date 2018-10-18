@@ -3,15 +3,15 @@ import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
 App({
      //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
-      //clientUrl: 'https://mini.tunzai.vip/chainalliance/',
-      clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+      clientUrl: 'https://mini.tunzai.vip/chainalliance/',
+      //clientUrl: 'https://mini.sansancloud.com/chainalliance/',
 
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */
 
 
-   clientNo: 'santigongxiang',   //自定义的项目的名称。
+   clientNo: 'tunzai',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
@@ -146,7 +146,7 @@ App({
     //第一次登录加载的函数
     loadFirstEnter: function (more_scene) {
       // console.log("这个是第一次加载的more_scene" + more_scene)
-        
+        console.log('第一次登录加载的函数')
         this.wxLogin(more_scene)
         this.getSetting()
     },
@@ -619,26 +619,29 @@ App({
             },
             fail: function (e) {
                 console.log(e)
-                wx.showModal({
+                setTimeout(function(){
+                  wx.showModal({
                     title: '授权提示',
                     content: '取消用户授权可能导致部分功能不可用，请确认授权！',
                     cancelText: '拒绝',
                     confirmText: '去授权',
                     success: function (res) {
-                        if (res.confirm) {
-                            wx.openSetting({
-                                success: (res) => {
-                                    res.authSetting = {
-                                        "scope.userInfo": true,
-                                    }
-                                    that.sentWxUserInfo(loginJson)
-                                }
-                            })
-                        } else if (res.cancel) {
+                      if (res.confirm) {
+                        wx.openSetting({
+                          success: (res) => {
+                            res.authSetting = {
+                              "scope.userInfo": true,
+                            }
+                            that.sentWxUserInfo(loginJson)
+                          }
+                        })
+                      } else if (res.cancel) {
 
-                        }
+                      }
                     }
-                })
+                  })
+                },500);
+              
             }
         })
 
@@ -653,6 +656,7 @@ App({
         return str2;
     },
     hasNoScope: false,
+    showAuthUserInfoButton:true,
     changeUserBelong: function (more_scene) {
       if (!more_scene) return;
       if (!this.loginUser || !this.loginUser.platformUser
@@ -710,6 +714,7 @@ App({
             mask: true
         })
         var that = this
+        console.log('===1===')
         wx.login({//微信登入接口
             success: function (res) {
               console.log("=======wxCode======", res.code, more_scene)
@@ -764,15 +769,18 @@ App({
                                       if (!res.authSetting['scope.userInfo']) {
                                             console.error('没有授权')
                                             that.hasNoScope = res.authSetting['scope.userInfo']
-                                            that.sentWxUserInfo(loginJson)
+                                            that.showAuthUserInfoButton=true;
                                             // wx.authorize({
-                                            //   scope: 'scope.record',
+                                            //   scope: 'scope.userInfo',
                                             //   success() {
                                             //     // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
                                             //     console.info('已授权')
                                             //     wx.startRecord()
                                             //   }
                                             // })
+                                        }else{
+                                           that.showAuthUserInfoButton = false;
+                                          that.sentWxUserInfo(loginJson)
                                         }
                                     }
                                 })

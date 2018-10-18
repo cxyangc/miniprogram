@@ -191,9 +191,18 @@ Component({
       context.setTextAlign('left')    // 文字居中
       context.setFillStyle('#ccc')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
-      var str1 = that.data.productData.productInfo.unitShow
+      var str2='';
+      if (that.data.productData.productInfo.unitShow){
+        str2 = "/" +that.data.productData.productInfo.unitShow 
+      }else{
+        str2 = "￥" + that.data.productData.productInfo.tagPrice
+        let tagPriceLength = String(str2).length
+        context.moveTo(16 + priceLength * 14, clientWidth * 0.78+12);
+        context.strokeStyle = "#999"  // 文字颜色：黑色
+        context.lineTo((16 + priceLength * 14) + (tagPriceLength * 9), clientWidth * 0.78 + 12);
+      }
       //that.InterceptStr("￥"+str1, clientWidth * 0.62, clientWidth * 0.9 + 16, context)
-      context.fillText("/" + str1, 16+priceLength*14, clientWidth * 0.78 + 16)
+      context.fillText( str2, 16+priceLength*14, clientWidth * 0.78 + 16)
       // 横线
       console.log("7777");
       context.moveTo(16, clientWidth * 0.8 + 16);

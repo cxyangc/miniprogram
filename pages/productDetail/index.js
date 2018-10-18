@@ -306,6 +306,7 @@ Page({
       way = e.detail.data.way
     }
     this.setData({ bindway: way })
+    console.log('====q=====',this.data.bindway)
     let info = productData.productInfo
     this.byNowParams.productId = info.productId
     this.byNowParams.shopId = info.belongShopId
@@ -316,12 +317,15 @@ Page({
       } else {
         this.setData({ showCount: true })
         this.byNowParams.orderType = 0
+        this.setData({ byNowParams: this.byNowParams })
         this.chooseMeasureItem()
       }
     } else if (way == 'pintuanOne') {
         this.setData({ showCount: true })
         this.byNowParams.orderType = 0
-        this.byNowParams.pintuanRecordId =0
+        this.byNowParams.pintuanCreateType = 0
+        this.byNowParams.pintuanRecordId = 0
+        this.setData({ byNowParams: this.byNowParams })
         this.chooseMeasureItem()
     } else if (way == 'pintuanMore') {
       this.setData({ showCount: true })
@@ -337,14 +341,17 @@ Page({
       this.byNowParams.pintuanCreateType = 2
       this.byNowParams.orderType = 0
       this.byNowParams.pintuanRecordId = this.data.pintuanId
+      this.setData({ byNowParams: this.byNowParams })
       this.chooseMeasureItem()
     } else if (way == 'select') {
       this.setData({ showCount: true })
       this.byNowParams.orderType = 0
+      this.setData({ byNowParams: this.byNowParams })
       this.chooseMeasureItem()
     }else{
       this.setData({ showCount: true })
       this.byNowParams.orderType = 0
+      this.setData({ byNowParams: this.byNowParams })
       this.chooseMeasureItem()
     }
   },
@@ -425,6 +432,7 @@ Page({
   },
   /* 创建订单 */
   createOrder22: function (o) {
+    console.log('========createOrder22======',o);
     var customIndex = app.AddClientUrl("/buy_now.html", o,'post')
     var that = this
     wx.showLoading({
@@ -603,7 +611,6 @@ Page({
     postParam.productId = param.id
     postParam.addShopId = param.addShopId
     let customIndex = app.AddClientUrl("/product_detail.html", postParam)
-
     wx.request({
       /* url: app.clientUrl + app.clientNo + "/product_detail_" + param.id + ".html?jsonOnly=1" + "&addShopId=" + param.addShopId, */
       url: customIndex.url,

@@ -95,6 +95,33 @@ font-size: 0.8em;
   font-size: 28rpx;
   color: #333;
 }
+.InfoSale{
+  padding: 12rpx 48rpx 12rpx 48rpx;
+  font-size: 26rpx;
+  color: #333;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.InfoSaleDes{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding:6rpx;
+  margin-right: 14rpx;
+  border-radius: 6rpx
+}
+.InfoSaleText{
+  color: #fff;
+  font-size:16rpx;
+  width:32rpx;
+  height:16rpx;
+  display:inline-block;
+  margin:0;
+  padding:0;
+  line-height:16rpx;
+
+}
 .info_describe{
   font-size: 20rpx;
   color: #ccc;

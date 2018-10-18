@@ -1,6 +1,6 @@
 
 <view class="container">
-  <block wx:for="{{data}}" wx:key="{{temp}}" >
+  <block wx:for="{{PaiXuPartials}}" wx:key="{{temp}}" >
     <!--组件化 -->
     <component-tag-nameNearShop  wx:if='{{item.partialType == "23"}}'  data="{{item}}"></component-tag-nameNearShop> <!-- 附近店铺-->
 
@@ -41,5 +41,21 @@
     <component-tag-nameStores  wx:if='{{item.partialType =="22"}}' data="{{item}}" ></component-tag-nameStores><!-- 22 门店-->
 
     <component-tag-kefu  wx:if='{{item.partialType =="24"}}' data="{{item}}"></component-tag-kefu><!--24 客服-->
+
   </block>
+  <view wx:if="{{showPopup}}">
+    <view class='authorizationBg'></view>
+    <view class='authorization'>
+      <view class='authorizationPopup'>
+        <view class='tipContent'>
+          <text style='font-size:38rpx;'>前往微信授权</text>
+        </view>
+        <view class='buttonArray'>
+          <button class='button cancel' bindtap='cancel'>取消</button>
+          <button class='button confirm' open-type="getUserInfo" style='color:{{setting.platformSetting.defaultColor}}'  bindgetuserinfo="bindGetUserInfo">确定</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
 </view>

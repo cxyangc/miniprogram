@@ -103,9 +103,13 @@ Page({
   console.log(JSON.stringify(app.setting.platformSetting.secondColor));
   this.setData({
     defaultColor: app.setting.platformSetting.defaultColor,
-    secondColor: app.setting.platformSetting.secondColor
+    secondColor: app.setting.platformSetting.secondColor,
+    setting: app.setting,
+    loginUser: app.loginUser
   })
 
+    console.log(this.data.setting);
+    console.log(this.data.loginUser);
     //  已经登录
     if (app.loginUser && app.loginUser != "") {
       // console.log("已经登录了" + JSON.stringify(app.loginUser))

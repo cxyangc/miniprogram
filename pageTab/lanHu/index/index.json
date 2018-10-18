@@ -6,7 +6,8 @@
 
       "usingComponents": {
         "productList": "../components/productList/productList",
-        "posters":"../../../view/partials/canvas/index"
+        "posters":"../../../view/partials/canvas/index",
+        "customPage": "../../../view/partials/custom_page/index"
       }
 
 }

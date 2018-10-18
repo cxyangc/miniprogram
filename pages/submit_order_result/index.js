@@ -68,6 +68,7 @@ Page({
           'success': function (res) {
             console.log('------成功--------')
             console.log(res)
+            console.log(that.data.success)
             /* wx.showToast({
               title: '付款成功',
               icon: 'success',

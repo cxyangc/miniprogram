@@ -12,6 +12,7 @@ Page({
     renderData:null,
     PaiXuPartials:[], 
     sysWidth: 750,//图片大小
+    partialsName:'',
     topName: {
       SearchProductName: "",//头部搜索的
     },
@@ -91,38 +92,38 @@ Page({
     }
   },
   //partials
-  getPartials: function (){
-    var partials = this.data.renderData.partials;
-    console.log("=====partials=====", partials)
-    var PaiXuPartials = [];
-    //排序
-    if (partials && partials.length){
-    for (let i = 0; i < partials.length; i++){
-      // 产品标签的转化为数组start
-      if (partials[i].partialType == 15 && partials[i].relateBean && partials[i].relateBean.length != 0) {
-        for (let j = 0; j < partials[i].relateBean.length; j++) {
-          if (partials[i].relateBean[j].tags && partials[i].relateBean[j].tags != '') {
-            let tagArray = partials[i].relateBean[j].tags.slice(1, -1).split("][")
-            partials[i].relateBean[j].tagArray = tagArray;
-          }
-        }
-      }
-     // 产品标签的转化为数组end
-      if (typeof (partials[i].jsonData) == "string"){
-        partials[i].jsonData = JSON.parse(partials[i].jsonData)
-      }else{
-        continue;
-      }
+  // getPartials: function (){
+  //   var partials = this.data.renderData.partials;
+  //   console.log("=====partials=====", partials)
+  //   var PaiXuPartials = [];
+  //   //排序
+  //   if (partials && partials.length){
+  //   for (let i = 0; i < partials.length; i++){
+  //     // 产品标签的转化为数组start
+  //     if (partials[i].partialType == 15 && partials[i].relateBean && partials[i].relateBean.length != 0) {
+  //       for (let j = 0; j < partials[i].relateBean.length; j++) {
+  //         if (partials[i].relateBean[j].tags && partials[i].relateBean[j].tags != '') {
+  //           let tagArray = partials[i].relateBean[j].tags.slice(1, -1).split("][")
+  //           partials[i].relateBean[j].tagArray = tagArray;
+  //         }
+  //       }
+  //     }
+  //    // 产品标签的转化为数组end
+  //     if (typeof (partials[i].jsonData) == "string"){
+  //       partials[i].jsonData = JSON.parse(partials[i].jsonData)
+  //     }else{
+  //       continue;
+  //     }
 
-      console.log("=====partials=====", partials)
-      PaiXuPartials.push(partials[i]);
-    }}
-    this.setData({ PaiXuPartials: PaiXuPartials  })
-    console.log(this.data.PaiXuPartials)
+  //     console.log("=====partials=====", partials)
+  //     PaiXuPartials.push(partials[i]);
+  //   }}
+  //   this.setData({ PaiXuPartials: PaiXuPartials  })
+  //   console.log(this.data.PaiXuPartials)
 
       
         
-  },
+  // },
   toPage: function(event) {
     console.log(event.currentTarget.dataset)
     wx.navigateTo({
@@ -179,49 +180,49 @@ Page({
       })
     }
   },
-  getParac:function(){
-    var that = this
-    var customIndex = app.AddClientUrl("/custom_page_index.html",{},'get','1')
-    //拿custom_page
-    wx.request({
-      url: customIndex.url,
-      header: app.header,
-      success: function (res) {
-        console.log("====== res.data=========", res.data)
-        wx.setNavigationBarTitle({
-          title: res.data.channelTitle,
-        })
-        wx.hideLoading()
-        app.renderData = res.data
-        that.setData({ renderData: res.data })
-        if (res.data.partials.length == 0 ){
-          that.setData({ PaiXuPartials:null })
-        }else{
-          that.getPartials();
-        }
-      },
-      fail: function (res) {
-        console.log('------------2222222-----------')
-        console.log(res)
-        wx.hideLoading()
+  // getParac:function(){
+  //   var that = this
+  //   var customIndex = app.AddClientUrl("/custom_page_index.html",{},'get','1')
+  //   //拿custom_page
+  //   wx.request({
+  //     url: customIndex.url,
+  //     header: app.header,
+  //     success: function (res) {
+  //       console.log("====== res.data=========", res.data)
+  //       wx.setNavigationBarTitle({
+  //         title: res.data.channelTitle,
+  //       })
+  //       wx.hideLoading()
+  //       app.renderData = res.data
+  //       that.setData({ renderData: res.data })
+  //       if (res.data.partials.length == 0 ){
+  //         that.setData({ PaiXuPartials:null })
+  //       }else{
+  //         that.getPartials();
+  //       }
+  //     },
+  //     fail: function (res) {
+  //       console.log('------------2222222-----------')
+  //       console.log(res)
+  //       wx.hideLoading()
 
-        //app.loadFail()
+  //       //app.loadFail()
         
-        wx.showModal({
-          title: '提示',
-          content: '加载失败，点击【确定】重新加载' ,
-          success: function (res) {
+  //       wx.showModal({
+  //         title: '提示',
+  //         content: '加载失败，点击【确定】重新加载' ,
+  //         success: function (res) {
 
-            if (res.confirm) {
-              that.getParac()
-            } else if (res.cancel) {
-              app.toIndex()
-            }
-          }
-        })
-      }
-    })
-  },
+  //           if (res.confirm) {
+  //             that.getParac()
+  //           } else if (res.cancel) {
+  //             app.toIndex()
+  //           }
+  //         }
+  //       })
+  //     }
+  //   })
+  // },
   getData: function () {
     console.log('---------------index - getsetting --------------')
     var that = this
@@ -262,8 +263,8 @@ Page({
           sysWidth: app.globalData.sysWidth
         });
        //this.getData()
-       this.getParac()
-      
+       //this.getParac()
+      this.setData({ partialsName:'index'})
         if (!!app.setting) {
           this.setNavBar()
         }

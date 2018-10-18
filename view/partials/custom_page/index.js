@@ -11,101 +11,126 @@ Component({
   },
   data: {
     // 这里是一些组件内部数据
-    someData: {},
-    sysWidth: "",
+    showPopup:false,
+    renderData: null,
+    PaiXuPartials: [], 
   },
 
   ready: function () {
-    this.setData({
-      sysWidth: app.globalData.sysWidth
-    });
-    var that = this;
-    //  高度自适应
-    wx.getSystemInfo({
-      success: function (res) {
-        var clientHeight = res.windowHeight,
-          clientWidth = res.windowWidth,
-          rpxR = 750 / clientWidth;
-        var calc = clientHeight * rpxR - 180;
-        console.log(calc)
-        that.setData({
-          winHeight: calc
-        });
-      }
-    });
+    let that=this;
+    console.log('zujian',this.data.data)
+    this.setData({ setting: app.setting })
+    console.log('setting', this.data.setting)
+    this.getParac();
+    wx.getSetting({//检查用户是否授权了
+      success(res) {
+        console.warn("======getSetting:res========", res)
+        if (!res.authSetting['scope.userInfo']) {
+          console.log('=====1userInfo====')
+          that.setData({ showPopup: true })
+        } else {
+          console.log('=====2userInfo====')
+          that.setData({ showPopup: false })
+        }
+      }});
   },
   methods: {
     // 这里是一个自定义方法
     /* 组件事件集合 */
-    tolinkUrl: function (e) {
-      console.warn("=======e=======", e)
-      let linkUrl = e.currentTarget.dataset.link
-      app.linkEvent(linkUrl)
-    },
-    // 滚动切换标签样式
-    switchTab: function (e) {
-      this.setData({
-        currentTab: e.detail.current
-      });
-      this.checkCor();
-    },
-    // 点击标题切换当前页时改变样式
-    swichNav: function (e) {
-      var cur = e.target.dataset.current;
-      if (this.data.currentTaB == cur) { return false; }
-      else {
-        this.setData({
-          currentTab: cur
-        })
+    bindGetUserInfo: function (e) {
+      this.setData({ showPopup: false })
+      console.log(e.detail.userInfo)
+      if (e.detail.userInfo) {
+        //用户按了允许授权按钮
+        console.log('用户按了允许授权按钮')
+        if (app.loginUser && app.loginUser.platformUser&&!app.loginUser.platformUser.nickname) {
+           app.sentWxUserInfo(app.loginUser)
+        }
+      } else {
+        console.log('用户按了拒绝按钮')
+        //用户按了拒绝按钮
       }
-   
     },
-    getPartials: function (partials) {
-      var PaiXuPartials = [];
+    cancel:function(){
+      this.setData({ showPopup: false })
+    },
+    getParac: function () {
       var that = this
-      for (let i = 0; i < partials.length; i++) {
-        if (typeof (partials[i].jsonData) == "string") {
-          partials[i].jsonData = JSON.parse(partials[i].jsonData)
-        }
-        if (partials[i].partialType == 1) {
-
-          WxParse.wxParse('article', 'html', partials[i].jsonData.content, that, 5);
-        }
-        if (partials[i].partialType == 12) {
-          wx.setNavigationBarTitle({
-            title: partials[i].jsonData.title
-          })
-          if (!partials[i].jsonData.titleColor) {
-            partials[i].jsonData.titleColor = '#000000'
+      var customIndex = app.AddClientUrl("/custom_page_" + that.data.data + ".html", {}, 'get', '1')
+      //拿custom_page
+      wx.request({
+        url: customIndex.url,
+        header: app.header,
+        success: function (res) {
+          console.log("====== res.data=========", res.data)
+          if (!res.data.errcode||res.data.errcode=='0'){
+            wx.setNavigationBarTitle({
+              title: res.data.channelTitle,
+            })
+            wx.hideLoading()
+            app.renderData = res.data
+            that.setData({ renderData: res.data })
+            if (res.data.partials.length == 0) {
+              that.setData({ PaiXuPartials: null })
+            } else {
+              that.getPartials();
+            }
+          }else{
+            console.log('加载失败')
           }
-          if (!partials[i].jsonData.bgColor) {
-            partials[i].jsonData.bgColor = '#ffffff'
-          }
-          console.log('setTitle-' + typeof (partials[i].jsonData.titleColor))
-          wx.setNavigationBarColor({
-            frontColor: partials[i].jsonData.titleColor,
-            backgroundColor: partials[i].jsonData.bgColor,
-          })
+        },
+        fail: function (res) {
+          console.log('------------2222222-----------')
+          console.log(res)
+          wx.hideLoading()
 
-        } else {
+          //app.loadFail()
+
+          wx.showModal({
+            title: '提示',
+            content: '加载失败，点击【确定】重新加载',
+            success: function (res) {
+
+              if (res.confirm) {
+                that.getParac()
+              } else if (res.cancel) {
+                app.toIndex()
+              }
+            }
+          })
+        }
+      })
+    },
+    getPartials: function () {
+      var partials = this.data.renderData.partials;
+      console.log("=====partials=====", partials)
+      var PaiXuPartials = [];
+      //排序
+      if (partials && partials.length) {
+        for (let i = 0; i < partials.length; i++) {
+          // 产品标签的转化为数组start
+          if (partials[i].partialType == 15 && partials[i].relateBean && partials[i].relateBean.length != 0) {
+            for (let j = 0; j < partials[i].relateBean.length; j++) {
+              if (partials[i].relateBean[j].tags && partials[i].relateBean[j].tags != '') {
+                let tagArray = partials[i].relateBean[j].tags.slice(1, -1).split("][")
+                partials[i].relateBean[j].tagArray = tagArray;
+              }
+            }
+          }
+          // 产品标签的转化为数组end
+          if (typeof (partials[i].jsonData) == "string") {
+            partials[i].jsonData = JSON.parse(partials[i].jsonData)
+          } else {
+            continue;
+          }
+
+          console.log("=====partials=====", partials)
           PaiXuPartials.push(partials[i]);
         }
+      }
+      this.setData({ PaiXuPartials: PaiXuPartials })
+      console.log(this.data.PaiXuPartials)
+    },
 
-      }
-      this.setData({ partials: PaiXuPartials })
-      console.log(PaiXuPartials)
-    },
-    //判断当前滚动超过一屏时，设置tab标题滚动条。
-    checkCor: function () {
-      if (this.data.currentTab > 4) {
-        this.setData({
-          scrollLeft: 300
-        })
-      } else {
-        this.setData({
-          scrollLeft: 0
-        })
-      }
-    },
   },
 })

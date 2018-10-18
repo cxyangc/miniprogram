@@ -2,13 +2,19 @@
 <!--积分商城  -->
 <view class='wrap'>
   <!--头部的积分  -->
-  <!-- <view class='jiFen'>
+  <view class='jiFen' style='background:{{defaultColor}}'>
     <view class='box' bindtap='click'>
-      <view class='jiFenBox'><text>{{jiFen}}</text></view>
-       <view class='jiFenImg' ><image src='../../images/icons/right1.png'></image></view> 
+      <view  class='userInfo'>
+        <image src='{{loginUser.userIcon}}' style='width:100rpx;height:100rpx;border-radius:100rpx'></image>
+        <text style='margin-left:10rpx;color:#fff;font-size:28rpx'>{{loginUser.nickName}}</text>
+      </view>
+      <view class='jiFenInfo'>
+        <view class='jiFenBox'><text style='font-size:28rpx'>当前积分:</text></view>
+        <view class='jiFenBox'><text style='font-size:28rpx'>{{jiFen}}</text></view>
+        <view class='jiFenImg' ><image src='../../images/icons/right1.png'></image></view> 
+      </view>
     </view>
-     <view class='jiFenBox1'><text>当前积分</text></view>
-  </view> -->
+  </view>
 
   <!--中间的礼品 -->
    <block  wx:if="{{jiFenGoods.length!=0}}">

@@ -122,6 +122,7 @@
 
 <!--  海报-->
    <posters proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 
+   <customPage data="index" ></customPage> 
 
 
 

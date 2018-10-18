@@ -4,7 +4,7 @@
 
 <view wx:if='{{PaiXuPartials}}' class="container">
   <block>
-    <component-tag-customPage data="{{PaiXuPartials}}"></component-tag-customPage> <!-- 首页组件-->
+    <component-tag-customPage data="{{partialsName}}"></component-tag-customPage> <!-- 首页组件-->
   </block>
     <!--技术支持  -->
     <view class='buttom' bindtap='buttom'><text>技术支持:福州三三网络科技有限公司</text></view>

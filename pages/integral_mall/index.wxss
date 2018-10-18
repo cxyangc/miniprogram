@@ -1,17 +1,23 @@
 .jiFen{
-  height: 180rpx;
+  height: 140rpx;
   background-color: #0099FF;
-  padding-top: 40rpx;
+  padding-top: 10rpx;
 }
 .box{
   display: flex;
   flex-direction: row;
+  margin: 20rpx;
+  justify-content: space-between
 }
 .jiFenBox{
   /* width: 130rpx; */
   height: 100rpx;
   margin-left: 50rpx;
   text-align: center;
+}
+.jiFenInfo{
+  display: flex;
+  flex-direction: row;
 }
 .jiFenBox text{
 font-size: 70rpx;
@@ -20,9 +26,11 @@ line-height: 100rpx;
 color: white;
 }
 .jiFenImg{
-    width: 40rpx;
+  width: 40rpx;
   height: 40rpx;
   margin-top: 30rpx;
+  margin-left:20rpx;
+
 }
 .jiFenImg image{
     width: 100%;
@@ -195,4 +203,9 @@ display: block;
 line-height: 60rpx;
 
 
+}
+.userInfo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

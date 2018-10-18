@@ -273,7 +273,7 @@ Page({
   },
 
   onShow: function () {
-    console.log("=========on show======");
+    console.log("=========on show======", app.appHide, app.shareSubPage);
     if (app.appHide) {
       console.log("=======app.onLaunchOptions==========", app.onLaunchOptions)
      
@@ -294,7 +294,7 @@ Page({
     --this.count;
     console.log('-------获取 setting 中--------')
     if (app.setting ) {
-      // console.log("测试有走到这里index页面111行")
+      console.log("测试有走到这里index页面111行")
       clearTimeout(timer11)
       that.toIndex()
       return false;

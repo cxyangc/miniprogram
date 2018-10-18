@@ -42,6 +42,13 @@
       <view class='InfoSubName '>·{{productData.productInfo.description}}</view>
     </block>
   </view>
+<!-- 促销 -->
+<view class='InfoSale' wx:if='{{productData.productInfo.saleStrategyName}}' style='background:{{setting.platformSetting.secondColor}}'>
+      <view class='InfoSaleDes' style='background:{{setting.platformSetting.defaultColor}}'>
+        <view class='InfoSaleText'>促销</view><view class='InfoSaleText'>活动</view>
+      </view>
+      <text style='color:{{setting.platformSetting.defaultColor}}'>{{productData.productInfo.saleStrategyName}}</text>
+    </view>
 <!-- <view class='helpBlank'></view> -->
    <block wx:if="{{clientNo=='tunzai'}}">
     <view class='tap_title'>
@@ -194,4 +201,4 @@
 <pintuan pintuanParam="{{pintuanParam}}" wx:if='{{pintuanPopupState}}' bind:closePintuan="getChilrenPintuan" bind:goPintuan='readyPay2'></pintuan> 
 
  <template is="measure_card2" data="{{setting:setting,showCount,minCount,focusData:productData.productInfo,measures:productData.measures,byNowParams:byNowParams,measurementJson:measurementJson,type:bindway}}"></template> 
- <component-tag-customPage data="{{partials}}"></component-tag-customPage> <!-- 首页组件-->
+ <component-tag-customPage data="productdetail"></component-tag-customPage> <!-- 首页组件-->
