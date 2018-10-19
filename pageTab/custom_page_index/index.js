@@ -329,7 +329,7 @@ Page({
   },
   onPullDownRefresh: function () {
     // 下拉刷新的时候首先判断存不存在tab
-
+    let that=this;
     if (this.data.listenerId) {
 
       console.log("hello:" + this.data.listenerId);
@@ -360,8 +360,10 @@ Page({
     }
 
     if (this.data.PaiXuPartials.length == "0") {
-
-      this.onLoad();
+      setTimeout(function () {
+        that.onLoad();
+      }, 500);
+      //this.onLoad();
       // wx.stopPullDownRefresh()
     }
  
@@ -382,6 +384,6 @@ function Countdown(page,that) {
   else {
     timer = setTimeout(function () {
       Countdown(page,that);
-    }, 1000);
+    }, 500);
   }
 };

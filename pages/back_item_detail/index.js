@@ -289,14 +289,23 @@ Page({
    */
   onReady: function () {
     let setting = app.setting
-    let tags = setting.platformSetting.tagsMap['售后']
+    console.log(setting.platformSetting.tagsMap)
+    let tags;
+    let sentTagId;
+    if (setting.platformSetting&&setting.platformSetting.tagsMap&&setting.platformSetting.tagsMap['售后']){
+      tags= setting.platformSetting.tagsMap['售后'];
+      sentTagId = tags[0].id
+    }else{
+      tags=[];
+      sentTagId=0
+    }
 
     console.log(tags)
     this.setData({
       setting: app.setting,
       sysWidth: app.globalData.sysWidth,
       tags: tags,
-      sentTagId: tags[0].id
+      sentTagId: sentTagId
     })
   },
 
