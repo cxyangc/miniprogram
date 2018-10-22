@@ -58,7 +58,7 @@
       </view>
 <!--setting.platformSetting.defaultColor  -->
       <button style='background:linear-gradient(132.2deg,rgba(255,153,110,1),rgba(254,55,55,1));' 
-      class='sureButn' disabled='{{measurementJson.stock < byNowParams.itemCount}}' bindtap='buyNow'>确定</button>
+      class='sureButn' disabled='{{measurementJson.stock < byNowParams.itemCount||!measurementJson.waitDataState}}' bindtap='buyNow'>确定</button>
     </view>
     
   

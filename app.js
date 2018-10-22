@@ -3,7 +3,7 @@ import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
 App({
      //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
-      //clientUrl: 'https://mini.tunzai.vip/chainalliance/',custom
+     // clientUrl: 'https://mini.tunzai.vip/chainalliance/',
       clientUrl: 'https://mini.sansancloud.com/chainalliance/',
 
     /**
@@ -11,7 +11,7 @@ App({
      */
 
 
-   clientNo: 'santigongxiang',   //自定义的项目的名称。
+   clientNo: 'jianzhan',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
