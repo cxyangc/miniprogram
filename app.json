@@ -53,6 +53,7 @@
     {
       "root": "pages",
       "pages": [
+        "form_detail/index",
         "coupon_detail/index",
         "location_products/index",
         "location_products2/index",

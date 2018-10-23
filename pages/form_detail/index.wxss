@@ -1,0 +1,151 @@
+.content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f5f5f5
+}
+.formBanner{
+  width: 100%;
+  height: 250rpx;
+  padding: 20rpx;
+  box-sizing:border-box;
+  background:#fff;
+}
+.bannerUrl{
+  width: 100%;
+  height: 100%
+}
+.formHead{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 28rpx;
+  padding: 20rpx
+}
+.formName{
+  padding:0 0 20rpx 0;
+  font-size: 34rpx;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+  color:#444444;
+}
+.formDescription{
+  letter-spacing: 2rpx;
+  line-height:44rpx;
+}
+.formContent{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width:100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.common{
+  background: #fff;
+  border-radius: 6rpx;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 18rpx;
+  margin: 16rpx 0;
+  justify-content: space-between;
+  font-size:34rpx;
+
+}
+.inputName{
+  font-size: 34rpx;
+}
+.inputString input{
+  direction: rtl
+}
+.picker{
+  width:80%;
+  height:100%;
+  line-height:76rpx;
+}
+.pickerRight{
+  height:80rpx;
+  display:flex;
+  align-items:center;
+  width:40rpx;
+  float:right;
+}
+.pickerValue{
+  width:90%;
+  height:80rpx;
+  float: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end
+  
+}
+.pickerImg{
+  width: 50rpx;
+  float: right;
+  height:50rpx;
+}
+.imgType{
+  flex-direction: column;
+  align-items: flex-start;
+  background: #fff; 
+  height:100%;
+  font-size:34rpx;
+}
+.imgName{
+  margin-top: 15rpx
+}
+.upload{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-flow: wrap;
+  margin-top:15rpx;
+}
+.uploadImg{
+  width: 150rpx;
+  height: 150rpx;
+  border:2rpx solid #888;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content:center;
+  margin-bottom: 15rpx
+}
+.uploadImgIcon{
+  width: 50rpx;
+  height: 50rpx
+}
+.uploadedImgUrl{
+  width: 150rpx;
+  height: 150rpx;
+  margin-right: 20rpx;
+  border-radius: 10rpx
+}
+.uploadedImg{
+  margin-bottom: 15rpx;
+  position: relative;
+}
+.removeImgBg{
+  width:150rpx;
+  height: 40rpx;
+  background: #888;
+  opacity: 0.5;
+  position: absolute;
+}
+.removeImgIcon{
+  position: absolute;
+  right: 26rpx;
+  top:6rpx;
+  border-radius: 30rpx;
+  width: 30rpx;
+  height: 30rpx;
+  background: #888;
+  font-size: 20rpx;
+  text-align:center;
+  color: #fff
+}
+.saveData{
+  width: 100%
+}

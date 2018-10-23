@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 18,
+			"current": 19,
 			"list": [
 				{
 					"id": 0,
@@ -161,6 +161,13 @@
 					"name": "地图",
 					"pathName": "pages/location_products/index",
 					"query": ""
+				},
+				{
+					"id": 19,
+					"name": "表单",
+					"pathName": "pages/form_detail/index",
+					"query": "customFormId=1",
+					"scene": "1001"
 				}
 			]
 		}
