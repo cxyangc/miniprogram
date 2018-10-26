@@ -1,0 +1,78 @@
+
+
+
+<!--正常的标题 -->
+<template name="simpleProductList">
+
+
+
+<block  wx:if="{{products.length!=0}}">
+    <view class='detail_list_mode1' >
+      <view class="mode1_items"   wx:for="{{products}}" wx:for-item="products"   wx:key="index" > 
+      <!-- -->
+        <view class='mode1_itemsImg' bindtap='tolinkUrl' data-id='{{products.id}}' >
+        <image  mode='aspectFit'  src="{{products.imagePath}}"></image>
+        <!--分享  -->     
+        <view class='show' catchtap='showCardShare'data-index='{{index}}'data-id='{{products.id}}'>
+          <image  mode='aspectFit'  src="../../../images/icon/share6x.png"></image>  
+          </view>
+       </view>
+              <!-- 蒙版 -->
+              <!-- <view class='mengBan'></view> -->
+         
+     <view class='share_box'wx:if='{{products.productShow}}'>
+     <!--第一个button  -->
+   <button class='share_box_item' open-type='share' data-index='{{index}}' data-id='{{products.id}}' >
+   <view class='share_box_item_img'>
+           <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/35/2_810.jpg'></image> 
+   </view>
+       <view class='share_box_item_text'><text>分享</text></view>
+            
+            </button>
+     <!--第二个button  -->
+   <!-- <button class='share_box_item' data-index='{{index}}' bindtap='showKefuWechatCode' >
+   <view class='share_box_item_img'>
+           <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/36/30_199.jpg'></image> 
+   </view>
+       <view class='share_box_item_text'><text>客服</text></view>
+            
+            </button> -->
+          </view>  
+       <view class='jieShao'bindtap='tolinkUrl' data-id='{{products.id}}'>
+        <!-- 价格和购物车图片   -->
+    
+       <view class='priceBox'>
+               
+                <text class='price'>￥{{products.price}}</text>
+                <block wx:if='{{products.price < products.tagPrice}}'>
+                  <text class='priceTagLine'>￥{{products.tagPrice}}</text>
+                </block>
+               
+
+            
+                   </view>
+       
+      <view class='center1'>
+         <view class='centerName'>  {{products.name}}</view>
+           <view class='smallText'>
+           <image catchtap="bindAddtocart"   data-index="{{index}}" data-bindbuy='addto' src="../../../images/icon/Cart1@3x.png"></image>   
+    </view> 
+    </view> 
+
+     
+      
+ </view>
+      </view>
+    </view>
+</block>
+
+
+
+<block wx:if="{{products.length==0}}">
+            <view class="noproduct">
+              <image mode="widthFix" src='/images/icons/no-product.png'></image>
+              <text>没有相关商品</text>
+            </view>
+          </block>
+
+</template>

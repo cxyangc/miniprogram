@@ -1,0 +1,108 @@
+<view class='body'>
+  <!-- 浮动的用户头像和名称 -->
+  <view class='userContent'>
+    <view class='userInfoBg' style="width:{{userInfoWidth}}rpx"></view>
+    <view class='userInfo' style="width:{{userInfoWidth}}rpx">
+      <image class='userInfoHeadIcon' src='{{loginUserMendian.logo}}'></image>
+      <view class='userInfoName'><text>{{loginUserMendian.name}}</text></view>
+    </view>
+  </view>
+  <!-- 浮动的用户头像和名称 end-->
+  <!-- 头部标题start -->
+  <view class='mainMenu'>
+    <view class='mainMenuItem' wx:for='{{mainMenu}}' data-index='{{item.index}}' bindtap='selectMainMenu'>
+      <text class="mainMenuText {{mainMenuIndex==index?'active':''}}">{{item.text}}</text>
+    </view>
+  </view>
+  <!-- 头部标题end -->
+  <!-- 主打与预告start -->
+  <view wx:if='{{mainMenuIndex==2||mainMenuIndex==0}}'>
+    <!-- 活动品牌start -->
+    <view class='brandList'>
+      <scroll-view scroll-x="true" class='brandListScroll' scroll-left='62rpx'>
+        <view class='brandContent' wx:for='11111111111'>
+          <view class='brandItem'>
+            <image class='brandIcon' src='http://image.tunzai.vip/tunzai/2018_10/24/10/58/35_676.jpg'></image>
+            <view class='brandName'><text>Dickies</text></view>
+            <view class='brandType'><text>鞋类</text></view>
+          </view>
+          <view class='verticalBar'></view>
+        </view>
+      </scroll-view>
+    </view>
+    <!-- 活动品牌end -->
+    <!-- 活动列表 -->
+    <view class='promotionList'>
+      <view class='promotionItem' wx:for='11111' bindtap='toPromotionDetail' data-id='{{item.id}}'>
+        <view class='promotionItemHead'>
+          <view class='promotionBrandInfo'>
+            <image class='promotionBrandIcon' src='http://image.tunzai.vip/tunzai/2018_10/24/10/58/35_676.jpg'></image>
+            <text class='promotionBrandName'>DICKIES</text>
+          </view>
+          <image catchtap='sharePoster' class='shareIcon' src='http://image.tunzai.vip/tunzai/2018_10/24/13/58/50_462.jpg?x-oss-process=style/preview_120'></image>
+        </view>
+        <view class='promotionBanner'>
+          <image class='promotionBannerUrl' src='http://image.tunzai.vip/tunzai/2018_10/24/14/14/12_900.jpg'></image>
+        </view>
+        <view class='promotionTime' wx:if='{{mainMenuIndex==0}}' style='background:linear-gradient(135deg,{{setting.secondColor}} 0%,{{setting.defaultColor}} 100%);'>
+          <view class='promotionCountDown'>
+            <time data="{{promotionEndDate}}" wx:if="{{promotionEndDate.background}}"></time>
+            <text style='margin-left:10rpx'>后结束</text>
+          </view>
+          <view class='enterPromotion' catchtap='toPromotionDetail'>
+            <text style='color:{{setting.defaultColor}}'>立即进入</text>
+          </view>
+        </view>
+        <view class='promotionTime' wx:if='{{mainMenuIndex==2}}' style='background:linear-gradient(135deg,{{setting.secondColor}} 0%,{{setting.defaultColor}} 100%);'>
+          <text class='promotionName'>大牌影音专场</text>
+          <view class='promotionCountDown'>
+            <time data="{{promotionStartDate}}" wx:if="{{promotionEndDate.background}}"></time>
+            <text style='margin-left:10rpx'>后开始</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 活动列表end -->
+  </view>
+  <!-- 主打与预告end -->
+  <!-- 秒囤start -->
+  <view wx:else>
+     <view class='seckillList'>
+       <view class='seckillItem' wx:for="111111">
+         <view class='productImg'>
+           <image class='productImgUrl' mode='aspectFit' src='http://image.tunzai.vip/tunzai/2018_10/24/18/47/58_392.jpg '></image>
+           <!-- <view class='outPrint'>
+             <view class='outPrintBg'></view>
+             <view class='outPrintText'><text>已抢光</text></view>
+           </view> -->
+         </view>
+         <view class='productInfo'>
+           <view class='productName'>
+             <text>韩后 茶蕊嫩白去角质素、改善暗哑</text>
+           </view>
+           <view class='cuntDownAndPrice'>
+              <view class='productCountDown'>
+                <text style='color:{{setting.secondColor}};font-size:24rpx'>距离结束</text>
+                <time data="{{seckillStartDate}}" wx:if="{{seckillStartDate.background}}"></time>
+              </view>
+              <view class='productPrice'>
+                <text style='color:{{setting.secondColor}};font-size:32rpx'>¥69.00</text>
+                <text class='tagPrice'>¥379.00</text>
+              </view>
+           </view>
+         </view>
+         <view class='shareBtn'>
+           <image class='shareBtnUrl' src='http://image.tunzai.vip/tunzai/2018_10/24/13/58/50_462.jpg?x-oss-process=style/preview_120'></image>
+         </view>
+         <view class='buyNow' style='background:{{setting.secondColor}}'>
+           <text style='color:#fff'>立即购买</text>
+         </view>
+       </view>
+     </view>
+  </view>
+  <!-- 秒囤end -->
+</view>
+<!-- 弹窗 -->
+<!--  海报-->
+   <posters proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 
+

@@ -1,0 +1,14 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "囤仔",
+
+      "usingComponents": {
+        "productList": "../components/productList/productList",
+        "posters":"../../../view/partials/canvas/index",
+        "customPage": "../../../view/partials/custom_page/index",
+        "time": "../../../view/partials/tunzai_time/time"
+      }
+
+}

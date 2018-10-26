@@ -7,7 +7,7 @@
     <swiper class='SwiperIndex' autoplay="true" interval="5000" duration="500" bindchange="swiperChange">
       <block wx:for="{{productData.images}}"  wx:key="{{swiper}}" style="border-radius: 20rpx">
         <swiper-item data-imageUrl='{{productData.images}}' data-index='{{index}}' bindtap='lookBigImage' style="border-radius: 20rpx">
-          <image mode='aspectFit' src="{{item.imagePath}}"  style="border-radius: 20rpx" />
+          <image mode='aspectFit' src="{{item.imagePath}}?x-oss-process=style/normal"  style="border-radius: 20rpx" />
         </swiper-item> 
       </block>
     </swiper>
@@ -164,7 +164,7 @@
     <import src="../../wxParse/wxParse.wxml"/><!-- 富文本 -->
 
     <view class="tab_detail_container">
-       <view class='wxParseHtmlContainer'> <template is="1"   data="{{wxParseData:article.nodes}}"></template> </view>
+       <view class='wxParseHtmlContainer'> <template is="1" data="{{wxParseData:article.nodes}}"></template> </view>
     </view>
 
     <view class='price_explain'>
@@ -201,4 +201,5 @@
 <pintuan pintuanParam="{{pintuanParam}}" wx:if='{{pintuanPopupState}}' bind:closePintuan="getChilrenPintuan" bind:goPintuan='readyPay2'></pintuan> 
 
  <template is="measure_card2" data="{{setting:setting,showCount,minCount,focusData:productData.productInfo,measures:productData.measures,byNowParams:byNowParams,measurementJson:measurementJson,type:bindway}}"></template> 
- <component-tag-customPage data="productdetail"></component-tag-customPage> <!-- 首页组件-->
+ <!-- 首页组件-->
+ <component-tag-customPage data="productdetail"></component-tag-customPage> 

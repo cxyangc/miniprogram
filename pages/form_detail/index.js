@@ -11,6 +11,22 @@ Page({
     pickerIndex:0,
     upLoadImageList:{},
   },
+  bindDateChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e, this.data.formData)
+    let index = e.target.dataset.index
+    this.data.formData.items[index].defaultValue = e.detail.value
+    this.setData({
+      formData: this.data.formData
+    })
+  },
+  bindTimeChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e, this.data.formData)
+    let index = e.target.dataset.index
+    this.data.formData.items[index].defaultValue = e.detail.value
+    this.setData({
+      formData: this.data.formData
+    })
+  },
   // 返回首页
   toIndex:function(){
     app.toIndex();
@@ -56,7 +72,14 @@ Page({
         console.log(res.data)
 
         if (res.data.errcode == '0') {
-         
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 1000
+          })
+          setTimeout(function () {
+            that.toIndex()
+          }, 1000)
         } else {
           wx.showToast({
             title: res.data.errMsg,

@@ -606,7 +606,7 @@ Page({
     wx.showLoading({
       title: 'loading'
     })
-    
+    console.log('==param===', param)
     let postParam = {}
     postParam.productId = param.id
     postParam.addShopId = param.addShopId
@@ -656,7 +656,7 @@ Page({
         }
       },
       fail: function (res) {
-        console.log("fail")
+        console.log("====fail=====")
         app.loadFail()
       },
       complete:function(res){

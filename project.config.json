@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -98,7 +98,7 @@
 					"id": 9,
 					"name": "转发产品详情",
 					"pathName": "pageTab/index/index",
-					"query": "id=12655&addShopId=236&scene=MINI_PLATFORM_USER_ID_91902&SHARE_PRODUCT_DETAIL_PAGE=12655",
+					"query": "id=9820&addShopId=236&scene=MINI_PLATFORM_USER_ID_91902&SHARE_PRODUCT_DETAIL_PAGE=9820",
 					"scene": "1011"
 				},
 				{
@@ -118,7 +118,7 @@
 					"id": 12,
 					"name": "转发特卖进入",
 					"pathName": "pageTab/index/index",
-					"query": "promotionId=156&title=手表名品专场&SHARE_PROMOTION_PRODUCTS_PAGE=156&scene=MINI_PLATFORM_USER_ID_91902",
+					"query": "promotionId=411&title=手表名品专场&SHARE_PROMOTION_PRODUCTS_PAGE=411&scene=MINI_PLATFORM_USER_ID_91902",
 					"scene": "1011"
 				},
 				{
@@ -168,6 +168,13 @@
 					"pathName": "pages/form_detail/index",
 					"query": "customFormId=1",
 					"scene": "1001"
+				},
+				{
+					"id": 20,
+					"name": "进入特卖页",
+					"pathName": "pageTab/tunzai/teMai/index",
+					"query": "promotionId=411",
+					"scene": "1011"
 				}
 			]
 		}

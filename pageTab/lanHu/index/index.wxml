@@ -66,7 +66,7 @@
 
 <!--活动列表  -->
  <view class='activeList' wx:for="{{activityPromotion}}" wx:key="index">
-      <view class='activeListtImg' bindtap='click' data-id='{{item.id}}'  id="{{'inToView'+item.id}}"> <image mode='aspectFill' src='{{item.promotionBanner}}'></image> 
+      <view class='activeListtImg' bindtap='click' data-id='{{item.id}}'  id="{{'inToView'+item.id}}"> <image mode='aspectFill' src='{{item.promotionBanner}}?x-oss-process=style/normal'></image> 
        <!-- <view class='priceKode'>价格低至2折起</view> -->
       <view class='timeBg' style='background-color:{{platformSetting.defaultColor}}'></view> 
       <view class='time'>
@@ -87,12 +87,12 @@
        data="{{...item,setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson,showShare}}"></template> 
   </block> -->
 
-    <productList  data="{{item.products}}" id="exceplem"  bind:action='selectFun' bind:showPosters='showPosters'></productList> 
+    <!-- <productList  data="{{item.products}}" id="exceplem"  bind:action='selectFun' bind:showPosters='showPosters'></productList>  -->
  </view>
 
 <!--未开始活动列表  -->
  <view class='activeList'wx:if="{{unactivityPromotion.length!=0}}" wx:for="{{unactivityPromotion}}" wx:key='{{index}}' id="{{'inToView'+item.id}}" bindtap='click1' data-id='{{item.id}}'>
-      <view class='activeListtImg'>  <image mode='aspectFill' src='{{item.promotionBanner}}'></image> 
+      <view class='activeListtImg'>  <image mode='aspectFill' src='{{item.promotionBanner}}?x-oss-process=style/normal'></image> 
          <!-- <view class='priceKode'>价格低至2折起</view> -->
       <view class='timeBg' style='background-color:{{platformSetting.defaultColor}}'></view>
       <view class='time'>

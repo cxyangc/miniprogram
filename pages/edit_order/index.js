@@ -281,8 +281,10 @@ Page({
     })
   },
   /* 确认订单 */
-  submitOrder:function(){
+  submitOrder:function(e){
+    console.log('====formId====',e)
     var that = this
+    let miniNotifyFormId = e.detail.formId||'';
     console.log(that.orderMessage)
     // 不允许自提的时候没写地址
     if (!that.orderMessage.addressId &&that.data.allowMendianZiti == "0"){
@@ -335,6 +337,7 @@ else{
         // 判断是否自提
         console.log("======mendianZiti=========", that.data.mendianZiti)
         that.orderMessage.mendianZiti = that.data.mendianZiti
+        that.orderMessage.miniNotifyFormId = miniNotifyFormId
         console.log("=========参数orderMessage===========", JSON.stringify(that.orderMessage))
         var customIndex = app.AddClientUrl("/submit_order.html", that.orderMessage, 'post')
 

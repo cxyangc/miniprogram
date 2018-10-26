@@ -149,3 +149,10 @@
 .saveData{
   width: 100%
 }
+.picker{
+  width: 500rpx;
+  height: 80rpx;
+  text-align:right;
+  float:left;
+
+}

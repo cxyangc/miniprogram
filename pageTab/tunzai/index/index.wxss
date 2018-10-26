@@ -1,0 +1,318 @@
+.body{
+  width:100%;
+  background:#FCFCFC;
+  position: relative;
+}
+.userContent{
+  position: fixed;
+  top:82rpx;
+  left: 0;
+  z-index: 1
+}
+.userInfo{
+  height: 60rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.userInfoHeadIcon{
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50rpx;
+  margin-left: 4rpx;
+}
+.userInfoName{
+  font-size: 28rpx;
+  color: #fff;
+  margin-left: 20rpx;
+}
+.userInfoBg{
+  background: #ACAAAA;
+  opacity: 0.6;
+  height: 60rpx;
+  border-radius: 26rpx;
+  position: absolute;
+  top: 0;
+  left: 0
+}
+.spacing{
+  height: 20rpx;
+  width: 100%;
+  background:#FCFCFC;
+}
+.mainMenu{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 80rpx;
+  padding: 20rpx 76rpx;
+  box-sizing: border-box;
+  background: #fff;
+  box-shadow:0px 0px 12rpx 0px rgba(0,0,0,0.1);
+  margin: 20rpx 0 20rpx 0;
+}
+.mainMenuText{
+  font-size: 30rpx;
+  color: #A8A7A7;
+  font-weight: 500;
+  letter-spacing: 2rpx;
+}
+.mainMenuItem{
+  width:144rpx;
+  height:42rpx;
+  line-height:42rpx;
+  text-align: center
+}
+.active{
+  color: #000;
+}
+.brandList{
+  height:200rpx;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 0px 12rpx 0px rgba(0,0,0,0.1);
+  border-radius:16rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.brandListScroll{
+  width: 100%; 
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.brandItem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 140rpx
+}
+.brandContent{
+  display:inline-block;
+  position: relative;
+  margin:0 62rpx;
+}
+.brandIcon{
+  width: 60rpx;
+  height: 60rpx;
+}
+.brandName{
+  font-size: 28rpx
+}
+.brandType{
+  font-size: 20rpx;
+  color: #999;
+}
+.verticalBar{
+  position:absolute;
+  width:4rpx;
+  height:25rpx;
+  background:#eee;
+  bottom:40rpx;
+  right:-34rpx;
+}
+.promotionList{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 24rpx;
+}
+.promotionItem{
+  background-image: url(http://image.tunzai.vip/tunzai/2018_10/24/13/47/38_797.jpg);
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  -moz-background-size:100% 100%;
+  height: 520rpx;
+  width: 720rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.promotionItemHead{
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: space-between;
+  padding: 20rpx 20rpx 15rpx 20rpx;
+  width:700rpx;
+  height: 90rpx;
+  box-sizing:border-box;
+}
+.promotionBrandInfo{
+  display: flex;
+  flex-direction: row;
+  align-items: center
+}
+.promotionBrandIcon{
+  width: 60rpx;
+  height: 60rpx;
+}
+.promotionBrandName{
+  font-size: 32rpx;
+  margin-left: 12rpx
+}
+.shareIcon{
+  width: 45rpx;
+  height: 45rpx
+}
+.promotionBanner{
+  height: 350rpx;
+  width: 700rpx
+}
+.promotionBannerUrl{
+  height: 350rpx;
+  width: 700rpx
+}
+.promotionTime{
+  height: 53rpx;
+  width: 700rpx;
+  /* background-image: url(http://image.tunzai.vip/tunzai/2018_10/24/14/24/20_2.jpg);
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  -moz-background-size:100% 100%; */
+  border-radius:0px 0px 8rpx 8rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30rpx;
+  box-sizing: border-box
+}
+.promotionName{
+  font-size: 24rpx;
+  color: #fff
+}
+.enterPromotion{
+  width: 120rpx;
+  height: 42rpx;
+  border-radius: 6rpx;
+  background: #fff;
+  /* color: #FF6C55; */
+  font-weight:500;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 42rpx;
+}
+.promotionCountDown{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 22rpx;
+  color: #fff;
+}
+.seckillList{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.seckillItem{
+  width:100%;
+  height:204rpx;
+  background:rgba(255,255,255,1);
+  border:2rpx solid rgba(238,238,238,1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+.productImg{
+  width:  173rpx;
+  height: 173rpx;
+  margin: 0 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative
+  }
+.productImgUrl{
+  height: 153rpx;
+  width: 100%
+}
+.productInfo{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 160rpx;
+}
+.productName{
+  font-size: 26rpx;
+  width:450rpx;
+}
+.productCountDown{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end
+}
+.shareBtn{
+  position: absolute;
+  top: 12rpx;
+  right: 36rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+.shareBtnUrl{
+  width: 50rpx;
+  height: 50rpx;
+}
+.buyNow{
+  position: absolute;
+  bottom: 30rpx;
+  right: 36rpx;
+  width:130rpx;
+  height:52rpx;
+  font-size:24rpx;
+  border-radius:6rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center
+}
+.tagPrice{
+  text-decoration:line-through;
+  color:#C4C4C4;
+  font-size:22rpx;
+  margin-left:10rpx
+}
+.cuntDownAndPrice{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100rpx
+}
+.outPrint{
+  position: absolute;
+}
+.outPrintBg{
+  position: absolute;
+  width:114rpx;
+  height:114rpx;
+  background:#282828;
+  opacity:0.406;
+  border-radius: 115rpx;
+  top:50%;
+  left: 50%;
+  margin-top: -57rpx;
+  margin-left: -57rpx;
+}
+.outPrintText{
+  position: absolute;
+  width:114rpx;
+  height:114rpx;
+  font-size:32rpx;
+  font-weight:600;
+  color: #fff;
+  top:50%;
+  left: 50%;
+  margin-top: -57rpx;
+  margin-left: -57rpx; 
+  line-height:114rpx;
+  text-align:center;
+}

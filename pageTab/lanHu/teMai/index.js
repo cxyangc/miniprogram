@@ -851,11 +851,13 @@ Page({
   },*/
   //获取规格价格参数
   get_measure_cartesion: function () {
+    this.setData({ measurementJson: { waitDataState: false } })
     this.byNowParams.cartesianId = -1
     let productId = this.data.focusData.id
     let postStr = ''
     if (this.MeasureParams.length == 0) {
       this.byNowParams.cartesianId = '0'
+      this.setData({ measurementJson: { waitDataState: true } })//没有规格时 不需要等待请求
       return
     }
     for (let i = 0; i < this.MeasureParams.length; i++) {
@@ -879,7 +881,9 @@ Page({
         }
         console.log(res.data)
         that.byNowParams.cartesianId = res.data.id
-        that.setData({measurementJson: res.data})
+        that.setData({ measurementJson: res.data })
+        that.data.measurementJson.waitDataState = true
+        that.setData({ measurementJson: that.data.measurementJson })
         that.byNowParams.itemCount = that.data.measurementJson.minSaleCount
         that.setData({ byNowParams: that.byNowParams })
         that.setData({ minCount: that.byNowParams.itemCount })

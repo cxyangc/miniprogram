@@ -1,0 +1,35 @@
+<!--正常的标题 -->
+<template name="getProductData">
+
+
+<block  wx:if="{{getProductData.length!=0}}">
+         <view class='product_page_container'>
+          <block wx:if = "{{!! getProductData}}">
+            <view class='product_items' wx:for="{{getProductData}}" wx:key='{{index}}' bindtap='toProductDetail'>
+            <view class='mode1_itemsImg'>
+              <image mode="aspectFill" src='{{item.imagePath}}?x-oss-process=style/preview'></image></view>
+            
+              
+          
+              <view class='priceBox'>
+               
+                <text class='price'>￥{{item.price}}</text>
+                <block wx:if='{{item.price < item.tagPrice}}'>
+                  <text class='priceTagLine'>￥{{item.tagPrice}}</text>
+                </block>
+               
+            
+                     <image src="../../../images/icon/Cart15@2x.png"></image>
+            
+                   </view>
+            
+               <view class='name'>{{item.name}}</view> 
+
+            </view>
+             </block>
+             </view>
+</block>
+
+
+
+</template>

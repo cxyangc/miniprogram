@@ -97,7 +97,7 @@
    <!--活动列表  -->
  <view class='activeList' wx:for="{{countDownList}}" wx:key="index">
       <view class='activeListtImg' > 
-         <image  class='activeListBanner' mode='aspectFill' src='{{activityPromotion.promotionBanner}}' ></image>
+         <image  class='activeListBanner' mode='aspectFill' src='{{activityPromotion.promotionBanner}}?x-oss-process=style/normal' ></image>
          <view class='shareActive' data-id='{{id}}' data-type='active' catchtap='showPosters'>
            <image src='http://image.tunzai.vip/tunzai/2018_8/28/14/20/31_970.jpg'></image> 
          </view> 

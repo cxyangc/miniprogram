@@ -1,6 +1,8 @@
 {
   "pages": [
     "pageTab/index/index",
+    "pageTab/tunzai/index/index",
+    "pageTab/tunzai/teMai/index",
     "pageTab/custom_page_index/index",
     "pageTab/product/index",
     "pageTab/near_shop_page/index",

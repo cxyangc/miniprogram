@@ -1,0 +1,40 @@
+/*时间  */
+.time{
+  height:40rpx;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+.timeBox{
+  height:40rpx;
+  background-color: #fff;
+  text-align: center;
+  margin-left: 8rpx;
+  border-radius:4rpx;
+  box-sizing: border-box;
+  font-weight: 600;
+  width:40rpx;
+}
+.timeBox text{
+  display: block;
+  line-height: 40rpx; 
+  /* color: #FF6C55; */
+
+}
+.timeBoxDay{
+  height: 40rpx;
+  background-color: #fff;
+  text-align: center;
+  margin-left: 8rpx;
+  border-radius:4rpx;
+  padding:0 10rpx;
+  box-sizing: border-box;
+  font-weight: 600; 
+  min-width:40rpx;
+}
+.timeBoxDay text{
+  display: block;
+  line-height: 40rpx; 
+  /* color: #FF6C55; */
+}

@@ -1,5 +1,5 @@
   <view class='container'>
-   
+  <form bindsubmit="submitOrder" report-submit>
   <view class='addrItems' bindtap='showOtherArr' wx:if="{{allowMendianZiti!='3'}}"> 
     <view class='addrItems_info'>
       <image mode='aspectFit' src='/images/icons/addr.png'></image>
@@ -117,7 +117,8 @@
     </label>
   </radio-group>
 
-<view class='fottButn' bindtap='submitOrder'  style='background:{{setting.platformSetting.defaultColor}}'>提交订单</view>
+<button class='fottButn'  formType="submit" style='background:{{setting.platformSetting.defaultColor}}'>提交订单</button>
+</form>
 </view>
 <view class='height'></view>
 

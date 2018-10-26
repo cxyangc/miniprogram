@@ -1,0 +1,117 @@
+/* pages/product/index.wxss */
+
+@import '../../../../view-new/css/product_search.wxss';/* 12 */
+@import '../../../../view/css/type_search.wxss';/* 12 */
+
+page{
+  background: #f1f1f1;
+}
+
+
+/* 商品排列样式1 */
+.product_page_container{
+  width: 702rpx;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 1em;
+}
+.product_items{
+  width: 340rpx;
+  height: 480rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+     padding-top: 10px;
+  /* background-color: red; */
+}
+.product_items .mode1_itemsImg{
+  width: 340rpx;
+  height: 340rpx;
+  overflow: hidden;
+  position: relative;
+}
+.mode1_itemsImg image{
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.product_items view{
+  text-align: left;
+  font-size: small;
+  margin-top: 5px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  width: 100%;
+}
+.product_items text{
+  font-size: small;
+  width: 100%;
+  text-align: left;
+  margin-top: 5px;
+}
+.priceTagLine{
+  color: #aaa;
+  margin-left: 10px;
+  text-decoration: line-through;
+
+}
+.priceBox{
+  width: 100%;
+  height: 40rpx;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+
+}
+
+.priceBox .priceTagLine{
+  font-size: 18rpx;
+}
+.price{
+  margin-left: 10rpx;
+font-size: 30rpx;
+color: red;
+}
+
+
+
+.priceBox image{
+  width: 60rpx;
+  height: 15rpx;
+  margin-top: 10rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+}
+.name{
+  margin-top: -20rpx;
+  margin-left: 12rpx;
+}
+.smallText1{
+   width: 300rpx;
+   height: 30rpx;
+   margin-left: 12rpx;
+   margin-top: -50rpx;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+.smallText1 text{
+font-size: 20rpx;
+display: block;
+color:   #D2D2D2;
+line-height: 30rpx;
+}
+.noproduct image{
+  width: 30%;
+}
+.active{
+background: #fff !important;
+}

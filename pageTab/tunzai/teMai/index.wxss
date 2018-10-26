@@ -1,0 +1,126 @@
+.body{
+  width: 100%;
+}
+.promotionBanrdInfo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 26rpx 40rpx;
+  box-sizing: border-box
+}
+.promotionBanrdLogo{
+  width: 90rpx;
+  height: 90rpx;
+  margin-bottom: 13rpx;
+}
+.promotionBanrdName{
+  font-size: 30rpx;
+  font-weight:500;
+  color: #000;
+  margin-bottom: 13rpx;
+}
+.promotionBanrdDescribe{
+  font-size:26rpx;
+  color: #000;
+  text-indent: 2em;
+  line-height:36rpx;
+  padding: 6rpx
+}
+.promotionCountDown{
+  height:53rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx;
+  box-sizing: border-box
+}
+.promotionName{
+  font-size: 24rpx;
+  color: #fff;
+  font-weight:600;
+}
+.promotionTimer{
+  display: flex;
+  flex-direction: row;
+  align-items: center
+}
+.timeText{
+  font-size: 24rpx;
+  color: #fff;
+  margin-left: 10rpx;
+  font-weight:600;
+}
+.productList{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap
+}
+.productItem{
+  width:375rpx;
+  height:460rpx;
+  background:#fff;
+  padding: 50rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+.productImg{
+  width: 280rpx;
+  height: 280rpx
+}
+.productImgUrl{
+   height: 220rpx;
+   width: 100%
+}
+.productPriceAndStock{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between
+}
+.productPrice{
+  font-size:32rpx;
+  font-weight: 500;
+}
+.productTagPrice{
+  font-size:24rpx;
+  text-decoration:line-through;
+  color: #333333;
+  margin-left: 6rpx
+}
+.productStock{
+  width:120rpx;
+  height:20rpx;
+  background:#DADADA;
+  border-radius:10rpx;
+  position: relative;
+  overflow:hidden;
+
+}
+.usedProductStock{
+  position: absolute;
+  width:59rpx;
+  height:20rpx;
+  border-radius:10px 0px 0px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center
+}
+.usedProductStockPercent{
+  font-size: 14rpx;
+  color: #fff
+}
+.productName{
+  font-size: 24rpx;
+  color: #000
+}
+.shareBtn{
+  position: absolute;
+  top: 18rpx;
+  right: 32rpx;
+}
+.shareBtnImg{
+  width: 50rpx;
+  height: 50rpx
+}

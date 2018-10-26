@@ -12,7 +12,7 @@
     </view>
   </view>
   <view class='formContent'>
-  <!-- 0字符串   1数字 2下拉框  3单选框  4复选框  5日期  6日期时间  7 图片  8 间隔 -->
+  <!-- 0字符串   1数字 2下拉框  3单选框  4复选框  5日期  6时间  7 图片  8 间隔 -->
     <view wx:for='{{formData.items}}' wx:for-item='items'>
       
         <!-- 字符串 -->
@@ -31,6 +31,34 @@
               <image class='pickerImg' src='http://image1.sansancloud.com/jianzhan/2018_9/11/13/41/53_722.jpg?x-oss-process=style/preview_120'></image>
             </view>
           </picker >
+        </view>
+        <!-- 日期 -->
+        <view class='inputString common' wx:if='{{items.type==5}}'>
+          <view class='inputName'>
+            <text>{{items.title}}</text>
+          </view>
+          <picker mode="date" value="{{date}}" name='{{items.name}}' data-index="{{index}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+            <view class="picker">
+              {{items.defaultValue}}
+            </view>
+            <view class='pickerRight'>
+              <image class='pickerImg' src='http://image1.sansancloud.com/jianzhan/2018_9/11/13/41/53_722.jpg?x-oss-process=style/preview_120'></image>
+            </view>
+          </picker>
+        </view>
+        <!-- 时间 -->
+        <view class='inputString common' wx:if='{{items.type==6}}'>
+          <view class='inputName'>
+            <text>{{items.title}}</text>
+          </view>
+          <picker mode="time" data-index="{{index}}" name='{{items.name}}' value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
+            <view class="picker">
+              {{items.defaultValue}}
+            </view>
+            <view class='pickerRight'>
+              <image class='pickerImg' src='http://image1.sansancloud.com/jianzhan/2018_9/11/13/41/53_722.jpg?x-oss-process=style/preview_120'></image>
+            </view>
+          </picker>
         </view>
         <!-- 图片 -->
         <view class='imgType common' wx:if='{{items.type==7}}'>

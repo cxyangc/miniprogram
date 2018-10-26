@@ -3,7 +3,7 @@ import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
 App({
      //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
-     // clientUrl: 'https://mini.tunzai.vip/chainalliance/',
+      //clientUrl: 'https://mini.tunzai.vip/chainalliance/',
       clientUrl: 'https://mini.sansancloud.com/chainalliance/',
 
     /**
@@ -868,6 +868,7 @@ App({
         var that = this
         console.log("======settUrl.url======", settUrl.url)
         //拿setting
+        
         wx.request({
             url: settUrl.url, //仅为示例，并非真实的接口地址
             header: that.header,

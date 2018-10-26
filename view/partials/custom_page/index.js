@@ -64,9 +64,9 @@ Component({
         success: function (res) {
           console.log("====== res.data=========", res.data)
           if (!res.data.errcode||res.data.errcode=='0'){
-            wx.setNavigationBarTitle({
-              title: res.data.channelTitle,
-            })
+            // wx.setNavigationBarTitle({
+            //   title: res.data.channelTitle,
+            // })
             wx.hideLoading()
             app.renderData = res.data
             that.setData({ renderData: res.data })
