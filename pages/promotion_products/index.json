@@ -1,5 +1,11 @@
 {
-  "navigationBarTitleText": "产品列表",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
   "enablePullDownRefresh": true,
-  "backgroundColor": "#f1f1f1"
+  "navigationBarTitleText": "特卖",
+      "usingComponents": {
+        "productList": "../components/productList/productList",
+        "posters": "../../../view/partials/canvas/index",
+        "posterActive": "../../../view/partials/canvas_active/index"
+      }
 }

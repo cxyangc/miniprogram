@@ -1,0 +1,120 @@
+   <import src="../../view-new/aikucun/measure_card.wxml"/>
+
+
+<view class='container'>
+  <view class='acReport_view font_08'>
+    <view class='acReport_view_title'>
+      <image src='http://image.aikucun.xyz/aikucun/2018_4/2/12/8/2_771.jpg?imageMogr2/thumbnail/120x/interlace/0 '></image>
+      <text >公告</text>
+    </view> 
+    <view class='acReport_view_content'>
+        <text>{{acReport}}</text>
+    </view>
+  </view> 
+
+  <view class='promotionList'  bindtap='closeCardShare'>
+      <view id='promotionItem' class='promotionItem' wx:for='{{productData}}' wx:for-item="result" wx:key='item_{{index}}'>
+        <view class='share_view '> 
+          <view  wx:if='{{!result.showShare}}' class='sharePoint' data-index='{{index}}' catchtap='showCardShare'>
+          <!--分享的图标  -->
+            <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/28/48_387.jpg?imageMogr2/thumbnail/120x/interlace/0'></image>
+          </view>  
+          <view class='share_box' wx:if='{{result.showShare}}'>
+            <button class='share_box_item' open-type='share' data-index='{{index}}' >
+              <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/35/2_810.jpg?imageMogr2/thumbnail/120x/interlace/0'></image>
+              <text>分享</text>
+            </button>
+            <button class='share_box_item' data-index='{{index}}' bindtap='showKefuWechatCode'>
+              <image src='http://image.aikucun.xyz/aikucun/2018_4/2/11/36/30_199.jpg?imageMogr2/thumbnail/120x/interlace/0'></image>
+              <text>客服</text>
+            </button>
+            <!-- <button class='share_box_item' data-index='{{index}}' bindtap='drowCanvas'>
+              <image src='http://image1.sansancloud.com/aikucun/2018_03/12/10/15/16_358.jpg'></image>
+              <text>画图</text>
+            </button> -->
+          </view>
+        </view> 
+        <view class='promotionItem_brandName'>
+          <view>{{result.brandName}}</view>
+        </view>
+        <view class='promotionItem_Name'>
+          <view>{{result.name}}</view>
+        </view>
+
+        <view class='swiperContainer'>
+          <view class='swiperIndex'>{{result.current + 1}}/{{result.imageListArr.length}}</view>
+          <swiper current='{{result.current}}' data-index='{{index}}' bindchange='swiperCurrentChange' style='height:{{((sysWidth*0.95)-20)}}px;'>
+            <block wx:for="{{result.imageListArr}}" wx:for-item='imageList' wx:for-index='m' wx:key='list_{{m}}'>
+              <swiper-item style='height:100%;display: flex;  flex-direction: column; position: relative; align-items: center'>
+              
+                <view class='promotionItem_imageArea' style='width:{{((sysWidth*0.95)-20)}}px;'>
+                  <view class='promotionItem_imageArea_item' wx:for="{{imageList}}" wx:for-item='imageItem' wx:for-index='n' wx:key='image_{{n}}'
+                  data-urls='{{result.imageListWatcher}}'  data-me='{{imageItem.imagePath}}' bindtap='watchBigImage'
+                  style='height:{{((sysWidth*0.95)-20)/2 -5}}px;  width:{{((sysWidth*0.95)-20)/2 -5}}px;'>
+                     <image  src='{{imageItem.imagePath &&   m< result.pageNum+1 && result.showImage ?imageItem.imagePath : "/images/333.jpg" }}?imageMogr2/thumbnail/400x/interlace/0' mode='aspectFill'></image> 
+                     <!-- <image  src='{{result.showImage ?imageItem.imagePath : "/images/333.jpg" }}' mode='aspectFill'></image> -->
+                  </view>
+                </view>
+              </swiper-item> 
+            </block>
+          </swiper>
+        </view>
+         
+        <view class='promotionItem_info_view'>
+          <view class='promotionItem_info'>
+            <!-- <view>
+              <text>{{result.brandName}}</text>
+              <text class='priceTagLine'>原价￥{{result.tagPrice}}</text>
+            </view>
+            <text class='price'>￥{{result.price}}</text> -->
+
+            <text class='price'>￥{{result.price}}</text>
+
+            <view>
+              <text >原价</text>
+              <text class='tagprice'>￥{{result.tagPrice}}</text>
+            </view>
+            
+          </view>
+          <view class='promotionItem_addtocart'>
+              <view class='add font_06' style='color:{{setting.platformSetting.defaultColor}}; border-color:{{setting.platformSetting.defaultColor}}' data-index='{{index}}' bindtap='bindAddtocart'>加入购物车</view>
+              <view class=' buy font_06' style='background:{{setting.platformSetting.defaultColor}}; border-color:{{setting.platformSetting.defaultColor}}' data-index='{{index}}' bindtap='bindBuy'>立即抢购</view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if='{{listEnd}}' class='dixian'> 我是有底线的 ~</view> 
+  </view>
+
+</view> 
+
+<!--加入购物车的遮罩层  -->
+  <template is="measure_card" data="{{setting:setting,showCount,focusData:focusData,byNowParams:byNowParams,measurementJson:measurementJson}}"></template>  
+
+ 
+<view class='cartButn' style='background:{{setting.platformSetting.defaultColor}}'  bindtap='toCart'>
+   <image src='http://image1.sansancloud.com/aikucun/2018_03/12/10/32/19_625.jpg?x-oss-process=style/preview_120'></image> 
+   <view class='carCount'  wx:if='{{carCount > 0}}'
+   style='border-color:{{setting.platformSetting.defaultColor}};color:{{setting.platformSetting.defaultColor}};' >{{carCount}}</view>
+</view>
+
+<!-- wx:if='{{loginUser.platformUser.mendian.kefuQrcode}}' -->
+ <view class='kefu_wx' wx:if='{{showKefu}}' catchtouchmove='doNothing'>
+  <view class='kefu_bg_zhezhao' bindtap='closeKefu'></view>
+  <view class='kefu_wx_card'>
+    <view class='kefu_info'>
+      <view class='kefu_info_icon'><image src='http://image1.sansancloud.com/aikucun/2018_03/12/13/00/08_078.jpg'></image></view>
+      <view class='kefu_info_content'>
+        <view>客服：{{loginUser.platformUser.mendian.name}}</view>
+        <text>扫描二维码，客服{{loginUser.platformUser.mendian.name}}为您服务</text>
+      </view>
+    </view>
+    <view class='kefu_qrcode'>
+      <image mode='widthFix' data-url='{{loginUser.platformUser.mendian.kefuQrcode}}'
+       bindtap='lookBigWxCode' src='{{loginUser.platformUser.mendian.kefuQrcode}}'></image>
+    </view>
+  </view>
+</view> 
+
+
+<!-- <canvas style="width: 300px; height: 500px;" canvas-id="firstCanvas"></canvas> -->
