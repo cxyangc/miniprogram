@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 12,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -172,7 +172,7 @@
 				{
 					"id": 20,
 					"name": "进入特卖页",
-					"pathName": "pageTab/tunzai/teMai/index",
+					"pathName": "pages/promotion_products/index",
 					"query": "promotionId=411",
 					"scene": "1011"
 				}

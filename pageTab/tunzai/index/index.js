@@ -5,9 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    promotionEndDate: { time: '2018-10-27 23:59:59', defaultColor: '', secondColor:''},
-    promotionStartDate: { time: '2018-10-25 23:59:59', defaultColor: '', secondColor: '' },
-    seckillStartDate: { time: '2018-10-27 23:59:59', defaultColor: '', secondColor: ''},
+    promotionEndDate: { time: '2018-11-2 23:59:59', defaultColor: '', secondColor:''},
+    promotionStartDate: { time: '2018-10-27 23:59:59', defaultColor: '', secondColor: '' },
+    seckillStartDate: { time: '2018-11-2 23:59:59', defaultColor: '', secondColor: ''},
     mainMenu: [{ index: 0, text: '今日主打' }, { index: 1, text: '秒囤' }, { index: 2, text: '活动预告'}],
     mainMenuIndex:0,
     userInfoWidth:'200',
@@ -89,7 +89,7 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        console.log("====== res.data=========", res.data)
+        console.log("====== getPromotionData=========", res.data)
         let activityPromotion = res.data.activityPromotion;
         let unactivityPromotion = res.data.unactivityPromotion;
         let activityPromotionAll = activityPromotion.concat(unactivityPromotion)

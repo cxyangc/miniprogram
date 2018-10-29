@@ -43,7 +43,7 @@ Page({
         if (app.clientNo=="tunzai"){
          console.log("进入蓝湖")
          wx.reLaunch({
-           url: '/pageTab/lanHu/index/index'
+           url: '/pageTab/tunzai/index/index'
          })
          return;
        }

@@ -1,4 +1,4 @@
-   <import src="../../../view-new/aikucun/measure_card.wxml"/>
+   <import src="../../view-new/aikucun/measure_card.wxml"/>
 
 <block  >
 
@@ -7,16 +7,16 @@
      <view class='flexCenter1' data-type='price' bindtap='searchProduct'>价格</view>
      <view class='flexCenter1Img'>
      <block wx:if='{{ordertypeState}}'>
-        <image src='../../../images/icons/topSel.png'></image>
+        <image src='../../images/icons/topSel.png'></image>
       </block >
       <block wx:else>
-        <image src='../../../images/icons/bottomSel.png'></image>
+        <image src='../../images/icons/bottomSel.png'></image>
       </block >
      </view>
      <view class='flexCenter2' data-type='hot' bindtap='searchProduct'>
         <!-- <block wx:if="{{!!typeSearch}}">{{typeSearch}}</block> -->
         <block >热度</block>
-        <view class='flexCenter1Img1'><image src='../../../images/icons/file.png'></image>     </view>
+        <view class='flexCenter1Img1'><image src='../../images/icons/file.png'></image>     </view>
  
      </view>
     
@@ -25,7 +25,7 @@
           <text class='smoprice'>￥ {{s_price.startPrice}} - {{s_price.endPrice}}</text>
         </block>
         <block wx:else>筛选</block>
-      <image class='flexCenter1Img2' src='../../../images/icons/select.png'></image>
+      <image class='flexCenter1Img2' src='../../images/icons/select.png'></image>
      </view>
           
      <view class='flexCenter' bindtap='bindProductshowWay'>
@@ -87,7 +87,7 @@
   <view class='zhezhao' wx:if="{{showType}}" bindtap='closeZhezhao'></view>
 <!--公告  -->
   <view class='guangGao'>
-    <view class='guangGaoImg'><image mode='aspectFill' src='../../../images/icon/ring@2x.png'></image></view>
+    <view class='guangGaoImg'><image mode='aspectFill' src='../../images/icon/ring@2x.png'></image></view>
 
     <view class='bigBox' wx:if="{{activityPromotion.description!=''}}"><text class='big'>公告</text><text class='small'>{{activityPromotion.description}}</text></view>
 

@@ -33,7 +33,7 @@
     <!-- 活动品牌end -->
     <!-- 活动列表 -->
     <view class='promotionList'>
-      <view class='promotionItem' wx:for='11111' bindtap='toPromotionDetail' data-id='{{item.id}}'>
+      <view class='promotionItem' wx:for='{{activityPromotion}}' bindtap='toPromotionDetail' data-id='{{item.id}}'>
         <view class='promotionItemHead'>
           <view class='promotionBrandInfo'>
             <image class='promotionBrandIcon' src='http://image.tunzai.vip/tunzai/2018_10/24/10/58/35_676.jpg'></image>

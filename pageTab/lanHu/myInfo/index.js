@@ -108,39 +108,39 @@ Page({
       }
     })
   },
-  getMendianInfo: function () {
-    console.log('-------门店-1-------')
-    let params = {}
-    var customIndex = app.AddClientUrl("/ge_manager_mendian_info_admin_mendian_json.html", params, 'post')
-    var that = this
-    wx.showLoading({
-      title: 'loading'
-    })
-    wx.request({
-      url: customIndex.url,
-      data: customIndex.params,
-      header: app.headerPost,
-      method: 'POST',
-      success: function (res) {
-        console.log(res.data)
-        if (res.data.errcode == '0') {
-          let mendian = res.data.relateObj
-          mendian = that.dellMoney(mendian)
-          //account 账户余额
-          that.setData({
-            mendian: mendian
-          })
-          that.setNav(mendian)
-        } else {
-          wx.showModal({
-            title: '失败了',
-            content: '请求失败了，请下拉刷新！',
-          })
+  // getMendianInfo: function () {
+  //   console.log('-------门店-1-------')
+  //   let params = {}
+  //   var customIndex = app.AddClientUrl("/ge_manager_mendian_info_admin_mendian_json.html", params, 'post')
+  //   var that = this
+  //   wx.showLoading({
+  //     title: 'loading'
+  //   })
+  //   wx.request({
+  //     url: customIndex.url,
+  //     data: customIndex.params,
+  //     header: app.headerPost,
+  //     method: 'POST',
+  //     success: function (res) {
+  //       console.log(res.data)
+  //       if (res.data.errcode == '0') {
+  //         let mendian = res.data.relateObj
+  //         mendian = that.dellMoney(mendian)
+  //         //account 账户余额
+  //         that.setData({
+  //           mendian: mendian
+  //         })
+  //         that.setNav(mendian)
+  //       } else {
+  //         wx.showModal({
+  //           title: '失败了',
+  //           content: '请求失败了，请下拉刷新！',
+  //         })
 
-        }
-      }
-    })
-  },
+  //       }
+  //     }
+  //   })
+  // },
   loginOut: function () {
     wx.navigateTo({
       url: '/pages/pre_change_user_info/index',

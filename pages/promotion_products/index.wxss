@@ -1,8 +1,8 @@
- @import '../../../view-new/aikucun/aikucun_hot_product.wxss';
+ @import '../../view-new/aikucun/aikucun_hot_product.wxss';
 
-@import '../../../view-new/css/product_search.wxss';
-@import '../../../view/css/type_search.wxss';
-@import '../../../view-new/aikucun/measure_card.wxss';/*  detail_list_card  */ 
+@import '../../view-new/css/product_search.wxss';
+@import '../../view/css/type_search.wxss';
+@import '../../view-new/aikucun/measure_card.wxss';/*  detail_list_card  */ 
 
 page{
  background-color: #F8FBFF;
