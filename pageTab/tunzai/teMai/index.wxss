@@ -11,6 +11,7 @@
 .promotionBanrdLogo{
   width: 90rpx;
   height: 90rpx;
+  border-radius: 90rpx;
   margin-bottom: 13rpx;
 }
 .promotionBanrdName{
@@ -66,7 +67,12 @@
 }
 .productImg{
   width: 280rpx;
-  height: 280rpx
+  height: 280rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 .productImgUrl{
    height: 220rpx;
@@ -95,7 +101,7 @@
   border-radius:10rpx;
   position: relative;
   overflow:hidden;
-
+  line-height:20rpx;
 }
 .usedProductStock{
   position: absolute;
@@ -123,4 +129,33 @@
 .shareBtnImg{
   width: 50rpx;
   height: 50rpx
+}
+.outPrint{
+  position: absolute;
+}
+.outPrintBg{
+  position: absolute;
+  width:210rpx;
+  height:210rpx;
+  background:#282828;
+  opacity:0.406;
+  border-radius: 210rpx;
+  top:50%;
+  left: 50%;
+  margin-top: -105rpx;
+  margin-left: -105rpx;
+}
+.outPrintText{
+  position: absolute;
+  width:210rpx;
+  height:210rpx;
+  font-size:48rpx;
+  font-weight:600;
+  color: #fff;
+  top:50%;
+  left: 50%;
+  margin-top: -105rpx;
+  margin-left: -105rpx; 
+  line-height:210rpx;
+  text-align:center;
 }

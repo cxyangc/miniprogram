@@ -1,17 +1,18 @@
 //app.js
 import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
+const Promise = require('/promise/promise.js');
 App({
      //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
-      clientUrl: 'https://mini.tunzai.vip/chainalliance/',
-      //clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+     //clientUrl: 'https://mini.tunzai.vip/chainalliance/',
+     clientUrl: 'https://mini.sansancloud.com/chainalliance/',
 
-    /**s
+    /**
      *   切换项目的开关 ↓↓↓↓↓
      */
 
 
-   clientNo: 'tunzai',   //自定义的项目的名称。
+   clientNo: 'jianzhan',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
@@ -64,12 +65,8 @@ App({
           this.appHide = true
           console.log("=====1011====");
           if (e.query.platformNo){
-           
-           
-
             console.log("HAHAHAHHAA" + e.query.platformNo)
           }
-        
         }
         console.log("=====on show==="+this.clientNo);
         /* let pagePath = e.path
@@ -148,7 +145,7 @@ App({
       // console.log("这个是第一次加载的more_scene" + more_scene)
         console.log('第一次登录加载的函数')
         this.wxLogin(more_scene)
-        this.getSetting()
+        //this.getSetting()
     },
     loadScene: function (inputPlatformNo) {
         this.clientNo = inputPlatformNo
@@ -452,6 +449,7 @@ App({
             this.openLocation()
         }
         else {
+         // promotion_products.html   form_detail.html?customFormId=12
           console.log("9999999999999999" + linkUrl.substr(0, 14))
             wx.navigateTo({
                 url: "/pages/" + urlData.url + "/index" + urlData.param,
@@ -868,65 +866,68 @@ App({
         var that = this
         console.log("======settUrl.url======", settUrl.url)
         //拿setting
-        
-        wx.request({
-            url: settUrl.url, //仅为示例，并非真实的接口地址
-            header: that.header,
-            success: function (res) {
-              console.log("====res====",res.data)
-              // 获取门店ID
-              console.log("====门店ID====", res.data.platformSetting.defaultShopBean.defaultMendianId);
-              that.defaultMendianID = res.data.platformSetting.defaultShopBean.defaultMendianId;
+        return new Promise(function (resolve, reject) {
+          wx.request({
+              url: settUrl.url, //仅为示例，并非真实的接口地址
+              header: that.header,
+              success: function (res) {
+                resolve(res);
+                console.log("====Promise-resSetting====",res.data)
+                //获取门店ID
+                console.log("====门店ID====", res.data.platformSetting.defaultShopBean.defaultMendianId);
+                that.defaultMendianID = res.data.platformSetting.defaultShopBean.defaultMendianId;
 
-                if (res.data.platformSetting) {
-                    that.clientName = res.data.platformSetting.platformName
-                    if (res.data.platformSetting.categories) {//产品类别
-                        let categories = res.data.platformSetting.categories
-                        let allType = {}
-                        allType.id = 'all'
-                        allType.name = '全部'
-                        allType.active = true
-                        for (let i = 0; i < categories.length; i++) {
-                            categories[i].active = false
-                        }
-                        categories.unshift(allType)
-                    }
-                }
-           
-                that.setting = res.data
-             
-                  if (res.data.platformSetting.miniIndexPage) {
-                    let miniIndexPage = that.getSpaceStr(res.data.platformSetting.miniIndexPage, '.')
-
-                    that.miniIndexPage = miniIndexPage.str1
-                  } else {
-
-                    that.miniIndexPage = 'custom_page_index'
+                  if (res.data.platformSetting) {
+                      that.clientName = res.data.platformSetting.platformName
+                      if (res.data.platformSetting.categories) {//产品类别
+                          let categories = res.data.platformSetting.categories
+                          let allType = {}
+                          allType.id = 'all'
+                          allType.name = '全部'
+                          allType.active = true
+                          for (let i = 0; i < categories.length; i++) {
+                              categories[i].active = false
+                          }
+                          categories.unshift(allType)
+                      }
                   }
-      
-             
+            
+                  that.setting = res.data
+              
+                    if (res.data.platformSetting.miniIndexPage) {
+                      let miniIndexPage = that.getSpaceStr(res.data.platformSetting.miniIndexPage, '.')
 
-                if (!self) {
+                      that.miniIndexPage = miniIndexPage.str1
+                    } else {
 
-                } else {
-                    self.setData({ setting: res.data })
-                    self.setNavBar()
-                }
-                wx.hideLoading()//隐藏 loading 提示框
-                return
-                let ShopBean = res.data.platformSetting.defaultShopBean
-                if (ShopBean.serviceStartTime) {
+                      that.miniIndexPage = 'custom_page_index'
+                    }
+        
+              
 
-                }
+                  if (!self) {
 
-                // 完成初次加载
-                that.successOnlaunch = true
+                  } else {
+                      self.setData({ setting: res.data })
+                      self.setNavBar()
+                  }
+                  wx.hideLoading()//隐藏 loading 提示框
+                  return
+                  let ShopBean = res.data.platformSetting.defaultShopBean
+                  if (ShopBean.serviceStartTime) {
 
-            },
+                  }
+
+                  // 完成初次加载
+                  that.successOnlaunch = true
+
+              },
             fail: function (res) {
-                wx.hideLoading()//隐藏 loading 提示框
-                that.loadFail()//获取失败
-            }
+                  reject('error');
+                  wx.hideLoading()//隐藏 loading 提示框
+                  that.loadFail()//获取失败
+              }
+          })
         })
     },
     //微信内部地图

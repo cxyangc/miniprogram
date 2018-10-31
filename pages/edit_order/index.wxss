@@ -120,6 +120,7 @@
   overflow: hidden;
   border-bottom: 1px solid #dddddd;
   position: relative;
+  box-sizing: border-box
 }
 .itemCheckbox{
   display: flex;
@@ -128,8 +129,8 @@
   align-items: flex-start;
 }
 .itemCheckbox image{
-  width: 5em;
-  height: 5em;
+  width: 168rpx;
+  height: 168rpx;
   border-radius: 0.2em;
 }
 
@@ -138,19 +139,23 @@
   flex-direction: column;
   justify-content: space-between;
   margin-left: 1em;
+  width:480rpx;
+  height:168rpx;
 }
 .item_infomation_name{
-  width: 12em;
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+  font-size: 28rpx;
 }
 .item_infomation_name_measure{
   word-break: break-all; 
-  width: 12em;
+  width: 360rpx;
+  font-size: 24rpx;
 }
 .item_infomation_money{
   color: #8B572A;
+  font-size: 28rpx;
 }
 /* 加和减 */
 .item_infomation_nums{
@@ -160,7 +165,7 @@
   align-items: center;
   position: absolute;
   right: 2em;
-  top: 2.2em;
+  top: 84rpx;
 }
 
 .item_infomation_nums text{
@@ -401,4 +406,19 @@
   font-size: 30rpx;
   margin-left: 20rpx;
   
+}
+.salesStrategyList{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.salesStrategyItem{
+  border-radius: 20rpx;
+  padding: 6rpx 10rpx;
+  font-size: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 20rpx;
 }

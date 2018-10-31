@@ -16,16 +16,14 @@ Component({
 
    ready:function(){
      let that=this;
-     console.log("===========this===========", that.data.data)
      let time = that.data.data.time;
+     console.log("===========this===========", that.data.data, time)
      that.setData({ platformSetting: app.setting.platformSetting })
-     console.log("===========this===========", that.data.platformSetting)
      if (time){
        var interval = setInterval(function () {
          var t1 = time;
          var d1 = t1.replace(/\-/g, "/");
          var date1 = new Date(d1);
-
          var totalSecond = parseInt((date1 - new Date()) / 1000);
          // 秒数
          var second = totalSecond;

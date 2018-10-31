@@ -20,11 +20,11 @@
     <!-- 活动品牌start -->
     <view class='brandList'>
       <scroll-view scroll-x="true" class='brandListScroll' scroll-left='62rpx'>
-        <view class='brandContent' wx:for='11111111111'>
+        <view class='brandContent' wx:for='{{promotionList}}' bindtap='toPromotionDetail' data-id='{{item.id}}'>
           <view class='brandItem'>
-            <image class='brandIcon' src='http://image.tunzai.vip/tunzai/2018_10/24/10/58/35_676.jpg'></image>
-            <view class='brandName'><text>Dickies</text></view>
-            <view class='brandType'><text>鞋类</text></view>
+            <image class='brandIcon' src='{{item.mainBrandBean.brandIcon}}'></image>
+            <view class='brandName'><text>{{item.mainBrandBean.brandName}}</text></view>
+            <view class='brandType'><text>{{item.mainBrandBean.industry}}</text></view>
           </view>
           <view class='verticalBar'></view>
         </view>
@@ -32,21 +32,21 @@
     </view>
     <!-- 活动品牌end -->
     <!-- 活动列表 -->
-    <view class='promotionList'>
-      <view class='promotionItem' wx:for='{{activityPromotion}}' bindtap='toPromotionDetail' data-id='{{item.id}}'>
+    <scroll-view scroll-y="true" class='promotionList'>
+      <view class='promotionItem' wx:for='{{promotionList}}' bindtap='toPromotionDetail' data-id='{{item.id}}'>
         <view class='promotionItemHead'>
           <view class='promotionBrandInfo'>
-            <image class='promotionBrandIcon' src='http://image.tunzai.vip/tunzai/2018_10/24/10/58/35_676.jpg'></image>
-            <text class='promotionBrandName'>DICKIES</text>
+            <image class='promotionBrandIcon' src='{{item.mainBrandBean.brandIcon}}'></image>
+            <text class='promotionBrandName'>{{item.mainBrandBean.brandName}}</text>
           </view>
-          <image catchtap='sharePoster' class='shareIcon' src='http://image.tunzai.vip/tunzai/2018_10/24/13/58/50_462.jpg?x-oss-process=style/preview_120'></image>
+          <image catchtap='shareActivePoster' class='shareIcon' data-id='{{item.id}}' data-type='active' src='http://image.tunzai.vip/tunzai/2018_10/24/13/58/50_462.jpg?x-oss-process=style/preview_120'></image>
         </view>
         <view class='promotionBanner'>
-          <image class='promotionBannerUrl' src='http://image.tunzai.vip/tunzai/2018_10/24/14/14/12_900.jpg'></image>
+          <image class='promotionBannerUrl' mode='aspectFit' src='{{item.promotionBanner}}'></image>
         </view>
         <view class='promotionTime' wx:if='{{mainMenuIndex==0}}' style='background:linear-gradient(135deg,{{setting.secondColor}} 0%,{{setting.defaultColor}} 100%);'>
           <view class='promotionCountDown'>
-            <time data="{{promotionEndDate}}" wx:if="{{promotionEndDate.background}}"></time>
+            <time data="{{item.promotionEndDate}}" wx:if="{{item.promotionEndDate}}"></time>
             <text style='margin-left:10rpx'>后结束</text>
           </view>
           <view class='enterPromotion' catchtap='toPromotionDetail'>
@@ -54,14 +54,14 @@
           </view>
         </view>
         <view class='promotionTime' wx:if='{{mainMenuIndex==2}}' style='background:linear-gradient(135deg,{{setting.secondColor}} 0%,{{setting.defaultColor}} 100%);'>
-          <text class='promotionName'>大牌影音专场</text>
+          <text class='promotionName'>{{item.name}}</text>
           <view class='promotionCountDown'>
-            <time data="{{promotionStartDate}}" wx:if="{{promotionEndDate.background}}"></time>
+            <time data="{{item.promotionStartDate}}" wx:if="{{item.promotionStartDate}}"></time>
             <text style='margin-left:10rpx'>后开始</text>
           </view>
         </view>
       </view>
-    </view>
+    </scroll-view>
     <!-- 活动列表end -->
   </view>
   <!-- 主打与预告end -->
@@ -105,4 +105,5 @@
 <!-- 弹窗 -->
 <!--  海报-->
    <posters proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 
+   <posterActive activeId="{{promotionId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterActiveState}}' bind:closePoaster="getChilrenPoster"></posterActive>
 

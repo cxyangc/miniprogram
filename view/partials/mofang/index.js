@@ -13,10 +13,10 @@ Component({
   },
   ready:function(){
     console.log('=====ready====', this.data.data)
-    this.setData({ items: this.data.data.jsonData.items })
-    this.setData({ width: this.data.data.jsonData.width })
-    this.setData({ height: this.data.data.jsonData.height })
-    this.setData({ imagePadding: this.data.data.jsonData.imagePadding })
+    this.setData({ items: this.data.data.jsonData.items || []})
+    this.setData({ width: this.data.data.jsonData.width||0})
+    this.setData({ height: this.data.data.jsonData.height || 0})
+    this.setData({ imagePadding: this.data.data.jsonData.imagePadding || 0})
     console.log('=====items====', this.data.items)
   },
   methods: {

@@ -1,35 +1,40 @@
 <view class='body '>
 <!-- 品牌详情 -->
   <view class='promotionBanrdInfo'>
-    <image class='promotionBanrdLogo' src='http://image.tunzai.vip/tunzai/2018_10/24/10/58/35_676.jpg'></image>
-    <text class='promotionBanrdName'>Dickies</text>
-    <text class='promotionBanrdDescribe'>Dickies成立于1922年，成立之初是一家小型背带裤 公司，对功能的注重使Dickies成为了品牌中的另类，如今 是美式休闲工装制造商，潮流服装公司。</text>
+    <image class='promotionBanrdLogo' src='{{promotionInfo.mainBrandBean.brandIcon}}'></image>
+    <text class='promotionBanrdName'>{{promotionInfo.mainBrandBean.brandName}}</text>
+    <text class='promotionBanrdDescribe'>{{promotionInfo.mainBrandBean.brandDescription}}</text>
   </view>
   <!-- 倒计时 -->
   <view class='promotionCountDown' style='background:linear-gradient(135deg,{{setting.secondColor}} 0%,{{setting.defaultColor}} 100%);'>
-    <text class='promotionName'>DICKIES男鞋专场</text>
+    <text class='promotionName'>{{promotionInfo.name}}</text>
     <view class='promotionTimer'>
-      <time data="{{promotionStartDate}}" wx:if="{{promotionStartDate.background}}"></time>
+      <time data="{{promotionInfo.promotionStartDate}}" wx:if="{{promotionInfo.promotionStartDate}}"></time>
       <text class='timeText'>后结束</text>
     </view>
   </view>
   <!-- 产品列表 -->
   <view class='productList'>
-    <view class='productItem' wx:for="11111111111">
+    <view class='productItem' wx:for="{{productData}}" bindtap='toProductDetail'  data-id='{{item.id}}'>
       <view class='shareBtn'>
         <image class='shareBtnImg' src='http://image.tunzai.vip/tunzai/2018_10/24/13/58/50_462.jpg'></image>
       </view>
       <view class='productImg'>
-        <image src='http://image.tunzai.vip/tunzai/2018_10/25/16/6/31_960.jpg' mode='aspectFit' class='productImgUrl'></image>
+        <image src='{{item.imagePath}}' mode='aspectFit' class='productImgUrl'></image>
+        <view class='outPrint' wx:if="{{stockPercent==100}}">
+             <view class='outPrintBg'></view>
+             <view class='outPrintText'><text>已抢光</text></view>
+        </view>
       </view>
       <view class='productPriceAndStock'>
         <view style='height:56rpx'>
-          <text class='productPrice' style='color:{{setting.defaultColor}}'>¥179</text>
-          <text class='productTagPrice'>¥399</text>
+          <text class='productPrice' style='color:{{setting.defaultColor}}'>¥{{item.price}}</text>
+          <text class='productTagPrice'>¥{{item.tagPrice}}</text>
         </view>
         <view class='productStock'>
-          <view class='usedProductStock' style='background:{{setting.defaultColor}};width:{{(82/100)*100}}%'>
-            <text class='usedProductStockPercent'>82%</text>
+          <text class='usedProductStockPercent' style='position:absolute;left:{{item.stockPercent/100*120+20}}rpx;' wx:if="{{item.stockPercent<20}}">{{item.stockPercent}}%</text>
+          <view class='usedProductStock' style='background:{{setting.defaultColor}};width:{{item.stockPercent}}%'>
+            <text class='usedProductStockPercent' wx:if="{{item.stockPercent>20}}">{{item.stockPercent}}%</text>
           </view>
         </view>
       </view>

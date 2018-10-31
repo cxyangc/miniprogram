@@ -60,11 +60,11 @@
 .inputString input{
   direction: rtl
 }
-.picker{
-  width:80%;
+/* .picker{
+  width:60%;
   height:100%;
   line-height:76rpx;
-}
+} */
 .pickerRight{
   height:80rpx;
   display:flex;
@@ -150,8 +150,9 @@
   width: 100%
 }
 .picker{
-  width: 500rpx;
+  width: 400rpx;
   height: 80rpx;
+  line-height:76rpx;
   text-align:right;
   float:left;
 

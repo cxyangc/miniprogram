@@ -163,7 +163,7 @@
   "backgroundColor": "#ffffff",
   "list": [
     {
-      "pagePath": "pageTab/lanHu/index/index",
+      "pagePath": "pageTab/custom_page_index/index",
       "iconPath": "images/icons/home1.png",
       "selectedIconPath": "images/icons/home2.png",
       "text": "首页"

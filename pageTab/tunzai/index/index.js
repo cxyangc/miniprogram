@@ -5,12 +5,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    promotionEndDate: { time: '2018-11-2 23:59:59', defaultColor: '', secondColor:''},
-    promotionStartDate: { time: '2018-10-27 23:59:59', defaultColor: '', secondColor: '' },
     seckillStartDate: { time: '2018-11-2 23:59:59', defaultColor: '', secondColor: ''},
     mainMenu: [{ index: 0, text: '今日主打' }, { index: 1, text: '秒囤' }, { index: 2, text: '活动预告'}],
     mainMenuIndex:0,
+    promotionList: [],
     userInfoWidth:'200',
+    posterActiveState:false,
+    posterState:false,
+    promotionId:0,
+    productId:0,
   },
   tolinkUrl: function (e) {
     console.log(e)
@@ -20,14 +23,23 @@ Page({
   // 主菜单的选择
   selectMainMenu:function(e){
     console.log('====e====',e)
+    let that=this;
     let index = e.currentTarget.dataset.index
     console.log('====index====', index)
-    this.setData({ mainMenuIndex: index})
+    if (index==0){
+      this.setData({ promotionList: that.data.activityPromotion})
+    } else if (index == 2){
+      this.setData({ promotionList: that.data.unactivityPromotion })
+    }
+    this.setData({ mainMenuIndex: index })
   },
-  // 开启海报
-  sharePoster:function(){
-    console.log('====sharePoster====')
-    this.setData({ posterState:true})
+  // 开启活动海报
+  shareActivePoster:function(event){
+    console.log('====shareActivePoster====', event)
+    this.setData({ posterActiveState: true })
+    this.setData({ promotionId: event.currentTarget.dataset.id })
+    let data = { type: event.currentTarget.dataset.type, id: event.currentTarget.dataset.id}
+    this.getQrCode(event.currentTarget.dataset.type);
   },
   //关闭海报
   getChilrenPoster:function(){
@@ -35,7 +47,15 @@ Page({
   },
   //点击活动进入活动详情
   toPromotionDetail:function(e){
-    console.log('===toPromotionDetail====')
+    console.log('===toPromotionDetail====',e)
+    let promotionId = e.currentTarget.dataset.id ;
+    console.log(e.currentTarget.dataset.activitydata)
+    let activitydata = JSON.stringify({
+      
+    })
+    wx.navigateTo({
+      url: '/pageTab/tunzai/teMai/index?promotionId=' + promotionId + '&promotionData=' + activitydata,
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -49,22 +69,12 @@ Page({
       this.setData({
         userInfoWidth: app.loginUser.platformUser.mendian.name.length * 32
       })
-      this.data.promotionEndDate.background = "#fff" 
-      this.data.promotionEndDate.color = this.data.setting.defaultColor
-      this.data.promotionEndDate.fontSize = 20
-      this.data.promotionStartDate.background = "#fff"
-      this.data.promotionStartDate.color = this.data.setting.defaultColor
-      this.data.promotionStartDate.fontSize = 20
       this.data.seckillStartDate.background = this.data.setting.secondColor
       this.data.seckillStartDate.color = '#fff'
       this.data.seckillStartDate.fontSize = 26
       this.setData({
-        promotionEndDate: this.data.promotionEndDate,
-        promotionStartDate: this.data.promotionStartDate,
         seckillStartDate: this.data.seckillStartDate
       })
-      console.log('1', this.data.promotionEndDate)
-      console.log('2', this.data.promotionStartDate)
       console.log('3', this.data.seckillStartDate)
     }
   },
@@ -90,15 +100,23 @@ Page({
       header: app.header,
       success: function (res) {
         console.log("====== getPromotionData=========", res.data)
-        let activityPromotion = res.data.activityPromotion;
+        let activityPromotion = res.data.activityPromotion.slice(0,30);
         let unactivityPromotion = res.data.unactivityPromotion;
         let activityPromotionAll = activityPromotion.concat(unactivityPromotion)
-
+        for (let i = 0; i < activityPromotion.length;i++){
+          activityPromotion[i].promotionEndDate = { time: activityPromotion[i].endDate, background: "#fff", color: that.data.setting.defaultColor, fontSize:20}
+        }
+        for (let j = 0; j < unactivityPromotion.length; j++) {
+          unactivityPromotion[j].promotionStartDate = { time: unactivityPromotion[j].startDate, background: "#fff", color: that.data.setting.defaultColor, fontSize: 20}
+        }
+        console.log("====== activityPromotion=========", activityPromotion)
+        console.log("====== unactivityPromotion=========", unactivityPromotion)
         console.log("activityPromotionAll", activityPromotionAll);
         that.setData({
-          activityPromotion: res.data.activityPromotion,
-          unactivityPromotion: res.data.unactivityPromotion,
+          activityPromotion: activityPromotion,
+          unactivityPromotion: unactivityPromotion,
           activityPromotionAll: activityPromotionAll,
+          promotionList: activityPromotion
         })
         wx.hideLoading()
       },
@@ -170,4 +188,41 @@ Page({
     console.log("hahaha",res)
     
   },
+  // 获取二维码
+  getQrCode: function (data) {
+    let userId = "";
+    if (app.loginUser && app.loginUser.platformUser) {
+      userId = 'MINI_PLATFORM_USER_ID_' + app.loginUser.platformUser.id
+    }
+    console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
+    console.log("data", data)
+    // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
+    let postParam = {}
+    let str = '';
+    let str2 = '';
+    if (data.type == 'active') {
+      str = 'SHARE_PROMOTION_PRODUCTS_PAGE'
+      str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PROMOTION_PRODUCTS_PAGE%3d'
+      postParam[str] = data.id;
+    } else {
+      str = 'SHARE_PRODUCT_DETAIL_PAGE'
+      str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d'
+      postParam[str] = data.proId;
+    }
+    postParam.scene = userId
+    console.log(str, str2, postParam)
+    // 上面是需要的参数下面的url
+    var customIndex = app.AddClientUrl(str2 + postParam[str] + "%26scene%3d" + userId, postParam, 'get', '1')
+    var result = customIndex.url.split("?");
+
+    customIndex.url = result[0] + "?" + result[1]
+
+    console.log("customIndex", customIndex.url, result[0])
+
+    var that = this
+    that.setData({
+      qrCodeUrl: customIndex.url
+    })
+
+  }
 })

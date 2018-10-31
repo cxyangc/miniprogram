@@ -14,6 +14,8 @@ Component({
     showPopup:false,
     renderData: null,
     PaiXuPartials: [], 
+    kefuCount: 0,
+    defaultTop:0,
   },
 
   ready: function () {
@@ -102,6 +104,7 @@ Component({
       })
     },
     getPartials: function () {
+      let that=this;
       var partials = this.data.renderData.partials;
       console.log("=====partials=====", partials)
       var PaiXuPartials = [];
@@ -109,6 +112,10 @@ Component({
       if (partials && partials.length) {
         for (let i = 0; i < partials.length; i++) {
           // 产品标签的转化为数组start
+          if (partials[i].partialType == 24 ){
+            this.data.kefuCount++;
+          }
+          console.log('=========this.kefuCount=====',this.data.kefuCount)
           if (partials[i].partialType == 15 && partials[i].relateBean && partials[i].relateBean.length != 0) {
             for (let j = 0; j < partials[i].relateBean.length; j++) {
               if (partials[i].relateBean[j].tags && partials[i].relateBean[j].tags != '') {
@@ -127,6 +134,18 @@ Component({
           console.log("=====partials=====", partials)
           PaiXuPartials.push(partials[i]);
         }
+        wx.getSystemInfo({
+          success: function (res) {
+            let screenHeight = Math.floor(res.screenHeight * 0.618);
+            let kefuHeight = Math.floor(that.data.kefuCount * ((65 + 20) / 2))
+            console.log('===screenHeight====', screenHeight);
+            let defaultTop = screenHeight - kefuHeight
+            console.log('defaultTop', defaultTop)
+            that.setData({
+              defaultTop: defaultTop
+            })
+          },
+        })
       }
       this.setData({ PaiXuPartials: PaiXuPartials })
       console.log(this.data.PaiXuPartials)
