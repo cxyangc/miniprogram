@@ -5,11 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    seckillStartDate: { time: '2018-11-2 23:59:59', defaultColor: '', secondColor: ''},
+    seckillStartDate: { endTime: '2018-11-2 23:59:59', defaultColor: '', secondColor: ''},
     mainMenu: [{ index: 0, text: '今日主打' }, { index: 1, text: '秒囤' }, { index: 2, text: '活动预告'}],
     mainMenuIndex:0,
     promotionList: [],
-    userInfoWidth:'200',
+    userInfoWidth:200,
     posterActiveState:false,
     posterState:false,
     promotionId:0,
@@ -23,6 +23,7 @@ Page({
   // 主菜单的选择
   selectMainMenu:function(e){
     console.log('====e====',e)
+    app.goTop();
     let that=this;
     let index = e.currentTarget.dataset.index
     console.log('====index====', index)
@@ -39,56 +40,75 @@ Page({
     this.setData({ posterActiveState: true })
     this.setData({ promotionId: event.currentTarget.dataset.id })
     let data = { type: event.currentTarget.dataset.type, id: event.currentTarget.dataset.id}
-    this.getQrCode(event.currentTarget.dataset.type);
+    let qrCodeUrl = app.getQrCode(data)
+    console.log('qrCodeUrl===', qrCodeUrl)
+    this.setData({
+      qrCodeUrl: qrCodeUrl
+    })
   },
   //关闭海报
   getChilrenPoster:function(){
     this.setData({ posterState: false })
+    this.setData({ posterActiveState: false })
+  },
+  toMyInfo:function(){
+    wx.switchTab({
+      url: '/pageTab/tunzai/myInfo/index',
+    })
   },
   //点击活动进入活动详情
   toPromotionDetail:function(e){
     console.log('===toPromotionDetail====',e)
     let promotionId = e.currentTarget.dataset.id ;
-    console.log(e.currentTarget.dataset.activitydata)
-    let activitydata = JSON.stringify({
-      
-    })
     wx.navigateTo({
-      url: '/pageTab/tunzai/teMai/index?promotionId=' + promotionId + '&promotionData=' + activitydata,
+      url: '/pageTab/tunzai/teMai/index?promotionId=' + promotionId,
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
+  getLength: function(str){
+    var reg = /[a-zA-Z]/g;
+    if (reg.test(str)){
+      return str.match(/[a-z]/ig).length;
+    }
+     return 0;
+  },
   loginSuccess: function (user) {
     console.log("hello!!!", app.loginUser);
+    let that=this
     if (app.loginUser && app.loginUser != "" && app.loginUser.platformUser.mendian) {
-      this.setData({
+      that.setData({
         loginUserMendian: app.loginUser.platformUser.mendian
       })
-      this.setData({
-        userInfoWidth: app.loginUser.platformUser.mendian.name.length * 32
+      let mendianName = app.loginUser.platformUser.mendian.name
+      let mendianNameE = this.getLength(mendianName)
+      console.log('mendianNameE', mendianNameE, mendianName.length)
+      that.setData({
+        userInfoWidth: (mendianName.length - mendianNameE) * 32 + mendianNameE*16+10
       })
-      this.data.seckillStartDate.background = this.data.setting.secondColor
-      this.data.seckillStartDate.color = '#fff'
-      this.data.seckillStartDate.fontSize = 26
-      this.setData({
-        seckillStartDate: this.data.seckillStartDate
+      console.log(mendianName, that.data.userInfoWidth)
+      that.data.seckillStartDate.background = that.data.setting.secondColor
+      that.data.seckillStartDate.color = '#fff'
+      that.data.seckillStartDate.fontSize = 26
+      that.setData({
+        seckillStartDate: that.data.seckillStartDate
       })
       console.log('3', this.data.seckillStartDate)
     }
   },
   onLoad: function (options) {
     console.log('===onLoad==')
-    this.getPromotionData();
+    var that = this;
+    this.setData({ mainMenuIndex: 0 })
+    that.getPromotionData();
     console.log("用户信息", app.loginUser)
-    this.setData({setting: app.setting.platformSetting})
+    that.setData({ setting: app.setting.platformSetting })
+    that.setData({ shopId: app.setting.platformSetting.defaultShopBean.id })
     console.log("setting", app.setting.platformSetting.logo)
     if (app.loginUser && app.loginUser != "" && app.loginUser.platformUser.mendian) {
-      this.loginSuccess(app.loginUser)
+      that.loginSuccess(app.loginUser)
     }
-    
-    var that = this;
     app.addLoginListener(that);
   },
   getPromotionData:function(){
@@ -100,22 +120,25 @@ Page({
       header: app.header,
       success: function (res) {
         console.log("====== getPromotionData=========", res.data)
-        let activityPromotion = res.data.activityPromotion.slice(0,30);
-        let unactivityPromotion = res.data.unactivityPromotion;
-        let activityPromotionAll = activityPromotion.concat(unactivityPromotion)
+        let activityPromotion = res.data.activityPromotion.slice(0,20);//已开始的活动
+        let unactivityPromotion = res.data.unactivityPromotion;//未开始的活动
+        let activityPromotionProducts = res.data.activityPromotionProducts;//已开始的秒杀
+        let unactivityPromotionProducts = res.data.unactivityPromotionProducts;//未开始的秒杀
         for (let i = 0; i < activityPromotion.length;i++){
-          activityPromotion[i].promotionEndDate = { time: activityPromotion[i].endDate, background: "#fff", color: that.data.setting.defaultColor, fontSize:20}
+          activityPromotion[i].promotionEndDate = { endTime: activityPromotion[i].endDate, background: "#fff", color: that.data.setting.defaultColor, fontSize:20}
         }
         for (let j = 0; j < unactivityPromotion.length; j++) {
-          unactivityPromotion[j].promotionStartDate = { time: unactivityPromotion[j].startDate, background: "#fff", color: that.data.setting.defaultColor, fontSize: 20}
+          unactivityPromotion[j].promotionStartDate = { startTime: unactivityPromotion[j].startDate, background: "#fff", color: that.data.setting.defaultColor, fontSize: 20}
         }
         console.log("====== activityPromotion=========", activityPromotion)
         console.log("====== unactivityPromotion=========", unactivityPromotion)
-        console.log("activityPromotionAll", activityPromotionAll);
+        console.log("====== activityPromotionProducts=========", activityPromotionProducts)
+        console.log("====== unactivityPromotionProducts=========", unactivityPromotionProducts)
         that.setData({
           activityPromotion: activityPromotion,
           unactivityPromotion: unactivityPromotion,
-          activityPromotionAll: activityPromotionAll,
+          activityPromotionProducts: activityPromotionProducts,
+          unactivityPromotionProducts: unactivityPromotionProducts,
           promotionList: activityPromotion
         })
         wx.hideLoading()
@@ -169,9 +192,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    let that=this;
+    that.onLoad();
     wx.stopPullDownRefresh()
-  
-  
   },
 
   /**
@@ -188,41 +211,5 @@ Page({
     console.log("hahaha",res)
     
   },
-  // 获取二维码
-  getQrCode: function (data) {
-    let userId = "";
-    if (app.loginUser && app.loginUser.platformUser) {
-      userId = 'MINI_PLATFORM_USER_ID_' + app.loginUser.platformUser.id
-    }
-    console.log("app.loginUser.platformUser", app.loginUser.platformUser.id)
-    console.log("data", data)
-    // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
-    let postParam = {}
-    let str = '';
-    let str2 = '';
-    if (data.type == 'active') {
-      str = 'SHARE_PROMOTION_PRODUCTS_PAGE'
-      str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PROMOTION_PRODUCTS_PAGE%3d'
-      postParam[str] = data.id;
-    } else {
-      str = 'SHARE_PRODUCT_DETAIL_PAGE'
-      str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d'
-      postParam[str] = data.proId;
-    }
-    postParam.scene = userId
-    console.log(str, str2, postParam)
-    // 上面是需要的参数下面的url
-    var customIndex = app.AddClientUrl(str2 + postParam[str] + "%26scene%3d" + userId, postParam, 'get', '1')
-    var result = customIndex.url.split("?");
-
-    customIndex.url = result[0] + "?" + result[1]
-
-    console.log("customIndex", customIndex.url, result[0])
-
-    var that = this
-    that.setData({
-      qrCodeUrl: customIndex.url
-    })
-
-  }
+  
 })

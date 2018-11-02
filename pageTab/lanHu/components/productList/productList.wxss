@@ -4,11 +4,11 @@
 .detail_list_mode1{
   width: 702rpx;
   margin: 0 auto;
-  margin-top: 22rpx;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center; 
+  margin-top: 22rpx;
   flex-wrap: wrap;
 
 } 

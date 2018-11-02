@@ -4,104 +4,59 @@
   width: 100%;
   overflow: hidden;
 }
-.top_content{
-  height: 140rpx;
-  padding: 64rpx 48rpx 36rpx 48rpx;
-  display: flex;
-  flex-direction: row;
-  align-items:center;
-  width: 100%;
-  position: relative;
-  z-index: 2
-}
-.top_left{
-  width: 140rpx;
-  height: 140rpx;
-  border-radius: 140rpx;
-  background: #D8D8D8;
-  margin-right:40rpx;
+.user_head_img{
+  position: absolute;
+  bottom: 150rpx;
+  width:180rpx;
+  height:180rpx;
+  border: 6rpx solid #fff;
+  left: 50%;
+  margin-left: -90rpx;
+  border-radius: 180rpx;
+  overflow: hidden;
+  box-shadow:0px 2px 6px #888;
 }
 .head_img{
-  width: 140rpx;
-  height: 140rpx;
-  border-radius: 140rpx;
-  border: 5rpx solid #fff;
-  box-sizing: border-box
-}
-.top_right{
-  display: flex;
-  flex-direction: column;
-  justify-content:center;
-  height: 100rpx
-}
-.user_base_info{
-  display: flex;
-  flex-direction: row;
-  align-items:center;
-  height: 50rpx;
-}
-.top_username{
-  font-weight: bold;
-  color: #fff;
-  font-size: 36rpx;
-  margin-right: 16rpx;
+   width:180rpx;
+   height:180rpx;
+   border-radius: 180rpx;
 }
 .user_level{
-  border: 1pt solid #fff;
-  border-radius: 8rpx;
-  font-size: 24rpx;
-  color: #fff;
-  line-height: 36rpx;
-  padding:1px 16rpx 1px 16rpx;
-  height:36rpx;
-}
-.edit_info{
-  height: 32rpx;
-  width: 28rpx;
-  line-height:  32rpx;
-  margin-right: 30rpx;
-}
-.edit_img{
-  height: 20px;
-  width: 16px;
-}
-.user_shop_info{
+  width:112rpx;
+  height:40rpx;
+  background:#fff;
+  box-shadow:0px 1rpx 8rpx 0px #C6C6C6;
+  border-radius:25rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 1rpx solid #fff;
-  border-radius: 20rpx;
-  width: 118rpx;
-  height: 30rpx;
-}
-.user_shop_name{
-  font-size: 18rpx;
-  color: #fff;
-  margin-left: 18rpx;
-}
-.user_shop_img{
-  margin-left: 10rpx;
-  width: 10rpx;
-  height: 20rpx;
-}
+  justify-content: center;
+  font-size: 28rpx;
+  margin-bottom: 18rpx;
+  font-weight: bold;
+  font-style:italic;
+  letter-spacing: 2rpx;
 
+  
+}
+.text-gradient {  
+    display: inline-block;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.user_name{
+  font-size:36rpx;
+  font-weight:600;
+  color:#575757;
+}
 .data_column{
-  border-radius: 16rpx;
-  margin:0 24rpx 0 24rpx; 
-  height: 326rpx;
-  background: #fff;
+  margin:0 12rpx 0 12rpx; 
+  height: 350rpx;
   display: flex;
   flex-direction:column;
   align-items:center;
-  box-shadow:0px 6px 20px #888;
   position: relative;
   z-index: 2;
-  filter:alpha(opacity:30);
-  opacity:0.8;
-  -webkit-opacity: 0.8;
-  -moz-opacity: 0.8;
-  -o-opacity: 0.8;
-  -ms-opacity: 0.8;
 }
 .fws_bg{
   position: absolute;
@@ -110,7 +65,8 @@
   width: 100%;
   height: 100%;
   border-radius: 16rpx;
-  z-index: 1
+  z-index: 1;
+  opacity: 0.8
 }
 .user_msg{
   position: absolute;
@@ -218,10 +174,11 @@
 .profit_block_mendian{
   border-radius: 16rpx;
   margin:20rpx 28rpx 0 24rpx; 
-  height: 286rpx;
+  height: 264rpx;
   background: #fff;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 .profit_block{
   padding:20rpx 28rpx 0 28rpx; 
@@ -229,6 +186,7 @@
   flex-direction: column;
   box-sizing: border-box;
   width:100%;
+  overflow:hidden;
 }
 .profit_block_user{
   padding:20rpx 28rpx 0 28rpx; 
@@ -247,8 +205,8 @@
 }
 .profit_block_fun_border{
   border-radius:16rpx;
-  height:264rpx;
   background:#fff;
+  padding-bottom: 10rpx
 }
 .mg_user{
   margin-top:200rpx;
@@ -257,26 +215,25 @@
   padding:20rpx 28rpx 24rpx 28rpx;
 }
 .profit_block_top{
-  height: 78rpx;
+  height: 50rpx;
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  margin-right:10rpx;
 }
 .profit_top_name{
-   flex:0 0 50%;
-   font-size: 24rpx;
+   font-size: 32rpx;
    margin-left: 16rpx;
-  font-weight: bold;
-  margin-bottom:10rpx;
+   color: #333;
+   font-weight: bold;
 }
 .profit_top_check{
-   flex:0 0 45%;
    font-size: 24rpx;
    display: flex;
    flex-direction: row;
    align-items: center;
    justify-content: flex-end;
-   margin-bottom:10rpx;
 }
 .profit_check_name{
   flex: 0 0 112rpx;
@@ -318,54 +275,97 @@
 .profit_items_text{
   font-size: 24rpx;
   color: #666666;
-  margin-top: 2px;
+}
+.function_block_list{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow:hidden;
+}
+.function_block_top{
+  height: 50rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-right:10rpx;
+  margin-top: 10rpx
 }
 .function_block_items{
   display: flex;
-  flex: 0 0 20%;
-  flex-direction: column;
-  align-items: center
+  width: 100%;
+  height:100rpx;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2rpx solid #d7d7d7;
+  padding-right:10rpx;
+  box-sizing:border-box;
 }
 .function_items_img{
   width: 25px;
   height: 25px
 }
+.image_content{
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.function_items_text{
+  font-size: 24rpx;
+  color: #666666;
+  margin-left: 15rpx;
+}
 .user_mendian_info_content{
   position: relative;
   padding-bottom:20rpx;
+  height: 478rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
 }
 .user_info_content{
   position: relative;
   padding-bottom:20rpx;
   height: 346rpx;
+  opacity:0.8;
 }
 .user_info_bg{
   position: absolute;
   left: 0;
   top: 0;
-  height: 100%;
+  height: 290rpx;
   width: 100%;
   z-index: 0
 }
 .kefu_buttom{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content:center;
   padding: 0;
   margin: 0;
+}
+.widthA{
+  width:90%;
+  align-items:flex-start;
+  justify-content:flex-start;
 }
 .footer{
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
-  height: 280rpx;
+  height: 120rpx;
 }
 .footer_text{
   font-size: 24rpx;
   color: #C8C8C8;
-  margin-top: 62rpx
+  margin-top: 40rpx
 }
 .pendingNum{
   background: red;

@@ -1,7 +1,7 @@
 <view class='container'>
 
   <view class='moneyContainer'  >
-    <text>可提现金额：</text>
+    <text>账户余额：</text>
     <text style='color:{{setting.platformSetting.defaultColor}};font-size:xx-large;'>￥{{mendian.account.account}}</text>
   </view>
   <view class='product_page_container2'>

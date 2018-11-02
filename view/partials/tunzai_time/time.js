@@ -11,12 +11,20 @@ Component({
   data: {
     // 这里是一些组件内部数据
     someData: {},
-    color:'#888'
+    color:'#888',
+    tipText:"",
   },
 
    ready:function(){
      let that=this;
-     let time = that.data.data.time;
+     let time = '';
+     if (that.data.data.endTime){
+       that.setData({ tipText: '活动即将结束'})
+       time = that.data.data.endTime
+     }else{
+       time = that.data.data.startTime
+       that.setData({ tipText: '活动即将开始' })
+     }
      console.log("===========this===========", that.data.data, time)
      that.setData({ platformSetting: app.setting.platformSetting })
      if (time){
@@ -58,7 +66,7 @@ Component({
          if (totalSecond < 0) {
            clearInterval(interval);
            wx.showToast({
-             title: '活动已结束',
+             title: that.data.tipText,
            });
            that.setData({
              countDownDay: '00',

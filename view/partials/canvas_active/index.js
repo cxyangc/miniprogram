@@ -84,6 +84,7 @@ Component({
           }
         },
         fail: function (res) {
+          wx.hideLoading()
           console.log("fail")
           if (commpleteCallback) {
             try {
@@ -120,28 +121,24 @@ Component({
       wx.showLoading({
         title: 'loading'
       })
-      let postParam = {}
-      let customIndex = app.AddClientUrl("/tunzai_index.html", postParam)
+      let postParam = { promotionId:that.data.activeId}
+      let customIndex = app.AddClientUrl("/get_promotions_detail.html", postParam)
       wx.request({
         url: customIndex.url,
         header: app.header,
         success: function (res) {
           console.log("=======active====",res.data)
-          let activityPromotion = res.data.activityPromotion;
-          console.log("=======active====", res.data)
-          for (let i = 0; i < activityPromotion.length;i++){
-            if (that.data.activeId == activityPromotion[i].id){
-              that.data.activetData = activityPromotion[i]
-            }
-          }
-          that.setData({ activetData: that.data.activetData })
+          let activetData = res.data.relateObj;
+          that.setData({ activetData: activetData })
           console.log("=======that.data.activetData ====", that.data.activetData )
-          that.downFileFun(that.data.activetData.promotionBanner.replace('http','https'),'proImg',function(){
+          let url = that.data.activetData.promotionBanner + '?x-oss-process=style/normal'
+          that.downFileFun(url.replace('http','https'),'proImg',function(){
             wx.hideLoading()
           })
          
         },
         fail: function (res) {
+          wx.hideLoading()
           console.log("fail")
           app.loadFail()
         }
@@ -158,13 +155,6 @@ Component({
       context.setFillStyle('#fff')  // 画布背景白色填充
       context.fillRect(0, 0, clientWidth, clientHeight);
       context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.25)
-      // if (that.data.imgInfo.w === that.data.imgInfo.h) {
-      //   context.drawImage(that.data.img_l, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
-      // } else if (that.data.imgInfo.w > that.data.imgInfo.h) {
-      //   context.drawImage(that.data.img_l, (that.data.imgInfo.w - clientWidth * 0.65) / 2, 0, that.data.imgInfo.h, that.data.imgInfo.h, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
-      // } else if (that.data.imgInfo.w < that.data.imgInfo.h) {
-      //   context.drawImage(that.data.img_l, 0, (that.data.imgInfo.h - clientWidth * 0.65) / 2, that.data.imgInfo.w, that.data.imgInfo.w, 16, 16, clientWidth * 0.65, clientWidth * 0.65)
-      // }
       context.setTextAlign('center')    // 文字居中
       context.setFillStyle('#000000')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px

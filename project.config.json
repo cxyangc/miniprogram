@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 22,
 			"list": [
 				{
 					"id": 0,
@@ -173,6 +173,20 @@
 					"id": 20,
 					"name": "进入特卖页",
 					"pathName": "pages/promotion_products/index",
+					"query": "promotionId=411",
+					"scene": "1011"
+				},
+				{
+					"id": 21,
+					"name": "进入账户余额",
+					"pathName": "pages/tunzhu_account/index",
+					"query": "promotionId=411",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "进入余额提现",
+					"pathName": "pages/tunzhu_tixian/index",
 					"query": "promotionId=411",
 					"scene": "1011"
 				}

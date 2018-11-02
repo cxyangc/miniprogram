@@ -34,8 +34,84 @@ Page({
     bindType: 'addto', //加入购物车or直接下单
     focusIndex: 0,
     showKefu: false,
-    hasMore: false
+    hasMore: false,
+    delBtnWidth:120
   },
+
+
+
+
+
+  touchS: function (e) {
+    console.log('===touchS===', e)
+    if (e.touches.length == 1) {
+      this.setData({
+        //设置触摸起始点水平方向位置
+        startX: e.touches[0].clientX
+      });
+    }
+  },
+
+  touchM: function (e) {
+    console.log('===touchM===',e)
+    if (e.touches.length == 1) {
+      //手指移动时水平方向位置
+      var moveX = e.touches[0].clientX;
+      //手指起始点位置与移动期间的差值
+      var disX = this.data.startX - moveX;
+      var delBtnWidth = this.data.delBtnWidth;
+      var txtStyle = "";
+      if (disX == 0 || disX < 0) {//如果移动距离小于等于0，文本层位置不变
+        txtStyle = "left:0rpx";
+      } else if(disX > 0){//移动距离大于0，文本层left值等于手指移动距离
+        txtStyle = "left:-" + disX + "rpx";
+        if (disX >= delBtnWidth) {
+          //控制手指移动距离最大值为删除按钮的宽度
+          txtStyle = "left:-" + delBtnWidth + "rpx";
+        }
+      }
+      //获取手指触摸的是哪一项
+      var index = e.currentTarget.dataset.index;
+      var list = this.data.cartData;
+      list[0].carItems[index]['txtStyle'] = txtStyle;
+      //更新列表的状态
+      this.setData({
+        cartData: list
+      });
+    }
+  },
+
+
+
+  touchE: function (e) {
+    console.log('===touchE===', e)
+    if (e.changedTouches.length == 1) {
+      //手指移动结束后水平位置
+      var endX = e.changedTouches[0].clientX;
+      //触摸开始与结束，手指移动的距离
+      var disX = this.data.startX - endX;
+      var delBtnWidth = this.data.delBtnWidth;
+      //如果距离小于删除按钮的1/2，不显示删除按钮
+      var txtStyle = disX > delBtnWidth / 2 ? "left:-" + delBtnWidth + "rpx" : "left:0rpx";
+      //获取手指触摸的是哪一项
+      var index = e.currentTarget.dataset.index;
+      var list = this.data.cartData;
+      list[0].carItems[index]['txtStyle'] = txtStyle;
+      //更新列表的状态
+      this.setData({
+        cartData: list
+      });
+      console.log('=list=', this.data.cartData)
+    }
+  },
+
+
+
+
+
+
+
+
   toProductDetail: function (e) {
     let info = e.currentTarget.dataset.info
     wx.navigateTo({
@@ -1276,6 +1352,10 @@ Page({
     var a = "product_detail.html?productId=" + e.currentTarget.dataset.id;
     app.linkEvent(a);
   },
+// 跳转到首页
+  toIndex: function () {
+    app.toIndex()
+  }, 
   // 展示海报
   showPosters(e) {
     console.log("showPostersEEEE", e.detail.e.currentTarget.dataset.id)

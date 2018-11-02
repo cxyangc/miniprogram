@@ -3,14 +3,14 @@ import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
 const Promise = require('/promise/promise.js');
 App({
-     //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
+     clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
      //clientUrl: 'https://mini.tunzai.vip/chainalliance/',
-     clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+     //clientUrl: 'https://mini.sansancloud.com/chainalliance/',
 
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */
-
+          
 
    clientNo: 'jianzhan',   //自定义的项目的名称。
     clientName: '',
@@ -182,6 +182,19 @@ App({
 
 
     },
+    // 一键回到顶部
+  goTop: function (e) {  
+    if (wx.pageScrollTo) {
+      wx.pageScrollTo({
+        scrollTop: 0
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+      })
+    }
+  },
     toMy: function () {
       console.log('我的叫做：' + this.clientNo)
       //这个需要注意  switchTab  和  redirectTo
@@ -513,7 +526,7 @@ App({
     },
     //存用户信息
     setloginUser: function (loginUser, cookie) {
-        //console.log('--------setloginUser----------')
+        console.log('--------setloginUser----------')
         //console.log(loginUser)
         //console.log(cookie)
 
@@ -543,7 +556,7 @@ App({
             data: customIndex.params,
             header: that.headerPost,
             success: function (res) {
-              console.log('===========get_session_userinfo============' + res.data.relateObj)
+              console.log('===========get_session_userinfo============', res)
                 if (res.data.errcode == 0) {
                     console.log(res.data.relateObj)
                     that.loginUser = res.data.relateObj
@@ -1014,7 +1027,42 @@ App({
             }
         }
     },
+  // 获取二维码
+  getQrCode: function (data) {
+    let userId = "";
+    if (this.loginUser && this.loginUser.platformUser) {
+      userId = 'MINI_PLATFORM_USER_ID_' + this.loginUser.platformUser.id
+    }
+    console.log("this.loginUser.platformUser", this.loginUser.platformUser.id)
+    console.log("data", data)
+    // path=pageTab%2findex%2findex%3fAPPLY_SERVER_CHANNEL_CODE%3d'
+    let postParam = {}
+    let str = '';
+    let str2 = '';
+    if (data.type == 'active') {
+      str = 'SHARE_PROMOTION_PRODUCTS_PAGE'
+      str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PROMOTION_PRODUCTS_PAGE%3d'
+      postParam[str] = data.id;
+    } else {
+      str = 'SHARE_PRODUCT_DETAIL_PAGE'
+      str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d'
+      postParam[str] = data.id;
+    }
+    postParam.scene = userId
+    console.log(str, str2, postParam)
+    // 上面是需要的参数下面的url
+    var customIndex = this.AddClientUrl(str2 + postParam[str] + "%26scene%3d" + userId, postParam, 'get', '1')
+    var result = customIndex.url.split("?");
+
+    customIndex.url = result[0] + "?" + result[1]
+
+    console.log("customIndex", customIndex.url, result[0])
+
+    var that = this
+    return customIndex.url
     
+
+  },
     shareForFx2: function (pageName, pageTitle, pageCode, imageUrl) {
         //组合参数，交给custompage_index 解析
         // 组合参数所带

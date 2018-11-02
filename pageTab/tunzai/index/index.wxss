@@ -8,7 +8,8 @@
   position: fixed;
   top:82rpx;
   left: 0;
-  z-index: 1
+  z-index: 2;
+  height:60rpx;
 }
 .userInfo{
   height: 60rpx;
@@ -44,6 +45,12 @@
   width: 100%;
   background:#FCFCFC;
 }
+.mainMenuBg{
+  position: fixed;
+  width:100%;
+  z-index:1;
+  background: #fff
+}
 .mainMenu{
   display: flex;
   align-items: center;
@@ -54,7 +61,10 @@
   box-sizing: border-box;
   background: #fff;
   box-shadow:0px 0px 12rpx 0px rgba(0,0,0,0.1);
-  margin: 20rpx 0 20rpx 0;
+  margin-top: 20rpx
+}
+.container{
+  margin-top: 120rpx;
 }
 .mainMenuText{
   font-size: 30rpx;

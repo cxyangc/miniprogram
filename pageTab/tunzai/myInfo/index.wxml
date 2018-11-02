@@ -1,80 +1,31 @@
 <view class='content_bg'>
-<view class='user_info_content' class="{{loginUser.platformUser.managerMendianId?'user_mendian_info_content':'user_info_content'}}">
-<image class='user_info_bg' src='../../../images/myImg/user_mendian_info_bg.jpg'  wx:if='{{loginUser.platformUser.managerMendianId}}'></image>
-<image class='user_info_bg' src='../../../images/myImg/user_info_bg.png'  wx:else></image>
+<view class="user_mendian_info_content">
+<image class='user_info_bg' src='http://image.tunzai.vip/tunzai/2018_10/31/16/53/30_615.jpg'></image>
 <!-- <view class='user_msg' >
    <image class='user_msg_img' src='../../../images/myImg/un_msg2.png'></image>
    <view class='have_msg'></view>
 </view> -->
 <!--top start -->
  <block wx:if="{{loginUser}}"> 
-   <view class='top_content'>
-      <view class='top_left'>
-         <image class='head_img'  bindtap='loginOut' wx:if='{{loginUser.platformUser.headimgurl}}' src='{{loginUser.platformUser.headimgurl}} '></image>
-      </view>
-      <view class='top_right'>
-        <view class='user_base_info'>
-           <view class='top_username' bindtap='loginOut'><text>{{loginUser.platformUser.nickname}}</text></view>
-           <view class='edit_info' bindtap='loginOut'><image class='edit_img' src='../../../images/myImg/edit2.png'></image></view>
-           <view class='user_level'><text>LV1</text></view>
-        </view>
-        <view class='user_shop_info'>
-          <text class='user_shop_name'>活动一号</text>
-          <image class='user_shop_img' src='../../../images/myImg/chevron-right2.png'></image>
-        </view>
-      </view>
+   <view class='user_head_img' bindtap='loginOut'>
+     <image class='head_img' src='{{loginUser.platformUser.headimgurl}}'></image>
    </view>
+   <view class='user_level'>
+     <text class='text-gradient' style='background-image: -webkit-gradient(linear, 0 0, 0 bottom, from({{setting.platformSetting.secondColor}}), to({{setting.platformSetting.defaultColor}}));'>LV1</text>
+   </view>
+   <view class='user_name' bindtap='loginOut'><text>{{loginUser.platformUser.nickname}}</text></view>
  </block>
  <block wx:else> 
-   <view class='top_content' bindtap='login'>
-      <view class='top_left'><image class='head_img' src=''></image></view>
-      <view class='user_base_info'>
-        <view class='top_right'>
-          <view class='top_username'><text>未登录</text></view>
-        </view>
-      </view>
+   <view class='user_head_img' bindtap='login'>
+     <image class='head_img' src=''></image>
    </view>
+   <view class='user_name' bindtap='login'><text>未登录</text></view>
  </block>
 <!--top end -->
-<!--我的订单(user) start -->
-    <view class="profit_block_user" wx:if='{{!loginUser.platformUser.managerMendianId}}'>
-        <view class='profit_block_order_border'>
-            <view class='profit_block_top' data-link='order_list_0.html?easyStatus=0&easyStatusName=全部订单' bindtap='tolinkUrl'>
-              <view class='profit_top_name'>
-                <text>我的订单</text>
-              </view>
-              <view class='profit_top_check'>
-                <text class='profit_check_name'>全部订单</text>
-                <view class='profit_check_border'>
-                    <image class='profit_check_img' src='../../../images/check.png'></image>
-                </view>
-              </view>
-            </view>
-            <view class='profit_block_list'>
-              <view class='profit_block_items' data-link='order_list_2.html?easyStatus=2&easyStatusName=待付款'   bindtap='tolinkUrl'>
-                <image class='profit_items_img' src='../../../images/myImg/pending_payment2.png' style='width:80rpx;height:80rpx'></image>
-                <text class='profit_items_text' style='margin-top:10px'>待付款</text>
-              </view>
-              <view class='profit_block_items' data-link='order_list_3.html?easyStatus=3&easyStatusName=待发货'   bindtap='tolinkUrl'>
-                <image class='profit_items_img' src='../../../images/myImg/pending_delivery2.png' style='width:80rpx;height:80rpx'></image>
-                <text class='profit_items_text' style='margin-top:10px'>待发货</text>
-              </view>
-              <view class='profit_block_items' data-link='order_list_4.html?easyStatus=4&easyStatusName=待收货'   bindtap='tolinkUrl'>
-                <image class='profit_items_img' src='../../../images/myImg/goods_received2.png' style='width:80rpx;height:80rpx'></image>
-                <text class='profit_items_text' style='margin-top:10px'>待收货</text>
-              </view>
-              <view class='profit_block_items' data-link='back_item_list.html'   bindtap='tolinkUrl'>
-                <image class='profit_items_img' src='../../../images/myImg/after_sale2.png' style='width:86rpx;height:80rpx'></image>
-                <text class='profit_items_text' style='margin-top:10px'>售后中</text>
-              </view>
-            </view>
-        </view>
-     
-    </view>
-<!--我的订单(user) end -->
+</view>
 <!--data start -->
-    <view class='data_column' wx:if='{{loginUser.platformUser.managerMendianId}}'>
-      <image class='fws_bg' src='../../../images/myImg/fws_bg2.jpg'></image>
+     <view class='data_column' wx:if='{{loginUser.platformUser.managerMendianId}}'>
+      <image class='fws_bg' src='http://image.tunzai.vip/tunzai/2018_10/31/16/36/41_447.jpg'></image>
       <view class='data_column_top'>
         <view class='data_left'>
           <image src='../../../images/myImg/choiceness2.png' style='width:42rpx;height:39rpx;margin-right:8rpx'></image>
@@ -83,7 +34,6 @@
         <view class='data_center'>
           <text class='data_left_text'>总收益</text>
           <text class='data_left_num'>¥{{mendian.totalEarningAmount}}</text>
-          <!--  -->
         </view>
         <view class='data_right' data-link='mendian_center.html' bindtap='tolinkUrl'>
           <image src='../../../images/myImg/user2.png' style='width:32rpx;height:32rpx;margin-right:8rpx'></image>
@@ -125,7 +75,7 @@
             <text class='data_bottom_num'>0</text>
          </view>
 
-          <view class='data_bottom_items' data-link='mendian_zijin.html'   bindtap='tolinkUrl'>
+          <view class='data_bottom_items' data-link='tunzhu_account.html'   bindtap='tolinkUrl'>
             <view class='data_bottom_img_text'>
                 <image src='../../../images/myImg/money_collect2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
                 <text class='data_bottom_text'>可提现金</text>
@@ -143,9 +93,8 @@
       </view>
     </view>
 <!--data end -->
-</view>
 <!--我的订单(mendian) start -->
-    <view class="profit_block_mendian" wx:if='{{loginUser.platformUser.managerMendianId}}'>
+    <view class="profit_block_mendian">
       <view class='profit_block_top' data-link='order_list_0.html?easyStatus=0&easyStatusName=全部订单' bindtap='tolinkUrl'>
          <view class='profit_top_name'>
            <text>我的订单</text>
@@ -158,77 +107,93 @@
          </view>
       </view>
       <view class='profit_block_list'>
-        <view class='profit_block_items' data-link='order_list_2.html?easyStatus=2&easyStatusName=待付款'   bindtap='tolinkUrl'>
-          <view class='pendingNum' wx:if='{{orderState.pendingPaymentNum!=0}}'><text>{{orderState.pendingPaymentNum}}</text></view>
-          <image class='profit_items_img' src='../../../images/myImg/pending_payment2.png' style='width:80rpx;height:80rpx'></image>
-          <text class='profit_items_text' style='margin-top:10px'>待付款</text>
-        </view>
-        <view class='profit_block_items' data-link='order_list_3.html?easyStatus=3&easyStatusName=待发货'   bindtap='tolinkUrl'>
-          <view class='pendingNum' wx:if='{{orderState.pendingDeliveryNum!=0}}'><text>{{orderState.pendingDeliveryNum}}</text></view>
-          <image class='profit_items_img' src='../../../images/myImg/pending_delivery2.png' style='width:80rpx;height:80rpx'></image>
-          <text class='profit_items_text' style='margin-top:10px'>待发货</text>
-        </view>
-        <view class='profit_block_items' data-link='order_list_4.html?easyStatus=4&easyStatusName=待收货'   bindtap='tolinkUrl'>
-          <view class='pendingNum' wx:if='{{orderState.pendingGoodsNum!=0}}'><text>{{orderState.pendingGoodsNum}}</text></view>
-          <image class='profit_items_img' src='../../../images/myImg/goods_received2.png' style='width:80rpx;height:80rpx'></image>
-          <text class='profit_items_text' style='margin-top:10px'>待收货</text>
-        </view>
-        <view class='profit_block_items' data-link='back_item_list.html'   bindtap='tolinkUrl'>
-          <image class='profit_items_img' src='../../../images/myImg/after_sale2.png' style='width:86rpx;height:80rpx'></image>
-          <text class='profit_items_text' style='margin-top:10px'>售后中</text>
-        </view>
-      </view>
+              <view class='profit_block_items' data-link='order_list_2.html?easyStatus=2&easyStatusName=待付款'   bindtap='tolinkUrl'>
+                <view class='pendingNum' wx:if='{{orderState.pendingPaymentNum!=0}}' style='background:{{setting.platformSetting.defaultColor}}'>
+                  <text>{{orderState.pendingPaymentNum}}</text>
+                </view>
+                <image class='profit_items_img' src='http://image.tunzai.vip/tunzai/2018_10/31/17/55/40_819.jpg?x-oss-process=style/preview_120' style='width:70rpx;height:68rpx'></image>
+                <text class='profit_items_text' style='margin-top:10px'>待付款</text>
+              </view>
+              <view class='profit_block_items' data-link='order_list_3.html?easyStatus=3&easyStatusName=待发货'   bindtap='tolinkUrl'>
+                <view class='pendingNum' wx:if='{{orderState.pendingDeliveryNum!=0}}' style='background:{{setting.platformSetting.defaultColor}}'>
+                  <text>{{orderState.pendingDeliveryNum}}</text>
+                </view>
+                <image class='profit_items_img' src='http://image.tunzai.vip/tunzai/2018_10/31/17/55/50_52.jpg?x-oss-process=style/preview_120' style='width:70rpx;height:68rpx'></image>
+                <text class='profit_items_text' style='margin-top:10px'>待发货</text>
+              </view>
+              <view class='profit_block_items' data-link='order_list_4.html?easyStatus=4&easyStatusName=待收货'   bindtap='tolinkUrl'>
+                <view class='pendingNum' wx:if='{{orderState.pendingGoodsNum!=0}}' style='background:{{setting.platformSetting.defaultColor}}'>
+                  <text>{{orderState.pendingGoodsNum}}</text>
+                </view>
+                <image class='profit_items_img' src='http://image.tunzai.vip/tunzai/2018_10/31/17/55/40_838.jpg?x-oss-process=style/preview_120' style='width:68rpx;height:68rpx'></image>
+                <text class='profit_items_text' style='margin-top:10px'>待收货</text>
+              </view>
+              <view class='profit_block_items' data-link='back_item_list.html'   bindtap='tolinkUrl'>
+                <image class='profit_items_img' src='http://image.tunzai.vip/tunzai/2018_10/31/17/55/40_844.jpg?x-oss-process=style/preview_120' style='width:68rpx;height:68rpx'></image>
+                <text class='profit_items_text' style='margin-top:10px'>售后中</text>
+              </view>
+            </view>
     </view>
 <!--我的订单(mendian) end -->
 <!--我的功能 start -->
-    <view class='profit_block mg_user' class="{{loginUser.platformUser.managerMendianId?'profit_block mg_mendian':'profit_block mg_user'}}">
+    <view class='profit_block profit_block mg_mendian'>
         <view class='profit_block_fun_border'>
-          <view class='profit_block_top'>
+          <view class='function_block_top'>
             <view class='profit_top_name'>
               <text>我的功能</text>
             </view>
-            <view class='profit_top_check'>
-              <!-- <text class='profit_check_name'>全部功能</text>
-              <view class='profit_check_border'>
-                  <image class='profit_check_img' src='../../../images/check.png'></image>
-              </view> -->
-            </view>
           </view>
-          <view class='profit_block_list'>
+          <view class='function_block_list'>
             <view class='function_block_items' data-link='address.html'   bindtap='tolinkUrl'>
               <button class='kefu_buttom' plain='true' hover-class="none" style='border:none'>
-              <image class='function_items_img' src='../../../images/myImg/address2.png' style='width:41rpx;height:53rpx'></image>
-              <text class='profit_items_text'>地址管理</text>
+                <view class='image_content'>
+                  <image class='function_items_img' src='http://image.tunzai.vip/tunzai/2018_10/31/20/53/7_34.jpg?x-oss-process=style/preview_120' style='width:40rpx;height:51rpx'></image>
+                </view>
+                <text class='function_items_text'>地址管理</text>
               </button>
+              <view><image class='profit_check_img' src='../../../images/check.png'></image></view>
             </view>
             <view class='function_block_items' data-link='my_coupons.html'   bindtap='tolinkUrl'>
               <button class='kefu_buttom' plain='true' hover-class="none" style='border:none'>
-                <image class='function_items_img' src='../../../images/myImg/coupon2.png' style='width:51rpx;height:51rpx'></image>
-                <text class='profit_items_text'>优惠券</text>
+                <view class='image_content'>
+                  <image class='function_items_img' src='http://image.tunzai.vip/tunzai/2018_10/31/20/53/7_41.jpg?x-oss-process=style/preview_120' style='width:40rpx;height:36rpx'></image>
+                </view>
+                <text class='function_items_text'>优惠券</text>
               </button>
+              <view><image class='profit_check_img' src='../../../images/check.png'></image></view>
             </view>
             <view class='function_block_items'>
-            <!-- <contact-button type="default-light" size="20" session-from="weapp"></contact-button> -->
-              <button open-type="contact" class='kefu_buttom' plain='true' hover-class="none" style='border:none' wx:if='{{loginUser.platformUser.managerMendianId}}'>
-                <image class='function_items_img' src='../../../images/myImg/kefu2.png' style='width:48rpx;height:52rpx; box-sizing: border-box;padding-bottom:-5rpx'></image>
-                <text class='profit_items_text'>专属客服</text>
+              <button open-type="contact" class='kefu_buttom widthA' plain='true' hover-class="none" style='border:none' wx:if='{{loginUser.platformUser.managerMendianId}}'>
+                <view class='image_content'>
+                  <image class='function_items_img' src='http://image.tunzai.vip/tunzai/2018_10/31/20/53/7_55.jpg?x-oss-process=style/preview_120' style='width:40rpx;height:44rpx; box-sizing: border-box;padding-bottom:-5rpx'></image>
+                </view>
+                <text class='function_items_text'>专属客服</text>
               </button>
-              <button class='kefu_buttom' plain='true' hover-class="none" style='border:none'  data-link='mendian_kefu_code.html?imgData={{loginUser.platformUser.mendian.kefuQrcode}}'   bindtap='tolinkUrl' wx:else>
-                <image class='function_items_img' src='../../../images/myImg/kefu2.png' style='width:48rpx;height:52rpx; box-sizing: border-box;padding-bottom:-5rpx'></image>
-                <text class='profit_items_text'>专属客服</text>
+              <button class='kefu_buttom widthA' plain='true' hover-class="none" style='border:none'  data-link='mendian_kefu_code.html?imgData={{loginUser.platformUser.mendian.kefuQrcode}}'   bindtap='tolinkUrl' wx:else>
+                <view class='image_content'>
+                  <image class='function_items_img' src='http://image.tunzai.vip/tunzai/2018_10/31/20/53/7_55.jpg?x-oss-process=style/preview_120' style='width:40rpx;height:44rpx; box-sizing: border-box;padding-bottom:-5rpx'></image>
+                </view>
+                <text class='function_items_text'>专属客服</text>
               </button>
+              <view><image class='profit_check_img' src='../../../images/check.png'></image></view>
             </view>
             <view class='function_block_items' data-link='news_list.html?newsTypeId=84&pageNage=授权中心'   bindtap='tolinkUrl'>
               <button class='kefu_buttom' plain='true' hover-class="none" style='border:none'>
-              <image class='function_items_img' src='../../../images/myImg/authorization2.png' style='width:43rpx;height:53rpx'></image>
-              <text class='profit_items_text'>授权中心</text>
+                <view class='image_content'>
+                  <image class='function_items_img' src='http://image.tunzai.vip/tunzai/2018_10/31/20/53/7_72.jpg?x-oss-process=style/preview_120' style='width:41rpx;height:49rpx'></image>
+                </view>
+                <text class='function_items_text'>授权中心</text>
               </button>
+              <view><image class='profit_check_img' src='../../../images/check.png'></image></view>
             </view>
             <view class='function_block_items' data-link='news_list.html?newsTypeId=83&pageNage=关于我们' bindtap='tolinkUrl'>
               <button class='kefu_buttom' plain='true' hover-class="none" style='border:none'>
-              <image class='function_items_img' src='../../../images/myImg/about_us2.png' style='width:48rpx;height:48rpx'></image>
-              <text class='profit_items_text' >关于我们</text>
+                <view class='image_content'>
+                  <image class='function_items_img' src='http://image.tunzai.vip/tunzai/2018_10/31/20/53/7_60.jpg?x-oss-process=style/preview_120' style='width:44rpx;height:44rpx'></image>
+                </view>
+              <text class='function_items_text' >关于我们</text>
               </button>
+              <view><image class='profit_check_img' src='../../../images/check.png'></image></view>
             </view>
           </view>  
         </view>

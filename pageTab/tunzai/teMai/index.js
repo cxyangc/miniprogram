@@ -1,5 +1,5 @@
 const app = getApp()
-
+var WxParse = require('../../../wxParse/wxParse.js');
 Page({
 
   /**
@@ -8,22 +8,34 @@ Page({
   data: {
     promotionStartDate: { time: '2018-10-27 23:59:59', background: '', color: '' },
     promotionInfo:{},
+    posterState:false,
+    productId:0,
+    shopId:0,
+    promotionState:false,
   },
   params:{
-    categoryId: "",
-    platformNo: "",
     belongShop: "",
-    typeBelongShop: "",
     page: 1,
-    showType: "",
-    showColumn: "",
     productName: "",
     startPrice: "",
     endPrice: "",
-    orderType: "",
-    saleTypeId: "",
     promotionId: "",
-    shopProductType: "",
+  },
+  // 开启活动海报
+  shareProductPoster: function (event) {
+    console.log('====shareProductPoster====', event)
+    this.setData({ posterState: true })
+    this.setData({ productId: event.currentTarget.dataset.id })
+    let data = { type: event.currentTarget.dataset.type, id: event.currentTarget.dataset.id }
+    let qrCodeUrl = app.getQrCode(data)
+    console.log('qrCodeUrl===', qrCodeUrl)
+    this.setData({
+      qrCodeUrl: qrCodeUrl
+    })
+  },
+  getChilrenPoster: function () {
+    console.log('colsePoster')
+    this.setData({ posterState: false })
   },
   toProductDetail: function (e) {
     console.log(e.currentTarget.dataset.id)
@@ -86,15 +98,39 @@ Page({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        console.log("getPromotionInfo", res.data.relateObj)
+        console.log("getPromotionInfo", res)
         let promotionInfo = res.data.relateObj;
-        promotionInfo.promotionStartDate = { 
-          time: promotionInfo.endDate, 
-          background: '#fff', 
-          color: that.data.setting.defaultColor, 
-          fontSize:20
-          },
-        that.setData({promotionInfo: promotionInfo})
+        let nowData = new Date();
+        let promotionState=false;
+        let startTime = promotionInfo.startDate;
+        startTime = startTime.replace(/\-/g, "/");
+        startTime = new Date(startTime);
+        console.log(nowData, startTime)
+        if (startTime >= nowData) {
+          console.log('活动未开始')
+          promotionState = false;
+          promotionInfo['promotionStartDate'] = {
+            startTime: promotionInfo.startDate,
+            background: '#fff',
+            color: that.data.setting.defaultColor,
+            fontSize: 20
+          };
+          if (promotionInfo.content) {
+            WxParse.wxParse('article', 'html', promotionInfo.content, that);
+          }
+        } else {
+          console.log('活动已开始')
+          promotionState=true
+          promotionInfo['promotionEndDate'] = {
+            endtTime: promotionInfo.endDate,
+            background: '#fff',
+            color: that.data.setting.defaultColor,
+            fontSize: 20
+          };
+        }
+        that.setData({ promotionInfo: promotionInfo })
+        that.setData({ promotionState: promotionState })
+        console.log('promotionInfo', that.data.promotionInfo)
         wx.hideLoading()
       },
       fail: function (res) {
@@ -110,7 +146,8 @@ Page({
     console.log("hahahahahahah这是id", options)
     this.setData({ 
       id: options.promotionId,
-      setting: app.setting.platformSetting 
+      setting: app.setting.platformSetting,
+      shopId: app.setting.platformSetting.defaultShopBean.id
     })
     this.getProductData(this.params, 1)
     this.getPromotionInfo(this.params)

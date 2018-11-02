@@ -2,7 +2,9 @@ const app = getApp();
 var part_urls = {};
 var videoPage;
 var pageArr = new Array()
-import qqVideo from "../../../public/qqVideo.js"
+import qqVideo from "../../../public/qqVideo.js";
+// const txvContext = requirePlugin("tencentvideo");
+// const config = require('../../../public/config')
 Component({
   properties: {
 

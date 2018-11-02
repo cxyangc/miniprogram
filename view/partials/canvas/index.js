@@ -285,6 +285,7 @@ Component({
       })
     },
     closeFun:function(){
+      wx.hideLoading()
       this.triggerEvent('closePoaster', 0) //myevent自定义名称事件，父组件中使用
     },
     InterceptStr: function (str, canvasWidth, canvasHeight, context){
