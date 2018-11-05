@@ -30,7 +30,7 @@
       </view>
       <view class='productImg'>
         <image src='{{item.imagePath}}' mode='aspectFit' class='productImgUrl'></image>
-        <view class='outPrint' wx:if="{{stockPercent==100}}">
+        <view class='outPrint' wx:if="{{item.stock<=0}}">
              <view class='outPrintBg'></view>
              <view class='outPrintText'><text>已抢光</text></view>
         </view>
@@ -41,9 +41,9 @@
           <text class='productTagPrice'>¥{{item.tagPrice}}</text>
         </view>
         <view class='productStock'>
-          <text class='usedProductStockPercent' style='position:absolute;left:{{item.stockPercent/100*120+20}}rpx;' wx:if="{{item.stockPercent<20}}">{{item.stockPercent}}%</text>
+          <text class='usedProductStockPercent' style='position:absolute;left:{{item.stockPercent/100*120+20}}rpx;' wx:if="{{item.stockPercent<22}}">{{item.stockPercent}}%</text>
           <view class='usedProductStock' style='background:{{setting.defaultColor}};width:{{item.stockPercent}}%'>
-            <text class='usedProductStockPercent' wx:if="{{item.stockPercent>20}}">{{item.stockPercent}}%</text>
+            <text class='usedProductStockPercent' wx:if="{{item.stockPercent>22}}">{{item.stockPercent}}%</text>
           </view>
         </view>
       </view>

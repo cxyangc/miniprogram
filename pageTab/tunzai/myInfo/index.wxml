@@ -31,7 +31,7 @@
           <image src='../../../images/myImg/choiceness2.png' style='width:42rpx;height:39rpx;margin-right:8rpx'></image>
           <image src='../../../images/myImg/tunzai2.png' style='width:72rpx;height:39rpx'></image>
         </view>
-        <view class='data_center'>
+        <view class='data_center' data-link='mendian_zijin.html' bindtap='tolinkUrl'>
           <text class='data_left_text'>总收益</text>
           <text class='data_left_num'>¥{{mendian.totalEarningAmount}}</text>
         </view>

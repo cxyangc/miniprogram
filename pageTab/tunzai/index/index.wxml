@@ -53,7 +53,7 @@
               <time data="{{item.promotionEndDate}}" wx:if="{{item.promotionEndDate}}"></time>
               <text style='margin-left:10rpx'>后结束</text>
             </view>
-            <view class='enterPromotion' catchtap='toPromotionDetail'>
+            <view class='enterPromotion' catchtap='toPromotionDetail' data-id='{{item.id}}'>
               <text style='color:{{setting.defaultColor}}'>立即进入</text>
             </view>
           </view>
@@ -73,13 +73,13 @@
     <view wx:else>
       <view class='seckillList'>
         <!-- 已开始的秒杀start -->
-        <view class='seckillItem' wx:for="{{activityPromotionProducts}}">
+        <view class='seckillItem' wx:for="{{activityPromotionProducts}}" bindtap='toProductDetail'  data-id='{{item.product_id}}'>
           <view class='productImg'>
             <image class='productImgUrl' mode='aspectFit' src='{{item.product_icon}}'></image>
-            <!-- <view class='outPrint'>
+            <view class='outPrint' wx:if="{{item.stock<=0}}">
               <view class='outPrintBg'></view>
               <view class='outPrintText'><text>已抢光</text></view>
-            </view> -->
+            </view>
           </view>
           <view class='productInfo'>
             <view class='productName'>
@@ -96,7 +96,7 @@
                 </view>
             </view>
           </view>
-          <view class='shareBtn'>
+          <view class='shareBtn' catchtap='shareProductPoster' data-id='{{item.product_id}}' data-type='product'>
             <image class='shareBtnUrl' src='http://image.tunzai.vip/tunzai/2018_10/24/13/58/50_462.jpg?x-oss-process=style/preview_120'></image>
           </view>
           <view class='buyNow' style='background:{{setting.secondColor}}'>
@@ -124,23 +124,27 @@
                 </view>
             </view>
           </view>
-          <view class='shareBtn'>
+          <!-- <view class='shareBtn'>
             <image class='shareBtnUrl' src='http://image.tunzai.vip/tunzai/2018_10/24/13/58/50_462.jpg?x-oss-process=style/preview_120'></image>
-          </view>
-          <view class='buyNow' style='background:{{setting.secondColor}}'>
-            <text style='color:#fff'>设置提醒</text>
+          </view> -->
+          <!-- background:{{setting.secondColor}} -->
+          <view class='buyNow' style='background:#ddd'>
+            <text style='color:#fff'>立即购买</text>
           </view>
         </view>
         <!-- 未开始的秒杀end -->
+        <view class='noSeckillList' wx:if="{{unactivityPromotionProducts.length==0&&activityPromotionProducts.length==0}}">
+         <text>暂无秒囤产品</text>
+        </view>
       </view>
     </view>
     <!-- 秒囤end -->
   </view>
 </view>
 <!-- 弹窗 -->
-<!--  海报-->
-   <posters proId="{{proId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 
-   <posterActive activeId="{{promotionId }}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterActiveState}}' bind:closePoaster="getChilrenPoster"></posterActive>
+<!--  海报--><!-- 产品海报 -->
+<posters proId="{{productId}}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></posters> 
+<posterActive activeId="{{promotionId }}" shopId="{{shopId}}" ewmImgUrl='{{qrCodeUrl}}'  wx:if='{{posterActiveState}}' bind:closePoaster="getChilrenPoster"></posterActive>
    <!-- 首页组件 -->
    <customPage data="index" ></customPage> 
 

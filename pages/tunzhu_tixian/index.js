@@ -7,7 +7,8 @@ Page({
    */
   data: {
     money: 10,
-    butn_show_loading:false
+    butn_show_loading:false,
+    mendian:null,
   },
   
   getUserAmount: function (e) {
@@ -16,18 +17,61 @@ Page({
   getUserTrueName: function (e) {
     this.setData({ reqUserTrueName: e.detail.value })
   },
+  getMendianInfo: function () {
+    console.log('-------门店-1-------')
+    let params = {}
+    var customIndex = app.AddClientUrl("/ge_manager_mendian_info_admin_mendian_json.html", params, 'post')
+    var that = this
+    wx.request({
+      url: customIndex.url,
+      data: customIndex.params,
+      header: app.headerPost,
+      method: 'POST',
+      success: function (res) {
+        console.log(res.data)
+        if (res.data.errcode == '0') {
+          let mendian = res.data.relateObj
+          mendian = that.dellMoney(mendian)
+          //account 账户余额
+          that.setData({
+            mendian: mendian
+          })
+        }
+      },
+      fail: function (res) {
+        app.loadFail()
+      }
+    })
+  },
+  dellMoney: function (mendian) {
+    mendian.account.account = app.toFix(mendian.account.account)
+    mendian.totalEarningAmount = app.toFix(mendian.totalEarningAmount)
+    mendian.totalTixianAmount = app.toFix(mendian.totalTixianAmount)
+    mendian.waitCompleteOrderDistributeAmount = app.toFix(mendian.waitCompleteOrderDistributeAmount)
+    return mendian
+  },
   subMitButn: function () {
     var that = this
-    let tixianAmount = Number(this.data.tixianAmount)
-    let reqUserTrueName = this.data.reqUserTrueName
-    if (tixianAmount < 0 || tixianAmount == 0 || reqUserTrueName==''){
+    let tixianAmount = Number(this.data.tixianAmount||0)
+    let reqUserTrueName = this.data.reqUserTrueName||""
+    if (tixianAmount < 1  || reqUserTrueName==''){
+      console.log('--------1------')
+      wx.showModal({
+        title: '提示',
+        content: '请确认金额与姓名符合要求',
+        success: function (res) {
+          if (res.confirm) {
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
       return
     }
     let wxChatPayParam = {
       tixianAmount: '',
       reqUserTrueName:'',
     }
-
     wxChatPayParam.tixianAmount = Number(tixianAmount)
     wxChatPayParam.reqUserTrueName = reqUserTrueName
     this.setData({ butn_show_loading:true })
@@ -79,7 +123,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getMendianInfo()
   },
 
   /**

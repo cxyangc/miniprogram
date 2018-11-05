@@ -69,7 +69,7 @@ Page({
           if (productList[i].saleCount==0){
             productList[i].stockPercent =0
           }else{
-            productList[i].stockPercent = Math.floor(productList[i].saleCount / (productList[i].stock + productList[i].saleCount) * 100)
+            productList[i].stockPercent = Math.floor((productList[i].totalStock - productList[i].stock) / (productList[i].totalStock) * 100)
           }
         }
         if (ifAdd==1){
@@ -122,7 +122,7 @@ Page({
           console.log('活动已开始')
           promotionState=true
           promotionInfo['promotionEndDate'] = {
-            endtTime: promotionInfo.endDate,
+            endTime: promotionInfo.endDate,
             background: '#fff',
             color: that.data.setting.defaultColor,
             fontSize: 20

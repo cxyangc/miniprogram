@@ -11,11 +11,16 @@
     </view>
     <view class='tixian_item'>
       <text style='margin-right:20rpx;'>真实姓名:</text>
-      <input class='tixian_item_input' placeholder="您的真实姓名" value='{{reqUserTrueName}}' bindinput='getUserTrueName'></input>
+      <input class='tixian_item_input' placeholder="微信绑定的真实姓名" value='{{reqUserTrueName}}' bindinput='getUserTrueName'></input>
     </view>
-    <view class='tixian_tip'>
+    <text style='font-size:24rpx;margin-top:10rpx;color:#888'>提现金额不得少于1元</text>
+    <view class='' style='font-size:24rpx;margin-top:16rpx;color:#888'>
+      <text style='margin-right:20rpx'>可提金额￥{{mendian.account.account}}</text>
+      <text>每日提现金额￥500.00</text>
+    </view>
+    <!-- <view class='tixian_tip'>
       <text></text>
-    </view>
+    </view> -->
     <view class='tixian_btn' style="background:{{setting.platformSetting.defaultColor||'#ff0000'}}" bindtap='subMitButn'>
       <text>提现</text>
     </view>

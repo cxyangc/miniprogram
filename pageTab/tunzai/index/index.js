@@ -14,6 +14,10 @@ Page({
     posterState:false,
     promotionId:0,
     productId:0,
+    activityPromotionProducts: null,
+    unactivityPromotionProducts: null,
+    activityPromotion: null,
+    unactivityPromotion: null,
   },
   tolinkUrl: function (e) {
     console.log(e)
@@ -56,12 +60,31 @@ Page({
       url: '/pageTab/tunzai/myInfo/index',
     })
   },
+  //点击产品详情
+  toProductDetail: function (e) {
+    console.log(e.currentTarget.dataset.id)
+    // product_detail.html?productId= 9219;
+    var a = "product_detail.html?productId=" + e.currentTarget.dataset.id;
+    app.linkEvent(a);
+  },
   //点击活动进入活动详情
   toPromotionDetail:function(e){
     console.log('===toPromotionDetail====',e)
     let promotionId = e.currentTarget.dataset.id ;
     wx.navigateTo({
       url: '/pageTab/tunzai/teMai/index?promotionId=' + promotionId,
+    })
+  },
+  // 开启活动海报
+  shareProductPoster: function (event) {
+    console.log('====shareProductPoster====', event)
+    this.setData({ posterState: true })
+    this.setData({ productId: event.currentTarget.dataset.id })
+    let data = { type: event.currentTarget.dataset.type, id: event.currentTarget.dataset.id }
+    let qrCodeUrl = app.getQrCode(data)
+    console.log('qrCodeUrl===', qrCodeUrl)
+    this.setData({
+      qrCodeUrl: qrCodeUrl
     })
   },
   /**
@@ -120,7 +143,7 @@ Page({
       header: app.header,
       success: function (res) {
         console.log("====== getPromotionData=========", res.data)
-        let activityPromotion = res.data.activityPromotion.slice(0,20);//已开始的活动
+        let activityPromotion = res.data.activityPromotion;//已开始的活动.slice(0, 10)
         let unactivityPromotion = res.data.unactivityPromotion;//未开始的活动
         let activityPromotionProducts = res.data.activityPromotionProducts;//已开始的秒杀
         let unactivityPromotionProducts = res.data.unactivityPromotionProducts;//未开始的秒杀

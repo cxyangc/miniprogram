@@ -25,7 +25,6 @@ Component({
        time = that.data.data.startTime
        that.setData({ tipText: '活动即将开始' })
      }
-     console.log("===========this===========", that.data.data, time)
      that.setData({ platformSetting: app.setting.platformSetting })
      if (time){
        var interval = setInterval(function () {

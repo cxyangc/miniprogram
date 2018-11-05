@@ -306,6 +306,8 @@
 }
 .outPrint{
   position: absolute;
+  width:114rpx;
+  height:114rpx;
 }
 .outPrintBg{
   position: absolute;
@@ -332,4 +334,13 @@
   margin-left: -57rpx; 
   line-height:114rpx;
   text-align:center;
+}
+.noSeckillList{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #999;
+  padding: 40rpx 0;
 }

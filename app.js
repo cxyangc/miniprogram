@@ -3,9 +3,10 @@ import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
 const Promise = require('/promise/promise.js');
 App({
-     clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
+     //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
      //clientUrl: 'https://mini.tunzai.vip/chainalliance/',
-     //clientUrl: 'https://mini.sansancloud.com/chainalliance/',
+     clientUrl: 'http://mini.sansancloud.com/chainalliance/',
+    
 
     /**
      *   切换项目的开关 ↓↓↓↓↓
@@ -164,7 +165,7 @@ App({
         if (this.clientNo == 'tunzai') {
           console.log("1111111111111")
           wx.switchTab({
-            url: '/pageTab/lanHu/index/index',
+            url: '/pageTab/tunzai/index/index',
           })
           return;
         }

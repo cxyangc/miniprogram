@@ -20,8 +20,10 @@
           <view class='account_balance_top'>
             <text class='tixian_account'>￥{{pay.requestAmount}}</text>
             <view class='tixian_state'>
-              <text class='derection' wx:if='{{pay.fangkuanStatus == 0}}'>未放款</text>
-              <text class='derection' wx:if='{{pay.fangkuanStatus == 1}}'>已放款</text>
+              <text class='derection' wx:if='{{pay.requestStatus == 0}}'>审核中...</text>
+              <text class='derection' wx:if='{{pay.requestStatus == 2}}'>审核失败</text>
+              <text class='derection' wx:if='{{pay.requestStatus == 1&&pay.fangkuanStatus == 0}}'>未放款</text>
+              <text class='derection' wx:if='{{pay.requestStatus == 1&&pay.fangkuanStatus == 1}}'>已放款</text>
             </view>
             <text class='tixian_time'>{{pay.addTime}}</text>
           </view>
