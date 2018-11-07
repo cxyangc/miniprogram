@@ -15,7 +15,7 @@
   width:680rpx;
   height: 1100rpx;
   position: fixed;
-  top:80rpx;
+  top:20rpx;
   left: 50%;
   background: #fff;
   margin-left: -340rpx;
@@ -27,7 +27,7 @@
 }
 .close{
   position: fixed;
-  top:65rpx;
+  top:5rpx;
   right:5px;
   width: 50rpx;
   height: 50rpx;

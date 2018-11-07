@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 22,
+			"current": 9,
 			"list": [
 				{
 					"id": 0,
@@ -98,7 +98,7 @@
 					"id": 9,
 					"name": "转发产品详情",
 					"pathName": "pageTab/index/index",
-					"query": "id=9820&addShopId=236&scene=MINI_PLATFORM_USER_ID_91902&SHARE_PRODUCT_DETAIL_PAGE=9820",
+					"query": "id=9860&addShopId=236&scene=MINI_PLATFORM_USER_ID_9860&SHARE_PRODUCT_DETAIL_PAGE=9860",
 					"scene": "1011"
 				},
 				{
@@ -118,7 +118,7 @@
 					"id": 12,
 					"name": "转发特卖进入",
 					"pathName": "pageTab/index/index",
-					"query": "promotionId=411&title=手表名品专场&SHARE_PROMOTION_PRODUCTS_PAGE=411&scene=MINI_PLATFORM_USER_ID_91902",
+					"query": "promotionId=542&title=手表名品专场&SHARE_PROMOTION_PRODUCTS_PAGE=542&scene=MINI_PLATFORM_USER_ID_91902",
 					"scene": "1011"
 				},
 				{

@@ -13,7 +13,7 @@ App({
      */
           
 
-   clientNo: 'jianzhan',   //自定义的项目的名称。
+   clientNo: 'xianhua',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
@@ -49,10 +49,10 @@ App({
     enterMenDianID:"",
     /* 页面影藏 */
     appHide: false,
+    shareSubPage :true,
     onHide: function (e) {
-        console.log('hide')
+      console.log('hide', this.shareSubPage)
         console.log(e)
-
     },
     addLoginListener:function(listener){
       console.log('addLoginListener', listener)
@@ -83,29 +83,12 @@ App({
 
         console.log('------onlauch------'+this.clientNo)
         console.log(options)
-        /* 第三方配置加载 clientNo */
-        /*
-        wx.getExtConfig({
-          success: function (res) {
-            console.log('第三方配置')
-            console.log(res)
-            if (res.extConfig && res.extConfig.clientNo) {
-              console.log(res.extConfig)
-              that.clientNo = res.extConfig.clientNo
-            }
-            that.clientNo = 'xianhua'
-          },
-          complete: function (res) {
-
-          }
-        })*/
+        
 
       // 扫码登录  判断将使用哪些数据
     // this.getSdkVersion()获取 个人信息例如name，nickname，password，platformNo，手机号等等 在900行
         this.getSdkVersion()
         let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
-   //      console.log("这是冬的测试" + JSON.stringify(extConfig))
-      //   console.log("这是冬的测试" + extConfig.clientNo)
         if (extConfig.clientNo) {
             that.clientNo = extConfig.clientNo
         }
@@ -143,7 +126,6 @@ App({
 
     //第一次登录加载的函数
     loadFirstEnter: function (more_scene) {
-      // console.log("这个是第一次加载的more_scene" + more_scene)
         console.log('第一次登录加载的函数')
         this.wxLogin(more_scene)
         //this.getSetting()
@@ -736,8 +718,6 @@ App({
                     loginParam.code = res.code
                     loginParam.scene = more_scene
                     setTimeout(function(){
-
-                 
                     let customIndex = that.AddClientUrl("/wx_mini_code_login.html", loginParam, 'post')
                     wx.request({
                         url: customIndex.url,
@@ -782,14 +762,6 @@ App({
                                             console.error('没有授权')
                                             that.hasNoScope = res.authSetting['scope.userInfo']
                                             that.showAuthUserInfoButton=true;
-                                            // wx.authorize({
-                                            //   scope: 'scope.userInfo',
-                                            //   success() {
-                                            //     // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-                                            //     console.info('已授权')
-                                            //     wx.startRecord()
-                                            //   }
-                                            // })
                                         }else{
                                            that.showAuthUserInfoButton = false;
                                           that.sentWxUserInfo(loginJson)

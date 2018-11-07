@@ -206,43 +206,7 @@ Page({
       url: '/pages/productDetail_derection/index?' + sentMessage,
     })
   },
-  /* 查看评价 */
-  
-  // getCommitData: function (param) {
-  //   //productInfo  var paramStr = 'page=1&productId=' + info.productId+'&shopId=' + info.belongShopId
-  //   //var info = e.currentTarget.dataset.info
-  //   //根据把param变成&a=1&b=2的模式
-  //  // var postParam = this.ChangeParam(param)
-  //   console.log('-----getcommit-------------')
-  //   //console.log(postParam)
-  //   var customIndex = app.AddClientUrl("/get_product_comment_list.html", param)
-  //   wx.showLoading({
-  //     title: 'loading'
-  //   })
-  //   var that = this
-  //   wx.request({
-  //     url: customIndex.url,
-  //     header: app.header,
-  //     success: function (res) {
-  //       console.log('-----------评价--------')
-  //       console.log(res.data)
-  //       if (!res.data.result || res.data.result.length == 0){
-  //         that.setData({ commitList: null })
-  //       }
-  //       else{
-  //         that.setData({ commitList: res.data.result })
-  //       }
-        
-  //     },
-  //     fail: function (res) {
-  //       console.log("fail")
-  //       app.loadFail()
-  //     },
-  //     complete: function (res) {
-  //       wx.hideLoading()
-  //     }
-  //   })
-  // },
+
   ChangeParam: function (params) {
     var returnParam = ""
     for (let i in params) {
@@ -265,9 +229,12 @@ Page({
   },
   toCart:function(){
     console.warn("cart")
-    wx.switchTab({
-      url: '../../pageTab/shopping_car_list_new/index',
+    wx.navigateTo({
+      url: '../shopping_car_list_new/index',
     })
+    // wx.switchTab({
+    //   url: '../shopping_car_list_new/index',
+    // })
   },
   /* 找到购物车里面的内容 */
   findInCart: function (data) {
@@ -612,7 +579,6 @@ Page({
     postParam.addShopId = param.addShopId
     let customIndex = app.AddClientUrl("/product_detail.html", postParam)
     wx.request({
-      /* url: app.clientUrl + app.clientNo + "/product_detail_" + param.id + ".html?jsonOnly=1" + "&addShopId=" + param.addShopId, */
       url: customIndex.url,
       header: app.header,
       success: function (res) {

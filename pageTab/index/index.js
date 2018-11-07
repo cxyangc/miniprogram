@@ -13,7 +13,7 @@ Page({
   
   toIndex:function(){
     let that=this; 
-    console.log("========app==", app, app.more_scene);
+    console.log("========app==", app, app.more_scene, that.data.page_name);
     // custom_page_index.html是首页也就是app.miniIndexPage+".html" 
     if (that.data.page_name != "" && that.data.page_name != app.miniIndexPage+".html"){
       // that.data.page_name是带着.html先去掉
@@ -77,7 +77,7 @@ Page({
   },
   enterPage: function (options) {
     let that = this;
-    console.log('已获取到setting')
+    app.shareSubPage=false;
     if (options.params && options.params != "") {
       let aaa = JSON.parse(options.params)
       console.log(aaa)
@@ -146,7 +146,7 @@ Page({
       //       applyMendian
       setTimeout(function () {
         wx.navigateTo({
-          url: '/pageTab/lanHu/preApplyMendian/index?code=' + options.APPLY_SERVER_CHANNEL_CODE,
+          url: '/pageTab/tunzai/preApplyMendian/index?code=' + options.APPLY_SERVER_CHANNEL_CODE,
           success: function () {
             app.shareSubPage = true;
           }
@@ -156,13 +156,6 @@ Page({
 
       return;
     }
-    //调用分销
-    // if (options.SHARE_INDEX_PAGE && options.SHARE_INDEX_PAGE != "") {
-    //  // gotoIndex();
-    //   return;
-    // }
-    // 分享出来带分享SHARE_PRODUCT_DETAIL_PAGE跳到产品详情页
-
     if (options.SHARE_PRODUCT_DETAIL_PAGE && options.SHARE_PRODUCT_DETAIL_PAGE != "") {
 
       console.log("options.SHARE_PRODUCT_DETAIL_PAGE", options.SHARE_PRODUCT_DETAIL_PAGE)
@@ -173,7 +166,6 @@ Page({
             app.shareSubPage = true;
           }
         })
-
       }, 200)
       return;
     }
@@ -184,7 +176,7 @@ Page({
       console.log("进入特卖页面", options.SHARE_PROMOTION_PRODUCTS_PAGE)
       setTimeout(function () {
         wx.navigateTo({
-          url: '/pageTab/lanHu/teMai/index?promotionId=' + options.SHARE_PROMOTION_PRODUCTS_PAGE,
+          url: '/pageTab/tunzai/teMai/index?promotionId=' + options.SHARE_PROMOTION_PRODUCTS_PAGE,
           success: function () {
             app.shareSubPage = true;
           }
@@ -232,8 +224,7 @@ Page({
 
       }, 200)
       return;
-    }
-    else if (app.setting && options.pageName && app.shareParam && app.shareParam.pageName) {
+    } else if (app.setting && options.pageName && app.shareParam && app.shareParam.pageName) {
       setTimeout(function () {
         wx.navigateTo({
           url: '/pageTab/' + app.miniIndexPage + '/index',
@@ -265,7 +256,7 @@ Page({
     if(app.shareSubPage){
       console.log("========shareSubPage to index=====");
       app.shareSubPage = false;
-           this.toIndex();
+      this.toIndex();
     }
 
   },
@@ -298,17 +289,3 @@ Page({
   }
 
 })
-
-//定时器
-/*  function Countdown(page) {
-   console.log('2')
-   if (!!page.setting){
-     //setTimeout(function () {  }, 200)
-     page.toIndex()
-   }
-   else{
-     timer = setTimeout(function () {
-       Countdown(page);
-     }, 1000);
-   }
-}; */

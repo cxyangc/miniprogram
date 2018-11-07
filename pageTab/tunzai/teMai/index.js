@@ -6,12 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    promotionStartDate: { time: '2018-10-27 23:59:59', background: '', color: '' },
     promotionInfo:{},
     posterState:false,
     productId:0,
     shopId:0,
     promotionState:false,
+    showIndex:0,
   },
   params:{
     belongShop: "",
@@ -21,9 +21,16 @@ Page({
     endPrice: "",
     promotionId: "",
   },
+  shareBtn: function (e) {
+    let that = this;
+    console.log('====e====', e);
+    let index = e.currentTarget.dataset.id
+    that.setData({ showIndex: index })
+  },
   // 开启活动海报
   shareProductPoster: function (event) {
     console.log('====shareProductPoster====', event)
+    this.setData({ showIndex: 0 })
     this.setData({ posterState: true })
     this.setData({ productId: event.currentTarget.dataset.id })
     let data = { type: event.currentTarget.dataset.type, id: event.currentTarget.dataset.id }
@@ -32,6 +39,9 @@ Page({
     this.setData({
       qrCodeUrl: qrCodeUrl
     })
+  },
+  shareProductPages: function (event) {
+    console.log('====shareProductPages====', event)
   },
   getChilrenPoster: function () {
     console.log('colsePoster')
@@ -83,6 +93,18 @@ Page({
       fail: function (res) {
         console.log("fail")
         wx.hideLoading()
+        wx.showModal({
+          title: '提示',
+          content: '加载失败，点击【确定】重新加载',
+          success: function (res) {
+            console.log('', res)
+            if (res.confirm) {
+              that.getProductData(that.params, 1);
+            } else if (res.cancel) {
+              app.toIndex()
+            }
+          }
+        })
       }
     })
   },
@@ -113,7 +135,7 @@ Page({
             startTime: promotionInfo.startDate,
             background: '#fff',
             color: that.data.setting.defaultColor,
-            fontSize: 20
+            fontSize: 30
           };
           if (promotionInfo.content) {
             WxParse.wxParse('article', 'html', promotionInfo.content, that);
@@ -124,8 +146,8 @@ Page({
           promotionInfo['promotionEndDate'] = {
             endTime: promotionInfo.endDate,
             background: '#fff',
-            color: that.data.setting.defaultColor,
-            fontSize: 20
+            color: that.data.setting.defaultColor, 
+            fontSize: 30
           };
         }
         that.setData({ promotionInfo: promotionInfo })
@@ -174,12 +196,49 @@ Page({
   onUnload: function () {
 
   },
+  // 分享
+  onShareAppMessage: function (res) {
+    console.log('onShareAppMessage=====',res)
+    if (res.from == "button") {
+      console.log(res)
+      // 商品id
+      let id = res.target.dataset.item.id
+      let focusData = res.target.dataset.item
+      if (!focusData.brandName || focusData.brandName == "") {
+        focusData.brandName = ""
+      };
+      let imageUrl = focusData.imagePath
 
+      let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tagPrice + ')' + focusData.brandName + focusData.name;
+      let shareParams = {}
+      shareParams.productName = focusData.name
+      console.log('nnnnnnnnnn' + shareName)
+      shareParams.id = id
+      console.log("shareParams", shareParams)
+      return app.shareForFx2('promotion_products', shareName, shareParams, imageUrl)
+    }else {
+      let that = this;
+      let promotionInfo = that.data.promotionInfo
+      console.log('promotionInfo:', promotionInfo)
+      let title = promotionInfo.name;
+      let id = promotionInfo.id;
+      let banner = promotionInfo.promotionBanner;
+      let params = {};
+      params.promotionId = id;
+      params.title = title;
+      params.SHARE_PROMOTION_PRODUCTS_PAGE = id
+      console.log('params:' + JSON.stringify(params))
+      return app.shareForFx2('promotion_products', '', params, banner)
+
+    }
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
     console.log('onPullDownRefresh')
+    this.getProductData(this.params)
+    wx.stopPullDownRefresh()
   },
 
   /**

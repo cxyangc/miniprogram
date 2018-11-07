@@ -5,15 +5,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-    seckillStartDate: { endTime: '2018-11-2 23:59:59', defaultColor: '', secondColor: ''},
-    mainMenu: [{ index: 0, text: '今日主打' }, { index: 1, text: '秒囤' }, { index: 2, text: '活动预告'}],
+    mainMenu: [
+      { index: 0, name: '今日主打', data: [], params: { status: '1', promotionType: 0,page: 1}}, 
+      { index: 1, name: '秒囤', data: [], params: { status: '1', promotionType: 2,page: 1}}, 
+      { index: 2, name: '活动预告', data: [], params: { status: '0', promotionType: 0, page: 1}}
+    ],
     mainMenuIndex:0,
+    sysWidth: 320,
+    sysHeight: 568,
     promotionList: [],
     userInfoWidth:200,
     posterActiveState:false,
     posterState:false,
     promotionId:0,
     productId:0,
+    showIndex:0,
+    topHeight:220,
     activityPromotionProducts: null,
     unactivityPromotionProducts: null,
     activityPromotion: null,
@@ -24,23 +31,43 @@ Page({
     var a = "product_detail.html?productId=" + e.currentTarget.dataset.id;
     app.linkEvent(a);
   },
+  shareBtn: function (e) {
+    let that = this;
+    console.log('====e====', e, that.data.showIndex);
+    let index = e.target.dataset.id || e.currentTarget.dataset.id
+    that.setData({ showIndex: index })
+    
+  },
   // 主菜单的选择
   selectMainMenu:function(e){
     console.log('====e====',e)
-    app.goTop();
+    // app.goTop();
     let that=this;
     let index = e.currentTarget.dataset.index
     console.log('====index====', index)
-    if (index==0){
-      this.setData({ promotionList: that.data.activityPromotion})
-    } else if (index == 2){
-      this.setData({ promotionList: that.data.unactivityPromotion })
-    }
     this.setData({ mainMenuIndex: index })
+  },
+  /* 滑动事件 */
+  changeIndex: function (e) {
+    console.log('=====e====', e)
+    let that=this;
+    let index = e.detail.current
+    let mainMenu = this.data.mainMenu
+    let currentData = mainMenu[index]
+    console.log('=====currentData====', currentData)
+    if (index != 1 && (!currentData.data || currentData.data.length == 0)) {
+      console.log('===滑到活动===',index)
+      that.getPromotionData(currentData, index)
+    } else if (index == 1 && (!currentData.data || currentData.data.length == 0)){
+      console.log('===滑到秒杀===', index)
+      that.getSeckillData(currentData, index)
+    }
+    that.setData({ mainMenuIndex: index })
   },
   // 开启活动海报
   shareActivePoster:function(event){
     console.log('====shareActivePoster====', event)
+    this.setData({ showIndex: 0 })
     this.setData({ posterActiveState: true })
     this.setData({ promotionId: event.currentTarget.dataset.id })
     let data = { type: event.currentTarget.dataset.type, id: event.currentTarget.dataset.id}
@@ -49,6 +76,10 @@ Page({
     this.setData({
       qrCodeUrl: qrCodeUrl
     })
+  },
+  shareActivePages: function (event){
+    console.log('====shareActivePages====', event)
+    this.setData({ showIndex: 0 })
   },
   //关闭海报
   getChilrenPoster:function(){
@@ -63,13 +94,13 @@ Page({
   //点击产品详情
   toProductDetail: function (e) {
     console.log(e.currentTarget.dataset.id)
-    // product_detail.html?productId= 9219;
     var a = "product_detail.html?productId=" + e.currentTarget.dataset.id;
     app.linkEvent(a);
   },
   //点击活动进入活动详情
   toPromotionDetail:function(e){
-    console.log('===toPromotionDetail====',e)
+    console.log('===toPromotionDetail====', e)
+    this.setData({ showIndex: 0 })
     let promotionId = e.currentTarget.dataset.id ;
     wx.navigateTo({
       url: '/pageTab/tunzai/teMai/index?promotionId=' + promotionId,
@@ -102,7 +133,8 @@ Page({
     let that=this
     if (app.loginUser && app.loginUser != "" && app.loginUser.platformUser.mendian) {
       that.setData({
-        loginUserMendian: app.loginUser.platformUser.mendian
+        loginUserMendian: app.loginUser.platformUser.mendian,
+        loginUser: app.loginUser
       })
       let mendianName = app.loginUser.platformUser.mendian.name
       let mendianNameE = this.getLength(mendianName)
@@ -111,59 +143,93 @@ Page({
         userInfoWidth: (mendianName.length - mendianNameE) * 32 + mendianNameE*16+10
       })
       console.log(mendianName, that.data.userInfoWidth)
-      that.data.seckillStartDate.background = that.data.setting.secondColor
-      that.data.seckillStartDate.color = '#fff'
-      that.data.seckillStartDate.fontSize = 26
-      that.setData({
-        seckillStartDate: that.data.seckillStartDate
-      })
-      console.log('3', this.data.seckillStartDate)
     }
   },
   onLoad: function (options) {
-    console.log('===onLoad==')
+    console.log('===onLoad==',options)
     var that = this;
-    this.setData({ mainMenuIndex: 0 })
-    that.getPromotionData();
+    that.init(options)
+  },
+  searchProduct:function(e){
+    console.log('===searchProduct===',e)
+    var product = e.detail.value
+    console.log(product)
+    var param = {}
+    param.productName = product
+    let postParam = app.jsonToStr(param)
+    wx.navigateTo({
+      url: '/pages/search_product/index' + postParam
+    })
+  },
+  searchProductValue: function (e) {
+    console.log('===searchProductValue===', e)
+  },
+  init: function (options){
+    let that=this;
+    let index = options.index
+    if (!index) {
+      index = 0;
+    }
+    let mainMenu = that.data.mainMenu[index]
+    console.log('mainMenu', mainMenu)
+    that.getPromotionData(mainMenu, index);
     console.log("用户信息", app.loginUser)
     that.setData({ setting: app.setting.platformSetting })
     that.setData({ shopId: app.setting.platformSetting.defaultShopBean.id })
     console.log("setting", app.setting.platformSetting.logo)
     if (app.loginUser && app.loginUser != "" && app.loginUser.platformUser.mendian) {
       that.loginSuccess(app.loginUser)
+    } else {
+      app.addLoginListener(that);
     }
-    app.addLoginListener(that);
   },
-  getPromotionData:function(){
-    var that = this
-    var customIndex = app.AddClientUrl("/tunzai_index.html", {}, 'get', '1')
+  // 今日主打和明日预告
+  getPromotionData: function (currentData, index, isFresh,callback){
+    var that = this;
+    console.log("====== currentData=========", currentData);
+    let mainMenu = that.data.mainMenu;
+    let params = currentData.params
+    var customIndex = app.AddClientUrl("/get_promotions.html", params, 'get')
     //获取到数据
+    wx.showLoading({
+      title: '加载中...'
+    })
     wx.request({
       url: customIndex.url,
       header: app.header,
       success: function (res) {
-        console.log("====== getPromotionData=========", res.data)
-        let activityPromotion = res.data.activityPromotion;//已开始的活动.slice(0, 10)
-        let unactivityPromotion = res.data.unactivityPromotion;//未开始的活动
-        let activityPromotionProducts = res.data.activityPromotionProducts;//已开始的秒杀
-        let unactivityPromotionProducts = res.data.unactivityPromotionProducts;//未开始的秒杀
-        for (let i = 0; i < activityPromotion.length;i++){
-          activityPromotion[i].promotionEndDate = { endTime: activityPromotion[i].endDate, background: "#fff", color: that.data.setting.defaultColor, fontSize:20}
+        console.log("====== getPromotionData=========", res.data);
+        if (res.data.errcode == '0') {
+          if (callback) { callback(); }
+          currentData.params.pageSize = res.data.relateObj.pageSize
+          currentData.params.curPage = res.data.relateObj.curPage
+          currentData.params.totalSize = res.data.relateObj.totalSize
+          let result = res.data.relateObj.result.slice(0,10);
+          if(index==0){
+            for (let i = 0; i < result.length; i++) {
+              result[i].promotionEndDate = { endTime: result[i].endDate, background: "#fff", color: that.data.setting.defaultColor, fontSize: 28}
+            }
+          }else{
+            for (let j = 0; j < result.length; j++) {
+              result[j].promotionStartDate = { startTime: result[j].startDate, background: "#fff", color: that.data.setting.defaultColor, fontSize: 28}
+            }
+          }
+          if (isFresh) {
+            console.log('=====刷新数据====')
+            currentData.data = []
+          }
+          if (!result || result.length == 0) {
+            currentData.data = null
+          } else {
+            currentData.data = currentData.data.concat(result)
+          }
+          mainMenu[index] = currentData
+          that.setData({
+            mainMenu: mainMenu
+          })
+        } else {
+          console.log('error')
         }
-        for (let j = 0; j < unactivityPromotion.length; j++) {
-          unactivityPromotion[j].promotionStartDate = { startTime: unactivityPromotion[j].startDate, background: "#fff", color: that.data.setting.defaultColor, fontSize: 20}
-        }
-        console.log("====== activityPromotion=========", activityPromotion)
-        console.log("====== unactivityPromotion=========", unactivityPromotion)
-        console.log("====== activityPromotionProducts=========", activityPromotionProducts)
-        console.log("====== unactivityPromotionProducts=========", unactivityPromotionProducts)
-        that.setData({
-          activityPromotion: activityPromotion,
-          unactivityPromotion: unactivityPromotion,
-          activityPromotionProducts: activityPromotionProducts,
-          unactivityPromotionProducts: unactivityPromotionProducts,
-          promotionList: activityPromotion
-        })
         wx.hideLoading()
       },
       fail: function (res) {
@@ -175,7 +241,7 @@ Page({
           success: function (res) {
             console.log('', res)
             if (res.confirm) {
-              that.getPromotionData();
+              that.getPromotionData(currentData, index);
             } else if (res.cancel) {
               app.toIndex()
             }
@@ -184,11 +250,144 @@ Page({
       }
     })
   }, 
+  // 秒囤产品
+  getSeckillData: function (currentData, index, isFresh,callback) {
+    console.log("====== currentData=========", currentData);
+    var that = this;
+    let mainMenu = that.data.mainMenu;
+    let params = currentData.params
+    var customIndex = app.AddClientUrl("/get_promotions_products.html", params, 'get')
+    //获取到数据
+    wx.showLoading({
+      title: '加载中...'
+    })
+    wx.request({
+      url: customIndex.url,
+      header: app.header,
+      success: function (res) {
+        console.log("====== getSeckillData=========", res.data);
+        if (res.data.errcode == '0') {
+          if (callback){callback();}
+          currentData.params.pageSize = res.data.relateObj.pageSize
+          currentData.params.curPage = res.data.relateObj.curPage
+          currentData.params.totalSize = res.data.relateObj.totalSize
+          let result = res.data.relateObj.result.slice(0, 8);
+          for (let i = 0; i < result.length; i++) {
+            result[i].seckillEndDate = { endTime: result[i].end_date, background: that.data.setting.secondColor, color: "#fff", fontSize: 28 }
+          }
+          if (isFresh) {
+            currentData.data = []
+          }
+          if (!result || result.length == 0) {
+            currentData.data = null
+          } else {
+            currentData.data = currentData.data.concat(result)
+          }
+          mainMenu[index] = currentData
+          that.setData({
+            mainMenu: mainMenu
+          })
+        } else {
+          console.log('error')
+          currentData.data = null
+          mainMenu[index] = currentData
+          that.setData({
+            mainMenu: mainMenu
+          })
+        }
+        wx.hideLoading()
+      },
+      fail: function (res) {
+        console.log('------------2222222-----------', res)
+        wx.hideLoading()
+        wx.showModal({
+          title: '提示',
+          content: '加载失败，点击【确定】重新加载',
+          success: function (res) {
+            console.log('', res)
+            if (res.confirm) {
+              that.getSeckillData(currentData,index);
+            } else if (res.cancel) {
+              app.toIndex()
+            }
+          }
+        })
+      }
+    })
+  },
+  loading: false,
+  /* 加载更多 */
+  scrollBottomToLoadMore: function (e) {
+    let that = this
+    console.log('=====scrollBottomToLoadMore====', e)
+    console.log(this.loading)
+    let index = e.currentTarget.dataset.index
+    let mainMenu = that.data.mainMenu
+    let currentData = mainMenu[index]
+    console.log('=====currentData====', currentData)
+    that.loading = true
+    if (currentData.params.totalSize > currentData.params.curPage * currentData.params.pageSize && that.loading) {
+      console.log('hasMore')
+      ++currentData.params.page;
+      if (index == 0 || index == 2) {
+        console.log('==getPromotionData===')
+        that.getPromotionData(currentData, index, '', function () {
+          console.log('success====getPromotionData');
+          that.loading = false
+        })
+      }else if(index==1){
+        console.log('==getSeckillData===')
+        this.getSeckillData(currentData, index, '', function () {
+          console.log('success====getSeckillData');
+          that.loading = false
+        })
+      }else{
+        console.log('==null===')
+      }
+    } else {
+      that.loading = false
+      console.log('到底了...')
+      wx.showToast({
+        title: '到底了',
+        icon: 'succes',
+        duration: 1000,
+        mask: true
+      })
+    }
+    // setTimeout(function () {
+    //   that.loading = false
+    // }, 2000)
+  },
+  scrollTopToReflesh:function(e){
+    console.log('=====scrollTopToReflesh====', e)
+    let that=this;
+    let index = e.currentTarget.dataset.index
+    let mainMenu = that.data.mainMenu
+    let currentData = mainMenu[index]
+    currentData.params.page = 1
+    currentData.params.curPage = 1
+    if (index != 1 ) {
+      console.log('===滑到活动===', index)
+      that.getPromotionData(currentData, index,1)
+    } else if (index == 1) {
+      console.log('===滑到秒杀===', index)
+      that.getSeckillData(currentData, index,1)
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-   
+    let that=this;
+    wx.getSystemInfo({
+      success(res) {
+        that.setData({
+          sysWidth: res.windowHeight,
+          sysHeight: res.windowHeight,
+        });
+      }
+    });
+    
   },
   /**
    * 生命周期函数--监听页面显示
@@ -214,11 +413,21 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    let that=this;
-    that.onLoad();
-    wx.stopPullDownRefresh()
-  },
+  // onPullDownRefresh: function () {
+  //   console.log('=====scrollTopToReflesh====', e)
+  //   let that = this;
+  //   let index = e.currentTarget.dataset.index
+  //   let mainMenu = that.data.mainMenu
+  //   let currentData = mainMenu[index]
+  //   if (index != 1) {
+  //     console.log('===滑到活动===', index)
+  //     that.getPromotionData(currentData, index, 1)
+  //   } else if (index == 1) {
+  //     console.log('===滑到秒杀===', index)
+  //     that.getSeckillData(currentData, index, 1)
+  //   }
+  //   wx.stopPullDownRefresh()
+  // },
 
   /**
    * 页面上拉触底事件的处理函数
@@ -232,7 +441,35 @@ Page({
    */
   onShareAppMessage: function (res) {
     console.log("hahaha",res)
-    
+    let that = this;
+    let type = res.target.dataset.type
+    if (res.from == "button" && type =='product') {
+      console.log('转发产品')
+      let id = res.target.dataset.item.product_id
+      let focusData = res.target.dataset.item
+      if (!focusData.brandName || focusData.brandName == "") {
+        focusData.brandName = ""
+      };
+      let imageUrl = focusData.product_icon
+      let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tagPrice + ')' + focusData.brandName + focusData.name;
+      let shareParams = {}
+      shareParams.productName = focusData.name
+      console.log('nnnnnnnnnn' + shareName)
+      shareParams.id = id
+      console.log("shareParams", shareParams)
+      return app.shareForFx2('promotion_products', shareName, shareParams, imageUrl)
+    } else {
+      console.log('转发活动')
+      let title = res.target.dataset.name;
+      let id = res.target.dataset.id;
+      let banner = res.target.dataset.banner;
+      let params = {};
+      params.promotionId = id;
+      params.title = title;
+      params.SHARE_PROMOTION_PRODUCTS_PAGE = id
+      console.log('params:' + JSON.stringify(params))
+      return app.shareForFx2('promotion_products', '', params, banner)
+    }
   },
   
 })
