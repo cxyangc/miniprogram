@@ -21,6 +21,7 @@ Page({
     productId:0,
     showIndex:0,
     topHeight:220,
+    setting:null,
     activityPromotionProducts: null,
     unactivityPromotionProducts: null,
     activityPromotion: null,
@@ -38,6 +39,7 @@ Page({
     that.setData({ showIndex: index })
     
   },
+
   // 主菜单的选择
   selectMainMenu:function(e){
     console.log('====e====',e)
@@ -94,8 +96,17 @@ Page({
   //点击产品详情
   toProductDetail: function (e) {
     console.log(e.currentTarget.dataset.id)
-    var a = "product_detail.html?productId=" + e.currentTarget.dataset.id;
-    app.linkEvent(a);
+    if (e.currentTarget.dataset.stock<=0){
+      wx.showToast({
+        title: '已抢光',
+        icon: 'fail',
+        duration: 1000,
+        mask: true
+      })
+    }else{
+      var a = "product_detail.html?productId=" + e.currentTarget.dataset.id;
+      app.linkEvent(a);
+    }
   },
   //点击活动进入活动详情
   toPromotionDetail:function(e){
@@ -131,16 +142,16 @@ Page({
   loginSuccess: function (user) {
     console.log("hello!!!", app.loginUser);
     let that=this
+    that.setData({loginUser: app.loginUser})
     if (app.loginUser && app.loginUser != "" && app.loginUser.platformUser.mendian) {
       that.setData({
-        loginUserMendian: app.loginUser.platformUser.mendian,
-        loginUser: app.loginUser
+        loginUserMendian: app.loginUser.platformUser.mendian
       })
       let mendianName = app.loginUser.platformUser.mendian.name
       let mendianNameE = this.getLength(mendianName)
       console.log('mendianNameE', mendianNameE, mendianName.length)
       that.setData({
-        userInfoWidth: (mendianName.length - mendianNameE) * 32 + mendianNameE*16+10
+        userInfoWidth: (mendianName.length - mendianNameE) * 32 + mendianNameE * 16 + 10
       })
       console.log(mendianName, that.data.userInfoWidth)
     }
@@ -160,6 +171,7 @@ Page({
     wx.navigateTo({
       url: '/pages/search_product/index' + postParam
     })
+ 
   },
   searchProductValue: function (e) {
     console.log('===searchProductValue===', e)
@@ -172,16 +184,15 @@ Page({
     }
     let mainMenu = that.data.mainMenu[index]
     console.log('mainMenu', mainMenu)
+    //if(app.setting){
+       that.setData({setting: app.setting.platformSetting})
+  //  }
     that.getPromotionData(mainMenu, index);
     console.log("用户信息", app.loginUser)
-    that.setData({ setting: app.setting.platformSetting })
-    that.setData({ shopId: app.setting.platformSetting.defaultShopBean.id })
-    console.log("setting", app.setting.platformSetting.logo)
-    if (app.loginUser && app.loginUser != "" && app.loginUser.platformUser.mendian) {
+    if (app.loginUser && app.loginUser != "") {
       that.loginSuccess(app.loginUser)
-    } else {
-      app.addLoginListener(that);
     }
+    app.addLoginListener(that);
   },
   // 今日主打和明日预告
   getPromotionData: function (currentData, index, isFresh,callback){
@@ -201,10 +212,8 @@ Page({
         console.log("====== getPromotionData=========", res.data);
         if (res.data.errcode == '0') {
           if (callback) { callback(); }
-          currentData.params.pageSize = res.data.relateObj.pageSize
-          currentData.params.curPage = res.data.relateObj.curPage
-          currentData.params.totalSize = res.data.relateObj.totalSize
-          let result = res.data.relateObj.result.slice(0,10);
+          // .slice(0,10)
+          let result = res.data.relateObj.result;
           if(index==0){
             for (let i = 0; i < result.length; i++) {
               result[i].promotionEndDate = { endTime: result[i].endDate, background: "#fff", color: that.data.setting.defaultColor, fontSize: 28}
@@ -218,7 +227,7 @@ Page({
             console.log('=====刷新数据====')
             currentData.data = []
           }
-          if (!result || result.length == 0) {
+          if ((!result || result.length == 0) && currentData.params.curPage==1) {
             currentData.data = null
           } else {
             currentData.data = currentData.data.concat(result)
@@ -227,6 +236,9 @@ Page({
           that.setData({
             mainMenu: mainMenu
           })
+          currentData.params.pageSize = res.data.relateObj.pageSize
+          currentData.params.curPage = res.data.relateObj.curPage
+          currentData.params.totalSize = res.data.relateObj.totalSize
         } else {
           console.log('error')
         }
@@ -268,17 +280,15 @@ Page({
         console.log("====== getSeckillData=========", res.data);
         if (res.data.errcode == '0') {
           if (callback){callback();}
-          currentData.params.pageSize = res.data.relateObj.pageSize
-          currentData.params.curPage = res.data.relateObj.curPage
-          currentData.params.totalSize = res.data.relateObj.totalSize
-          let result = res.data.relateObj.result.slice(0, 8);
+          // 
+          let result = res.data.relateObj.result;
           for (let i = 0; i < result.length; i++) {
             result[i].seckillEndDate = { endTime: result[i].end_date, background: that.data.setting.secondColor, color: "#fff", fontSize: 28 }
           }
           if (isFresh) {
             currentData.data = []
           }
-          if (!result || result.length == 0) {
+          if ((!result || result.length == 0) && currentData.params.curPage==1) {
             currentData.data = null
           } else {
             currentData.data = currentData.data.concat(result)
@@ -287,13 +297,11 @@ Page({
           that.setData({
             mainMenu: mainMenu
           })
+          currentData.params.pageSize = res.data.relateObj.pageSize
+          currentData.params.curPage = res.data.relateObj.curPage
+          currentData.params.totalSize = res.data.relateObj.totalSize
         } else {
           console.log('error')
-          currentData.data = null
-          mainMenu[index] = currentData
-          that.setData({
-            mainMenu: mainMenu
-          })
         }
         wx.hideLoading()
       },
@@ -328,18 +336,19 @@ Page({
     that.loading = true
     if (currentData.params.totalSize > currentData.params.curPage * currentData.params.pageSize && that.loading) {
       console.log('hasMore')
+      that.loading = false
       ++currentData.params.page;
       if (index == 0 || index == 2) {
         console.log('==getPromotionData===')
         that.getPromotionData(currentData, index, '', function () {
           console.log('success====getPromotionData');
-          that.loading = false
+          that.loading = true
         })
       }else if(index==1){
         console.log('==getSeckillData===')
         this.getSeckillData(currentData, index, '', function () {
           console.log('success====getSeckillData');
-          that.loading = false
+          that.loading = true
         })
       }else{
         console.log('==null===')
@@ -413,21 +422,24 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  // onPullDownRefresh: function () {
-  //   console.log('=====scrollTopToReflesh====', e)
-  //   let that = this;
-  //   let index = e.currentTarget.dataset.index
-  //   let mainMenu = that.data.mainMenu
-  //   let currentData = mainMenu[index]
-  //   if (index != 1) {
-  //     console.log('===滑到活动===', index)
-  //     that.getPromotionData(currentData, index, 1)
-  //   } else if (index == 1) {
-  //     console.log('===滑到秒杀===', index)
-  //     that.getSeckillData(currentData, index, 1)
-  //   }
-  //   wx.stopPullDownRefresh()
-  // },
+  onPullDownRefresh: function () {
+    let that = this;
+    console.log('=====onPullDownRefresh====', that.data.mainMenuIndex)
+    let index =that.data.mainMenuIndex
+    let mainMenu = that.data.mainMenu
+    let currentData = mainMenu[index]
+    currentData.params.page = 1
+    currentData.params.curPage = 1
+    if (index != 1) {
+      console.log('===滑到活动===', index)
+      that.getPromotionData(currentData, index, 1)
+    } else if (index == 1) {
+      console.log('===滑到秒杀===', index)
+      that.getSeckillData(currentData, index, 1)
+    }
+
+    wx.stopPullDownRefresh()
+  },
 
   /**
    * 页面上拉触底事件的处理函数
@@ -444,14 +456,14 @@ Page({
     let that = this;
     let type = res.target.dataset.type
     if (res.from == "button" && type =='product') {
-      console.log('转发产品')
+      console.log('转发产品', res.target.dataset.item)
       let id = res.target.dataset.item.product_id
       let focusData = res.target.dataset.item
       if (!focusData.brandName || focusData.brandName == "") {
         focusData.brandName = ""
       };
       let imageUrl = focusData.product_icon
-      let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tagPrice + ')' + focusData.brandName + focusData.name;
+      let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tag_price + ')' + focusData.brandName + focusData.product_name;
       let shareParams = {}
       shareParams.productName = focusData.name
       console.log('nnnnnnnnnn' + shareName)

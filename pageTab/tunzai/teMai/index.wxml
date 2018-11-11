@@ -1,7 +1,7 @@
 <view class='body '>
 <!-- 品牌详情 -->
   <view class='promotionBanrdInfo'>
-    <image class='promotionBanrdLogo' src="{{promotionInfo.mainBrandBean.brandIcon}}"></image>
+    <image class='promotionBanrdLogo' src="{{promotionInfo.mainBrandBean.brandIcon}}?x-oss-process=style/preview"></image>
     <text class='promotionBanrdName'>{{promotionInfo.mainBrandBean.brandName}}</text>
     <text class='promotionBanrdDescribe'>{{promotionInfo.mainBrandBean.brandDescription}}</text>
   </view>
@@ -19,7 +19,7 @@
         <time data="{{promotionInfo.promotionStartDate}}" wx:if="{{promotionInfo.promotionStartDate}}"></time>
         <text class='timeText'>后开始</text>
       </view>
-      <text class='setReminders' style='color:{{setting.defaultColor}}'>设置提醒</text>
+      <!-- <text class='setReminders' style='color:{{setting.defaultColor}}'>设置提醒</text> -->
     </block>
   </view>
   <!-- 产品列表start -->
@@ -41,19 +41,19 @@
         </view>
       <!-- 分享的两种 -->
       <view class='productImg'>
-        <image src='{{item.imagePath}}?x-oss-process=style/normal' mode='aspectFit' class='productImgUrl'></image>
+        <image src='{{item.imagePath}}?x-oss-process=style/preview' mode='aspectFit' class='productImgUrl'></image>
         <view class='outPrint' wx:if="{{item.stock<=0}}">
              <view class='outPrintBg'></view>
              <view class='outPrintText'><text>已抢光</text></view>
         </view>
       </view>
       <view class='productPriceAndStock'>
-        <view style='height:56rpx'>
+        <view style='height:56rpx;'>
           <text class='productPrice' style='color:{{setting.defaultColor}}'>¥{{item.price}}</text>
           <text class='productTagPrice'>¥{{item.tagPrice}}</text>
         </view>
         <view class='productStock'>
-          <text class='usedProductStockPercent' style='position:absolute;left:{{item.stockPercent/100*120+20}}rpx;' wx:if="{{item.stockPercent<22}}">{{item.stockPercent}}%</text>
+          <text class='usedProductStockPercent' style='position:absolute;left:{{item.stockPercent/100*100+10}}rpx;' wx:if="{{item.stockPercent<22}}">{{item.stockPercent}}%</text>
           <view class='usedProductStock' style='background:{{setting.defaultColor}};width:{{item.stockPercent}}%'>
             <text class='usedProductStockPercent' wx:if="{{item.stockPercent>22}}">{{item.stockPercent}}%</text>
           </view>

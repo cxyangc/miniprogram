@@ -7,5 +7,5 @@
        <canvas canvas-id="shareCanvas" class='canvas' bindtap='saveImageToLocal' disable-scroll="true" bindtouchstart="saveImageToLocal" bindtouchmove="touchMove" bindtouchend="touchEnd"></canvas>
     </view>
     <view class='saveImgBtn' style='background:{{color}};' bindtap='saveImgToPhotosAlbumTap'><text>保存图片</text></view>
-    <view class='saveText'><text>长按保存至相册</text></view>
+    <view class='saveText'><text>点击【保存图片】，即可保存至相册</text></view>
 </view>

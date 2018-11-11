@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 7,
 			"list": [
 				{
 					"id": 0,
@@ -84,7 +84,7 @@
 					"id": 7,
 					"name": "进入服务商页面",
 					"pathName": "pageTab/index/index",
-					"query": "APPLY_SERVER_CHANNEL_CODE=74",
+					"query": "APPLY_SERVER_CHANNEL_CODE=120",
 					"scene": "1011"
 				},
 				{

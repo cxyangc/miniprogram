@@ -79,7 +79,7 @@
   width:375rpx;
   height:460rpx;
   background:#fff;
-  padding: 50rpx;
+  padding: 24rpx;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
@@ -101,7 +101,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between
+  justify-content: space-between;
+  white-space: nowrap
 }
 .productPrice{
   font-size:32rpx;
@@ -114,7 +115,7 @@
   margin-left: 6rpx
 }
 .productStock{
-  width:120rpx;
+  min-width:120rpx;
   height:20rpx;
   background:#DADADA;
   border-radius:10rpx;

@@ -269,7 +269,7 @@
 }
 .productName{
   font-size: 26rpx;
-  width:450rpx;
+  width:430rpx;
 }
 .productCountDown{
   display: flex;

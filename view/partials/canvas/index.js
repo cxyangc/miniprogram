@@ -219,7 +219,7 @@ Component({
       context.setTextAlign('left')    // 文字居中
       context.setFillStyle('#999')  // 文字颜色：黑色
       context.setFontSize(12)         // 文字字号：22px
-      context.fillText(that.data.platformName, 16, clientWidth * 0.93 + 16)
+      context.fillText("好东西尽在"+that.data.platformName, 16, clientWidth * 0.93 + 16)
  
       console.log("9999:" , that.data.imgInfo); 
       context.drawImage(that.data.img_ewm, clientWidth * 0.5 - 16, clientWidth * 0.82 + 16, 70, 70)

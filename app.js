@@ -4,8 +4,8 @@ import { dellUrl } from "/public/requestUrl.js";
 const Promise = require('/promise/promise.js');
 App({
      //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
-     //clientUrl: 'https://mini.tunzai.vip/chainalliance/',
-     clientUrl: 'http://mini.sansancloud.com/chainalliance/',
+     clientUrl: 'https://mini.tunzai.vip/chainalliance/',
+     //clientUrl: 'http://mini.sansancloud.com/chainalliance/',
     
 
     /**
@@ -13,13 +13,12 @@ App({
      */
           
 
-   clientNo: 'xianhua',   //自定义的项目的名称。
+    clientNo: 'tunzai',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
- 
-  miniIndexPage: '',
-    setting: null,  // 全局设置
+    miniIndexPage: '',
+  setting: { platformSetting: { defaultColor: "#FE3737", secondColor: "#FF996E"}},  // 全局设置
     loginUser: "", //登陆返回的个人信息
     cookie: null,
     shopOpen: null, // 店铺营业时间-开关
@@ -128,7 +127,7 @@ App({
     loadFirstEnter: function (more_scene) {
         console.log('第一次登录加载的函数')
         this.wxLogin(more_scene)
-        //this.getSetting()
+         this.getSetting()
     },
     loadScene: function (inputPlatformNo) {
         this.clientNo = inputPlatformNo
@@ -315,6 +314,7 @@ App({
         } 
         var returnUrl = dellUrl(url, params, method, random, loginToken)
         returnUrl.url = this.clientUrl + this.clientNo + returnUrl.url
+      console.log("returnUrl", returnUrl);
         return returnUrl;
     },
     /* 解析LinkUrl */

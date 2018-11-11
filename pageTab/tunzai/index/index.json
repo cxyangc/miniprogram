@@ -2,6 +2,7 @@
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",
   "navigationBarTitleText": "囤仔",
+  "enablePullDownRefresh": true,
 
       "usingComponents": {
         "productList": "../components/productList/productList",

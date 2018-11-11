@@ -188,7 +188,7 @@ Component({
 
       context.setTextAlign('left')    // 文字居中
       context.setFillStyle('#777')  // 文字颜色：黑色
-      context.setFontSize(12)         // 文字字号：22px
+      context.setFontSize(11)         // 文字字号：22px
       context.fillText("长按识别小程序码访问【" + that.data.platformName+'】- 好东西尽在囤仔', 16, clientWidth + 16)
       context.stroke()
 

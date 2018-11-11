@@ -76,11 +76,7 @@ Page({
         that.params.totalSize = res.data.totalSize
         let productList = res.data.result
         for(let i=0;i<productList.length;i++){
-          if (productList[i].saleCount==0){
-            productList[i].stockPercent =0
-          }else{
-            productList[i].stockPercent = Math.floor((productList[i].totalStock - productList[i].stock) / (productList[i].totalStock) * 100)
-          }
+          productList[i].stockPercent = Math.ceil((productList[i].totalStock - productList[i].stock) / (productList[i].totalStock) * 100)
         }
         if (ifAdd==1){
           that.setData({ productData: productList})

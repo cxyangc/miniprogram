@@ -13,10 +13,9 @@
       <text style='margin-right:20rpx;'>真实姓名:</text>
       <input class='tixian_item_input' placeholder="微信绑定的真实姓名" value='{{reqUserTrueName}}' bindinput='getUserTrueName'></input>
     </view>
-    <text style='font-size:24rpx;margin-top:10rpx;color:#888'>提现金额不得少于1元</text>
+    <view style='font-size:24rpx;margin-top:10rpx;color:#888'>提现金额不得少于<text style='color:{{setting.platformSetting.defaultColor}}'>￥1.00</text>元，可提金额<text style='color:{{setting.platformSetting.defaultColor}}'>￥{{mendian.account.account}}</text>元</view>
     <view class='' style='font-size:24rpx;margin-top:16rpx;color:#888'>
-      <text style='margin-right:20rpx'>可提金额￥{{mendian.account.account}}</text>
-      <text>每日提现金额￥500.00</text>
+      <view style='margin-right:20rpx'>每次最高提现金额<text style='color:{{setting.platformSetting.defaultColor}}'>￥500.00</text>元，每天提现<text style='color:{{setting.platformSetting.defaultColor}}'>￥2500.00</text>元封顶</view>
     </view>
     <!-- <view class='tixian_tip'>
       <text></text>

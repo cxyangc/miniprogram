@@ -56,7 +56,7 @@ Page({
         loginUser: app.loginUser.platformUser.mendian
       })
     }
-    console.log("setting", app.setting.platformSetting.logo)
+    //console.log("setting", app.setting.platformSetting.logo)
     this.setData({
      setting: app.setting
     })

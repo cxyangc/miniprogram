@@ -721,9 +721,14 @@ Page({
   onShareAppMessage: function (res) {
     console.log(res)
     let that = this
-    let params = that.dataFOr_getData
-    console.log('params:' + params)
-    return app.shareForFx2('productDetail', '', params)
+    let params = that.dataFOr_getData;
+    let productItem = that.data.productData.productInfo;
+    if (!productItem.brandName || productItem.brandName == "") {
+      productItem.brandName = ""
+    };
+    let shareName = '活动价：￥' + productItem.price + '(原价：￥' + productItem.tagPrice + ')' + productItem.brandName + productItem.name;
+    console.log('params:', params, that.data.productData)
+    return app.shareForFx2('productDetail', shareName, params)
   },
 
 
