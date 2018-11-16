@@ -10,26 +10,30 @@ Page({
     sexArray:['男','女'],
     pickerIndex:0,
     upLoadImageList:{},
+    dataAndTime:{}
   },
   bindDateChange: function (e) {
     console.log('picker发送选择改变，携带值为', e, this.data.formData)
     let index = e.target.dataset.index
+    this.data.dataAndTime[this.data.formData.items[index].name] = e.detail.value
     this.data.formData.items[index].defaultValue = e.detail.value
     this.setData({
-      formData: this.data.formData
+      dataAndTime: this.data.dataAndTime
     })
   },
   bindTimeChange: function (e) {
     console.log('picker发送选择改变，携带值为', e, this.data.formData)
     let index = e.target.dataset.index
+    this.data.dataAndTime[this.data.formData.items[index].name] = e.detail.value
     this.data.formData.items[index].defaultValue = e.detail.value
     this.setData({
-      formData: this.data.formData
+      dataAndTime: this.data.dataAndTime
     })
   },
   // 返回首页
-  toIndex:function(){
-    app.toIndex();
+  toFormCommitList: function (){
+    var a = "form_commit_list.html?customFormId=" + this.params.customFormId;
+    app.linkEvent(a);
   },
   login: function(e) {
     wx.switchTab({
@@ -60,8 +64,28 @@ Page({
       }
     }
     value = Object.assign({}, value, imgObj)
-    console.log('===value=====', value)
+    console.log('===value=====', value, that.data.formData)
     that.params.miniNotifyFormId = e.detail.formId;
+    let itemData = that.data.formData.items
+    // return
+    for (let i = 0; i < itemData.length;i++){
+      for (let j in value) {
+        if (itemData[i].name == j && itemData[i].mustInput==1&& !value[j]){
+          wx.showModal({
+            title: '提示',
+            content: '请填写完整',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+          return
+        }
+      }
+    }
     that.params.formJson = JSON.stringify(value);
     var formData = app.AddClientUrl("/wx_commit_custom_form.html", that.params, 'post')
     wx.request({
@@ -78,7 +102,7 @@ Page({
             duration: 1000
           })
           setTimeout(function () {
-            that.toIndex()
+            that.toFormCommitList()
           }, 1000)
         } else {
           wx.showToast({

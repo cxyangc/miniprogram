@@ -1,7 +1,8 @@
 <view class='container'>
    
     <view class='couponListContainer'>
-      <view class='couponListItem' wx:for='{{showCoupon}}' wx:for-item='cou' wx:key='{{cou.id}}' bindtap='toCouponDetail' data-id='{{cou.id}}'>
+    <!-- bindtap='toCouponDetail' -->
+      <view class='couponListItem' wx:for='{{showCoupon}}' wx:for-item='cou' wx:key='{{cou.id}}'  data-id='{{cou.id}}'>
           <view class='itemHead' style='background:{{setting.platformSetting.defaultColor}}'>{{cou.name}}</view>
           <view class='itemBody'>
             <text>￥{{cou.youhuiAmount}}</text>

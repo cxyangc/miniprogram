@@ -58,7 +58,7 @@ Page({
         totalSize: 0,
       },
       {
-        title: '已过期',
+        title: '已使用',
         linkUrl: '',
         page: 1,
         pageSize: 0,
@@ -66,7 +66,7 @@ Page({
         totalSize: 0,
       },
       {
-        title: '已使用',
+        title: '已过期',
         linkUrl: '',
         page: 1,
         pageSize: 0,

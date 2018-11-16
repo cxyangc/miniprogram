@@ -6,10 +6,11 @@ Page({
    */
   data: {
     mainMenu: [
-      { index: 0, name: '今日主打', data: [], params: { status: '1', promotionType: 0,page: 1}}, 
+      { index: 0, name: '今日主打', data: [], params: { status: '1', promotionType: 0, page: 1},brandList:[]}, 
       { index: 1, name: '秒囤', data: [], params: { status: '1', promotionType: 2,page: 1}}, 
-      { index: 2, name: '活动预告', data: [], params: { status: '0', promotionType: 0, page: 1}}
+      { index: 2, name: '活动预告', data: [], params: { status: '0', promotionType: 0, page: 1 }, brandList: []}
     ],
+    cacheData: [{ index: 0, data: [] }, { index: 1, data: [] }, { index: 2, data: []}],
     mainMenuIndex:0,
     sysWidth: 320,
     sysHeight: 568,
@@ -22,10 +23,9 @@ Page({
     showIndex:0,
     topHeight:220,
     setting:null,
-    activityPromotionProducts: null,
-    unactivityPromotionProducts: null,
-    activityPromotion: null,
-    unactivityPromotion: null,
+    searchIconToLeft:170,
+    hidePageState:false,
+    options:{},
   },
   tolinkUrl: function (e) {
     console.log(e)
@@ -45,27 +45,48 @@ Page({
     console.log('====e====',e)
     // app.goTop();
     let that=this;
-    let index = e.currentTarget.dataset.index
-    console.log('====index====', index)
-    this.setData({ mainMenuIndex: index })
-  },
-  /* 滑动事件 */
-  changeIndex: function (e) {
-    console.log('=====e====', e)
-    let that=this;
-    let index = e.detail.current
+    let index=0;
+    that.closedTimers();
+    if (!e) {
+       index=0
+    }else{
+       index = e.currentTarget.dataset.index
+    }
+    if (!index){
+      index=0;
+    }
     let mainMenu = this.data.mainMenu
     let currentData = mainMenu[index]
+    console.log('====index====', index)
     console.log('=====currentData====', currentData)
     if (index != 1 && (!currentData.data || currentData.data.length == 0)) {
-      console.log('===滑到活动===',index)
+      console.log('===滑到活动===', index)
       that.getPromotionData(currentData, index)
-    } else if (index == 1 && (!currentData.data || currentData.data.length == 0)){
+      that.gainBrandData(currentData, index)
+    } else if (index == 1 && (!currentData.data || currentData.data.length == 0)) {
       console.log('===滑到秒杀===', index)
       that.getSeckillData(currentData, index)
     }
     that.setData({ mainMenuIndex: index })
+    that.startTimers();
   },
+  /* 滑动事件 */
+  // changeIndex: function (e) {
+  //   console.log('=====e====', e)
+  //   let that=this;
+  //   let index = e.detail.current
+  //   let mainMenu = this.data.mainMenu
+  //   let currentData = mainMenu[index]
+  //   console.log('=====currentData====', currentData)
+  //   if (index != 1 && (!currentData.data || currentData.data.length == 0)) {
+  //     console.log('===滑到活动===',index)
+  //     that.getPromotionData(currentData, index)
+  //   } else if (index == 1 && (!currentData.data || currentData.data.length == 0)){
+  //     console.log('===滑到秒杀===', index)
+  //     that.getSeckillData(currentData, index)
+  //   }
+  //   that.setData({ mainMenuIndex: index })
+  // },
   // 开启活动海报
   shareActivePoster:function(event){
     console.log('====shareActivePoster====', event)
@@ -88,10 +109,8 @@ Page({
     this.setData({ posterState: false })
     this.setData({ posterActiveState: false })
   },
-  toMyInfo:function(){
-    wx.switchTab({
-      url: '/pageTab/tunzai/myInfo/index',
-    })
+  toMyInfo: function () {
+    app.toMy();
   },
   //点击产品详情
   toProductDetail: function (e) {
@@ -156,10 +175,24 @@ Page({
       console.log(mendianName, that.data.userInfoWidth)
     }
   },
+  loginFailed:function(err){
+  console.log("login failed!!");
+   
+},
   onLoad: function (options) {
     console.log('===onLoad==',options)
     var that = this;
-    that.init(options)
+    that.data.options = options
+    if (app.setting) {
+      that.data.setting = app.setting.platformSetting;
+      that.setData({ setting: that.data.setting })
+    }
+    console.log("用户信息", app.loginUser)
+    if (app.loginUser && app.loginUser != "") {
+      that.loginSuccess(app.loginUser)
+    }
+    app.addLoginListener(that);
+    this.selectMainMenu();
   },
   searchProduct:function(e){
     console.log('===searchProduct===',e)
@@ -168,36 +201,89 @@ Page({
     var param = {}
     param.productName = product
     let postParam = app.jsonToStr(param)
-    wx.navigateTo({
-      url: '/pages/search_product/index' + postParam
-    })
+    let url = 'search_product.html' + postParam
+    app.linkEvent(url);
  
   },
   searchProductValue: function (e) {
     console.log('===searchProductValue===', e)
   },
-  init: function (options){
-    let that=this;
-    let index = options.index
-    if (!index) {
-      index = 0;
-    }
-    let mainMenu = that.data.mainMenu[index]
-    console.log('mainMenu', mainMenu)
-    //if(app.setting){
-       that.setData({setting: app.setting.platformSetting})
-  //  }
-    that.getPromotionData(mainMenu, index);
-    console.log("用户信息", app.loginUser)
-    if (app.loginUser && app.loginUser != "") {
-      that.loginSuccess(app.loginUser)
-    }
-    app.addLoginListener(that);
+  changeInputOne:function(){
+    this.setData({ searchIconToLeft: '170', shadowNum:0 })
+  }, 
+  changeInputTwo: function () {
+    this.setData({ searchIconToLeft: '40', shadowNum: 2 })
   },
-  // 今日主打和明日预告
-  getPromotionData: function (currentData, index, isFresh,callback){
+  // init: function (options){
+  //   let that=this;
+  //   let index = options.index
+  //   if (!index) {
+  //     index = 0;
+  //   }
+  //   let mainMenu = that.data.mainMenu[index]
+  //   console.log('mainMenu', mainMenu)
+  //   that.setData({ mainMenuIndex: index })
+  //   that.getPromotionData(mainMenu, index);
+  //   that.gainBrandData(mainMenu, index)
+   
+  // },
+  gainBrandData: function (currentData, index, isFresh){
     var that = this;
     console.log("====== currentData=========", currentData);
+    let mainMenu = that.data.mainMenu;
+    let params = currentData.params
+    var customIndex = app.AddClientUrl("/get_promotion_brands.html", params, 'get');
+    //获取到数据
+    wx.showLoading({
+      title: '加载中...'
+    })
+    wx.request({
+      url: customIndex.url,
+      header: app.header,
+      success: function (res) {
+        console.log("====== gainBrandData=========", res.data);
+        if (res.data.errcode == '0') {
+          let result = res.data.relateObj;
+          if (isFresh) {
+            currentData.brandList = []
+          }
+          if (!result || result.length == 0) {
+            currentData.brandList = null
+          } else {
+            currentData.brandList = result
+          }
+          mainMenu[index] = currentData
+          that.setData({
+            mainMenu: mainMenu
+          })
+        } else {
+          console.log('error')
+        }
+        wx.hideLoading()
+      },
+      fail: function (res) {
+        console.log('------------2222222-----------', res)
+        wx.hideLoading()
+        wx.showModal({
+          title: '提示',
+          content: '加载失败，点击【确定】重新加载',
+          success: function (res) {
+            console.log('', res)
+            if (res.confirm) {
+              that.gainBrandData(currentData, index);
+            } else if (res.cancel) {
+              app.toIndex()
+            }
+          }
+        })
+      }
+    })
+  },
+  // 今日主打和明日预告
+  getPromotionData: function (currentData, index, isFresh){
+    var that = this;
+    console.log("====== currentData=========", currentData);
+    console.log("====== that.data.setting=========", that.data.setting);
     let mainMenu = that.data.mainMenu;
     let params = currentData.params
     var customIndex = app.AddClientUrl("/get_promotions.html", params, 'get')
@@ -211,33 +297,32 @@ Page({
       success: function (res) {
         console.log("====== getPromotionData=========", res.data);
         if (res.data.errcode == '0') {
-          if (callback) { callback(); }
-          // .slice(0,10)
           let result = res.data.relateObj.result;
           if(index==0){
             for (let i = 0; i < result.length; i++) {
-              result[i].promotionEndDate = { endTime: result[i].endDate, background: "#fff", color: that.data.setting.defaultColor, fontSize: 28}
+              result[i].promotionEndDate = { endTime: result[i].endDate, background: "#fff", color: that.data.setting.defaultColor, fontSize: 28, type: 'activityPromotionTimer'}
             }
-          }else{
+          }else if(index==2){
             for (let j = 0; j < result.length; j++) {
-              result[j].promotionStartDate = { startTime: result[j].startDate, background: "#fff", color: that.data.setting.defaultColor, fontSize: 28}
+              result[j].promotionStartDate = { startTime: result[j].startDate, background: "#fff", color: that.data.setting.defaultColor, fontSize: 28, type: 'unActivityPromotionTimer'}
             }
           }
+          console.log(result)
           if (isFresh) {
             console.log('=====刷新数据====')
             currentData.data = []
           }
-          if ((!result || result.length == 0) && currentData.params.curPage==1) {
-            currentData.data = null
+          if ((!result || result.length == 0) && currentData.params.page==1) {
+            currentData.data = []
           } else {
             currentData.data = currentData.data.concat(result)
           }
-          mainMenu[index] = currentData
+         
+        //  mainMenu[index] = currentData
           that.setData({
             mainMenu: mainMenu
           })
           currentData.params.pageSize = res.data.relateObj.pageSize
-          currentData.params.curPage = res.data.relateObj.curPage
           currentData.params.totalSize = res.data.relateObj.totalSize
         } else {
           console.log('error')
@@ -263,7 +348,7 @@ Page({
     })
   }, 
   // 秒囤产品
-  getSeckillData: function (currentData, index, isFresh,callback) {
+  getSeckillData: function (currentData, index, isFresh) {
     console.log("====== currentData=========", currentData);
     var that = this;
     let mainMenu = that.data.mainMenu;
@@ -279,16 +364,14 @@ Page({
       success: function (res) {
         console.log("====== getSeckillData=========", res.data);
         if (res.data.errcode == '0') {
-          if (callback){callback();}
-          // 
           let result = res.data.relateObj.result;
           for (let i = 0; i < result.length; i++) {
-            result[i].seckillEndDate = { endTime: result[i].end_date, background: that.data.setting.secondColor, color: "#fff", fontSize: 28 }
+            result[i].seckillEndDate = { endTime: result[i].end_date, background: that.data.setting.secondColor, color: "#fff", fontSize: 28, type:'seckillTimer'}
           }
           if (isFresh) {
             currentData.data = []
           }
-          if ((!result || result.length == 0) && currentData.params.curPage==1) {
+          if ((!result || result.length == 0) && currentData.params.page==1) {
             currentData.data = null
           } else {
             currentData.data = currentData.data.concat(result)
@@ -298,7 +381,6 @@ Page({
             mainMenu: mainMenu
           })
           currentData.params.pageSize = res.data.relateObj.pageSize
-          currentData.params.curPage = res.data.relateObj.curPage
           currentData.params.totalSize = res.data.relateObj.totalSize
         } else {
           console.log('error')
@@ -323,66 +405,63 @@ Page({
       }
     })
   },
-  loading: false,
   /* 加载更多 */
-  scrollBottomToLoadMore: function (e) {
-    let that = this
-    console.log('=====scrollBottomToLoadMore====', e)
-    console.log(this.loading)
-    let index = e.currentTarget.dataset.index
-    let mainMenu = that.data.mainMenu
-    let currentData = mainMenu[index]
-    console.log('=====currentData====', currentData)
-    that.loading = true
-    if (currentData.params.totalSize > currentData.params.curPage * currentData.params.pageSize && that.loading) {
-      console.log('hasMore')
-      that.loading = false
-      ++currentData.params.page;
-      if (index == 0 || index == 2) {
-        console.log('==getPromotionData===')
-        that.getPromotionData(currentData, index, '', function () {
-          console.log('success====getPromotionData');
-          that.loading = true
-        })
-      }else if(index==1){
-        console.log('==getSeckillData===')
-        this.getSeckillData(currentData, index, '', function () {
-          console.log('success====getSeckillData');
-          that.loading = true
-        })
-      }else{
-        console.log('==null===')
-      }
-    } else {
-      that.loading = false
-      console.log('到底了...')
-      wx.showToast({
-        title: '到底了',
-        icon: 'succes',
-        duration: 1000,
-        mask: true
-      })
-    }
-    // setTimeout(function () {
-    //   that.loading = false
-    // }, 2000)
-  },
-  scrollTopToReflesh:function(e){
-    console.log('=====scrollTopToReflesh====', e)
-    let that=this;
-    let index = e.currentTarget.dataset.index
-    let mainMenu = that.data.mainMenu
-    let currentData = mainMenu[index]
-    currentData.params.page = 1
-    currentData.params.curPage = 1
-    if (index != 1 ) {
-      console.log('===滑到活动===', index)
-      that.getPromotionData(currentData, index,1)
-    } else if (index == 1) {
-      console.log('===滑到秒杀===', index)
-      that.getSeckillData(currentData, index,1)
-    }
-  },
+  // scrollBottomToLoadMore: function (e) {
+  //   let that = this
+  //   console.log('=====scrollBottomToLoadMore====', e)
+  //   console.log(this.loading)
+  //   let index = e.currentTarget.dataset.index
+  //   let mainMenu = that.data.mainMenu
+  //   let currentData = mainMenu[index]
+  //   console.log('=====currentData====', currentData)
+  //   that.loading = true
+  //   if (currentData.params.totalSize > currentData.params.curPage * currentData.params.pageSize && that.loading) {
+  //     console.log('hasMore')
+  //     that.loading = false
+  //     ++currentData.params.page;
+  //     if (index == 0 || index == 2) {
+  //       console.log('==getPromotionData===')
+  //       that.getPromotionData(currentData, index, '', function () {
+  //         console.log('success====getPromotionData');
+  //         that.loading = true
+  //       })
+  //     }else if(index==1){
+  //       console.log('==getSeckillData===')
+  //       this.getSeckillData(currentData, index, '', function () {
+  //         console.log('success====getSeckillData');
+  //         that.loading = true
+  //       })
+  //     }else{
+  //       console.log('==null===')
+  //     }
+  //   } else {
+  //     that.loading = false
+  //     console.log('到底了...')
+  //     wx.showToast({
+  //       title: '到底了',
+  //       icon: 'succes',
+  //       duration: 1000,
+  //       mask: true
+  //     })
+  //   }
+  // },
+  // scrollTopToReflesh:function(e){
+  //   console.log('=====scrollTopToReflesh====', e)
+  //   let that=this;
+  //   let index = e.currentTarget.dataset.index
+  //   let mainMenu = that.data.mainMenu
+  //   let currentData = mainMenu[index]
+  //   currentData.params.page = 1
+  //   currentData.params.curPage = 1
+  //   if (index != 1 ) {
+  //     console.log('===滑到活动===', index)
+  //     that.getPromotionData(currentData, index, 1)
+  //     that.gainBrandData(currentData, index,1)
+  //   } else if (index == 1) {
+  //     console.log('===滑到秒杀===', index)
+  //     that.getSeckillData(currentData, index,1)
+  //   }
+  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -402,21 +481,82 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    var that = this;
+    console.log('===显示==')
+    //that.init(that.data.options)
+    that.startTimers();
+    
   },
+startTimers:function(){
+  var activityPromotionTimers = this.selectAllComponents(".activityPromotionTimer");
+  var unActivityPromotionTimers = this.selectAllComponents(".unActivityPromotionTimer");
+  var seckillTimers = this.selectAllComponents(".seckillTimer");
 
+  if (activityPromotionTimers != null) {
+    for (let i = 0; i < activityPromotionTimers.length; i++) {
+      try { activityPromotionTimers[i].containerHide(); } catch (e) { }
+    }
+  }
+  if (unActivityPromotionTimers != null) {
+    for (let i = 0; i < unActivityPromotionTimers.length; i++) {
+      try { unActivityPromotionTimers[i].containerHide(); } catch (e) { }
+    }
+  }
+  if (seckillTimers != null) {
+    for (let i = 0; i < seckillTimers.length; i++) {
+      try { seckillTimers[i].containerHide(); } catch (e) { }
+    }
+  }
+  var timers = activityPromotionTimers;
+  if(this.data.mainMenuIndex==0){
+    timers = activityPromotionTimers;
+  }else if(this.data.mainMenuIndex==1){
+    timers = seckillTimers;
+  }else if(this.data.mainMenuIndex=2){
+    timers = unActivityPromotionTimers;
+  }
+ 
+  if (timers != null) {
+    for (let i = 0; i < timers.length; i++) {
+      try { timers[i].containerShow(); } catch (e) { }
+      }
+  } 
+},
+  closedTimers: function () {
+    var activityPromotionTimers = this.selectAllComponents(".activityPromotionTimer");
+    var unActivityPromotionTimers = this.selectAllComponents(".unActivityPromotionTimer");
+    var seckillTimers = this.selectAllComponents(".seckillTimer");
+    if (activityPromotionTimers != null) {
+      for (let i = 0; i < activityPromotionTimers.length; i++) {
+        try { activityPromotionTimers[i].containerHide(); } catch (e) { }
+      }
+    }
+    if (unActivityPromotionTimers != null) {
+      for (let i = 0; i < unActivityPromotionTimers.length; i++) {
+        try { unActivityPromotionTimers[i].containerHide(); } catch (e) { }
+      }
+    }
+    if (seckillTimers != null) {
+      for (let i = 0; i < seckillTimers.length; i++) {
+        try { seckillTimers[i].containerHide(); } catch (e) { }
+      }
+    } 
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    console.log('tuichu onhide=========', this.selectAllComponents(".timer").length);
+    this.closedTimers();
+    
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    console.log('tuichu onunload=========', this.data.hidePageState)
+    this.closedTimers();
   },
 
   /**
@@ -429,23 +569,46 @@ Page({
     let mainMenu = that.data.mainMenu
     let currentData = mainMenu[index]
     currentData.params.page = 1
-    currentData.params.curPage = 1
     if (index != 1) {
       console.log('===滑到活动===', index)
       that.getPromotionData(currentData, index, 1)
+      that.gainBrandData(currentData, index, 1)
     } else if (index == 1) {
       console.log('===滑到秒杀===', index)
       that.getSeckillData(currentData, index, 1)
     }
-
     wx.stopPullDownRefresh()
   },
-
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    var that = this
+    let that = this
+    console.log('=====onReachBottom====')
+    let index = that.data.mainMenuIndex
+    let mainMenu = that.data.mainMenu
+    let currentData = mainMenu[index]
+    console.log('=====currentData====', currentData)
+    if (currentData.params.totalSize > currentData.params.page * currentData.params.pageSize) {
+      ++currentData.params.page;
+      if (index == 0 || index == 2) {
+        console.log('==getPromotionData===')
+        that.getPromotionData(currentData, index)
+      } else if (index == 1) {
+        console.log('==getSeckillData===')
+        this.getSeckillData(currentData, index)
+      } else {
+        console.log('==null===')
+      }
+    } else {
+      console.log('到底了...')
+      wx.showToast({
+        title: '到底了',
+        icon: 'success',
+        duration: 1000,
+        mask: true
+      })
+    }
   },
 
   /**

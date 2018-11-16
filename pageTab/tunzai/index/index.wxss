@@ -438,7 +438,6 @@
   height: 34rpx;
   margin-right: 18rpx;
   position:absolute;
-  left: 170rpx
 }
 .searchInput{
   width:100%;

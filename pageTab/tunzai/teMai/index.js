@@ -54,12 +54,8 @@ Page({
     app.linkEvent(a);
   },
   /* 获取数据 */
-  getProductData: function (param, ifAdd) {
+  getProductData: function (param) {
     let that = this;
-    if (!ifAdd){
-      ifAdd=0;
-    }
-    console.log("id", this.data.id)
     param.promotionId = this.data.id
     let customIndex = app.AddClientUrl("/more_product_list.html", param, 'get')
     wx.showLoading({
@@ -72,13 +68,13 @@ Page({
         that.setData({ reqState: true })
         console.log("特卖数据", res.data)
         that.params.pageSize = res.data.pageSize
-        that.params.curPage = res.data.curPage
         that.params.totalSize = res.data.totalSize
-        let productList = res.data.result
-        for(let i=0;i<productList.length;i++){
-          productList[i].stockPercent = Math.ceil((productList[i].totalStock - productList[i].stock) / (productList[i].totalStock) * 100)
-        }
-        if (ifAdd==1){
+        let productList = res.data.result;
+        if (!productList){ productList=[]}
+        // for(let i=0;i<productList.length;i++){
+        //   productList[i].stockPercent = Math.floor((productList[i].totalStock - productList[i].stock) / (productList[i].totalStock) * 100)
+        // }
+        if (that.params.page == 1){
           that.setData({ productData: productList})
         }else{
           that.setData({ productData: that.data.productData.concat(productList)})
@@ -106,7 +102,6 @@ Page({
   },
   getPromotionInfo: function (param){
     let that = this
-    console.log("id", this.data.id)
     param.promotionId = this.data.id
     let customIndex = app.AddClientUrl("/get_promotions_detail.html", param, 'get')
     wx.showLoading({
@@ -123,7 +118,6 @@ Page({
         let startTime = promotionInfo.startDate;
         startTime = startTime.replace(/\-/g, "/");
         startTime = new Date(startTime);
-        console.log(nowData, startTime)
         if (startTime >= nowData) {
           console.log('活动未开始')
           promotionState = false;
@@ -167,7 +161,7 @@ Page({
       setting: app.setting.platformSetting,
       shopId: app.setting.platformSetting.defaultShopBean.id
     })
-    this.getProductData(this.params, 1)
+    this.getProductData(this.params)
     this.getPromotionInfo(this.params)
   },
 
@@ -233,7 +227,9 @@ Page({
    */
   onPullDownRefresh: function () {
     console.log('onPullDownRefresh')
-    this.getProductData(this.params)
+    let that=this
+    that.params.page=1
+    that.getProductData(that.params)
     wx.stopPullDownRefresh()
   },
 
@@ -243,20 +239,20 @@ Page({
   onReachBottom: function () {
     console.log('onReachBottom')
     var that = this
-    if (that.params.totalSize > that.params.curPage * that.params.pageSize) {
+    if (that.params.totalSize > that.params.page * that.params.pageSize) {
       wx.showLoading({
         title:'加载中...'
       })
       that.params.page++
       // 组件内的事件
-      this.getProductData(this.params)
+      that.getProductData(that.params)
     } else {
       wx.showToast({
         title: '到底了',
-        icon: 'loading',
+        icon: 'success',
         duration: 1000
       })
-      console.log('到底了', that.params.curPage)
+      console.log('到底了', that.params.page)
     }
   },
 

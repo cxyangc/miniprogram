@@ -73,7 +73,6 @@ Page({
         app.loadFail()
       }
     })
-    
   },
   toaddress_new: function() {
     this.setData({ hasAddnewAddr:true})

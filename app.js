@@ -4,20 +4,20 @@ import { dellUrl } from "/public/requestUrl.js";
 const Promise = require('/promise/promise.js');
 App({
      //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
-     clientUrl: 'http://mini.sansancloud.com/chainalliance/',
-    
+    clientUrl: 'https://mini.sansancloud.com/chainalliance/',//一定加https
+  //clientUrl: 'https://mini.tunzai.vip/chainalliance/',//106.14.213.48 mini.tunzai.vip
 
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */
           
 
-    clientNo: 'jianzhan',   //自定义的项目的名称。
+  clientNo: 'jianzhan',   //自定义的项目的名称。
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
     miniIndexPage: '',
-  setting: { platformSetting: { defaultColor: "#FE3737", secondColor: "#FF996E"}},  // 全局设置
+    setting: { platformSetting: { defaultColor: "#FE3737", secondColor: "#FF996E"}},  // 全局设置
     loginUser: "", //登陆返回的个人信息
     cookie: null,
     shopOpen: null, // 店铺营业时间-开关
@@ -182,7 +182,7 @@ App({
       if (this.clientNo == 'tunzai') {
         console.log("1111111111111")
         wx.switchTab({
-          url: '/pageTab/lanHu/myInfo/index',
+          url: '/pageTab/tunzai/myInfo/index',
         })
         return;
       }else{
@@ -442,6 +442,29 @@ App({
         }
         else if (urlData.url == 'shop_map') {
             this.openLocation()
+        } else if (urlData.url == 'location'){
+          console.log(urlData.param + urlData.url)
+          var params = urlData.param.slice(1);
+          let paramArr = params.split('&')
+          var paramObj={}
+          for (let i = 0; i < paramArr.length;i++){
+            var a = paramArr[i].split('=')
+          
+            paramObj[a[0]]=a[1]
+          }
+          console.log(paramObj)
+          console.log(parseFloat(paramObj.latitude));
+      
+          var a = Number(paramObj['latitude']); var b = Number(paramObj['longitude']);
+         
+          
+          wx.openLocation({
+            latitude:a,
+            longitude:b,
+            scale: 12,
+            name: paramObj.title,
+            address: paramObj.description
+          })
         }
         else {
          // promotion_products.html   form_detail.html?customFormId=12
@@ -579,36 +602,36 @@ App({
                 infoParam.sex = userInfo.gender
                 // 用户所在城市，市，区，
                 infoParam.city = userInfo.city 
-
-
+              if (that.loginUser.nickName != userInfo.nickName){
                 let customIndex = that.AddClientUrl("/change_user_info.html", infoParam, 'post')
                 wx.request({
-                    url: customIndex.url,
-                    data: customIndex.params,
-                    header: that.headerPost,
-                    method: 'POST',
-                    success: function (res) {
-                        console.log('---change_user_info----- success-')
-                        console.log(res.data)
-                        if (res.data.errcode == 0) {
-                            that.loginUser.nickName = userInfo.nickName;
-                            that.loginUser.sex = userInfo.sex;
-                            that.loginUser.userIcon = userInfo.avatarUrl;
-                            console.log('-----第一次登录   传头像成功 --------')
-                        } else {
-                            console.log('-----第一次登录   传头像失败 --------')
+                  url: customIndex.url,
+                  data: customIndex.params,
+                  header: that.headerPost,
+                  method: 'POST',
+                  success: function (res) {
+                    console.log('---change_user_info----- success-')
+                    console.log(res.data)
+                    if (res.data.errcode == 0) {
+                      that.loginUser.nickName = userInfo.nickName;
+                      that.loginUser.sex = userInfo.sex;
+                      that.loginUser.userIcon = userInfo.avatarUrl;
+                      console.log('-----第一次登录   传头像成功 --------')
+                    } else {
+                      console.log('-----第一次登录   传头像失败 --------')
 
-                        }
-                        that.get_session_userinfo()
-                    },
-                    fail: function (res) {
-                        console.log('-----第一次登录   传头像失败 回调fail--------')
-                        console.log()
-                    },
-                    complete: function (res) {
+                    }
+                    that.get_session_userinfo()
+                  },
+                  fail: function (res) {
+                    console.log('-----第一次登录   传头像失败 回调fail--------')
+                    console.log()
+                  },
+                  complete: function (res) {
 
-                    },
+                  },
                 })
+              }
             },
             fail: function (e) {
                 console.log(e)

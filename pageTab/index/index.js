@@ -25,23 +25,28 @@ Page({
       }
 
       console.log("urlData" + urlData.param + "------" + resultUrl)
-      wx.reLaunch({
-        url: '/pages/custom_page/index' + urlData.param + '&Cpage=' + resultUrl,
-      })
+      setTimeout(function () {
+        wx.reLaunch({
+          url: '/pages/custom_page/index' + urlData.param + '&Cpage=' + resultUrl,
+        })},200);
+    
 
     }
     else{
       if (app.clientNo=="tunzai"){
         console.log("进入蓝湖")
+        setTimeout(function () {
         wx.reLaunch({
           url: '/pageTab/tunzai/index/index'
-        })
+        })},200);
         return;
       }
       else{
+        setTimeout(function () {
         wx.reLaunch({
           url: '/pageTab/' + app.miniIndexPage + '/index'
-        })
+          })
+        }, 200);
         return;
       }
     }
@@ -65,7 +70,7 @@ Page({
   onLoad: function (options) {
     console.log("=====options携带的参数=====", options)
     let that=this;
-    if(!app.setting){
+    if (!app.setting.platformSetting.id){
       console.log('还没获取到setting')
       app.getSetting().then(function (res) {
         that.enterPage(options)

@@ -54,9 +54,9 @@
           <text class='flexCenter'>x {{orderItem.itemCount}}</text>
         </view>
         <view class='item_infomation_money'  style='color:{{setting.platformSetting.defaultColor}}'>单价:￥ {{orderItem.itemPrice}}</view>
-        <view class='salesStrategyList'wx:if="{{orderItem.productItem.saleStrategyName}}">
+        <view class='salesStrategyList'wx:if="{{orderItem.saleStrategyNo}}">
           <view class='salesStrategyItem' style='border:1rpx solid {{setting.platformSetting.defaultColor}}'>
-            <text style='color:{{setting.platformSetting.defaultColor}}'>{{orderItem.productItem.saleStrategyName}}</text>
+            <text style='color:{{setting.platformSetting.defaultColor}}'>{{orderItem.saleStrategyName}}</text>
           </view>
         </view>
       </view>

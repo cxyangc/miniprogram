@@ -24,7 +24,7 @@
 </template>
 
 <template name="WxEmojiView">
-  <view class="WxEmojiView wxParse-inline" style="{{item.styleStr}}">
+  <view class="WxEmojiView wxParse-inline" style="{{item.styleStr}};display: inline-block">
     <block wx:for="{{item.textArray}}" wx:key="">
       <block class="{{item.text == '\\n' ? 'wxParse-hide':''}}" wx:if="{{item.node == 'text'}}">{{item.text}}</block>
       <block wx:elif="{{item.node == 'element'}}">
@@ -182,7 +182,7 @@
         </block>
 
         <!--内联标签-->
-        <view wx:else class="{{item.classStr}} wxParse-{{item.tag}} wxParse-{{item.tagType}}" style="{{item.styleStr}}">
+        <view wx:else class="{{item.classStr}} wxParse-{{item.tag}} wxParse-{{item.tagType}}" style="{{item.styleStr}};display:inline-block;">
             <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
                 <template is="wxParse2" data="{{item}}"/>                 
             </block>
@@ -256,11 +256,13 @@
         </block>
 
         <!--内联标签-->
-        <view wx:else class="{{item.classStr}} wxParse-{{item.tag}} wxParse-{{item.tagType}}" style="{{item.styleStr}}">
-            <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
-                <template is="wxParse3" data="{{item}}"/>                 
-            </block>
-        </view>
+        <block wx:elif="{{item.tagType == 'inline'}}">
+          <view  class="wxParse-inline {{item.classStr}} wxParse-{{item.tag}}" style="{{item.styleStr}}">
+              <block  wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">       
+                  <template is="wxParse3" data="{{item}}"/>                 
+              </block>
+          </view>
+        </block>
 
     </block>
 

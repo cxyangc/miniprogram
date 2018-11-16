@@ -43,7 +43,7 @@
     </block>
   </view>
 <!-- 促销 -->
-<view class='InfoSale' wx:if='{{productData.productInfo.saleStrategyName}}' style='background:{{setting.platformSetting.secondColor}}'>
+<view class='InfoSale' wx:if='{{productData.productInfo.saleStrategy!=0}}' style='background:{{setting.platformSetting.secondColor}}'>
       <view class='InfoSaleDes' style='background:{{setting.platformSetting.defaultColor}}'>
         <view class='InfoSaleText'>促销</view><view class='InfoSaleText'>活动</view>
       </view>

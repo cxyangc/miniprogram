@@ -18,7 +18,8 @@ Component({
     var that = this
        var oldData=this.data;
        console.log("oldData" + JSON.stringify(oldData.data.jsonData.content))
-       WxParse.wxParse('article', 'html', oldData.data.jsonData.content, that, 10);
+    WxParse.wxParse('article', 'html', oldData.data.jsonData.content, that, 10);
+    console.log("oldData", this.data.article.nodes)
   },
   methods: {
     // 这里是一个自定义方法

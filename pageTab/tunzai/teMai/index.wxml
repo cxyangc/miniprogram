@@ -1,4 +1,6 @@
 <view class='body '>
+<!-- 公告 -->
+<view class='notice'></view>
 <!-- 品牌详情 -->
   <view class='promotionBanrdInfo'>
     <image class='promotionBanrdLogo' src="{{promotionInfo.mainBrandBean.brandIcon}}?x-oss-process=style/preview"></image>
@@ -52,12 +54,12 @@
           <text class='productPrice' style='color:{{setting.defaultColor}}'>¥{{item.price}}</text>
           <text class='productTagPrice'>¥{{item.tagPrice}}</text>
         </view>
-        <view class='productStock'>
+        <!-- <view class='productStock'>
           <text class='usedProductStockPercent' style='position:absolute;left:{{item.stockPercent/100*100+10}}rpx;' wx:if="{{item.stockPercent<22}}">{{item.stockPercent}}%</text>
           <view class='usedProductStock' style='background:{{setting.defaultColor}};width:{{item.stockPercent}}%'>
             <text class='usedProductStockPercent' wx:if="{{item.stockPercent>22}}">{{item.stockPercent}}%</text>
           </view>
-        </view>
+        </view> -->
       </view>
       <view class='productName'>
         <text class='limitText'>{{item.name}}</text>

@@ -19,21 +19,21 @@
     </view>
   </view>
   <!-- 头部标题end -->
-  <view class='container' bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE">
-    <swiper class='Tab_page' current='{{mainMenuIndex}}' style='height: {{sysHeight}}px;' bindchange='changeIndex'> 
+  <view class='container'>
+    <!-- <swiper class='Tab_page' current='{{mainMenuIndex}}' style='height: {{sysHeight}}px;' bindchange='changeIndex'> 
       <swiper-item wx:for='{{mainMenu}}' wx:key='{{index}}' wx:for-item='mainMenu'>
         <scroll-view  style='height: {{sysHeight}}px;' class='tab_page_list' scroll-y upper-threshold='-30' lower-threshold='10' 
-            data-index='{{index}}' bindscrolltoupper='scrollTopToReflesh' bindscrolltolower='scrollBottomToLoadMore'>
+            data-index='{{index}}' bindscrolltoupper='scrollTopToReflesh' bindscrolltolower='scrollBottomToLoadMore'> -->
           <!-- 主打与预告start -->
           <block wx:if='{{mainMenuIndex==2||mainMenuIndex==0}}'>
             <!-- 活动品牌start -->
             <view class='brandList'>
               <scroll-view scroll-x="true" class='brandListScroll' scroll-left='62rpx'>
-                <view class='brandContent' wx:for='{{mainMenu.data}}' bindtap='toPromotionDetail' data-id='{{item.id}}'>
+                <view class='brandContent' wx:for='{{mainMenu[mainMenuIndex].brandList}}' bindtap='toPromotionDetail' data-id='{{item.promotion_id}}'>
                   <view class='brandItem'>
-                    <image class='brandIcon' src='{{item.mainBrandBean.brandIcon}}?x-oss-process=style/preview'></image>
-                    <view class='brandName'><text>{{item.mainBrandBean.brandName}}</text></view>
-                    <view class='brandType'><text>{{item.mainBrandBean.industry}}</text></view>
+                    <image class='brandIcon' src='{{item.brand_icon}}?x-oss-process=style/preview'></image>
+                    <view class='brandName'><text>{{item.brand_name}}</text></view>
+                    <view class='brandType'><text>{{item.industry}}</text></view>
                   </view>
                   <view class='verticalBar'></view>
                 </view>
@@ -41,15 +41,15 @@
             </view>
             <!-- 活动品牌end -->
             <!-- 搜索框start -->
-            <view class='searchProduct' wx:if="{{mainMenuIndex==0}}">
-              <image class='searchIcon' src='../../../images/icon/search.png'></image>
-              <input class='searchInput' placeholder="请输入关键词"  bindconfirm='searchProduct' placeholder-class="searchInput"></input>
+            <view class='searchProduct' wx:if="{{mainMenuIndex==0}}" style='box-shadow:0 {{shadowNum}}px 0 #9A9A9A;'>
+              <image class='searchIcon' src='../../../images/icon/search.png' style='left:{{searchIconToLeft}}rpx'></image>
+              <input class='searchInput' placeholder="请输入关键词"  bindconfirm='searchProduct' placeholder-class="searchInput"   bindblur="changeInputOne" bindfocus="changeInputTwo"></input>
               <!--  bindinput="searchProductValue" -->
             </view>
             <!-- 搜索框end -->
             <!-- 活动列表 -->
             <view class='promotionList'>
-              <view class='promotionItem' wx:for='{{mainMenu.data}}' bindtap='toPromotionDetail' data-id='{{item.id}}'  wx:for-index='i' wx:key='{{i}}'>
+              <view class='promotionItem' wx:for='{{mainMenu[mainMenuIndex].data}}' bindtap='toPromotionDetail' data-id='{{item.id}}'  wx:for-index='i' wx:key='{{i}}'>
                 <view class='promotionItemHead'>
                   <view class='promotionBrandInfo'>
                     <image class='promotionBrandIcon' src='{{item.mainBrandBean.brandIcon}}?x-oss-process=style/preview'></image>
@@ -74,7 +74,7 @@
                 </view>
                 <view class='promotionTime' wx:if='{{mainMenuIndex==0}}' style='background:linear-gradient(135deg,{{setting.secondColor}} 0%,{{setting.defaultColor}} 100%);'>
                   <view class='promotionCountDown'>
-                    <time data="{{item.promotionEndDate}}" wx:if="{{item.promotionEndDate}}"></time>
+                    <time class="activityPromotionTimer"  data="{{item.promotionEndDate}}" wx:if="{{item.promotionEndDate}}"></time>
                     <text style='margin-left:10rpx;font-size:28rpx'>后结束</text>
                   </view>
                   <view class='enterPromotion' catchtap='toPromotionDetail' data-id='{{item.id}}'>
@@ -84,7 +84,7 @@
                 <view class='promotionTime' wx:if='{{mainMenuIndex==2}}' style='background:linear-gradient(135deg,{{setting.secondColor}} 0%,{{setting.defaultColor}} 100%);'>
                   <text class='promotionName'>{{item.name}}</text>
                   <view class='promotionCountDown'>
-                    <time data="{{item.promotionStartDate}}" wx:if="{{item.promotionStartDate}}"></time>
+                    <time class="unActivityPromotionTimer" data="{{item.promotionStartDate}}" wx:if="{{item.promotionStartDate}}"></time>
                     <text style='margin-left:10rpx;font-size:28rpx'>后开始</text>
                   </view>
                 </view>
@@ -92,16 +92,16 @@
             </view>
             <!-- 活动列表end -->
             <!-- 没有活动 -->
-            <view class='noThing' wx:if="{{!mainMenu.data}}">
+            <view class='noThing' wx:if="{{!mainMenu[mainMenuIndex].data}}">
               <text>暂无活动</text>
             </view>
           </block>
           <!-- 主打与预告end -->
           <!-- 秒囤start -->
           <block wx:else>
-            <view class='seckillList' wx:if="{{index==1}}">
+            <view class='seckillList' wx:if="{{mainMenuIndex==1}}">
               <!-- 已开始的秒杀start -->
-              <view class='seckillItem' wx:for="{{mainMenu.data}}" bindtap='toProductDetail' data-stock="{{item.stock}}" data-id='{{item.product_id}}'>
+              <view class='seckillItem' wx:for="{{mainMenu[mainMenuIndex].data}}" bindtap='toProductDetail' data-stock="{{item.stock}}" data-id='{{item.product_id}}'>
                 <view class='productImg'>
                   <image class='productImgUrl' mode='aspectFit' src='{{item.product_icon}}?x-oss-process=style/preview_120'></image>
                   <view class='outPrint' wx:if="{{item.stock<=0}}">
@@ -115,7 +115,7 @@
                   </view>
                   <view class='productCountDown'>
                     <text style='color:{{setting.secondColor}};font-size:24rpx'>距离结束</text>
-                    <time data="{{item.seckillEndDate}}" wx:if="{{item.seckillEndDate}}"></time>
+                    <time class="seckillTimer" data="{{item.seckillEndDate}}" wx:if="{{item.seckillEndDate}}"></time>
                   </view>
                   <view class='cuntDownAndPrice'>
                       <view class='productPrice'>
@@ -174,15 +174,15 @@
                 </view>
               </view>
               <!-- 未开始的秒杀end -->
-              <view class='noThing' wx:if="{{!mainMenu.data}}">
+              <view class='noThing' wx:if="{{!mainMenu[mainMenuIndex].data}}">
                 <text>暂无秒囤产品</text>
               </view>
             </view>
           </block>
           <!-- 秒囤end -->
-        </scroll-view>
+        <!-- </scroll-view>
       </swiper-item>
-    </swiper>
+    </swiper> -->
   </view>
 </view>
 <!-- 弹窗 -->

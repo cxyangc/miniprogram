@@ -326,9 +326,11 @@ this.setData({
 
              console.log("数据", res)
              if (res.data.errcode == '0') {
+               setTimeout(function () {
                wx.reLaunch({
                  url: '../success/index'
-               })
+                 })
+               }, 200);
              } else {
                console.log('error')
              }

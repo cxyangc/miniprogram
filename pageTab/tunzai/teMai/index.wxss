@@ -77,7 +77,7 @@
 }
 .productItem{
   width:375rpx;
-  height:460rpx;
+  height:440rpx;
   background:#fff;
   padding: 24rpx;
   box-sizing: border-box;
@@ -94,7 +94,7 @@
   position: relative;
 }
 .productImgUrl{
-   height: 220rpx;
+   height: 260rpx;
    width: 100%
 }
 .productPriceAndStock{
@@ -145,6 +145,7 @@
   position: absolute;
   top: 18rpx;
   right: 32rpx;
+  z-index: 2
 }
 .shareBtnImg{
   width: 50rpx;

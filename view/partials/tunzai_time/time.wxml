@@ -3,7 +3,7 @@
 
      <view class='time' style='font-size:{{data.fontSize}}rpx'> 
          <view class='timeBoxDay' style='color:{{data.color}};background:{{data.background}}'>
-           <text>{{countDownDay}}/D</text>
+           <text>{{countDownDay}}天</text>
          </view> 
          <view class='timeBox' style='color:{{data.color}};background:{{data.background}}'>
             <text>{{countDownHour}}</text>

@@ -18,13 +18,17 @@
         <!-- 字符串 -->
         <view class='inputString common' wx:if='{{items.type==0}}'>
           <view class='inputName'>
+            <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
             <text>{{items.title}}</text>
           </view>
           <input name="{{items.name}}" value='{{items.defaultValue}}'></input>
         </view>
         <!-- 下拉框 -->
         <view class='selectType common' wx:if='{{items.type==2}}'>
-          <view class='selectName'><text>{{items.title}}</text></view>
+          <view class='selectName'>
+            <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
+            <text>{{items.title}}</text>
+          </view>
           <picker class='picker' style='' bindchange="bindPickerChange" name='{{items.name}}' value="{{items.defaultValue}}" range="{{items.listValues}}">
             <view class="pickerValue"><text>{{items.listValues[pickerIndex]}}</text></view>
             <view class='pickerRight'>
@@ -35,11 +39,12 @@
         <!-- 日期 -->
         <view class='inputString common' wx:if='{{items.type==5}}'>
           <view class='inputName'>
+            <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
             <text>{{items.title}}</text>
           </view>
           <picker mode="date" value="{{date}}" name='{{items.name}}' data-index="{{index}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
             <view class="picker">
-              {{items.defaultValue}}
+              {{dataAndTime[items.name]}}
             </view>
             <view class='pickerRight'>
               <image class='pickerImg' src='http://image1.sansancloud.com/jianzhan/2018_9/11/13/41/53_722.jpg?x-oss-process=style/preview_120'></image>
@@ -49,11 +54,12 @@
         <!-- 时间 -->
         <view class='inputString common' wx:if='{{items.type==6}}'>
           <view class='inputName'>
+            <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
             <text>{{items.title}}</text>
           </view>
           <picker mode="time" data-index="{{index}}" name='{{items.name}}' value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
             <view class="picker">
-              {{items.defaultValue}}
+              {{dataAndTime[items.name]}}
             </view>
             <view class='pickerRight'>
               <image class='pickerImg' src='http://image1.sansancloud.com/jianzhan/2018_9/11/13/41/53_722.jpg?x-oss-process=style/preview_120'></image>
@@ -63,6 +69,7 @@
         <!-- 图片 -->
         <view class='imgType common' wx:if='{{items.type==7}}'>
           <view class='imgName'>
+            <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
             <text>{{items.title}}</text>
           </view>
           <view class='upload'>
@@ -83,6 +90,7 @@
         <!-- 保存 -->
         <view class='saveData'>
           <button class='saveBtn' formType="submit" style='background:{{setting.platformSetting.defaultColor}};color:#fff'>提交</button>
+          <button class='checkFormList' bindtap='toFormCommitList' style='background:{{setting.platformSetting.secondColor}};color:#fff'>查看记录</button>
     </view>
   </view>
 </view>
