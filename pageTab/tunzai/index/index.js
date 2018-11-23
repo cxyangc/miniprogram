@@ -10,7 +10,6 @@ Page({
       { index: 1, name: '秒囤', data: [], params: { status: '1', promotionType: 2,page: 1}}, 
       { index: 2, name: '活动预告', data: [], params: { status: '0', promotionType: 0, page: 1 }, brandList: []}
     ],
-    cacheData: [{ index: 0, data: [] }, { index: 1, data: [] }, { index: 2, data: []}],
     mainMenuIndex:0,
     sysWidth: 320,
     sysHeight: 568,
@@ -617,34 +616,43 @@ startTimers:function(){
   onShareAppMessage: function (res) {
     console.log("hahaha",res)
     let that = this;
-    let type = res.target.dataset.type
-    if (res.from == "button" && type =='product') {
-      console.log('转发产品', res.target.dataset.item)
-      let id = res.target.dataset.item.product_id
-      let focusData = res.target.dataset.item
-      if (!focusData.brandName || focusData.brandName == "") {
-        focusData.brandName = ""
-      };
-      let imageUrl = focusData.product_icon
-      let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tag_price + ')' + focusData.brandName + focusData.product_name;
-      let shareParams = {}
-      shareParams.productName = focusData.name
-      console.log('nnnnnnnnnn' + shareName)
-      shareParams.id = id
-      console.log("shareParams", shareParams)
-      return app.shareForFx2('promotion_products', shareName, shareParams, imageUrl)
-    } else {
-      console.log('转发活动')
-      let title = res.target.dataset.name;
-      let id = res.target.dataset.id;
-      let banner = res.target.dataset.banner;
-      let params = {};
-      params.promotionId = id;
-      params.title = title;
-      params.SHARE_PROMOTION_PRODUCTS_PAGE = id
+    if (res.target){
+      let type = res.target.dataset.type
+      if (res.from == "button" && type == 'product') {
+        console.log('转发产品', res.target.dataset.item)
+        let id = res.target.dataset.item.product_id
+        let focusData = res.target.dataset.item
+        if (!focusData.brandName || focusData.brandName == "") {
+          focusData.brandName = ""
+        };
+        let imageUrl = focusData.product_icon
+        let shareName = '活动价：￥' + focusData.price + '(原价：￥' + focusData.tag_price + ')' + focusData.brandName + focusData.product_name;
+        let shareParams = {}
+        shareParams.productName = focusData.name
+        console.log('nnnnnnnnnn' + shareName)
+        shareParams.id = id
+        console.log("shareParams", shareParams)
+        return app.shareForFx2('promotion_products', shareName, shareParams, imageUrl)
+      } else {
+        console.log('转发活动')
+        let title = res.target.dataset.name;
+        let id = res.target.dataset.id;
+        let banner = res.target.dataset.banner;
+        let params = {};
+        params.promotionId = id;
+        params.title = title;
+        params.SHARE_PROMOTION_PRODUCTS_PAGE = id
+        console.log('params:' + JSON.stringify(params))
+        return app.shareForFx2('promotion_products', '', params, banner)
+      }
+    }else{
+      let that = this
+      let params = {}
+      params.pageName = "index";
       console.log('params:' + JSON.stringify(params))
-      return app.shareForFx2('promotion_products', '', params, banner)
+      return app.shareForFx2('index', '', params)
     }
+    
   },
   
 })

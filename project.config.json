@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 16,
+			"current": 4,
 			"list": [
 				{
 					"id": 0,
@@ -61,17 +61,18 @@
 					"scene": "1011"
 				},
 				{
-					"id": 6,
+					"id": 4,
 					"name": "lanhu",
-					"pathName": "pageTab/index/index",
-					"query": "lanhu=shuiguodianpu",
+					"pathName": "pageTab/tunzai/applyMendian/index",
+					"query": "",
 					"scene": "1011"
 				},
 				{
-					"id": 7,
+					"id": 5,
 					"name": "tuizai",
 					"pathName": "pageTab/index/index",
-					"query": "APPLY_SERVER_CHANNEL_CODE=LIN456"
+					"query": "APPLY_SERVER_CHANNEL_CODE=LIN456",
+					"scene": "1011"
 				},
 				{
 					"id": 6,
@@ -118,7 +119,7 @@
 					"id": 12,
 					"name": "转发特卖进入",
 					"pathName": "pageTab/index/index",
-					"query": "promotionId=542&title=手表名品专场&SHARE_PROMOTION_PRODUCTS_PAGE=542&scene=MINI_PLATFORM_USER_ID_91902",
+					"query": "promotionId=690&SHARE_PROMOTION_PRODUCTS_PAGE=690&scene=MINI_PLATFORM_USER_ID_91902",
 					"scene": "1011"
 				},
 				{

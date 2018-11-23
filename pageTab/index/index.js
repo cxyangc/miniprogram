@@ -69,10 +69,12 @@ Page({
   },
   onLoad: function (options) {
     console.log("=====options携带的参数=====", options)
-    let that=this;
+    let that = this;
+    app.shareSubPage = false;
     if (!app.setting.platformSetting.id){
       console.log('还没获取到setting')
       app.getSetting().then(function (res) {
+        console.log('已获取到setting')
         that.enterPage(options)
       })
     } else {
@@ -82,7 +84,6 @@ Page({
   },
   enterPage: function (options) {
     let that = this;
-    app.shareSubPage=false;
     if (options.params && options.params != "") {
       let aaa = JSON.parse(options.params)
       console.log(aaa)
@@ -242,6 +243,7 @@ Page({
 
 
     } else {
+      console.log('正常进入')
       that.Countdown(app);
     }
 },
@@ -269,7 +271,6 @@ Page({
   Countdown:function(){
     let that = this
     --this.count;
-    console.log('-------获取 setting 中--------')
     if (app.setting ) {
       console.log("测试有走到这里index页面111行")
       clearTimeout(timer11)

@@ -68,6 +68,7 @@ Page({
     that.params.miniNotifyFormId = e.detail.formId;
     let itemData = that.data.formData.items
     // return
+    console.log('===itemData====', itemData)
     for (let i = 0; i < itemData.length;i++){
       for (let j in value) {
         if (itemData[i].name == j && itemData[i].mustInput==1&& !value[j]){
@@ -270,7 +271,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.stopPullDownRefresh()
   },
 
   /**

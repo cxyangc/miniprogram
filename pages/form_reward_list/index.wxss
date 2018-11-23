@@ -1,13 +1,13 @@
 .container{
   background: #eee;
 }
-.form_commit_list{
+.form_reward_list{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.form_commit_item{
+.form_reward_item{
   display: flex;
   flex-direction: column;
   margin-bottom: 20rpx;
@@ -48,7 +48,6 @@
 }
 .form_name{
   font-weight: bold;
-  color: #888
 }
 .form_description{
   font-size: 32rpx;
@@ -62,22 +61,27 @@
   height: 60rpx;
   margin-right: 10rpx;
 }
-.form_commit_bottom{
+.form_description_text{
+  color:#888;
+  font-size:26rpx;
+}
+.form_reward_bottom{
   border-top: 2rpx solid #eee;
   padding: 20rpx 0;
   display: flex;
   align-items: center;
   justify-content: space-between
 }
-.form_commit_bottom_right{
+.form_reward_bottom_right{
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.form_commit_bottom_left{
+.form_reward_bottom_left{
   display: flex;
   flex-direction: row;
-  align-items: center
+  align-items: center;
+  font-size: 30rpx;
 }
 .check_record{
   width: 120rpx;
@@ -93,17 +97,25 @@
   justify-content: center;
   color: #4bb3ff
 }
-.form_commit_icon{
+.form_reward_icon{
   width: 32rpx;
   height: 32rpx;
   margin-right: 6rpx;
 }
-.form_commit_time{
+.form_reward_time{
   font-size: 30rpx;
   color: #888
 }
-.form_commit_dot{
+.form_reward_dot{
   width: 40rpx;
   height: 40rpx;
   margin-left: 20rpx;
+}
+.reward_type{
+  /* background: #4bb3ff; */
+  color: #4bb3ff;
+  padding: 2rpx 10rpx;
+  margin-right: 10rpx;
+  border-radius:10rpx;
+  border:2rpx dotted #4bb3ff;
 }

@@ -63,6 +63,7 @@
         "tunzhu_account/index",
         "tunzhu_tixian/index",
         "form_commit_list/index",
+        "form_reward_list/index",
         "form_detail/index",
         "coupon_detail/index",
         "location_products/index",
@@ -131,8 +132,7 @@
         "shop_manager_products/index",
         "shop_map/index",
         "custom_page_fx/index",
-        "fx_center2/index",
-        "fx_center/index",
+        "fx_center2/index", 
         "fx_qrcode/index",
         "fx_users/index",
         "fx_yongjin_list/index",
@@ -184,7 +184,7 @@
       "text": "购物车"
     },
     {
-      "pagePath": "pageTab/tunzai/myInfo/index",
+      "pagePath": "pageTab/aikucun_userinfo/index",
       "iconPath": "images/icons/me1.png",
       "selectedIconPath": "images/icons/me2.png",
       "text": "我的"
@@ -207,6 +207,11 @@
     "uploadFile": 10000,
     "downloadFile": 10000
   },
-  "debug": true
-  
+  "debug": true,
+  "plugins": {
+    "tencentvideo": {
+      "version": "1.2.3",
+      "provider": "wxa75efa648b60994b"
+    }
+  }
 }

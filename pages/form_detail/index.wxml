@@ -1,7 +1,7 @@
 <form bindsubmit="formSubmit" report-submit>
 <view class='content'>
   <view class='formBanner'>
-    <image class='bannerUrl' src='{{formData.banner}}'></image>
+    <image class='bannerUrl' src='{{formData.banner}}' mode='aspectFit'></image>
   </view>
   <view class='formHead'>
     <view class='formName'>

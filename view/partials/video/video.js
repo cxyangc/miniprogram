@@ -2,9 +2,8 @@ const app = getApp();
 var part_urls = {};
 var videoPage;
 var pageArr = new Array()
-import qqVideo from "../../../public/qqVideo.js";
-// const txvContext = requirePlugin("tencentvideo");
-// const config = require('../../../public/config')
+const txvContext = requirePlugin("tencentvideo");
+const config = require('../../../public/config')
 Component({
   properties: {
 
@@ -17,13 +16,26 @@ Component({
   },
   data: {
     // 这里是一些组件内部数据
-    someData: {},
-    host:{}
+    vid: '',
+    changingvid: '',
+    controls: true,
+    autoplay: true,
+    posterState:true,
+    playState: '',
+    showProgress1: true,
+    width: "100%",
+    file_id:null,
+    poster:null,
+    height: "auto"
   },
   ready: function () {
     var that = this;
-    console.log('=====readyvideo====', this.data.data)
-    let url = this.data.data.jsonData.source;
+    console.log('=====readyvideo====', that.data.data)
+    that.setData({
+      autoplay: that.data.data.jsonData.autoPlay,
+      poster: that.data.data.jsonData.poster,
+    })
+    let url = that.data.data.jsonData.source;
     if (url.indexOf('https://v.qq.com/')!=-1){
       console.log('====1====')
      url = url.match(/https:\/\/v.qq.com\/x\/(\S*).html/)[1]
@@ -41,63 +53,32 @@ Component({
           title: '未传入视频id',
         })
       }
-      videoPage = 1;
-      pageArr = new Array();
-      part_urls = {};
-      const vid = this.data.vid;
-      console.log(vid);
-      qqVideo.getVideoes(vid).then(function (response) {
-
-        for (var i = 1; i < response.length + 1; i++) {
-          var indexStr = 'index' + (i)
-          pageArr.push(i);
-          part_urls[indexStr] = response[i - 1];
-        }
-        that.setData({
-          videUrl: response[0],
-        });
-        console.log('====videUrl====', that.data.videUrl)
-
-      });
     } else {
       console.log('====2====')
-      that.setData({
-        videUrl: url,
-      });
+      wx.showToast({
+        title: '您这个不是腾讯链接~',
+      })
    }
   },
   methods: {
     // 这里是一个自定义方法
+    onStateChange:function(){
+     let that=this
+      if (that.data.data.jsonData.poster) {
+        posterState: true
+      }
+    },
+    onTimeUpdate:function(){
 
+    },
+    onFullScreenChange: function () {
+
+    },
     tolinkUrl: function (event) {
       console.log(event.currentTarget.dataset.link)
       app.linkEvent(event.currentTarget.dataset.link);
 
-
-      // wx.navigateTo({
-      //   url: '/pages/' + event.currentTarget.dataset.page + '/index'
-      // })
     },
-    // playEnd: function () {
-    //   console.log('====playEnd====')
-    //   //页面渲染完成
-    //   that.videoContext = wx.createVideoContext('myVideo')
-    //   if (videoPage > parseInt(pageArr.length)) {
-    //     // part_urls = {};
-    //     videoPage = 1;
-    //     this.videoContext.exitFullScreen
-    //   } else {
-    //     videoPage++;
-    //     var index = 'index' + videoPage;
-    //     this.setData({
-    //       videUrl: ''
-    //     });
-    //     this.setData({
-    //       videUrl: part_urls[index]
-    //     });
-    //     console.log('videUrl', this.data.videUrl)
-    //   }
-    // },
    
   },
 })

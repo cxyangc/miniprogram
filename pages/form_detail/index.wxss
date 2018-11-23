@@ -59,9 +59,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 50%
 }
 .inputString input{
-  direction: rtl
+  direction: rtl;
+  width: 50%
 }
 /* .picker{
   width:60%;
@@ -168,5 +170,5 @@
   width: 60%
 }
 .checkFormList{
-  width: 30%
+  width: 35%
 }

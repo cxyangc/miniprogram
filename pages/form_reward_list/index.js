@@ -7,15 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    formCommitList: [],
+    formRewardList: [],
     moneyAmount: 0,
     mendian: null
-  },
-  toFormRewardList: function (event) {
-    console.log('===event===', event)
-    let id = event.currentTarget.dataset.id
-    var a = "form_reward_list.html?bussinessRecordId=" + id;
-    app.linkEvent(a);
   },
   /* 获取数据 */
   getData: function () {
@@ -23,9 +17,9 @@ Page({
       return
     }
     var getParams = {}
-    getParams.customFormId =this.params.customFormId
+    getParams.bussinessRecordId = this.params.bussinessRecordId
     getParams.page = this.listPage.page;
-    var customIndex = app.AddClientUrl("/wx_find_decorate_custom_form_commits.html", getParams)
+    var customIndex = app.AddClientUrl("/wx_find_reward_records.html", getParams)
     var that = this
 
     wx.request({
@@ -36,14 +30,14 @@ Page({
         if(res.data.errcode == 0){
           that.listPage.pageSize = res.data.relateObj.pageSize
           that.listPage.totalSize = res.data.relateObj.totalSize
-          let dataArr = that.data.formCommitList
+          let dataArr = that.data.formRewardList
           if ((!res.data.relateObj.result || res.data.relateObj.result.length == 0) || that.listPage.page==1) {
             dataArr=[];
           } 
           dataArr = dataArr.concat(res.data.relateObj.result)
-          that.setData({ formCommitList: dataArr })
+          that.setData({ formRewardList: dataArr })
         }
-        console.log('===formCommitList===', that.data.formCommitList);
+        console.log('===formRewardList===', that.data.formRewardList);
       },
       complete: function (res) {
 

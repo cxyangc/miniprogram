@@ -26,6 +26,7 @@ Page({
       success: function (res) {
         console.log(res.data)
         WxParse.wxParse('article', 'html', res.data.content, that, 10);
+        console.log('===0000=====', that.data.article.nodes);
         wx.setNavigationBarTitle({
           title: res.data.title,
         })

@@ -20,7 +20,7 @@
       </view>
       <view class='form_commit_bottom'>
         <view class='form_commit_bottom_left'>
-          <view class='check_record'><text>查看记录</text></view>
+          <view class='check_record' bindtap="toFormRewardList" data-id="{{formCommitItem.id}}"><text>奖励记录</text></view>
         </view>
         <view class='form_commit_bottom_right'>
           <image class='form_commit_icon' src='http://image1.sansancloud.com/xianhua/2018_11/14/19/58/37_380.jpg?x-oss-process=style/preview_120'></image>

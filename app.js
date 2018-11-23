@@ -5,7 +5,7 @@ const Promise = require('/promise/promise.js');
 App({
      //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
     clientUrl: 'https://mini.sansancloud.com/chainalliance/',//一定加https
-  //clientUrl: 'https://mini.tunzai.vip/chainalliance/',//106.14.213.48 mini.tunzai.vip
+      //clientUrl: 'https://mini.tunzai.vip/chainalliance/',//106.14.213.48 mini.tunzai.vip
 
     /**
      *   切换项目的开关 ↓↓↓↓↓
@@ -58,9 +58,9 @@ App({
     },
     onShow: function (e) {
         let that=this
-        console.log('show')
+        console.log('======app.show=====')
         console.log("=======eeeee======",e)
-        if (e.scene === "1011" || e.scene === "1012" || e.scene === "1013" || e.scene === "1047") {
+        if (e.scene == "1011" || e.scene == "1012" || e.scene == "1013" || e.scene == "1047") {
           this.appHide = true
           console.log("=====1011====");
           if (e.query.platformNo){
@@ -78,35 +78,24 @@ App({
     onLaunch: function (options) {
         this.onLaunchOptions = options
         let that = this
-
         console.log('------onlauch------'+this.clientNo)
-        console.log(options)
-        
-
       // 扫码登录  判断将使用哪些数据
     // this.getSdkVersion()获取 个人信息例如name，nickname，password，platformNo，手机号等等 在900行
         this.getSdkVersion()
         let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
         if (extConfig.clientNo) {
-            that.clientNo = extConfig.clientNo
+          console.log('extConfig')
+          that.clientNo = extConfig.clientNo
         }
         console.log('===' + this.clientNo + '====')
         console.log("options111", this.onLaunchOptions)
-       
         let inputPlatformNo = this.onLaunchOptions.query.platformNo;
-        if (!!inputPlatformNo) {
-           this.clientNo = inputPlatformNo
-        }
-     
+        if (!!inputPlatformNo) { this.clientNo = inputPlatformNo}
         let more_scene = decodeURIComponent(this.onLaunchOptions.scene)
-
-        if (more_scene) {
-            this.more_scene = more_scene
-        }
+        if (more_scene) {this.more_scene = more_scene}
         console.log("clinetNo:" + this.clientNo+"  more_scene:"+more_scene)
         that.loadFirstEnter(more_scene)
     },
-
     timer: 0,
     // 确保onLaunch事件完成后再开始调用其他函数
     promiseonLaunch: function (self) {
@@ -126,7 +115,7 @@ App({
     loadFirstEnter: function (more_scene) {
         console.log('第一次登录加载的函数')
         this.wxLogin(more_scene)
-         this.getSetting()
+        this.getSetting()
     },
     loadScene: function (inputPlatformNo) {
         this.clientNo = inputPlatformNo
@@ -413,6 +402,11 @@ App({
             wx.navigateTo({
                 url: '/pages/' + 'order_list_tab' + '/index' + urlData.param,
             })
+        } else if (If_Order_url == 'fx_center') {
+
+          wx.navigateTo({
+            url: '/pageTab/' + 'fx_center' + '/index' + urlData.param,
+          })
         }
         else if (linkUrl.substr(0, 13) == 'order_pintuan') {
 
@@ -532,9 +526,6 @@ App({
     //存用户信息
     setloginUser: function (loginUser, cookie) {
         console.log('--------setloginUser----------')
-        //console.log(loginUser)
-        //console.log(cookie)
-
         if (loginUser) {
             wx.setStorage({
                 key: "loginUser",

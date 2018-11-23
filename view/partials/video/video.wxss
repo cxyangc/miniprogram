@@ -1,6 +1,5 @@
 .section {
   width: 750rpx;
-  height: 300rpx;
   z-index: 0;
   position: relative;
 }
