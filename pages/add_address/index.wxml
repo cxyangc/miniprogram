@@ -8,7 +8,6 @@
     <view class='InputName'>手机</view>
     <input class='InputContent' bindinput='getPhone'  value='{{needParam.telno}}' placeholder='请输入手机号'></input>
   </label>
-
   <picker mode="region" bindchange="bindRegionChange"  value="{{region}}" custom-item="{{customItem}}">
     <view>
      <label class='inputContainer'>
@@ -26,6 +25,10 @@
     </view>
   </picker>
 
+  <label class='inputContainer' wx:if="{{addressType==1}}">
+    <view class='InputName'>身份证号</view>
+    <input class='InputContent' bindinput='getCardNo'  value='{{needParam.idCardNo}}' placeholder='请输入身份证号'></input>
+  </label>
   <label class='inputContainer'>
     <view class='InputName'>详细地址</view>
     <input class='InputContent'  maxlength='50' value='{{needParam.detail}}' bindblur='getAddr' placeholder='请输入详细地址'></input>

@@ -107,3 +107,12 @@
   height: 40rpx;
   margin-left: 20rpx;
 }
+.none_list{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #888;
+  padding:20rpx;
+}

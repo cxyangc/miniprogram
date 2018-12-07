@@ -13,7 +13,8 @@ Page({
     needParam: null, 
     setting: null,
     loginUser: null,
-    ifEid: false
+    ifEid: false,
+    addressType:0,
   },
 
 
@@ -37,6 +38,9 @@ Page({
   getPhone: function (e) {
     this.needParam.telno = e.detail.value
   },
+  getCardNo: function (e) {
+    this.needParam.idCardNo = e.detail.value
+  },
   getAddr: function (e) {
     this.needParam.detail = e.detail.value
   },
@@ -45,9 +49,11 @@ Page({
   },
 
   dellAddrSpace:function(e){
+    let that=this;
+    console.log('===dellAddrSpace===',e)
     // let phoneTest = new RegExp('^1[3|4|5|7|8][0-9]{9}$', 'g');
-     let testphone = e.telno
-     
+    let testphone = e.telno
+    let idCardNo = e.idCardNo
     let pass = '0'
       if (e.contactName == ''){
       pass = '收货人为空'
@@ -59,7 +65,7 @@ Page({
       pass = '请选择地区'
     } if (e.district == '') {
       pass = '请选择地区'
-    } 
+    }
     /* if (e.longitude == '') {
       pass = '正在定位请稍等提交'
     } if (e.latitude == '') {
@@ -67,6 +73,9 @@ Page({
     } */ 
     if (!testphone || testphone.length != 11) {
       pass = '手机号码不正确'
+    }
+    if ((!idCardNo || idCardNo.length != 18) && that.data.addressType==1) {
+      pass = '身份证号不正确'
     }
     return pass
   },
@@ -84,8 +93,6 @@ Page({
       else {
         customIndex = app.AddClientUrl("/edit_address.html", that.needParam, 'post')
       }
-
-     
       wx.showLoading({
         title: 'loading',
         mask: true
@@ -99,8 +106,20 @@ Page({
         success: function (res) {
           console.log(res)
           wx.hideLoading()
-          app.addrEditParam = that.needParam
-          wx.navigateBack()
+          if (res.data.errcode=='0'){
+            app.addrEditParam = that.needParam
+            wx.navigateBack()
+          }else{
+            wx.showModal({
+              content: res.data.errMsg,
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+              }
+            });
+          }
         },
         fail: function (res) {
           wx.hideLoading()
@@ -131,10 +150,7 @@ Page({
 
   onLoad: function (options) {
     var that =this
-    
     console.log(options)
-
-    
     if (!options.addrId){
       this.setData({ ifEid:false })
       wx.getLocation({
@@ -170,6 +186,7 @@ Page({
 
       this.needParam.contactName = editaddr.contactName
       this.needParam.telno = editaddr.telNo
+      this.needParam.idCardNo = editaddr.idCardNo||""
       this.needParam.defaultAddress = editaddr.defaultAddress
       this.needParam.userId = editaddr.belongUserId
       this.needParam.addressId = editaddr.id
@@ -187,14 +204,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-   
-    this.setData({ setting: app.setting })
-    this.setData({ loginUser: app.loginUser })
+    this.setData({ 
+      setting: app.setting, 
+      addressType: app.setting.platformSetting.addressType, 
+      loginUser: app.loginUser
+      })
     this.needParam.platformNo = app.setting.platformSetting.platformNo
     this.needParam.userId = app.loginUser.id
-
-    
-
+    console.log('==this.setting===', this.data.setting)
   },
 
   /**

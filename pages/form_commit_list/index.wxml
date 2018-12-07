@@ -1,5 +1,6 @@
 <view class='container'>
   <view class='form_commit_list'>
+    <block wx:if="{{formCommitList.length!=0}}">
     <view class='form_commit_item' wx:for="{{formCommitList}}" wx:for-item="formCommitItem" wx:key='{{index}}'>
       <view class='form_title'>
         <view class='form_title_left'>
@@ -29,5 +30,9 @@
         </view>
       </view>
     </view>
+    </block>
+    <block wx:else>
+       <view class='none_list'>主人~暂无提交表单哦！</view>
+    </block>
   </view>
 </view>

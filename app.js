@@ -4,15 +4,16 @@ import { dellUrl } from "/public/requestUrl.js";
 const Promise = require('/promise/promise.js');
 App({
      //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
-    clientUrl: 'https://mini.sansancloud.com/chainalliance/',//一定加https
-      //clientUrl: 'https://mini.tunzai.vip/chainalliance/',//106.14.213.48 mini.tunzai.vip
+     clientUrl: 'https://mini.sansancloud.com/chainalliance/',//一定加https
+     //clientUrl: 'https://mini.tunzai.vip/chainalliance/',//106.14.213.48 mini.tunzai.vip
 
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */
           
 
-  clientNo: 'jianzhan',   //自定义的项目的名称。
+    clientNo: 'jianzhan',   //自定义的项目的名称。
+    preCallbackObj:{key:{callback:''}},
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
     shareParam: null,//分享页面参数
@@ -126,6 +127,50 @@ App({
         sysWidth: wx.getSystemInfoSync().windowWidth, //图片宽度
         sysHeight: wx.getSystemInfoSync().windowHeight,
     },
+  createOrder: function (baseProData, pintuanData, customFromCommitId,callback,failed){
+      console.log('=====app.createOrder=====');
+      let params = Object.assign({}, params, baseProData, pintuanData,{})
+    if (customFromCommitId){
+      params = Object.assign({}, params, { customFromCommitId: customFromCommitId})
+    }
+      let that = this
+      let customIndex = that.AddClientUrl("/buy_now.html", params, 'post')
+      wx.request({
+        url: customIndex.url,
+        data: customIndex.params,
+        header: that.headerPost,
+        method: 'POST',
+        success: function (res) {
+          console.log("点击确定后内容", res.data)
+          if(callback){
+            callback(res);
+            return;
+          }
+          if (res.data.payStatus==0) {
+            wx.navigateTo({
+              url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
+            })
+          } else if (res.data.payStatus == 1 && res.data.processInstanceCount>0){//进入流程列表
+            wx.hideLoading()
+            let processId=0
+            wx.navigateTo({
+              url: '/pages/process_list/index?processId=' + processId,
+            })
+          } else if (res.data.payStatus == 1 && res.data.processInstanceCount == 0){
+            wx.redirectTo({
+              url: '/pages/order_list_tab/index',
+            })
+          }
+        },
+        fail: function (res) {
+          // wx.hideLoading()
+          // app.loadFail()
+        },
+        complete: function (res) {
+
+        }
+      })
+    }, 
     toIndex: function () {
         console.log('首页叫做：' + this.miniIndexPage)
 
@@ -296,7 +341,7 @@ App({
         } else {
             loginToken = this.loginUser.platformUser.loginToken
         }
-        if (url.indexOf("get_product_comment_list")!=-1||url.indexOf("product_detail") != -1 ||url.indexOf("get_platform_setting.html") != -1 ||url.indexOf("more_product_list.html") != -1||url.indexOf("index.html")!=-1||url.indexOf("get_promotions_detail.html")!=-1){
+      if (url.indexOf("get_product_comment_list") != -1 || url.indexOf("product_detail") != -1 || url.indexOf("get_platform_setting.html") != -1 || url.indexOf("more_product_list.html") != -1 || url.indexOf("index.html") != -1 || url.indexOf("get_promotions_detail.html") != -1 || url.indexOf("/super_shop_manager_get_mini_code.html") != -1){
           loginToken="";
           random="tunzai";
         } 
@@ -406,6 +451,16 @@ App({
 
           wx.navigateTo({
             url: '/pageTab/' + 'fx_center' + '/index' + urlData.param,
+          })
+        } else if (If_Order_url == 'process_list') {
+
+          wx.navigateTo({
+            url: '/pageTab/' + 'process_list' + '/index' + urlData.param,
+          })
+        } else if (If_Order_url == 'location_servant') {
+
+          wx.navigateTo({
+            url: '/pageTab/' + 'location_servant' + '/index' + urlData.param,
           })
         }
         else if (linkUrl.substr(0, 13) == 'order_pintuan') {
@@ -1106,7 +1161,7 @@ App({
         AllCode = that.jsonToStr2(pageCode)
 
         console.log('转发出去的参数集合：   ' + AllCode)
-        console.log('转发出去的imageUrl：   ' + imageUrl)
+        console.log('转发出去的imageUrl：   ' + imageUrl)  
         console.log('转发出去的pageTitle：   ' + pageTitle)
         return {
             title: pageTitle,

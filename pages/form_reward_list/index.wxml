@@ -33,7 +33,7 @@
           <text class='reward_type' wx:if="{{formRewardItem.rewardType==3}}">优惠券</text>
           <text class='reward_type' wx:if="{{formRewardItem.rewardType==4}}">线下奖励</text>
           <text class='reward_type' wx:if="{{formRewardItem.rewardType==5}}">分销余额</text>
-          <text class='reward_value'>{{formRewardItem.rewardValue}}</text>
+          <text class='reward_value' wx:if="{{formRewardItem.rewardType!=3}}">{{formRewardItem.rewardValue}}</text>
         </view>
         <view class='form_reward_bottom_right'>
           <image class='form_reward_icon' src='http://image1.sansancloud.com/xianhua/2018_11/14/19/58/37_380.jpg?x-oss-process=style/preview_120'></image>

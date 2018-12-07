@@ -223,3 +223,52 @@
    height: 45rpx; 
    margin-right: 20rpx
 }
+.notice{
+  width:700rpx;
+  height:50rpx;
+  background:rgba(255,255,255,1);
+  box-shadow:0rpx 0rpx 12rpx 0rpx rgba(192,190,190,0.5);
+  border-radius:30rpx;
+  border:1rpx solid #fff;
+  margin:10rpx 25rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.noticeIcon{
+  width: 36rpx;
+  height: 36rpx;
+  margin-left: 36rpx;
+  margin-right: 20rpx;
+}
+.noticeText{
+  width:100%;
+  height:32rpx;
+  font-size:28rpx;
+  padding-right: 10rpx;
+  font-weight:400;
+  color:#FF946B;
+  line-height:30rpx;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  box-sizing:border-box;
+}
+.srcoll_view{
+position: absolute;
+white-space: nowrap;
+height:50rpx;
+line-height:50rpx;
+/* animation:myfirst 10s linear infinite; */
+}
+@keyframes myfirst{
+  0% {margin-left: 0}
+  100% {margin-left: -500rpx}
+}
+.scroll_view_border{
+position: relative;
+overflow: hidden;
+height:50rpx;
+width:100%;
+line-height:50rpx;
+}

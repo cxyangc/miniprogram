@@ -42,7 +42,7 @@
             <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
             <text>{{items.title}}</text>
           </view>
-          <picker mode="date" value="{{date}}" name='{{items.name}}' data-index="{{index}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+          <picker mode="date" value="{{date}}" name='{{items.name}}' data-index="{{index}}" bindchange="bindDateChange">
             <view class="picker">
               {{dataAndTime[items.name]}}
             </view>
@@ -57,7 +57,7 @@
             <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
             <text>{{items.title}}</text>
           </view>
-          <picker mode="time" data-index="{{index}}" name='{{items.name}}' value="{{time}}" start="09:01" end="21:01" bindchange="bindTimeChange">
+          <picker mode="time" data-index="{{index}}" name='{{items.name}}' value="{{time}}" bindchange="bindTimeChange">
             <view class="picker">
               {{dataAndTime[items.name]}}
             </view>
@@ -84,6 +84,14 @@
               <text style='font-size:24rpx;color:#555;margin-top:10rpx'>添加图片</text>
             </view>
           </view>
+        </view>
+         <!-- 多行文本 -->
+        <view class='inputString common' wx:if='{{items.type==9}}' style='align-items:flex-start;padding:10px;flex-direction:column;'>
+          <view class='inputName'>
+            <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
+            <text>{{items.title}}</text>
+          </view>
+          <textarea auto-height="" placeholder="{{items.defaultValue}}" name="{{items.name}}"/>
         </view>
         <!--  -->
         </view>

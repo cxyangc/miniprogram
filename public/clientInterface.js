@@ -7,6 +7,14 @@ var Client = {
     "client_url": "https://mini.sansancloud.com/chainalliance/shuiguo",
     "project_no": "jianzhan",
 
+    "Client.SuperShopManager.MiniStore.code": {
+      "name": "门店支付二维码",
+      "id": "Client.SuperShopManager.MiniApp.GetWxAuthPageLink",
+      "args": [
+
+      ],
+      "url": "/super_shop_manager_get_mini_code.html"
+    },
     "Client.Set.SessionLocation": {
         "name": "设置会话用户的地址信息",
         "id": "Set.SessionLocation",

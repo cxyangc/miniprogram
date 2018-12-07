@@ -162,6 +162,20 @@ Page({
 
       return;
     }
+    if (options.APPLY_SERVANT_CODE && options.APPLY_SERVANT_CODE != "") {
+      console.log("进服务人员申请页面", options.APPLY_SERVANT_CODE)
+      //       applyMendian
+      setTimeout(function () {
+        wx.navigateTo({
+          url: '/pageTab/yunjishi/applyServant/index?reqType=2&code=' + options.APPLY_SERVANT_CODE,
+          success: function () {
+            app.shareSubPage = true;
+          }
+        })
+      }, 200)
+
+      return;
+    }
     if (options.SHARE_PRODUCT_DETAIL_PAGE && options.SHARE_PRODUCT_DETAIL_PAGE != "") {
 
       console.log("options.SHARE_PRODUCT_DETAIL_PAGE", options.SHARE_PRODUCT_DETAIL_PAGE)

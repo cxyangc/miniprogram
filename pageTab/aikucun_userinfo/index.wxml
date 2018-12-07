@@ -21,13 +21,15 @@
 <import src="../../view-new/partials/userinfo_order3.wxml"/><!-- user_center_order -->
 <import src="../../view-new/partials/userinfo_list.wxml"/><!-- user_center_order -->
 <import src="../../view-new/partials/userinfo_mendian.wxml"/><!-- user_center_order -->
+<import src="../../view-new/partials/userinfo_servant.wxml"/><!-- user_center_order -->
 
 
 
 
 <view class="container">
    <template is="userinfo_head3" data="{{...userInfo,...headData, loginUser:loginUser}}"></template> 
-  <template is="userinfo_mendian" data="{{...userInfo,...serverData, loginUser:loginUser}}"></template> 
+   <template is="userinfo_mendian" data="{{...userInfo,...serverData, loginUser:loginUser}}"></template> 
+   <template is="userinfo_servant" data="{{...userInfo,...servantData, loginUser:loginUser}}"></template> 
   <!-- <template is="3" data="{{...userInfo,...blankData, loginUser:loginUser}}"></template>  -->
   <template is="userinfo_order3" data="{{...userInfo,...orderData, loginUser:loginUser}}"></template> 
   <template is="3" data="{{...userInfo,...blankData, loginUser:loginUser}}"></template> 

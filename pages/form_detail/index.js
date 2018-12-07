@@ -10,7 +10,9 @@ Page({
     sexArray:['男','女'],
     pickerIndex:0,
     upLoadImageList:{},
-    dataAndTime:{}
+    dataAndTime:{},
+    processType:false,
+    gainActionEvent:{},
   },
   bindDateChange: function (e) {
     console.log('picker发送选择改变，携带值为', e, this.data.formData)
@@ -34,6 +36,17 @@ Page({
   toFormCommitList: function (){
     var a = "form_commit_list.html?customFormId=" + this.params.customFormId;
     app.linkEvent(a);
+  },
+  toProcessList: function (formCommitId) {
+    let that=this;
+   /* let gainActionEvent = JSON.parse(that.data.gainActionEvent)
+    gainActionEvent.formCommitId = formCommitId;
+    var a = "process_list.html?processId=0&actionEvent=" + JSON.stringify(gainActionEvent);
+    app.linkEvent(a);*/
+    setTimeout(function () { wx.navigateBack() }, 200);
+    if (app.preCallbackObj['processInstanceItem'] && app.preCallbackObj['processInstanceItem'].callback){
+      app.preCallbackObj['processInstanceItem'].callback(formCommitId);
+    }
   },
   login: function(e) {
     wx.switchTab({
@@ -102,9 +115,29 @@ Page({
             icon: 'success',
             duration: 1000
           })
-          setTimeout(function () {
-            that.toFormCommitList()
-          }, 1000)
+          if (that.data.processType){
+            setTimeout(function () {
+              that.toProcessList(res.data.relateObj.id)
+            }, 1000)
+          } else if (that.data.formData.refProductId&&that.data.formData.refProductId!=0){
+            let baseProData={
+              productId: that.data.formData.refProductId,
+              itemCount: 1,
+              shopId: 0,
+              cartesianId: 0,
+              fromSource: 'mini',
+              orderType: 0,
+            };
+            let pintuanData = {
+              pintuanCreateType: 0,
+              pintuanRecordId: 0
+              };
+            app.createOrder(baseProData, pintuanData, res.data.relateObj.id)
+          }else{
+            setTimeout(function () {
+              that.toFormCommitList()
+            }, 1000)
+          }
         } else {
           wx.showToast({
             title: res.data.errMsg,
@@ -209,9 +242,14 @@ Page({
   onLoad: function (options) {
     let that=this;
     console.log(options)
+    that.data.gainActionEvent = options.actionEvent
     that.params.customFormId = options.customFormId;
-    console.log(that.params);
-    let formDetailData = app.AddClientUrl("/wx_get_custom_form.html", options, 'get')
+    if (options && options.actionEvent){
+      that.data.processType=true;
+    }else{
+      that.data.processType = false;
+    }
+    let formDetailData = app.AddClientUrl("/wx_get_custom_form.html", { customFormId: options.customFormId}, 'get')
     console.log('==formDetailData===', formDetailData)
     wx.request({
       url: formDetailData.url,
@@ -229,7 +267,6 @@ Page({
           }
           that.setData({ formData: that.data.formData })
           console.log(that.data.formData)
-          console.log(that.data.formData.items);
         }
         wx.setNavigationBarTitle({
           title: that.data.formData.formName

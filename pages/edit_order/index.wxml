@@ -131,7 +131,7 @@
 <view wx:if='{{showArr}}' class='zhezhao' bindtap='closeShowArr'></view>
 <view wx:if='{{showArr}}' class='OtherArrContainer'>
   <view class='addnewarr' bindtap='toaddress_new'  style='color:{{setting.platformSetting.defaultColor}}'>新增地址</view>
-    <view class='addnewarr' bindtap='wx_toaddress_new'  style='color:{{setting.platformSetting.defaultColor}}'>微信添加</view>
+    <!-- <view class='addnewarr' bindtap='wx_toaddress_new'  style='color:{{setting.platformSetting.defaultColor}}'>微信添加</view> -->
   <view class='addrItems2' wx:for='{{addrArr}}' wx:for-item='addr' wx:key='{{addr.id}}' data-id='{{addr.id}}'>
     <view class='addrItems2_left' data-chooseId='{{addr.id}}' bindtap='chooseNewAddr'>
       <image mode='aspectFit' src='/images/icons/addr.png'></image>

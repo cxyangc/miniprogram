@@ -18,6 +18,7 @@ Page({
     orderData: null,
     ListData: null,
     serverData: null,
+    servantData:null,
   },
 
   loginOut: function () {
@@ -125,6 +126,12 @@ Page({
     text: "我是服务商",
     color: "#777777"
   },
+  servantData: {
+    iconPath: "http://image1.sansancloud.com/jianzhan/2018_9/5/19/17/45_862.jpg?x-oss-process=style/preview_120",
+    linkUrl: "servant_center.html",
+    text: "我是服务人员",
+    color: "#777777"
+  },
   // applyFacilitatorData:{
   //   iconPath: "http://image.aikucun.xyz/aikucun/2018_4/2/12/4/20_993.jpg?imageMogr2/thumbnail/120x/interlace/0 ",
   //   linkUrl: "apply_facilitator.html",
@@ -138,6 +145,7 @@ Page({
       orderData: this.orderData,
       ListData: this.ListData,
       serverData: this.serverData,
+      servantData: this.servantData,
     })
   },
   getSessionUserInfo: function () {

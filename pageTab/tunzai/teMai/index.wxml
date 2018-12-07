@@ -1,6 +1,12 @@
 <view class='body '>
 <!-- 公告 -->
-<view class='notice'></view>
+<view class='notice'>
+  <image src='http://image.tunzai.vip/tunzai/2018_11/29/14/48/14_966.jpg?x-oss-process=style/preview_120' class='noticeIcon'></image>
+  <view class='scroll_view_border'>
+    <text class='noticeText srcoll_view' wx:if="{{promotionInfo.description}}" title="{{promotionInfo.description}}">{{promotionInfo.description}}</text>
+    <text class='noticeText' wx:else>暂无公告</text>
+  </view>
+</view>
 <!-- 品牌详情 -->
   <view class='promotionBanrdInfo'>
     <image class='promotionBanrdLogo' src="{{promotionInfo.mainBrandBean.brandIcon}}?x-oss-process=style/preview"></image>

@@ -46,10 +46,11 @@ function dellUrl(url, params, method, random, loginToken){
   }
   if (!method || method == 'get') {
     
-    post.params = '?' + jsonToStr(params)
+    post.params = '?' + jsonToStr(params) +"apiversion=2"
     post.url = post.url + post.params
   } else {
     post.params = params
+    post.params.apiversion=2
   }
   post.method = method;
   

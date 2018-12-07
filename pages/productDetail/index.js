@@ -214,10 +214,6 @@ Page({
     }
     return returnParam
   },
-
-
-
-
   /* dadianhua */
   callShop: function() {
     if (this.data.setting){
@@ -287,28 +283,27 @@ Page({
         this.setData({ byNowParams: this.byNowParams })
         this.chooseMeasureItem()
       }
-    } else if (way == 'pintuanOne') {
-        this.setData({ showCount: true })
-        this.byNowParams.orderType = 0
-        this.byNowParams.pintuanCreateType = 0
-        this.byNowParams.pintuanRecordId = 0
-        this.setData({ byNowParams: this.byNowParams })
-        this.chooseMeasureItem()
-    } else if (way == 'pintuanMore') {
+    } else if (way == 'pintuanOne') {//单独购买
       this.setData({ showCount: true })
-      this.byNowParams.pintuanCreateType = 1
       this.byNowParams.orderType = 0
-      this.byNowParams.pintuanRecordId = 0
-      this.setData({ byNowParams: this.byNowParams })
+      this.pintuanParams.pintuanCreateType = 0
+      this.pintuanParams.pintuanRecordId = 0
+      this.setData({ byNowParams: this.byNowParams, pintuanParams: this.pintuanParams})
       this.chooseMeasureItem()
-    } else if (way == 'addPintuan') {
+    } else if (way == 'pintuanMore') {//参加拼团
       this.setData({ showCount: true })
-      this.setData({ pintuanId: e.currentTarget.dataset.pintuanid })
-      this.setData({ pintuanPopupState:false })
-      this.byNowParams.pintuanCreateType = 2
       this.byNowParams.orderType = 0
-      this.byNowParams.pintuanRecordId = this.data.pintuanId
-      this.setData({ byNowParams: this.byNowParams })
+      this.pintuanParams.pintuanCreateType = 1
+      this.pintuanParams.pintuanRecordId = 0
+      this.setData({ byNowParams: this.byNowParams, pintuanParams: this.pintuanParams})
+      this.chooseMeasureItem()
+    } else if (way == 'addPintuan') {//发起拼单
+      this.setData({ showCount: true })
+      this.setData({ pintuanPopupState: false })
+      this.byNowParams.orderType = 0
+      this.pintuanParams.pintuanCreateType = 2
+      this.pintuanParams.pintuanRecordId = e.currentTarget.dataset.pintuanid
+      this.setData({ byNowParams: this.byNowParams,pintuanParams: this.pintuanParams})
       this.chooseMeasureItem()
     } else if (way == 'select') {
       this.setData({ showCount: true })
@@ -346,13 +341,13 @@ Page({
     itemCount: 1,
     shopId: '',
     cartesianId: '0', 
-    chatOrder: '',
-    fromSource: '', 
+    fromSource: 'mini', 
     orderType: '',
-    pintuanCreateType:0,
-    pintuanRecordId:0
   },
-  
+  pintuanParams:{
+    pintuanCreateType: 0,
+    pintuanRecordId: 0
+  },
   /* 立即购买 */
   buyNow:function(e){
     if (!app.checkShopOpenTime()) {
@@ -400,43 +395,53 @@ Page({
   /* 创建订单 */
   createOrder22: function (o) {
     console.log('========createOrder22======',o);
-    var customIndex = app.AddClientUrl("/buy_now.html", o,'post')
-    var that = this
-    wx.showLoading({
-      title: 'loading',
-      mask: true
-    })
-    wx.request({
-      url: customIndex.url,
-      data: customIndex.params,
-      header: app.headerPost,
-      method: 'POST',
-      success: function (res) {
-        console.log("点击确定后内容",res.data)
-        let data = res.data
-        if (!!res.data.orderNo) {
-          wx.hideLoading()
+    let that=this;
+    let productInfo = that.data.productData.productInfo
+    let params = Object.assign({}, params, that.byNowParams, that.pintuanParams)
+    if (productInfo.preOrderCustomFormId) {
+      wx.navigateTo({
+        url: '/pages/form_detail/index?customFormId=' + productInfo.preOrderCustomFormId,
+      })
+      return
+    } else {
+      wx.showLoading({
+        title: 'loading',
+        mask: true
+      })
+      app.createOrder(that.byNowParams, that.pintuanParams)
+    }
+    // var customIndex = app.AddClientUrl("/buy_now.html", params, 'post')
+    // wx.request({
+    //   url: customIndex.url,
+    //   data: customIndex.params,
+    //   header: app.headerPost,
+    //   method: 'POST',
+    //   success: function (res) {
+    //     console.log("点击确定后内容",res.data)
+    //     let data = res.data
+    //     if (!!res.data.orderNo) {
+    //       wx.hideLoading()
         
-          wx.navigateTo({
-            url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
-          })
-        } else {
-          wx.hideLoading()
-          wx.showToast({
-            title: res.data.errMsg,
-            image: '/images/icons/tip.png',
-            duration: 2000
-          })
-        }
-      },
-      fail: function (res) {
-        wx.hideLoading()
-        app.loadFail()
-      },
-      complete: function (res) {
+    //       wx.navigateTo({
+    //         url: '/pages/edit_order/index?orderNo=' + res.data.orderNo,
+    //       })
+    //     } else {
+    //       wx.hideLoading()
+    //       wx.showToast({
+    //         title: res.data.errMsg,
+    //         image: '/images/icons/tip.png',
+    //         duration: 2000
+    //       })
+    //     }
+    //   },
+    //   fail: function (res) {
+    //     wx.hideLoading()
+    //     app.loadFail()
+    //   },
+    //   complete: function (res) {
         
-      }
-    })
+    //   }
+    // })
   },
 
   /* 加入購物車 */
@@ -514,9 +519,6 @@ Page({
             })
           }
         }
-        
-
-        
       },
       fail: function (res) {
         wx.hideLoading()

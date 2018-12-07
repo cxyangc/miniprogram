@@ -146,7 +146,7 @@ margin-left: 0rpx;
   align-items: flex-start;
   margin-left: 20rpx;
   min-height:220rpx;
-  width: 70%;
+  width:470rpx;
 }
 .product_items2_view1 .tags_content{
   display: flex;

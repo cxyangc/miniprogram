@@ -8,9 +8,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.0",
-	"appid": "wx85d513d3381975c9",
-	"projectname": "santi",
+	"libVersion": "2.4.1",
+	"appid": "wx2cc8f5b014d768e4",
+	"projectname": "qiche",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
@@ -62,8 +62,8 @@
 				},
 				{
 					"id": 4,
-					"name": "lanhu",
-					"pathName": "pageTab/tunzai/applyMendian/index",
+					"name": "服务员申请",
+					"pathName": "pageTab/yunjishi/applyServant/index",
 					"query": "",
 					"scene": "1011"
 				},

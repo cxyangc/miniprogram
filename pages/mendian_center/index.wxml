@@ -1,6 +1,6 @@
  
 <view class='container'>
-    <view class='tongji_container' style='background:{{setting.platformSetting.defaultColor}}'>      
+    <view class='tongji_container' style='background:{{setting.platformSetting.defaultColor}}' data-link='tunzhu_account.html' bindtap='tolinkUrl'>      
       <view class='tongji_mid font_24'>{{mendian.account.account}}</view>
       <view class='tongji_top'>账户余额（￥）</view>
     </view>

@@ -30,6 +30,10 @@
     "pageTab/lanHu/myInfo/index",
     "pageTab/tunzai/myInfo/index",
 
+    "pageTab/yunjishi/applyServant/index",
+    "pageTab/yunjishi/success/index",
+    
+
 
           "view/partials/canvas/index",
           "view/partials/tab/index",
@@ -60,12 +64,23 @@
     {
       "root": "pages",
       "pages": [
+        "big_wheel_game/index",
+        "servant_qrcode/index",
+        "servant_account/index",
+        "servant_tixian/index",
+        "servant_user/index",
+        "servant_will_order/index",
+        "servant_zijin/index",
+        "servant_center/index",
         "tunzhu_account/index",
         "tunzhu_tixian/index",
+        "process_list/index",
+        "process_detail/index",
         "form_commit_list/index",
         "form_reward_list/index",
         "form_detail/index",
         "coupon_detail/index",
+        "location_servant/index",
         "location_products/index",
         "location_products2/index",
         "order_pintuan_list/index",

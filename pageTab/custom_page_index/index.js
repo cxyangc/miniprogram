@@ -17,18 +17,6 @@ Page({
       SearchProductName: "",//头部搜索的
     },
     loginUser:null,
-
-    reportText: [
-      {
-        title:'abbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaaaaaaccccccccc'
-      },
-      {
-        title: 'bsssss'
-      },
-      {
-        title: 'caa'
-      },
-    ],
     countDownDay: "",
     countDownHour: "",
     countDownMinute: "",
@@ -168,7 +156,7 @@ Page({
       })
     }
 
-    if (app.setting.platformSetting.defaultColor == '') {
+    if (app.setting.platformSetting.topColor == '') {
       wx.setNavigationBarColor({
         frontColor: '#ffffff',
         backgroundColor: '#000000',
@@ -176,7 +164,7 @@ Page({
     } else {
       wx.setNavigationBarColor({
         frontColor: '#ffffff',
-        backgroundColor: app.setting.platformSetting.defaultColor,
+        backgroundColor: app.setting.platformSetting.topColor,
       })
     }
   },
