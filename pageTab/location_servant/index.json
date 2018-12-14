@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "服务人员列表",
-  
+  "navigationBarTitleText": "云技师列表",
+  "enablePullDownRefresh": true,
   "backgroundColor": "#f1f1f1"
 }

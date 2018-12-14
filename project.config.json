@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.1",
+	"libVersion": "2.4.2",
 	"appid": "wx2cc8f5b014d768e4",
 	"projectname": "qiche",
 	"isGameTourist": false,
@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
@@ -56,8 +56,8 @@
 				{
 					"id": 3,
 					"name": "预览页面",
-					"pathName": "pageTab/index/index",
-					"query": "SHARE_PROMOTION_PRODUCTS_PAGE=84",
+					"pathName": "pages/news_detail/index",
+					"query": "id=30426",
 					"scene": "1011"
 				},
 				{
@@ -76,9 +76,9 @@
 				},
 				{
 					"id": 6,
-					"name": "qq1",
-					"pathName": "pageTab/index/index",
-					"query": "ENTER_MENDIAN_OFF_PAY=79",
+					"name": "技师详情页",
+					"pathName": "pageTab/yunjishi/servantDetail/index",
+					"query": "servantId=9",
 					"scene": "1011"
 				},
 				{

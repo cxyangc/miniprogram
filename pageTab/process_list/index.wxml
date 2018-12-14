@@ -1,6 +1,11 @@
 <view class='container'>
   <view class='process_list'>
-  <process-instance-item data="{{processItem}}" wx:for="{{processList}}" wx:for-item="processItem" wx:key='{{index}}'></process-instance-item>
+    <block wx:if="{{processList.length!=0}}" >
+      <process-instance-item data="{{processItem}}" wx:for="{{processList}}" wx:for-item="processItem" wx:key='{{index}}'></process-instance-item>
+    </block>
+    <block wx:else>
+      <view class='none_list'>主人~您还没有任何工作单哦！</view>
+    </block>
     <!-- <view class='process_item' wx:for="{{processList}}" wx:for-item="processItem" wx:key='{{index}}'>
       <view class='process_title'>
         <view class='process_title_left'>

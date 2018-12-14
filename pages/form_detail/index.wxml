@@ -75,7 +75,6 @@
           <view class='upload'>
           <!-- wx:for="{{upLoadImageList['img_'+index]}}" wx:for-item="imgs"  -->
             <view class='uploadedImg' wx:if="{{upLoadImageList['img_'+index]}}">
-              <!-- <view class='removeImgBg'></view> -->
               <view class='removeImgIcon' bindtap='removeImg' data-index='{{index}}'><text>x</text></view>
               <image class='uploadedImgUrl' src="{{upLoadImageList['img_'+index]}}" mode='aspectFill'></image>
             </view>
@@ -93,11 +92,26 @@
           </view>
           <textarea auto-height="" placeholder="{{items.defaultValue}}" name="{{items.name}}"/>
         </view>
+        <!-- 地址 -->
+        <view class='inputString common' wx:if='{{items.type==10}}'>
+          <view class='inputName'>
+            <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
+            <text>{{items.title}}</text>
+          </view>
+          <picker mode="region" data-index="{{index}}" name='{{items.name}}' value="{{region}}"  bindchange="bindRegionChange">
+            <view class="picker">
+              {{region}}
+            </view>
+            <view class='pickerRight'>
+              <image class='pickerImg' src='http://image1.sansancloud.com/jianzhan/2018_9/11/13/41/53_722.jpg?x-oss-process=style/preview_120'></image>
+            </view>
+          </picker>
+        </view>
         <!--  -->
         </view>
         <!-- 保存 -->
         <view class='saveData'>
-          <button class='saveBtn' formType="submit" style='background:{{setting.platformSetting.defaultColor}};color:#fff'>提交</button>
+          <button class='saveBtn' formType="submit" style='background:{{setting.platformSetting.defaultColor}};color:#fff'>{{formData.commitName}}</button>
           <button class='checkFormList' bindtap='toFormCommitList' style='background:{{setting.platformSetting.secondColor}};color:#fff'>查看记录</button>
     </view>
   </view>

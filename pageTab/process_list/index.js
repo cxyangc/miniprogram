@@ -14,7 +14,10 @@ Page({
     let that = this
     if (!app.checkIfLogin()) return;
     let getParams = {}
-    getParams.customprocessId = that.params.customprocessId
+    wx.showToast({
+      title: '加载中...',
+      icon: 'loading',
+    })
     getParams.page = that.listPage.page;
     let customIndex = app.AddClientUrl("/wx_get_process_instance_list.html", getParams)
     wx.request({
@@ -27,10 +30,14 @@ Page({
           that.listPage.totalSize = res.data.relateObj.totalSize
           let dataArr = that.data.processList
           if ((!res.data.relateObj.result || res.data.relateObj.result.length == 0) || that.listPage.page==1) {
-            dataArr=[];
+            dataArr = null;
+            that.setData({ processList: [] })
           } 
-          dataArr = dataArr.concat(res.data.relateObj.result)
+          dataArr = (dataArr || []).concat(res.data.relateObj.result)
           that.setData({ processList: dataArr })
+          if (dataArr){
+            wx.hideToast()
+          }
         }
         console.log('===processList===', that.data.processList);
       },

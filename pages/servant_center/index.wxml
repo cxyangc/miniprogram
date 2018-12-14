@@ -1,0 +1,68 @@
+ 
+<view class='container'>
+    <view class='tongji_container' style='background:{{setting.platformSetting.defaultColor}}' data-link='servant_account.html' bindtap='tolinkUrl'>      
+      <view class='tongji_mid font_24'>{{servant.account.account}}</view>
+      <view class='tongji_top'>账户余额（￥）</view>
+    </view>
+  <view class='tongjiContainer_form'>
+      <view class='tongji_bottom'>
+        <view  data-link='servant_will_order.html?type=2'   bindtap='tolinkUrl'  class='tongji_bottom_item'>
+          <view  style='color:{{setting.platformSetting.defaultColor}};'>
+            <text>￥</text>
+            <text>{{servant.unrealizedServiceProfit}}</text>
+          </view> 
+          <text>服务金</text>
+           <view class='borderRight2'></view>
+        </view>
+        <view class='tongji_bottom_item'>
+          <view style='color:{{setting.platformSetting.defaultColor}};'>
+            <text>￥</text>
+            <text>{{servant.totalTixianAmount}}</text>
+          </view>
+          <text>待实现</text>
+           <view class='borderRight2'></view>
+        </view>
+        <view data-link='servant_will_order.html?type=1'   bindtap='tolinkUrl'  class='tongji_bottom_item'>
+          <view style='color:{{setting.platformSetting.defaultColor}};'>
+            <text>￥</text>
+            <text>{{servant.unrealizedParentServiceProfit}}</text>
+          </view>
+          <text>推广金</text>
+        </view>
+      </view>
+
+    <view class='servant_menu_container'>
+        <view class='servant_menu_item' data-link='servant_zijin.html'   bindtap='tolinkUrl'>
+            <view class='imageContainer'>
+                <image src='http://image1.sansancloud.com/xianhua/2018_9/5/16/19/25_19.jpg?x-oss-process=style/preview_120'></image>
+            </view>
+            <view class='item_text'>
+                <text>资金记录</text>
+            </view>
+            <view class='borderRight'></view>
+        </view>
+        <view class='servant_menu_item' data-link='servant_user.html?fxLevel=1'   bindtap='tolinkUrl'>
+            <view class='imageContainer'>
+                <image src='http://image1.sansancloud.com/xianhua/2018_9/5/16/19/25_53.jpg?x-oss-process=style/preview_120'></image>
+            </view>
+            <view class='item_text'>
+                <text>我的推荐</text>
+            </view>
+            <view class='borderRight'></view>
+        </view>
+        <view class='servant_menu_item' data-link='servant_qrcode.html?code={{servant.id}}'   bindtap='tolinkUrl'>
+            <view class='imageContainer'>
+                <image src='http://image1.sansancloud.com/xianhua/2018_9/5/16/19/25_60.jpg?x-oss-process=style/preview_120'></image>
+            </view>
+            <view class='item_text'>
+                <text>二维码</text>
+            </view>
+        </view>
+       
+            
+                  
+    </view>
+  </view>
+    
+  
+</view>

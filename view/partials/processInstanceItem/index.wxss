@@ -83,7 +83,6 @@
   width:50%;
 }
 .check_record{
-  width:120rpx;
   height:50rpx;
   border:2rpx solid #4bb3ff;
   border-radius:10rpx;
@@ -144,6 +143,7 @@
    display: flex;
    align-items: center;
    justify-content: center;
+   font-weight:bold;
 }
 .process_stage_name .active{
    border: 2rpx solid #888;

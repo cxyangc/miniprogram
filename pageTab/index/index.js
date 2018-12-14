@@ -8,9 +8,8 @@ Page({
   data: {
     showLoadFail:false,
     showLoading:false ,
-    page_name:""
+    page_name: "",
   },
-  
   toIndex:function(){
     let that=this; 
     console.log("========app==", app, app.more_scene, that.data.page_name);
@@ -189,7 +188,20 @@ Page({
       }, 200)
       return;
     }
+    // 分享出来带分享SHARE_NEWS_DETAIL_PAGE跳到新闻详情页
+    if (options.SHARE_NEWS_DETAIL_PAGE && options.SHARE_NEWS_DETAIL_PAGE != "") {
+      console.log("进入新闻详情页面", options.SHARE_NEWS_DETAIL_PAGE)
+      setTimeout(function () {
+        wx.navigateTo({
+          url: '/pagees/news_detail/index?id=' + options.SHARE_NEWS_DETAIL_PAGE,
+          success: function () {
+            app.shareSubPage = true;
+          }
+        })
 
+      }, 200)
+      return;
+    }
     // 分享出来带分享SHARE_PROMOTION_PRODUCTS_PAGE跳到产品详情页
     if (options.SHARE_PROMOTION_PRODUCTS_PAGE && options.SHARE_PROMOTION_PRODUCTS_PAGE != "") {
 
@@ -262,7 +274,6 @@ Page({
     }
 },
   onReady: function () {
-    
   },
 
   onShow: function () {

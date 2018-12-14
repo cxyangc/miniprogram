@@ -78,14 +78,14 @@
             </view>
             <view class='borderRight'></view>
         </view>
-        <view class='mendian_menu_item' data-link='news_list.html?newsTypeId=6&pageNage=帮助中心'   bindtap='tolinkUrl'>
+        <!-- <view class='mendian_menu_item' data-link='news_list.html?newsTypeId=6&pageNage=帮助中心'   bindtap='tolinkUrl'>
             <view class='imageContainer'>
                 <image src='http://image1.sansancloud.com/xianhua/2018_9/5/16/19/25_64.jpg?x-oss-process=style/preview_120'></image>
             </view>
             <view class='item_text'>
                 <text>帮助</text>
             </view>
-        </view>
+        </view> -->
         <view class='mendian_menu_item' data-link='mendian_qrcode.html'   bindtap='tolinkUrl'>
             <view class='imageContainer'>
                 <image src='http://image1.sansancloud.com/xianhua/2018_9/5/16/19/25_60.jpg?x-oss-process=style/preview_120'></image>
@@ -95,7 +95,7 @@
             </view>
             <view class='borderRight'></view>
         </view>
-        <view class='mendian_menu_item'  bindtap='toLoginBackstage'>
+        <!-- <view class='mendian_menu_item'  bindtap='toLoginBackstage'>
             <view class='imageContainer'>
                 <image src='../../images/icons/saoyisao.png'></image>
             </view>
@@ -103,19 +103,19 @@
                 <text>扫一扫</text>
             </view>
             <view class='borderRight'></view>
-        </view>        
-        <view class='mendian_menu_item'>
+        </view>         -->
+        <!-- <view class='mendian_menu_item'>
             <form bindsubmit="submitFormId" report-submit='true' >
               <button form-type="submit" style='background:none !important; border:none !important;'></button>
             </form>
-            <!-- <view class='imageContainer'>
+            <view class='imageContainer'>
                 <image src='../../images/icons/saoyisao.png'></image>
-            </view> -->
-            <!-- <view class='item_text'>
+            </view>
+            <view class='item_text'>
                 <text>申请服务商</text>
-            </view> -->
+            </view>
             <view class='borderRight'></view>
-        </view>
+        </view> -->
             
                   
     </view>

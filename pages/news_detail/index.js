@@ -8,7 +8,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-    Data:null
+    Data:null,
+    params:{},
+    ewmImgUrl:"",
+  },
+  // 关闭海报
+  getChilrenPoster(e) {
+    let that = this;
+    that.setData({
+      posterState: false,
+    })
+  },
+  showPoster: function () {
+    let that = this;
+    console.log('===showPoster====', that.onloadOpt.id)
+    let ewmImgUrl = app.getQrCode({ type: "news_detail", id: that.onloadOpt.id })
+    that.setData({
+      posterState: true,
+      ewmImgUrl: ewmImgUrl,
+    })
   },
   getData:function(e){
     var that = this
@@ -46,6 +64,8 @@ Page({
   onloadOpt:{},
   onLoad: function (options) {
     this.onloadOpt = options
+    this.setData({ params: options,setting:app.setting})
+    console.log('options',options)
     this.getData(options)
   },
 
@@ -90,11 +110,11 @@ Page({
   onReachBottom: function () {
   
   },
-
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
+    console.log(res)
     let that = this
     let params = that.onloadOpt
     console.log('params:' + params)

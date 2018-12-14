@@ -1,0 +1,21 @@
+<view class='container'>
+  <view class='servantBaseInfo'>
+    <view class='servantHeadImg'>
+      <image class='servantHeadImgUrl' mode="aspectFill" src='{{servantDetail.icon}}'></image>
+    </view>
+    <view class='servantInfo'>
+      <view class='servantInfoItem'>姓名：<text>{{servantDetail.name}}</text></view>
+      <view class='servantInfoItem'>性别：<text wx:if="{{servantDetail.sex==1}}">男</text><text wx:else>女</text></view>
+      <view class='servantInfoItem'>地址：<text>{{servantDetail.address}}</text></view>
+    </view>
+  </view>
+  <view class='servantDescription'>
+    <text class='servantDescriptionTitle'>技师描述</text>
+    <text>{{servantDetail.description}}</text>
+  </view>
+  <import src="../../../wxParse/wxParse.wxml"/><!-- 富文本 -->
+  <view class='servantDetails'>
+    <text class='servantDetailsTitle'>技师详情</text>
+    <view class='servantrichText'><template is="1" data="{{wxParseData:article.nodes}}"></template></view>
+  </view>
+</view>

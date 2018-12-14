@@ -1,0 +1,98 @@
+<view class='content_bg'>
+<view class="user_mendian_info_content">
+<image class='user_info_bg' src='http://image.tunzai.vip/tunzai/2018_10/31/16/53/30_615.jpg'></image>
+ <block wx:if="{{loginUser}}"> 
+   <view class='user_head_img' bindtap='loginOut'>
+     <image class='head_img' src='{{loginUser.platformUser.headimgurl}}'></image>
+   </view>
+   <view class='user_name' bindtap='loginOut'><text>{{loginUser.platformUser.nickname}}</text></view>
+ </block>
+ <block wx:else> 
+   <view class='user_head_img' bindtap='login'>
+     <image class='head_img' src=''></image>
+   </view>
+   <view class='user_name' bindtap='login'><text>未登录</text></view>
+ </block>
+<!--top end -->
+</view>
+<!--data start -->
+     <view class='data_column' wx:if='{{loginUser.platformUser.managerServantId||loginUser.platformUser.managerMendianId}}' style='background:#fff'>
+      <view class='data_column_top'>
+        <view class='data_left'>
+          <image src='http://image1.sansancloud.com/yunjishi/2018_12/11/11/52/36_652.jpg' style='width:80rpx;height:80rpx;border-radius:50rpx;'></image>
+        </view>
+        <view class='data_center' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_zijin.html":"servant_zijin.html"}}' bindtap='tolinkUrl'>
+          <text class='data_left_text'>总收益</text>
+          <text class='data_left_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">¥{{myData.account.account}}</text>
+          <text class='data_left_num' wx:if="{{loginUser.platformUser.managerMendianId}}">¥{{myData.totalEarningAmount}}</text>
+        </view>
+        <view class='data_right' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_center.html":"servant_center.html"}}' bindtap='tolinkUrl'>
+          <image src='../../../images/myImg/user2.png' style='width:32rpx;height:32rpx;margin-right:8rpx'></image>
+          <text class='data_right_id'>ID:{{loginUser.platformUser.id}}</text>
+          <image src='../../../images/check.png' style='width:20rpx;height:20rpx;margin-left:24rpx'></image>
+        </view>
+      </view>
+
+      <view class='data_column_bottom'>
+          <view class='data_bottom_items'>
+            <view class='data_bottom_img_text'>
+                <!-- <image src='../../../images/myImg/calendar-check2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image> -->
+                <text class='data_bottom_text' style='font-size:30rpx'>【待实现金】</text>
+            </view>
+            <!-- <text class='data_bottom_num'>¥0</text> -->
+         </view>
+
+          <view class='data_bottom_items' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_account.html":"servant_account.html"}}' bindtap='tolinkUrl'>
+            <view class='data_bottom_img_text'>
+                <image src='../../../images/myImg/money_collect2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
+                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">服务金额</text>
+                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerMendianId}}">可提现金</text>
+            </view>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">¥{{myData.unrealizedServiceProfit}}</text>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerMendianId}}">¥{{myData.account.account}}</text>
+         </view>
+
+          <view class='data_bottom_items' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_will_order.html":"servant_will_order.html?type=1"}}'   bindtap='tolinkUrl'>
+            <view class='data_bottom_img_text'>
+                <image src='../../../images/myImg/yuan2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
+                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">推广金额</text>
+                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerMendianId}}">待实现金</text>
+            </view>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">¥{{myData.unrealizedParentServiceProfit}}</text>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerMendianId}}">¥{{myData.waitCompleteOrderDistributeAmount}}</text>
+         </view>
+      </view>
+    </view>
+<!--data end -->
+<!--我的功能 start -->
+    <view class='profit_block profit_block mg_mendian'>
+        <view class='profit_block_fun_border'>
+          <view class='function_block_top'>
+            <view class='profit_top_name'>
+              <text>我的功能</text>
+            </view>
+          </view>
+          <view class='function_block_list'>
+            <view class='function_block_items'>
+              <button open-type="contact" class='kefu_buttom widthA' plain='true' hover-class="none" style='border:none'>
+                <view class='image_content'>
+                  <image class='function_items_img' src='http://image.tunzai.vip/tunzai/2018_10/31/20/53/7_55.jpg?x-oss-process=style/preview_120' style='width:40rpx;height:44rpx; box-sizing: border-box;padding-bottom:-5rpx'></image>
+                </view>
+                <text class='function_items_text'>专属客服</text>
+              </button>
+              <view><image class='profit_check_img' src='../../../images/check.png'></image></view>
+            </view>
+            <view class='function_block_items' data-link='news_list.html?newsTypeId=83&pageNage=关于我们' bindtap='tolinkUrl'>
+              <button class='kefu_buttom' plain='true' hover-class="none" style='border:none'>
+                <view class='image_content'>
+                  <image class='function_items_img' src='http://image.tunzai.vip/tunzai/2018_10/31/20/53/7_60.jpg?x-oss-process=style/preview_120' style='width:44rpx;height:44rpx'></image>
+                </view>
+              <text class='function_items_text' >关于我们</text>
+              </button>
+              <view><image class='profit_check_img' src='../../../images/check.png'></image></view>
+            </view>
+          </view>  
+        </view>
+    </view>
+<!--我的功能 end -->
+</view>

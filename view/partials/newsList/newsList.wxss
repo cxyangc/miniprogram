@@ -1,4 +1,5 @@
 @import 'newsListSlide/newsListSlide.wxss';/* 引入可以滑动的样式 */
+@import 'commonNewslist/commonNewslist.wxss';/* 引入可以滑动的样式 */
 /*没有相关商品  */
 .noproduct{
   width: 100%;
@@ -8,6 +9,9 @@
   flex-direction: column;
 
 }
+.font_1{
+  font-weight: bold
+}
 .noproduct image{
   width: 150rpx;
   height: 150rpx;
@@ -15,7 +19,7 @@
   
 }
 .noproduct text{
-font-size: 30rpx;
+font-size: 26rpx;
   
 }
 
@@ -56,6 +60,7 @@ font-size: 30rpx;
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 30rpx;
 }
 .ListDataItemWord text{ 
   margin-left:10px;

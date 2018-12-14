@@ -156,7 +156,7 @@ Page({
       })
     }
 
-    if (app.setting.platformSetting.topColor == '') {
+    if (app.setting.platformSetting.topColor =='') {
       wx.setNavigationBarColor({
         frontColor: '#ffffff',
         backgroundColor: '#000000',

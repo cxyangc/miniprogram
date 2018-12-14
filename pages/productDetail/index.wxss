@@ -291,7 +291,6 @@ font-size: 0.8em;
   font-size: 24rpx;
   color: #ccc;
   margin-right: 50rpx;
-  width: 96rpx;
   white-space: nowrap
 }
 .product_introduce_item_vaule{

@@ -5,7 +5,7 @@ Component({
 
     // 这里定义了innerText属性，属性值可以在组件使用时指定
     data: {
-      type: JSON,
+      type: String,
       value: 'default value',
     }
   },
@@ -26,7 +26,7 @@ Component({
     this.getParac();
     wx.getSetting({//检查用户是否授权了
       success(res) {
-        console.warn("======getSetting:res========", res)
+        console.warn("======检查用户是否授权了========", res)
         if (!res.authSetting['scope.userInfo']) {
           console.log('=====1userInfo====')
           that.setData({ showPopup: true })
@@ -116,14 +116,14 @@ Component({
             this.data.kefuCount++;
           }
           console.log('=========this.kefuCount=====',this.data.kefuCount)
-          if (partials[i].partialType == 15 && partials[i].relateBean && partials[i].relateBean.length != 0) {
-            for (let j = 0; j < partials[i].relateBean.length; j++) {
-              if (partials[i].relateBean[j].tags && partials[i].relateBean[j].tags != '') {
-                let tagArray = partials[i].relateBean[j].tags.slice(1, -1).split("][")
-                partials[i].relateBean[j].tagArray = tagArray;
-              }
-            }
-          }
+          // if (partials[i].partialType == 15 && partials[i].relateBean && partials[i].relateBean.length != 0) {
+          //   for (let j = 0; j < partials[i].relateBean.length; j++) {
+          //     if (partials[i].relateBean[j].tags && partials[i].relateBean[j].tags != '') {
+          //       let tagArray = partials[i].relateBean[j].tags.slice(1, -1).split("][")
+          //       partials[i].relateBean[j].tagArray = tagArray;
+          //     }
+          //   }
+          // }
           // 产品标签的转化为数组end
           if (typeof (partials[i].jsonData) == "string") {
             partials[i].jsonData = JSON.parse(partials[i].jsonData)

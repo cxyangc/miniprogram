@@ -12,7 +12,8 @@ Page({
     upLoadImageList:{},
     dataAndTime:{},
     processType:false,
-    gainActionEvent:{},
+    gainActionEvent: {},
+    region: "请选择您的地址",
   },
   bindDateChange: function (e) {
     console.log('picker发送选择改变，携带值为', e, this.data.formData)
@@ -30,6 +31,12 @@ Page({
     this.data.formData.items[index].defaultValue = e.detail.value
     this.setData({
       dataAndTime: this.data.dataAndTime
+    })
+  },
+  bindRegionChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      region: e.detail.value
     })
   },
   // 返回首页
@@ -203,7 +210,6 @@ Page({
         let upLoadImageList = that.data.upLoadImageList
         var data = res.data
         console.log(data)
-
         if (typeof (data) == 'string') {
           data = JSON.parse(data)
           console.log(data)
@@ -263,6 +269,15 @@ Page({
           for (let i = 0; i < that.data.formData.items.length; i++) {
             if (that.data.formData.items[i].listValues) {
               that.data.formData.items[i].listValues=that.data.formData.items[i].listValues.split(",")
+            }
+            if (that.data.formData.items[i].type==7){
+              if (that.data.formData.items[i].defaultValue){
+                let upLoadImageList={};
+                upLoadImageList['img_' + i] = that.data.formData.items[i].defaultValue
+                that.setData({
+                  upLoadImageList: upLoadImageList
+                })
+              }
             }
           }
           that.setData({ formData: that.data.formData })

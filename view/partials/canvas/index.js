@@ -223,7 +223,6 @@ Component({
  
       console.log("9999:" , that.data.imgInfo); 
       context.drawImage(that.data.img_ewm, clientWidth * 0.5 - 16, clientWidth * 0.82 + 16, 70, 70)
-      console.log("55555");
       context.stroke()
       context.draw()
       //绘制图片

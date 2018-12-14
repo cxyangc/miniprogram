@@ -12,7 +12,7 @@ App({
      */
           
 
-    clientNo: 'jianzhan',   //自定义的项目的名称。
+  clientNo: 'jianzhan',   //自定义的项目的名称。
     preCallbackObj:{key:{callback:''}},
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
@@ -498,15 +498,9 @@ App({
           var paramObj={}
           for (let i = 0; i < paramArr.length;i++){
             var a = paramArr[i].split('=')
-          
             paramObj[a[0]]=a[1]
           }
-          console.log(paramObj)
-          console.log(parseFloat(paramObj.latitude));
-      
           var a = Number(paramObj['latitude']); var b = Number(paramObj['longitude']);
-         
-          
           wx.openLocation({
             latitude:a,
             longitude:b,
@@ -832,7 +826,7 @@ App({
                                             that.showAuthUserInfoButton=true;
                                         }else{
                                            that.showAuthUserInfoButton = false;
-                                          that.sentWxUserInfo(loginJson)
+                                           //that.sentWxUserInfo(loginJson)
                                         }
                                     }
                                 })
@@ -852,7 +846,6 @@ App({
                             } else {
                               console.log("失败原因" + JSON.stringify(e.data))
                                 wx.hideLoading()
-
                                 wx.showToast({
                                     title: '登录失败',
                                     image: '/images/icons/tip.png',
@@ -1070,6 +1063,7 @@ App({
     },
   // 获取二维码
   getQrCode: function (data) {
+    console.log(" this.loginUser", this.loginUser)
     let userId = "";
     if (this.loginUser && this.loginUser.platformUser) {
       userId = 'MINI_PLATFORM_USER_ID_' + this.loginUser.platformUser.id
@@ -1084,7 +1078,12 @@ App({
       str = 'SHARE_PROMOTION_PRODUCTS_PAGE'
       str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PROMOTION_PRODUCTS_PAGE%3d'
       postParam[str] = data.id;
-    } else {
+    } else if (data.type == 'news_detail'){
+      console.log(data.type)
+      str = 'SHARE_NEWS_DETAIL_PAGE'
+      str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_NEWS_DETAIL_PAGE%3d'
+      postParam[str] = data.id;
+    }else {
       str = 'SHARE_PRODUCT_DETAIL_PAGE'
       str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_PRODUCT_DETAIL_PAGE%3d'
       postParam[str] = data.id;

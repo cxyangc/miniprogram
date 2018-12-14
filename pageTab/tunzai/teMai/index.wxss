@@ -263,7 +263,7 @@ line-height:50rpx;
 }
 @keyframes myfirst{
   0% {margin-left: 0}
-  100% {margin-left: -500rpx}
+  100% {margin-left: -1000rpx}
 }
 .scroll_view_border{
 position: relative;

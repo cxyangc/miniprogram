@@ -15,7 +15,7 @@ Component({
     display:"none"
   },
   ready:function(){
-    console.log("popimage数据", this.data.data.jsonData.imageUrl)
+    console.log("popimage数据", this.data.data)
     let that=this;
     try {
       var imageUrl = wx.getStorageSync('popimage')

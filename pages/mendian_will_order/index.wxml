@@ -15,7 +15,7 @@
 
       <view class='cartItems'>
         <view class='itemCheckbox'>
-          <image mode='aspectFill' src='{{list.itemIcon}}?x-oss-process=style/preview'></image>
+          <image mode='aspectFill' src='{{list.itemIcon?list.itemIcon:"http://image1.sansancloud.com/yunjishi/2018_12/5/11/1/31_158.jpg"}}?x-oss-process=style/preview'></image>
         </view>
         <view class='item_infomation'>
           <view class='item_infomation_name font1'>{{list.itemName}}</view>

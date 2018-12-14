@@ -262,6 +262,7 @@ flex-direction:column;
  .wxParseHtmlContainer{
   padding: 10px;
   overflow: hidden;
+  margin-bottom: 100rpx
 }
 
  .marginleft{

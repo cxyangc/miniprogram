@@ -32,6 +32,13 @@
 
     "pageTab/yunjishi/applyServant/index",
     "pageTab/yunjishi/success/index",
+    "pageTab/yunjishi/myInfo/index",
+    "pageTab/yunjishi/servantDetail/index",
+    
+
+    "pageTab/location_servant/index",
+    "pageTab/process_list/index",
+    "pageTab/news_list/index",
     
 
 
@@ -185,21 +192,27 @@
   "selectedColor": "#000000",
   "borderStyle": "black",
   "backgroundColor": "#ffffff",
-  "list": [
+  "list":[
     {
-      "pagePath": "pageTab/custom_page_index/index",
+      "pagePath": "pageTab/location_servant/index",
       "iconPath": "images/icons/home1.png",
       "selectedIconPath": "images/icons/home2.png",
-      "text": "首页"
+      "text": "技师"
     },
     {
-      "pagePath": "pageTab/shopping_car_list_new/index",
-      "iconPath": "images/icons/cart1.png",
-      "selectedIconPath": "images/icons/cart2.png",
-      "text": "购物车"
+      "pagePath": "pageTab/news_list/index",
+      "iconPath": "images/icons/good1.png",
+      "selectedIconPath": "images/icons/good2.png",
+      "text": "新闻"
     },
     {
-      "pagePath": "pageTab/aikucun_userinfo/index",
+      "pagePath": "pageTab/process_list/index",
+      "iconPath": "images/icons/fx.png",
+      "selectedIconPath": "images/icons/fx2.png",
+      "text": "我的服务"
+    },
+    {
+      "pagePath": "pageTab/yunjishi/myInfo/index",
       "iconPath": "images/icons/me1.png",
       "selectedIconPath": "images/icons/me2.png",
       "text": "我的"
@@ -225,7 +238,7 @@
   "debug": true,
   "plugins": {
     "tencentvideo": {
-      "version": "1.2.3",
+      "version": "1.2.4",
       "provider": "wxa75efa648b60994b"
     }
   }
