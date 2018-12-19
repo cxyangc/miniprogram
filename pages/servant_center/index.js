@@ -66,7 +66,11 @@ Page({
         app.linkEvent(linkUrl)
     },
     dellMoney: function (servant) {
-      servant.account.account = app.toFix(servant.account.account)
+      if (servant.account && servant.account.account){
+        servant.account.account = app.toFix(servant.account.account)
+      }else{
+        servant.account = { account:app.toFix(0)} 
+      }
       servant.unrealizedParentServiceProfit = app.toFix(servant.unrealizedParentServiceProfit)
       servant.unrealizedServiceProfit = app.toFix(servant.unrealizedServiceProfit)
         return servant

@@ -174,8 +174,5 @@
 
 }
 .saveBtn{
-  width: 60%
-}
-.checkFormList{
-  width: 35%
+  width: 100%
 }

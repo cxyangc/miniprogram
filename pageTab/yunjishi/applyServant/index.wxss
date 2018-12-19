@@ -1,5 +1,7 @@
 .wrap{
     background-color: #F8FBFF;
+    height:100%;
+
 }
 .mt16{
   width: 100%;
@@ -122,39 +124,34 @@ margin-left: 64rpx;
 /*--个人信息  */
 .userIfon{
   width:722rpx;
-height:408rpx;
-background:rgba(255,255,255,1);
-border-radius:16rpx;
-padding-top: 36rpx;
-padding-left: 28rpx;
-margin-top: 16rpx;
+  background:rgba(255,255,255,1);
+  border-radius:16rpx;
+  padding-top: 36rpx;
+  padding-left: 28rpx;
+  margin-top: 16rpx;
+  margin-bottom: 20rpx;
+  padding-bottom:36rpx;
 }
 
 .userIfonName{
     width:100%;
-    height:40rpx;
-  margin-top: 16rpx;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-
-
+    margin-top: 16rpx;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
 }
 .userIfonNameTitle{
   width:122rpx;
-height:40rpx;
-font-size:30rpx;
-font-family:PingFangSC-Regular;
-color:rgba(102,102,102,1);
-line-height:40rpx;
+  font-size:30rpx;
+  font-family:PingFangSC-Regular;
+  color:rgba(102,102,102,1);
+  line-height:40rpx;
 
 }
 .userIfonNameInput{
 width:488rpx;
-height:40rpx;
-font-size:30px;
+font-size:30rpx;
 font-family:PingFangSC-Regular;
-line-height:34rpx;
 }
 .userIfonNameInput input{
 width:488rpx;
@@ -248,14 +245,13 @@ font-family:PingFangSC-Regular;
 }
 /*--院校信息  */
 .schoolIfon{
-
-height:268rpx;
   width:722rpx;
-background:rgba(255,255,255,1);
-border-radius:16rpx;
-padding-top: 36rpx;
-padding-left: 28rpx;
-margin-top: 16rpx;
+  background:rgba(255,255,255,1);
+  border-radius:16rpx;
+  padding-top: 36rpx;
+  padding-bottom: 36rpx;
+  padding-left: 28rpx;
+  margin-top: 16rpx;
 }
 .schoolIfonText{
     width: 450rpx;
@@ -483,4 +479,11 @@ line-height:40px;
   text-align:center;
   color: #fff;
   line-height:30rpx;
+}
+.introduce{
+  height:78px;
+  border:1rpx solid #eee;
+  padding:10rpx;
+  margin-left:36rpx;
+  width:90%;
 }

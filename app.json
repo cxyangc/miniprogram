@@ -71,6 +71,7 @@
     {
       "root": "pages",
       "pages": [
+        "check_form_detail/index",
         "big_wheel_game/index",
         "servant_qrcode/index",
         "servant_account/index",

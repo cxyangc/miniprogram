@@ -11,6 +11,42 @@ Page({
     moneyAmount: 0,
     mendian: null
   },
+  /* 组件事件集合 */
+  tolinkUrl: function (data) {
+    let linkUrl = data.currentTarget ? data.currentTarget.dataset.link : data;
+    console.log("==linkUrl===", linkUrl)
+    app.linkEvent(linkUrl)
+  },
+  checkFormDetail: function (data) {
+    let that = this;
+    console.log("====data===", data)
+    let formId = data.currentTarget.dataset.id ? data.currentTarget.dataset.id : 0;
+    wx.showActionSheet({
+      itemList: ['查看用户提交的表单'],
+      success: function (res) {
+        console.log(res.tapIndex)
+        if (!formId) {
+          wx.showModal({
+            title: '提示',
+            content: '主人~该表单没有内容哦!',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        } else {
+          let url = "check_form_detail.html?custom_form_commit_id=" + formId
+          that.tolinkUrl(url)
+        }
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
+    })
+  },
   toFormRewardList: function (event) {
     console.log('===event===', event)
     let id = event.currentTarget.dataset.id

@@ -11,15 +11,7 @@
             <text>￥</text>
             <text>{{servant.unrealizedServiceProfit}}</text>
           </view> 
-          <text>服务金</text>
-           <view class='borderRight2'></view>
-        </view>
-        <view class='tongji_bottom_item'>
-          <view style='color:{{setting.platformSetting.defaultColor}};'>
-            <text>￥</text>
-            <text>{{servant.totalTixianAmount}}</text>
-          </view>
-          <text>待实现</text>
+          <text>待实现服务金</text>
            <view class='borderRight2'></view>
         </view>
         <view data-link='servant_will_order.html?type=1'   bindtap='tolinkUrl'  class='tongji_bottom_item'>
@@ -27,7 +19,7 @@
             <text>￥</text>
             <text>{{servant.unrealizedParentServiceProfit}}</text>
           </view>
-          <text>推广金</text>
+          <text>待实现推广金</text>
         </view>
       </view>
 

@@ -222,13 +222,13 @@ Page({
   onPullDownRefresh: function () {
     var that=this;
     this.getSessionUserInfo(function(loginUser){
-      console.log("====get login user===");
-      if (this.data.loginUser.platformUser.managerMendianId) {
+      console.log("====get login user===",loginUser);
+      if (loginUser.platformUser.managerMendianId) {
         console.log("获取平台信息")
-        this.getMendianInfo()
-      } else if (this.data.loginUser.platformUser.managerServantId) {
+        that.getMendianInfo()
+      } else if (loginUser.platformUser.managerServantId) {
         console.log("获取技师信息")
-        this.getservantInfo()
+        that.getservantInfo()
       }
     });
     

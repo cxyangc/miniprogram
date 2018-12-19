@@ -39,3 +39,8 @@
   width:260rpx;
   border-radius: 100rpx;
 }
+.wrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

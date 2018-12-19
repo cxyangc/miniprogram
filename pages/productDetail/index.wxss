@@ -296,7 +296,6 @@ font-size: 0.8em;
 .product_introduce_item_vaule{
   font-size: 24rpx;
   color: #888;
-  white-space: 
 }
 .product_main_info{
   font-size: 28rpx;
@@ -305,6 +304,7 @@ font-size: 0.8em;
   height:80rpx;
   line-height: 80rpx;
   background:rgba(255,255,255,1);
+  padding:0 48rpx;
 }
 .price_explain{
   padding:24rpx 48rpx 0 48rpx;
@@ -312,6 +312,7 @@ font-size: 0.8em;
   background:rgba(255,255,255,1);
   border-radius:16rpx;
   margin-bottom: 76rpx;
+  margin-top:20rpx;
 }
 .price_explain_content{
   font-size:24rpx;
@@ -747,140 +748,28 @@ button {
   font-size: 22rpx;
   color: #fff;
 }
-/* 数量 */
-/* .countContainer{
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  min-height: 12.6em;
-  background: #fff;
-  z-index: 12;
-  display: flex;
-  flex-direction: column;
+.w_540{
+  width: 540rpx;
 }
-.sureButn{
-  width: 100%;
-  height: 3em;
-  color: #fff;
-  background: deeppink;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.error_view{
-  padding: 0.4em 0.8em;
-  color: red;
-}
-.ItemCountDell{
-  padding: 0.8em;
-  height: 3em;
-  background: #fff;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #ccc;
-} */
-/* 加和减 */
-/* .item_infomation_nums{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  font-size: 0.8em;
-}
-
-.item_infomation_nums image{
-  height: 2em;
-  width: 2em;
-  padding: 0.4em;
-  border: 1rpx solid #aaa;
-}
-.item_infomation_nums text{
-  height: 2em;
-  width:2.2em;
-  padding: 0.4em;
-  border-top: 1rpx solid #aaa;
-  border-bottom: 1rpx solid #aaa;
-}
-
-.CountTopInfo{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  padding: 0.8em;
-  height: 4.4em;
-}
-.CountTopInfo_image_container{
+.pintuan_tip{
   position: absolute;
-  top: -2.6em;
-  left: 0.8em;
-  height:7em;
-  width: 7em;
-  background: #000;
+  left: 60rpx;
+  top:0;
 }
-.CountTopInfo_image_container image{
-  width: 100%;
-  height: 100%;
+.pintuan_tip_price{
+  display: inline-block;
+  padding: 8rpx 18rpx;
+  color: #fff;
+  cursor: pointer;
+  font-size: 24rpx;
+  border-radius:10rpx;
 }
-.CountTopInfo_text_container{
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-around;
+.triangle_border_left{
+  width:0;
+  height:0;
+  border-width: 0px 16rpx 12rpx 16rpx;
+  border-style:solid;
+  bottom:-12rpx;
+  left:30rpx;
+  position:absolute;
 }
-.namenamename{
-  line-height: 1.3em;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  font-size: 0.8em;
-}
-.price{
-  color: red;
-}
-.font2{
-  font-size: 0.8em;
-}
- */
-
-
-/* 规格 */
-/* 
-.measureItemContainer{
-  display: flex;
-  flex-direction: column;
-}
-.cardMid{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-.cardMidName{
-  color: #aaa;
-  padding: 0.4em 0.8em;
-  font-size: 0.9em;
-}
-.cardMidGuigeContainer{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  padding:0 1em ;
-}
-.cardMidGuigeContainer view{
-  margin-right: 1em;
-  padding: 0.4em 0.8em;
-  border-radius: 0.6em;
-  color: #000;
-  border: 1px solid #ddd;
-  margin-bottom: 0.8em;
-}
-.activeMeasure{
-   border: 1px solid red !important;
-} */

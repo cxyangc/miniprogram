@@ -22,7 +22,7 @@ color: transparent;
   background: #f9f9f9; 
 } 
 .detail_list_mode1 .mode1_items:last-child, 
-.detail_list_mode1 .mode1_items:nth-last-child(2){
+.detail_list_mode1 .mode1_items:nth-last-child(1){
   margin-bottom: 0;
 }
 

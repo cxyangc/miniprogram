@@ -9,7 +9,8 @@ Page({
     servantshowWay: 1, // servantshowWay列表显示方法 (默认显示地图)
     colorAtive: '#888',
     localPoint: { longitude: '0', latitude:'0'},
-    mapCtx:{},
+    mapCtx: {},
+    userInfoWidth: 200,
     currentScale:4,
     markers: [{
       iconPath: "",
@@ -22,6 +23,21 @@ Page({
     showPopup: false,
   },
   toApplyServant:function(e){
+    let that=this;
+    if (that.data.loginUser.platformUser && that.data.loginUser.platformUser.managerServantId){
+      wx.showModal({
+        title: '提示',
+        content: '主人~您已经是我们的技师啦！不要重新申请了!',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return;
+    }
     wx.navigateTo({
       url: '/pageTab/yunjishi/applyServant/index?reqType=2',
     })
@@ -81,6 +97,30 @@ Page({
   hiddenProInfo(e){
     console.log(e)
     this.setData({servantDetail:null})
+  },
+  getLength: function (str) {
+    var reg = /[a-zA-Z]/g;
+    if (reg.test(str)) {
+      return str.match(/[a-z]/ig).length;
+    }
+    return 0;
+  },
+  loginSuccess: function (user) {
+    console.log("hello!!!", app.loginUser);
+    let that = this
+    that.setData({ loginUser: app.loginUser })
+    if (app.loginUser && app.loginUser != "" && app.loginUser.platformUser.mendian) {
+      that.setData({
+        loginUserMendian: app.loginUser.platformUser.mendian
+      })
+      let mendianName = app.loginUser.platformUser.mendian.name
+      let mendianNameE = this.getLength(mendianName)
+      console.log('mendianNameE', mendianNameE, mendianName.length)
+      that.setData({
+        userInfoWidth: (mendianName.length - mendianNameE) * 24 + mendianNameE * 12 + 10
+      })
+      console.log(mendianName, that.data.userInfoWidth)
+    }
   },
   getData: function () { //根据把param变成&a=1&b=2的模式
     let that = this;
@@ -170,7 +210,6 @@ Page({
     return resule;
   },
   /* 商品显示方法 */
-
   bindservantshowWay: function (state) {
     if (this.data.servantshowWay == 1 || state==2) {
       this.setData({ servantshowWay: 2 })
@@ -190,6 +229,12 @@ Page({
   onLoad: function (options) {
     let that = this;
     console.log("options", options)
+    console.log("用户信息", app.loginUser)
+    if (app.loginUser && app.loginUser != "") {
+      that.loginSuccess(app.loginUser)
+    }else{
+      app.addLoginListener(that);
+    }
     that.setData({ options: options, currentScale:4})
     that.initSetting();
     wx.getLocation({
@@ -286,6 +331,11 @@ Page({
     this.params.page = 1;
     that.getData();
     that.getServantData();
+    if (app.loginUser && app.loginUser != "") {
+      that.loginSuccess(app.loginUser)
+    } else {
+      app.addLoginListener(that);
+    }
     console.log("=========检查用户是否授权了======")
     wx.getSetting({//检查用户是否授权了
       success(res) {
@@ -309,9 +359,10 @@ Page({
    */
   onReachBottom: function () {
     var that = this
-    console.log("====onReachBottom=====")
-    if (that.listPage.totalSize > that.listPage.curPage * that.params.page) {
+    console.log("====onReachBottom=====", that.listPage, that.params.page)
+    if (that.listPage.totalSize > that.listPage.pageSize * that.params.page) {
       that.params.page++
+      console.log("====onReachBottom=====", that.params.page)
       this.getServantData();
     }
   },

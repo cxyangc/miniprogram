@@ -1,16 +1,17 @@
 <view class="wrap">
 <form bindsubmit="submit" bindreset="formReset" report-submit='true' >
-   <view class='top'>
+   <!-- <view class='top'>
      <view>（答应我，一定如实填写以下信息）</view>
-   </view>
-<!--店铺信息  -->
-<view class='shopIfon'>
- <view class='shopIfonTitle'>基本信息</view>
- 
-  <view class='shopIfonName'>
+   </view> -->
+
+<!--个人信息  -->
+<view class='userIfon'>
+ <view class='shopIfonTitle'>个人信息</view>
+ <view class='mt16'></view>
+ <!-- <view class='shopIfonName'>
       <view class='shopIfonNameTitle'>名称</view>
       <view class='shopIfonNameInput'><input placeholder="请输入九个字符内(中英文数字皆可)" bindinput="shopNameInput"></input></view>
-  </view>
+  </view> -->
   <view class='shopIfonName'>
       <view class='shopIfonNameTitle'>头像</view>
       <view class='shopIfonNameInput'>
@@ -32,17 +33,11 @@
          <view class='doNotDelText'>{{inviteCode}}</view>
       </view>
   </view>
-</view>
-
-<!--个人信息  -->
-<view class='userIfon'>
- <view class='shopIfonTitle'>个人信息</view>
- <view class='mt16'></view>
   <view class='userIfonName'>
       <view class='userIfonNameTitle'>真实姓名</view>
       <view class='userIfonNameInput'><input placeholder="初入江湖，报上大名" bindinput="userName"></input></view>
   </view>
-   <view class='userIfonName'>
+  <view class='userIfonName'>
       <view class='userIfonNameTitle'>手机号码</view>
       <view class='userIfonNameInput'><input placeholder="绝不骚扰，除非你想"bindinput="phoneInput" type='number'></input></view>
   </view>
@@ -57,16 +52,20 @@
          <view class="validationBtnView" wx:if="{{isShow}}" style='  border: 1px solid gray;  color: gray; '>{{sec}}秒 </view>  
   </view> -->
   <!--验证码结束  -->
-      <view class='userIfonName'>
-      <view class='userIfonNameTitle'>年龄</view>
-      <view class='userIfonNameInput' type='number'><input placeholder="对灯发誓绝对保密 "bindinput="ageInput"></input></view>
+  <view class='userIfonName'>
+    <view class='userIfonNameTitle'>年龄</view>
+    <view class='userIfonNameInput' type='number'><input placeholder="对灯发誓绝对保密 " bindinput="ageInput"></input></view>
   </view>
-       <view class='userIfonName'>
-      <view class='userIfonNameTitle'>性别</view>
-      <view class='userIfonNameSex'>
-         <view bindtap="changeColor" data-id="1" class='boy'style='border: 1px solid {{colorB}};color:{{colorB}};'>男</view>
-         <view bindtap="changeColor" data-id="2" class='girl'style='border: 1px solid {{colorG}};color:{{colorG}};'>女</view>
-      </view>
+  <view class='userIfonName'>
+    <view class='userIfonNameTitle'>性别</view>
+    <view class='userIfonNameSex'>
+        <view bindtap="changeColor" data-id="1" class='boy'style='border: 1px solid {{colorB}};color:{{colorB}};'>男</view>
+        <view bindtap="changeColor" data-id="2" class='girl'style='border: 1px solid {{colorG}};color:{{colorG}};'>女</view>
+    </view>
+  </view>
+  <view class='userIfonName'>
+    <view class='userIfonNameTitle'>经验介绍</view>
+    <view class='userIfonNameInput' type='number'><textarea class='introduce' bindinput="bindTextAreaBlur" auto-height placeholder="经验介绍" /></view>
   </view>
 
 </view>

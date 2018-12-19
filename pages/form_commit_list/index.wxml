@@ -21,12 +21,12 @@
       </view>
       <view class='form_commit_bottom'>
         <view class='form_commit_bottom_left'>
-          <view class='check_record' bindtap="toFormRewardList" data-id="{{formCommitItem.id}}"><text>奖励记录</text></view>
+          <view class='check_record' bindtap="toFormRewardList" data-id="{{formCommitItem.id}}" wx:if="{{formCommitItem.rewardType!=0}}"><text>奖励记录</text></view>
         </view>
         <view class='form_commit_bottom_right'>
           <image class='form_commit_icon' src='http://image1.sansancloud.com/xianhua/2018_11/14/19/58/37_380.jpg?x-oss-process=style/preview_120'></image>
           <text class='form_commit_time'>{{formCommitItem.commitDate}}</text>
-          <image class='form_commit_dot'src='http://image1.sansancloud.com/xianhua/2018_11/14/21/7/48_739.jpg?x-oss-process=style/preview_120'></image>
+          <image bindtap='checkFormDetail' data-id="{{formCommitItem.id}}" class='form_commit_dot'src='http://image1.sansancloud.com/xianhua/2018_11/14/21/7/48_739.jpg?x-oss-process=style/preview_120'></image>
         </view>
       </view>
     </view>

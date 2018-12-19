@@ -169,7 +169,13 @@ Page({
     shopName: e.detail.value  
   })
   },
-
+//个人经验介绍
+  bindTextAreaBlur(e) {
+    console.log(e.detail.value)
+    this.setData({
+      introduce: e.detail.value
+    })
+  },
   // 个人信息这部分
   //----------------------------------------------------------------
 // 1.用户名
@@ -314,17 +320,7 @@ Page({
     let formId = e.detail.formId;
   
        let that=this;
-       if (that.data.shopName==""){
-         wx.showModal({
-           content: '请填写店铺名',
-           showCancel: false,
-           success: function (res) {
-             if (res.confirm) {
-               console.log('用户点击确定')
-             }
-           }
-         });
-       } else if (that.data.userName == ""){
+       if (that.data.userName == ""){
             wx.showModal({
               content: '请填写真实姓名',
               showCancel: false,
@@ -387,7 +383,6 @@ Page({
        }else{
          console.log("成功了")
          let params = {
-           shopName: this.data.shopName,
            invitationCode: this.data.inviteCode,
            userName: this.data.userName,
            telno: this.data.phone,
@@ -403,6 +398,7 @@ Page({
            latitude: this.data.latitude,
            reqType: 2,
            headImg: this.data.upLoadImageList['img_headImg'],
+           introduce: this.data.introduce,
            formId: formId,
          }
          var customIndex = app.AddClientUrl("/applyServer.html", params, 'post')

@@ -34,33 +34,40 @@
       </view>
 
       <view class='data_column_bottom'>
-          <view class='data_bottom_items'>
+          <!-- <view class='data_bottom_items' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_qrcode.html":"servant_qrcode.html"}}' bindtap='tolinkUrl'>
             <view class='data_bottom_img_text'>
-                <!-- <image src='../../../images/myImg/calendar-check2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image> -->
-                <text class='data_bottom_text' style='font-size:30rpx'>【待实现金】</text>
+                <image src='../../../images/myImg/calendar-check2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
+                <text class='data_bottom_text'>我的二维码</text>
             </view>
-            <!-- <text class='data_bottom_num'>¥0</text> -->
-         </view>
-
-          <view class='data_bottom_items' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_account.html":"servant_account.html"}}' bindtap='tolinkUrl'>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">我是技师</text>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerMendianId}}">我是服务商</text>
+         </view> -->
+          <view class='data_bottom_items' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"tunzhu_account.html":"servant_will_order.html?type=2"}}' bindtap='tolinkUrl'>
             <view class='data_bottom_img_text'>
                 <image src='../../../images/myImg/money_collect2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
-                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">服务金额</text>
+                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">待服务金额</text>
                 <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerMendianId}}">可提现金</text>
             </view>
-            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">¥{{myData.unrealizedServiceProfit}}</text>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">¥{{myData.unrealizedServiceProfit||0}}</text>
             <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerMendianId}}">¥{{myData.account.account}}</text>
          </view>
 
           <view class='data_bottom_items' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_will_order.html":"servant_will_order.html?type=1"}}'   bindtap='tolinkUrl'>
             <view class='data_bottom_img_text'>
                 <image src='../../../images/myImg/yuan2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
-                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">推广金额</text>
+                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">待推广金额</text>
                 <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerMendianId}}">待实现金</text>
             </view>
-            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">¥{{myData.unrealizedParentServiceProfit}}</text>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">¥{{myData.unrealizedParentServiceProfit||0}}</text>
             <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerMendianId}}">¥{{myData.waitCompleteOrderDistributeAmount}}</text>
          </view>
+         <!-- 我的二维码 -->
+         <view class='data_right' style='margin-left:20rpx;' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_qrcode.html":"servant_qrcode.html"}}' bindtap='tolinkUrl'>
+          <image src='http://image1.sansancloud.com/yunjishi/2018_12/18/12/5/42_249.jpg' style='width:32rpx;height:32rpx;margin-right:8rpx'></image>
+          <text class='data_right_id'>我的二维码</text>
+          <image src='../../../images/check.png' style='width:20rpx;height:20rpx;margin-left:24rpx'></image>
+        </view>
+
       </view>
     </view>
 <!--data end -->
@@ -91,6 +98,15 @@
               </button>
               <view><image class='profit_check_img' src='../../../images/check.png'></image></view>
             </view>
+            <!-- <view class='function_block_items' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_qrcode.html":"servant_qrcode.html"}}' bindtap='tolinkUrl'>
+              <button class='kefu_buttom' plain='true' hover-class="none" style='border:none'>
+                <view class='image_content'>
+                  <image class='function_items_img' src='http://image1.sansancloud.com/yunjishi/2018_12/17/13/58/39_480.jpg?x-oss-process=style/preview_120' style='width:44rpx;height:44rpx'></image>
+                </view>
+              <text class='function_items_text' >我的二维码</text>
+              </button>
+              <view><image class='profit_check_img' src='../../../images/check.png'></image></view>
+            </view> -->
           </view>  
         </view>
     </view>

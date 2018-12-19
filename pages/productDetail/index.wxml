@@ -1,6 +1,6 @@
     <!--pages/productDetail/index.wxml-->
-     <import src="../../view-new/aikucun/measure_card2.wxml"/>
-
+<import src="../../view-new/aikucun/measure_card2.wxml"/>
+<wxs src="../../public/publicFun.wxs" module="publicFun"></wxs>
 <view class='container'>
 
 <view class='SwiperContainer'>
@@ -23,15 +23,27 @@
     </block>
   </view>  
  
-  <view class='ProductDetailInfoContainer'>
+  <view class='ProductDetailInfoContainer' style='position: relative;'>
+    <view class='pintuan_tip' wx:if="{{pintuanState}}">
+      <view class='pintuan_tip_price' style='background:{{setting.platformSetting.defaultColor}}'>拼团价格</view>
+      <view class='triangle_border_left' style='border-color: transparent transparent transparent {{setting.platformSetting.defaultColor}};'></view>
+    </view>
     <view class='InfoPrice_content'>
        <view class='InfoPrice'>
           <view class='p1 price_font'>
-            ￥{{productData.productInfo.price}}
-            <text wx:if='{{productData.productInfo.unitShow}}' style='color:#bbb;font-size:24rpx;margin-left:4rpx;letter-spacing:4rpx;'>/{{productData.productInfo.unitShow}}</text>
+            <text class='pintuan' wx:if="{{pintuanState&&productData.productInfo.promotionBean.pintuanStrategy&&productData.productInfo.promotionBean.pintuanStrategy.priceZhekou}}">
+              ￥{{publicFun.toFix(productData.productInfo.price*productData.productInfo.promotionBean.pintuanStrategy.priceZhekou)}}
+            </text>
+            <text wx:else>￥{{productData.productInfo.price}}</text>
+            <text wx:if='{{productData.productInfo.unitShow}}' style='color:#bbb;font-size:24rpx;margin-left:4rpx;letter-spacing:4rpx;'>
+              /{{productData.productInfo.unitShow}}
+            </text>
           </view>
-          <block wx:if='{{productData.productInfo.tagPrice > productData.productInfo.price}}'>
+          <block wx:if='{{productData.productInfo.tagPrice > productData.productInfo.price&&!pintuanState}}'>
             <text class='tagPrice_font'>￥{{productData.productInfo.tagPrice}}</text>
+          </block>
+          <block wx:if='{{pintuanState}}'>
+            <text class='tagPrice_font'>￥{{productData.productInfo.price}}</text>
           </block>
           <view class='product_stock'><text>仅剩{{productData.productInfo.stock}}件</text></view>
        </view>
@@ -158,12 +170,14 @@
             <text class='product_introduce_item_vaule'>{{item.attributeValue}}</text>
         </view>
       </view>
-      <view class='product_main_info'><text>图文详情</text></view>
     </view>
-
+    <!-- 首页组件-私有产品详情装饰-->
+    <view style='margin-top:20rpx;'>
+     <component-tag-customPage data="product_detail_{{productData.productInfo.productId}}" wx:if="{{productData.productInfo.productId}}"></component-tag-customPage> 
+    </view>
     <import src="../../wxParse/wxParse.wxml"/><!-- 富文本 -->
-
-    <view class="tab_detail_container">
+    <view class='product_main_info' wx:if="{{productData.description.description!=''&&productData.description.description!='<p><br></p>'}}"><text>图文详情</text></view>
+    <view class="tab_detail_container" wx:if="{{productData.description.description!=''&&productData.description.description!='<p><br></p>'}}">
        <view class='wxParseHtmlContainer'> <template is="1" data="{{wxParseData:article.nodes}}"></template> </view>
     </view>
 
@@ -188,8 +202,9 @@
     <text style='font-size:22rpx;color:#aaa'>购物车</text>
   </view>
   <block wx:if='{{!pintuanState}}'>
-    <view class='right_bottom addto font_08' data-way='cart' bindtap='readyPay2' style=' border: 2rpx solid {{scolor}};color:{{color}}'>加入购物车</view>
-  <view class='right_bottom bynow font_08' data-way='buy' bindtap='readyPay2' style='background-image:linear-gradient(to right,{{setting.platformSetting.secondColor}},{{color}});box-shadow:0px 0px 6px 0px {{color}};'>立即购买</view>
+    <view class='right_bottom addto font_08' data-way='cart' bindtap='readyPay2' style=' border: 2rpx solid {{scolor}};color:{{color}}' wx:if="{{!productData.productInfo.preOrderCustomFormId}}" >加入购物车</view>
+    <!-- <view wx:else class='right_bottom'></view> -->
+    <view class='{{productData.productInfo.preOrderCustomFormId?"w_540":""}} right_bottom bynow font_08' data-way='buy' bindtap='readyPay2' style='background-image:linear-gradient(to right,{{setting.platformSetting.secondColor}},{{color}});box-shadow:0px 0px 6px 0px {{color}};'>立即购买</view>
   </block>
   <block wx:else>
     <view class='right_bottom addto font_08' data-way='pintuanOne' bindtap='readyPay2' style=' border: 2rpx solid {{color}};color: {{color}}'>单独购买</view>
@@ -201,5 +216,5 @@
 <pintuan pintuanParam="{{pintuanParam}}" wx:if='{{pintuanPopupState}}' bind:closePintuan="getChilrenPintuan" bind:goPintuan='readyPay2'></pintuan> 
 
  <template is="measure_card2" data="{{setting:setting,showCount,minCount,focusData:productData.productInfo,measures:productData.measures,byNowParams:byNowParams,measurementJson:measurementJson,type:bindway}}"></template> 
- <!-- 首页组件-->
+ <!-- 首页组件-公共产品详情装饰-->
  <component-tag-customPage data="productdetail"></component-tag-customPage> 

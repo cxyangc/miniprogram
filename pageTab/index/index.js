@@ -193,7 +193,7 @@ Page({
       console.log("进入新闻详情页面", options.SHARE_NEWS_DETAIL_PAGE)
       setTimeout(function () {
         wx.navigateTo({
-          url: '/pagees/news_detail/index?id=' + options.SHARE_NEWS_DETAIL_PAGE,
+          url: '/pages/news_detail/index?id=' + options.SHARE_NEWS_DETAIL_PAGE,
           success: function () {
             app.shareSubPage = true;
           }

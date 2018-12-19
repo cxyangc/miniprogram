@@ -1,4 +1,5 @@
 // pageTab/lanHu/success/index.js
+const app = getApp()
 Page({
 
   /**
@@ -15,10 +16,8 @@ Page({
   
   },
   // 返回首页
-  login: function (e) {
-    wx.switchTab({
-      url: '../index/index',
-    })
+  toIndex: function (e) {
+    app.toIndex()
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

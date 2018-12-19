@@ -68,6 +68,17 @@ Page({
   onLoad: function (options) {
     console.log("options", options)
     this.options = options
+    let title;
+    if (options.type==1){
+      title ="待实现推广金"
+    } else if (options.type == 2){
+      title = "待实现服务金"
+    }else{
+      title="待实现金"
+    }
+    wx.setNavigationBarTitle({
+      title: title
+    })
     this.get_will_order(this.options)
   },
 

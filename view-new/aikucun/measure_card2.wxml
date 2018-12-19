@@ -1,9 +1,6 @@
-
 <template name="measure_card2"> 
-     
- 
+<wxs src="../../public/publicFun.wxs" module="publicFun"></wxs>
 <view class='measure_card' catchtouchmove='true' wx:if='{{showCount}}'>
-
   <view class='countContainer'> 
      <view class='countContainer_top'>
         <view class='countContainer_top_image'>
@@ -12,8 +9,15 @@
         <view class='countContainer_top_product_info_container'>
            <view class='font_1'>{{focusData.name}}</view>
            <view class='font_aaa font_08'>商品编号: {{focusData.orderNumber}}</view>
-           <text class='price font_14' wx:if='{{measures.length == 0||!measures}}'>￥{{focusData.price}}</text>
-           <view class='price font_14' wx:else>￥{{measurementJson.price}}
+           <view class='price font_14' wx:if='{{measures.length == 0||!measures}}'>
+             ￥{{focusData.price}}
+           </view>
+           <view class='price font_14' wx:else>
+              <view class='pintuan' wx:if="{{focusData.promotionBean&&focusData.promotionBean.pintuanStrategy&&type=='pintuanMore'}}">
+                <text class='show_price' wx:if="{{measurementJson.price}}">￥{{publicFun.toFix(measurementJson.price*focusData.promotionBean.pintuanStrategy.priceZhekou)}}</text>
+                <text class='loading_price' wx:else>￥</text>
+              </view>
+              <view class='noPintuan' wx:else>￥{{measurementJson.price}}</view>
               <text class='tagPrice_font' wx:if='{{measurementJson.price<measurementJson.tagPrice}}'>￥{{measurementJson.tagPrice}}</text>
               <text style='color:#aaa;font-size:24rpx;margin-left:8rpx;' wx:if='{{(measures.length == 0||!measures)&&focusData.stock<=10}}'>(仅剩：{{focusData.stock}})</text>
               <text style='color:#aaa;font-size:24rpx;margin-left:8rpx' wx:if="{{(measures.length != 0&&measures)&&measurementJson.stock<=10}}">(仅剩：{{measurementJson.stock}})</text>

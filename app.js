@@ -12,7 +12,7 @@ App({
      */
           
 
-  clientNo: 'jianzhan',   //自定义的项目的名称。
+    clientNo: 'jianzhan',   //自定义的项目的名称。
     preCallbackObj:{key:{callback:''}},
     clientName: '',
     more_scene: '', //扫码进入场景   用来分销
@@ -789,7 +789,7 @@ App({
                         success: function (e) {
                               
                             if (e.data.errcode == 0) {
-                              console.log("===========e.data.errcode=============", e)
+                              console.log("===========wx.login=============", e)
                                 let header = e.header
                                 let cookie = null
                                 if (!!header['Set-Cookie']) {
@@ -799,23 +799,44 @@ App({
                                     cookie = header['set-cookie']
                                 }
                                 let loginJson = e.data.relateObj
-
                                 that.setCookie(cookie)
-                                that.setloginUser(e.data.relateObj, cookie)
-                             
-                                console.log('登陆成功')
-                                that.loginUser = e.data.relateObj
-                                that.globalData.sansanUser = e.data.relateObj
-                                if (that.loginSuccessListeners && that.loginSuccessListeners.length > 0) {
-                                  console.log('000000000000', that.loginSuccessListeners)
-                                  for (let t = 0; t < that.loginSuccessListeners.length; t++) {
-                                    try {
-                                      that.loginSuccessListeners[t].loginSuccess(e.data.relateObj);
-                                    } catch (e) {
-                                      console.log(e);
+                                if(true){
+                                  that.setloginUser(e.data.relateObj, cookie)
+
+                                  console.log('登陆成功')
+                                  that.loginUser = e.data.relateObj
+                                  that.globalData.sansanUser = e.data.relateObj
+                                  if (that.loginSuccessListeners && that.loginSuccessListeners.length > 0) {
+                                    console.log('000000000000', that.loginSuccessListeners)
+                                    for (let t = 0; t < that.loginSuccessListeners.length; t++) {
+                                      try {
+                                        that.loginSuccessListeners[t].loginSuccess(e.data.relateObj);
+                                      } catch (e) {
+                                        console.log(e);
+                                      }
+                                    }
+                                  }
+                                }else{
+                                  that.setloginUser(e.data.relateObj, cookie)
+
+                                  console.log('登陆成功')
+                                  that.loginUser = e.data.relateObj
+                                  that.globalData.sansanUser = e.data.relateObj
+                                  if (that.loginSuccessListeners && that.loginSuccessListeners.length > 0) {
+                                    console.log('000000000000', that.loginSuccessListeners)
+                                    for (let t = 0; t < that.loginSuccessListeners.length; t++) {
+                                      try {
+                                        that.loginSuccessListeners[t].loginSuccess(e.data.relateObj);
+                                      } catch (e) {
+                                        console.log(e);
+                                      }
                                     }
                                   }
                                 }
+
+                                
+                              
+                               
                                 wx.hideLoading()
                                 wx.getSetting({//检查用户是否授权了
                                     success(res) {

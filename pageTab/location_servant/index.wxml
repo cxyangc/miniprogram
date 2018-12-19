@@ -68,8 +68,12 @@
       <view class='applyFormText'>技师注册</view>
     </view>
 </view>
-<cover-view class='platform_logo'>
-  <cover-image class='platform_logo_img' src='{{setting.platformSetting.logo}}'></cover-image>
+<cover-view class='platform_logo' style="width:{{userInfoWidth+80}}rpx">
+  <cover-view class='platform_logo_bg' style="width:{{userInfoWidth+80}}rpx"></cover-view>
+  <cover-view class='platform_logo_content' style="width:{{userInfoWidth+80}}rpx">
+    <cover-image class='platform_logo_img' src='{{loginUserMendian.logo?loginUserMendian.logo:setting.platformSetting.logo}}'></cover-image>
+    <cover-view class='shop_name'>{{loginUserMendian.name?loginUserMendian.name:setting.platformSetting.platformName}}</cover-view>
+  </cover-view>
 </cover-view>
 <view wx:if="{{showPopup}}">
     <view class='authorizationBg'></view>

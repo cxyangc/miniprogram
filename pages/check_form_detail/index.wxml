@@ -1,30 +1,30 @@
 <form bindsubmit="formSubmit" report-submit>
 <view class='content'>
-  <view class='formBanner'>
-    <image class='bannerUrl' src='{{formData.banner}}' mode='widthFix'></image>
-  </view>
+  <!-- <view class='formBanner'>
+    <image class='bannerUrl' src='{{customForm.banner}}' mode='widthFix'></image>
+  </view> -->
   <view class='formHead'>
     <view class='formName'>
-      <text>{{formData.formName}}</text>
+      <text>{{customForm.formName}}</text>
     </view>
     <view class='formDescription'>
-      <text>{{formData.description}}</text>
+      <text>{{customForm.description}}</text>
     </view>
   </view>
   <view class='formContent'>
   <!-- 0字符串   1数字 2下拉框  3单选框  4复选框  5日期  6时间  7 图片  8 间隔 -->
-    <view wx:for='{{formData.items}}' wx:for-item='items'>
+    <view wx:for='{{customForm.items}}' wx:for-item='items'>
       
         <!-- 字符串 -->
-        <view class='inputString common' wx:if='{{items.type==0}}'>
+        <view class='inputString common' wx:if='{{items.type!=7||items.type!=9}}'>
           <view class='inputName'>
             <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
             <text>{{items.title}}</text>
           </view>
-          <input name="{{items.name}}" value='{{items.defaultValue}}'></input>
+          <input name="{{items.name}}" disabled value='{{items.defaultValue}}'></input>
         </view>
         <!-- 下拉框 -->
-        <view class='selectType common' wx:if='{{items.type==2}}'>
+        <!-- <view class='selectType common' wx:if='{{items.type==2}}'>
           <view class='selectName'>
             <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
             <text>{{items.title}}</text>
@@ -35,9 +35,9 @@
               <image class='pickerImg' src='http://image1.sansancloud.com/jianzhan/2018_9/11/13/41/53_722.jpg?x-oss-process=style/preview_120'></image>
             </view>
           </picker >
-        </view>
+        </view> -->
         <!-- 日期 -->
-        <view class='inputString common' wx:if='{{items.type==5}}'>
+        <!-- <view class='inputString common' wx:if='{{items.type==5}}'>
           <view class='inputName'>
             <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
             <text>{{items.title}}</text>
@@ -50,9 +50,9 @@
               <image class='pickerImg' src='http://image1.sansancloud.com/jianzhan/2018_9/11/13/41/53_722.jpg?x-oss-process=style/preview_120'></image>
             </view>
           </picker>
-        </view>
+        </view> -->
         <!-- 时间 -->
-        <view class='inputString common' wx:if='{{items.type==6}}'>
+        <!-- <view class='inputString common' wx:if='{{items.type==6}}'>
           <view class='inputName'>
             <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
             <text>{{items.title}}</text>
@@ -65,7 +65,7 @@
               <image class='pickerImg' src='http://image1.sansancloud.com/jianzhan/2018_9/11/13/41/53_722.jpg?x-oss-process=style/preview_120'></image>
             </view>
           </picker>
-        </view>
+        </view> -->
         <!-- 图片 -->
         <view class='imgType common' wx:if='{{items.type==7}}'>
           <view class='imgName'>
@@ -73,15 +73,14 @@
             <text>{{items.title}}</text>
           </view>
           <view class='upload'>
-          <!-- wx:for="{{upLoadImageList['img_'+index]}}" wx:for-item="imgs"  -->
             <view class='uploadedImg' wx:if="{{upLoadImageList['img_'+index]}}">
-              <view class='removeImgIcon' bindtap='removeImg' data-index='{{index}}'><text>x</text></view>
+              <!-- <view class='removeImgIcon' bindtap='removeImg' data-index='{{index}}'><text>x</text></view> -->
               <image class='uploadedImgUrl' src="{{upLoadImageList['img_'+index]}}" mode='aspectFill'></image>
             </view>
-            <view class='uploadImg' bindtap='addCommitImage' data-index='{{index}}'>
+            <!-- <view class='uploadImg' bindtap='addCommitImage' data-index='{{index}}'>
               <image class='uploadImgIcon' src='http://image1.sansancloud.com/jianzhan/2018_10/22/18/4/3_874.jpg?x-oss-process=style/preview_120'></image>
               <text style='font-size:24rpx;color:#555;margin-top:10rpx'>添加图片</text>
-            </view>
+            </view> -->
           </view>
         </view>
          <!-- 多行文本 -->
@@ -93,7 +92,7 @@
           <textarea auto-height="" placeholder="{{items.defaultValue}}" name="{{items.name}}"/>
         </view>
         <!-- 地址 -->
-        <view class='inputString common' wx:if='{{items.type==10}}'>
+        <!-- <view class='inputString common' wx:if='{{items.type==10}}'>
           <view class='inputName'>
             <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
             <text>{{items.title}}</text>
@@ -106,14 +105,13 @@
               <image class='pickerImg' src='http://image1.sansancloud.com/jianzhan/2018_9/11/13/41/53_722.jpg?x-oss-process=style/preview_120'></image>
             </view>
           </picker>
-        </view>
+        </view> -->
         <!--  -->
         </view>
         <!-- 保存 -->
         <view class='saveData'>
-          <button class='saveBtn' formType="submit" style='background:{{setting.platformSetting.defaultColor}};color:#fff'>{{formData.commitName}}</button>
-          <button class='checkFormList' bindtap='toFormCommitList' style='background:{{setting.platformSetting.secondColor}};color:#fff'>查看记录</button>
-    </view>
+          <button class='saveBtn' bindtap="back" style='background:{{setting.platformSetting.defaultColor}};color:#fff'>返回</button>
+        </view>
   </view>
 </view>
 </form>

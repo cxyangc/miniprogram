@@ -23,6 +23,42 @@ Component({
     that.setData({ processItem: that.data.data,setting: app.setting, loginUser: app.loginUser })
   },
   methods: {
+    /* 组件事件集合 */
+    tolinkUrl: function (data) {
+      let linkUrl = data.currentTarget ? data.currentTarget.dataset.link : data;
+      console.log("==linkUrl===", linkUrl)
+      app.linkEvent(linkUrl)
+    },
+    check_form_detail: function (data){
+      let that=this;
+      console.log("====data===", data)
+      let formId = data.currentTarget.dataset.id ? data.currentTarget.dataset.id:0;
+      wx.showActionSheet({
+        itemList: ['查看用户提交的表单'],
+        success: function (res) {
+          console.log(res.tapIndex)
+          if (!formId){
+            wx.showModal({
+              title: '提示',
+              content: '主人~该流程没有内容哦!',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
+              }
+            })
+          } else {
+            let url = "check_form_detail.html?custom_form_commit_id=" + formId
+            that.tolinkUrl(url)
+          }
+        },
+        fail: function (res) {
+          console.log(res.errMsg)
+        }
+      })
+    },
     createPaymentCode: function (event){
       wx.showToast({
         title: '生成中...',
@@ -128,22 +164,33 @@ Component({
       }
       params.processInstanceId = processInstanceId || 0;
       let customIndex = app.AddClientUrl("/wx_confirm_process_instance_servant.html", params)
-      wx.request({
-        url: customIndex.url,
-        header: app.header,
+      wx.showModal({
+        title: '提示',
+        content: '主人~您是否确认执行!',
         success: function (res) {
-          console.log('====confirmProcessOrder-res===', res)
-          if (res.data.errcode == 0) {
-            wx.showToast({
-              title: "接单成功",
-              icon: 'success',
-              duration: 2000
-            })
-            that.setData({ processItem: res.data.relateObj })
-          }
-        },
-        complete: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            wx.request({
+              url: customIndex.url,
+              header: app.header,
+              success: function (res) {
+                console.log('====confirmProcessOrder-res===', res)
+                if (res.data.errcode == 0) {
+                  wx.showToast({
+                    title: "接单成功",
+                    icon: 'success',
+                    duration: 2000
+                  })
+                  that.setData({ processItem: res.data.relateObj })
+                }
+              },
+              complete: function (res) {
 
+              }
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
         }
       })
     },

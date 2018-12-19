@@ -622,6 +622,13 @@ Page({
 
   },
 
+  setNavColor: function () {
+    wx.setNavigationBarColor({
+      frontColor: '#ffffff',
+      backgroundColor: app.setting.platformSetting.defaultColor
+
+    })
+  },
   listPage: {
     page: 1,
     pageSize: 0,
@@ -661,7 +668,7 @@ Page({
    */
   onReady: function () {
     this.setData({ setting: app.setting })
-   
+    this.setNavColor()
   },
 
   /**
