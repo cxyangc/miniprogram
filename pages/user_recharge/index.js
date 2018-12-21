@@ -112,6 +112,8 @@ Page({
           'complete': function () {
             console.log('------complete--------')
             console.log(res)
+            that.setData({ butn_show_loading: false })
+            app.navigateBack(2000)
           }
         })
       }
@@ -121,7 +123,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that=this;
+    console.log("options",options)
+    if (options.money){
+      that.setData({ money: options.money })
+    }
   },
 
   /**

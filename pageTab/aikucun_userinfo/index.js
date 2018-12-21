@@ -244,6 +244,7 @@ Page({
    */
   onPullDownRefresh: function () {
     this.getSessionUserInfo();
+    console.log(this.data.setting)
     
   },
 

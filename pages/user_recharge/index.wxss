@@ -54,5 +54,5 @@
 .subMitButn{
   background: #8B572A;
   color: #fff;
-  margin-top: 2em;
+  margin:30rpx 20rpx;
 }

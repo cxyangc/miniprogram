@@ -220,8 +220,11 @@ Page({
 
     //如果传入的是 MendainID
     if (!!options.ENTER_MENDIAN && options.ENTER_MENDIAN != -1) {
-      console.log("传入的是id" + options.ENTER_MENDIAN)
+      console.log("===================传入的门店====================id" + options.ENTER_MENDIAN)
       app.enterMenDianID = options.ENTER_MENDIAN;
+      if(app.loginUser){//已登陆需要再次重新登陆
+        app.wxLogin(app.more_scene);
+      }
     }
 
     let ENTER_SHOP = options.ENTER_SHOP;
@@ -282,8 +285,8 @@ Page({
       console.log("=======app.onLaunchOptions==========", app.onLaunchOptions)
      
       app.appHide = false
-      app.onLaunch(app.onLaunchOptions)
-      this.onReady()
+   //   app.onLaunch(app.onLaunchOptions)
+     // this.onReady()
     }
     if(app.shareSubPage){
       console.log("========shareSubPage to index=====");

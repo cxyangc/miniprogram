@@ -1,4 +1,3 @@
-
 <view class="container"> 
     <block wx:if='{{servantshowWay == 1}}'>
      <map class='mapItem' id="map" enable-scroll="0" longitude="104.5319" latitude="38.5349" scale="{{currentScale}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap"  bindregionchange="regionchange" style="width: 100%; height: 400rpx;" bindtap='hiddenProInfo'>

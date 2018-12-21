@@ -8,12 +8,16 @@
         <view class='userinfo_head3_content'>
           <image wx:if='{{loginUser.platformUser.headimgurl}}' src='{{loginUser.platformUser.headimgurl}} '  bindtap='loginOut'></image>
           <image wx:else src='http://image1.sansancloud.com/jianzhan/2017_09/24/16/08/58_464.jpg'  bindtap='loginOut'></image>
-          <view bindtap='loginOut' class='userinfo_head3_name'>
-              <text>{{loginUser.platformUser.nickname}}</text>
-              <view class='loginOut_icon'>
+          <view class='userinfo_head3_name'>
+              <text bindtap='loginOut'>{{loginUser.platformUser.nickname}}</text>
+              <view class='user_level' wx:if="{{loginUser.platformUser.userLevel>0}}" style='background:#fcc200' data-link="user_level.html" bindtap='tolinkUrl'>
+                <image class='user_level_img' src='http://image1.sansancloud.com/xianhua/2018_12/21/11/18/56_627.jpg'></image>
+                <view class='user_level_name'>{{loginUser.platformUser.userLevelName}}</view>
+              </view>
+              <!-- <view class='loginOut_icon'>
                 <image src='../../images/icons/loginOut_icon.png'></image>
                 <text>编辑资料</text>
-              </view>
+              </view> -->
           </view>
           
         </view>  

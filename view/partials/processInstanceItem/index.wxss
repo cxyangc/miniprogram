@@ -80,7 +80,7 @@
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  width:45%;
+  width:40%;
 }
 .check_record{
   height:50rpx;

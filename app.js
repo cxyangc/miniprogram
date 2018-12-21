@@ -3,8 +3,8 @@ import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
 const Promise = require('/promise/promise.js');
 App({
-     //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
-     clientUrl: 'https://mini.sansancloud.com/chainalliance/',//一定加https
+     clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
+     //clientUrl: 'https://mini.sansancloud.com/chainalliance/',//一定加https
      //clientUrl: 'https://mini.tunzai.vip/chainalliance/',//106.14.213.48 mini.tunzai.vip
 
     /**
@@ -77,6 +77,7 @@ App({
     onLaunchOptions: {},
     /* 第一次加载 */
     onLaunch: function (options) {
+        console.log('------options------', options)
         this.onLaunchOptions = options
         let that = this
         console.log('------onlauch------'+this.clientNo)
@@ -111,7 +112,9 @@ App({
             }, 500);
         }
     },
-
+  navigateBack:function(time){
+    setTimeout(function () { wx.navigateBack() }, time);
+    },
     //第一次登录加载的函数
     loadFirstEnter: function (more_scene) {
         console.log('第一次登录加载的函数')
@@ -715,18 +718,13 @@ App({
     showAuthUserInfoButton:true,
     changeUserBelong: function (more_scene) {
       if (!more_scene) return;
-      if (!this.loginUser || !this.loginUser.platformUser
-        || this.loginUser.platformUser.parentId>0
-      ){
+      if (!this.loginUser || !this.loginUser.platformUser|| this.loginUser.platformUser.parentId>0){
       //  console.log("parent id:"+this.loginUser.platformUser.parentId);
         console.log("未登录或 已经有推广用户了");
         return;
-      }
-      else
-      {
+      } else {
         console.log("修改用户推广人");
       }
-     
         let that = this
         console.error("hello:"+more_scene)
         console.log("测试有没有调用")
@@ -787,7 +785,6 @@ App({
                         header: that.headerPost,
                         method: 'POST',
                         success: function (e) {
-                              
                             if (e.data.errcode == 0) {
                               console.log("===========wx.login=============", e)
                                 let header = e.header
@@ -800,26 +797,37 @@ App({
                                 }
                                 let loginJson = e.data.relateObj
                                 that.setCookie(cookie)
-                                if(true){
-                                  that.setloginUser(e.data.relateObj, cookie)
-
-                                  console.log('登陆成功')
-                                  that.loginUser = e.data.relateObj
-                                  that.globalData.sansanUser = e.data.relateObj
-                                  if (that.loginSuccessListeners && that.loginSuccessListeners.length > 0) {
-                                    console.log('000000000000', that.loginSuccessListeners)
-                                    for (let t = 0; t < that.loginSuccessListeners.length; t++) {
-                                      try {
-                                        that.loginSuccessListeners[t].loginSuccess(e.data.relateObj);
-                                      } catch (e) {
-                                        console.log(e);
+                                console.log('登陆成功')
+                              if (loginJson.platformUser.scanChangeBelongMendian == 1 && that.enterMenDianID != 0 && loginJson.platformUser.belongMendian != that.enterMenDianID && !loginJson.platformUser.managerMendianId){
+                                console.warn("变更归属门店")
+                                let customIndex = that.AddClientUrl("/wx_change_belong_mendian.html", { scanMendianId: that.enterMenDianID})
+                                wx.request({
+                                  url: customIndex.url,
+                                  header: that.header,
+                                  success: function (res) {
+                                    console.log('change_belong_mendian', res)
+                                    loginJson.platformUser = res.data.relateObj
+                                    that.setloginUser(loginJson, cookie)
+                                    that.loginUser = loginJson
+                                    that.globalData.sansanUser = that.loginUser
+                                    if (that.loginSuccessListeners && that.loginSuccessListeners.length > 0) {
+                                      console.log('000000000000', that.loginSuccessListeners)
+                                      for (let t = 0; t < that.loginSuccessListeners.length; t++) {
+                                        try {
+                                          that.loginSuccessListeners[t].loginSuccess(that.globalData);
+                                        } catch (e) {
+                                          console.log(res);
+                                        }
                                       }
                                     }
+                                  },
+                                  fail: function (res) {
+                                    console.warn("change_belong_mendian_fail")
                                   }
-                                }else{
+                                })
+                              } else {
+                                  console.warn("不变更归属门店")
                                   that.setloginUser(e.data.relateObj, cookie)
-
-                                  console.log('登陆成功')
                                   that.loginUser = e.data.relateObj
                                   that.globalData.sansanUser = e.data.relateObj
                                   if (that.loginSuccessListeners && that.loginSuccessListeners.length > 0) {
@@ -833,10 +841,6 @@ App({
                                     }
                                   }
                                 }
-
-                                
-                              
-                               
                                 wx.hideLoading()
                                 wx.getSetting({//检查用户是否授权了
                                     success(res) {

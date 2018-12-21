@@ -109,7 +109,7 @@ Page({
     console.log("hello!!!", app.loginUser);
     let that = this
     that.setData({ loginUser: app.loginUser })
-    if (app.loginUser && app.loginUser != "" && app.loginUser.platformUser.mendian) {
+    if (app.loginUser && app.loginUser != "" && (app.loginUser.platformUser && app.loginUser.platformUser.mendian)) {
       that.setData({
         loginUserMendian: app.loginUser.platformUser.mendian
       })
@@ -117,9 +117,13 @@ Page({
       let mendianNameE = this.getLength(mendianName)
       console.log('mendianNameE', mendianNameE, mendianName.length)
       that.setData({
-        userInfoWidth: (mendianName.length - mendianNameE) * 24 + mendianNameE * 12 + 10
+        userInfoWidth: (mendianName.length - mendianNameE) * 28 + mendianNameE * 14 + 16
       })
       console.log(mendianName, that.data.userInfoWidth)
+    }else{
+      that.setData({
+        userInfoWidth: 160
+      })
     }
   },
   getData: function () { //根据把param变成&a=1&b=2的模式
