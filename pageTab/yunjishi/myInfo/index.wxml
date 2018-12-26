@@ -23,8 +23,7 @@
         </view>
         <view class='data_center' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_zijin.html":"servant_zijin.html"}}' bindtap='tolinkUrl'>
           <text class='data_left_text'>总收益</text>
-          <text class='data_left_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">¥{{myData.account.account}}</text>
-          <text class='data_left_num' wx:if="{{loginUser.platformUser.managerMendianId}}">¥{{myData.totalEarningAmount}}</text>
+          <text class='data_left_num' >¥{{myData.totalEarningAmount}}</text>
         </view>
         <view class='data_right' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_center.html":"servant_center.html"}}' bindtap='tolinkUrl'>
           <image src='../../../images/myImg/user2.png' style='width:32rpx;height:32rpx;margin-right:8rpx'></image>
@@ -45,29 +44,32 @@
           <view class='data_bottom_items' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"tunzhu_account.html":"servant_will_order.html?type=2"}}' bindtap='tolinkUrl'>
             <view class='data_bottom_img_text'>
                 <image src='../../../images/myImg/money_collect2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
-                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">待服务金额</text>
+                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">服务金额</text>
                 <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerMendianId}}">可提现金</text>
             </view>
-            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">¥{{myData.unrealizedServiceProfit||0}}</text>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">¥{{myData.realizedServiceProfit||0}}</text>
             <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerMendianId}}">¥{{myData.account.account}}</text>
          </view>
 
           <view class='data_bottom_items' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_will_order.html":"servant_will_order.html?type=1"}}'   bindtap='tolinkUrl'>
             <view class='data_bottom_img_text'>
                 <image src='../../../images/myImg/yuan2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
-                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">待推广金额</text>
-                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerMendianId}}">待实现金</text>
+                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">推广金额</text>
+                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerMendianId}}">已提现金</text>
             </view>
-            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">¥{{myData.unrealizedParentServiceProfit||0}}</text>
-            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerMendianId}}">¥{{myData.waitCompleteOrderDistributeAmount}}</text>
-         </view>
-         <!-- 我的二维码 -->
-         <view class='data_right' style='margin-left:20rpx;' data-link='{{(!loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)||(loginUser.platformUser.managerServantId&&loginUser.platformUser.managerMendianId)?"mendian_qrcode.html":"servant_qrcode.html"}}' bindtap='tolinkUrl'>
-          <image src='http://image1.sansancloud.com/yunjishi/2018_12/18/12/5/42_249.jpg' style='width:32rpx;height:32rpx;margin-right:8rpx'></image>
-          <text class='data_right_id'>我的二维码</text>
-          <image src='../../../images/check.png' style='width:20rpx;height:20rpx;margin-left:24rpx'></image>
-        </view>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">¥{{myData.realizedParentServiceProfit||0}}</text>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerMendianId}}">¥{{myData.totalTixianAmount}}</text>
+          </view>
 
+           <view class='data_bottom_items'>
+            <view class='data_bottom_img_text'>
+                <image src='../../../images/myImg/calendar-check2.png' style='width:27rpx;height:20rpx;margin-right:10rpx'></image>
+                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">接单数</text>
+                <text class='data_bottom_text' wx:if="{{loginUser.platformUser.managerMendianId}}">今日订单</text>
+            </view>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerServantId&&!loginUser.platformUser.managerMendianId}}">{{myData.serviceCount||0}}</text>
+            <text class='data_bottom_num' wx:if="{{loginUser.platformUser.managerMendianId}}">{{myData.todayOrderCount}}</text>
+          </view>
       </view>
     </view>
 <!--data end -->
@@ -111,4 +113,7 @@
         </view>
     </view>
 <!--我的功能 end -->
+<view class='ewmCode'>
+  <image class='ewmCodeImg' data-imageUrl='{{ewmCode}}' bindtap='lookBigImage' bindlongpress='saveImageToLocal' mode='widthFix' src='{{ewmCode}}'></image>
+</view>
 </view>

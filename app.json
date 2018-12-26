@@ -34,6 +34,8 @@
     "pageTab/yunjishi/success/index",
     "pageTab/yunjishi/myInfo/index",
     "pageTab/yunjishi/servantDetail/index",
+    "pageTab/yunjishi/preApplyMendian/index",
+    "pageTab/yunjishi/applyMendian/index",
     
 
     "pageTab/location_servant/index",
@@ -202,7 +204,7 @@
       "text": "技师"
     },
     {
-      "pagePath": "pageTab/news_list/index",
+      "pagePath": "pageTab/fx_center/index",
       "iconPath": "images/icons/good1.png",
       "selectedIconPath": "images/icons/good2.png",
       "text": "新闻"

@@ -24,6 +24,7 @@
   justify-content: flex-start;
   width:250rpx;
   font-size: 28rpx;
+  color:#999;
 }
 .my_members_img{
   width: 44rpx;
@@ -79,6 +80,7 @@
   width:100rpx;
   height:100rpx;
   margin-right:30rpx;
+  overflow:hidden;
 }
 .my_members_logo{
   width: 100rpx;

@@ -19,3 +19,4 @@
     <view class='servantrichText'><template is="1" data="{{wxParseData:article.nodes}}"></template></view>
   </view>
 </view>
+<view class=''></view>

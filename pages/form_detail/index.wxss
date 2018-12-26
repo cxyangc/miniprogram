@@ -61,7 +61,7 @@
 }
 .inputString input{
   text-align: right;
-  width: 50%
+  width: 60%
 }
 .inputString textarea {
   text-align:left;
@@ -178,4 +178,27 @@
 }
 .checkFormList{
   width: 35%
+}
+.checkFormList:after {
+  border: none;
+}
+.saveBtn:after {
+  border: none;
+}
+.shareFormPoster{
+  position: fixed;
+  top: 66%;
+  right: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 80rpx;
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center;
+  z-index:10;
+}
+.shareFormPosterImg{
+  width: 70rpx;
+  height: 70rpx;
 }

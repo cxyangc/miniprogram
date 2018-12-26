@@ -42,14 +42,12 @@
   
 
   </block>
-
-
-    <view style='position:fixed;top:{{defaultTop}}px;right:20rpx'>
-      <block wx:for="{{PaiXuPartials}}" wx:key="{{temp}}" >
-        <component-tag-kefu  wx:if='{{item.partialType =="24"}}' data="{{item}}"></component-tag-kefu>
-      </block>
-    </view>
-    <!--24 客服-->
+  <cover-view style='position:fixed;top:{{defaultTop}}px;right:20rpx;z-index:10;'>
+    <block wx:for="{{PaiXuPartials}}" wx:key="{{temp}}" >
+      <component-tag-kefu  wx:if='{{item.partialType =="24"}}' data="{{item}}"></component-tag-kefu>
+    </block>
+  </cover-view>
+  <!--24 客服-->
   <view wx:if="{{showPopup}}">
     <view class='authorizationBg'></view>
     <view class='authorization'>

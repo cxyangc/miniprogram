@@ -1,11 +1,11 @@
-<view class='kefuContent'>
+<cover-view class='kefuContent'>
   <button open-type="contact" class='kefuItem'  wx:if="{{data.jsonData.kefuType==2}}">
-     <image class='kefuIcon' src='{{data.jsonData.kefuIcon}}'></image>
+     <cover-image class='kefuIcon' src='{{data.jsonData.kefuIcon}}'></cover-image>
   </button>
   <button  bindtap="calling" data-phoneNumber='{{data.jsonData.kefuValue}}' class='kefuItem' wx:if="{{data.jsonData.kefuType==1}}">
-     <image class='kefuIcon' src='{{data.jsonData.kefuIcon}}'></image>
+     <cover-image class='kefuIcon' src='{{data.jsonData.kefuIcon}}'></cover-image>
   </button>
-  <view class='kefuName' style='color:{{settingData.defaultColor}}'>
-    <text>{{data.jsonData.kefuName}}</text>
-  </view>
-</view>
+  <cover-view class='kefuName' style='color:{{settingData.defaultColor}}'>
+    <cover-view>{{data.jsonData.kefuName}}</cover-view>
+  </cover-view>
+</cover-view>

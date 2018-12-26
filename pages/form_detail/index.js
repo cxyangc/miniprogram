@@ -14,6 +14,23 @@ Page({
     processType:false,
     gainActionEvent: {},
     region: "请选择您的地址",
+    formId:0,
+  },
+  // 关闭海报
+  getChilrenPoster(e) {
+    let that = this;
+    that.setData({
+      posterState: false,
+    })
+  },
+  showPoster: function () {
+    let that = this;
+    console.log('===showPoster====', that.params.customFormId)
+    let ewmImgUrl = app.getQrCode({ type: "form_detail", id: that.params.customFormId })
+    that.setData({
+      posterState: true,
+      ewmImgUrl: ewmImgUrl,
+    })
   },
   bindDateChange: function (e) {
     console.log('picker发送选择改变，携带值为', e, this.data.formData)
@@ -249,6 +266,7 @@ Page({
     let that=this;
     console.log(options)
     that.data.gainActionEvent = options.actionEvent
+    that.setData({ formId: options.customFormId})
     that.params.customFormId = options.customFormId;
     if (options && options.actionEvent){
       that.data.processType=true;

@@ -8,7 +8,7 @@ Page({
    */
   data: {
     membersList: {},
-    myMembers:{},
+    myMembers: { userLevel: 0 },
   },
   tolinkUrl: function (e) {
     let linkUrl = e.currentTarget.dataset.link
@@ -28,8 +28,9 @@ Page({
           that.setData({ membersList: res.data.relateObj})
           for (let i = 0; i < data.length;i++){
             if (that.data.loginUser && data[i].levelValue == that.data.loginUser.platformUser.userLevel){
+              console.log("拥有会员")
               that.setData({ myMembers: data[i] })
-            }
+            } 
           }
         }else{
           wx.showModal({
@@ -45,6 +46,7 @@ Page({
           })
         }
         console.log('===membersList===', that.data.membersList);
+        console.log('===myMembers===', that.data.myMembers);
       },
       complete: function (res) {
 
@@ -57,11 +59,11 @@ Page({
   onLoad: function (options) {
     console.log('===options===', options)
     let that=this;
-    that.getMembersListData();
     that.setData({
       loginUser: app.loginUser,
       setting: app.setting
     })
+    that.getMembersListData();
     console.log("===loginUser====", that.data.loginUser)
     console.log("===setting====", that.data.setting)
   },

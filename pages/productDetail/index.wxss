@@ -149,7 +149,10 @@ font-size: 0.8em;
 .price_font{
   font-size: 48rpx;
   line-height:40rpx;
-  overflow: hidden
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
 }
 .tagPrice_font{
   font-size: 24rpx;
@@ -769,7 +772,7 @@ button {
   height:0;
   border-width: 0px 16rpx 12rpx 16rpx;
   border-style:solid;
-  bottom:-12rpx;
+  bottom:-10rpx;
   left:30rpx;
   position:absolute;
 }

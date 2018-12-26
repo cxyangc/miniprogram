@@ -34,8 +34,8 @@
             <text class='pintuan' wx:if="{{pintuanState&&productData.productInfo.promotionBean.pintuanStrategy&&productData.productInfo.promotionBean.pintuanStrategy.priceZhekou}}">
               ￥{{publicFun.toFix(productData.productInfo.price*productData.productInfo.promotionBean.pintuanStrategy.priceZhekou)}}
             </text>
-            <text wx:else>￥{{productData.productInfo.price}}</text>
-            <text wx:if='{{productData.productInfo.unitShow}}' style='color:#bbb;font-size:24rpx;margin-left:4rpx;letter-spacing:4rpx;'>
+            <text wx:else style='font-size:48rpx;'>￥{{productData.productInfo.price}}</text>
+            <text wx:if='{{productData.productInfo.unitShow}}' style='color:#bbb;font-size:24rpx;margin-left:4rpx;letter-spacing:4rpx;line-height:30rpx;'>
               /{{productData.productInfo.unitShow}}
             </text>
           </view>

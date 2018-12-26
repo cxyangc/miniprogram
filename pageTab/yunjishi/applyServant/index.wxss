@@ -434,7 +434,6 @@ line-height:40px;
 .btn{
   background-color: #FE3737;
   color: white;
-  line-height:40px;
 }
 .uploadImgIcon{
   width: 50rpx;

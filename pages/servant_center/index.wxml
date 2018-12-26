@@ -9,17 +9,17 @@
         <view  data-link='servant_will_order.html?type=2'   bindtap='tolinkUrl'  class='tongji_bottom_item'>
           <view  style='color:{{setting.platformSetting.defaultColor}};'>
             <text>￥</text>
-            <text>{{servant.unrealizedServiceProfit}}</text>
+            <text>{{servant.realizedServiceProfit}}</text>
           </view> 
-          <text>待实现服务金</text>
+          <text>实现服务金</text>
            <view class='borderRight2'></view>
         </view>
         <view data-link='servant_will_order.html?type=1'   bindtap='tolinkUrl'  class='tongji_bottom_item'>
           <view style='color:{{setting.platformSetting.defaultColor}};'>
             <text>￥</text>
-            <text>{{servant.unrealizedParentServiceProfit}}</text>
+            <text>{{servant.realizedParentServiceProfit}}</text>
           </view>
-          <text>待实现推广金</text>
+          <text>实现推广金</text>
         </view>
       </view>
 

@@ -24,7 +24,7 @@
         <text wx:if="{{processItem.currentStageSequence>=9999&&processItem.servantConfirmServantId!=0}}">结束</text>
       </view>
       <view class='concat_line'></view>
-      <view class='service'>
+      <view class='service' bindtap='check_form_detail' data-id="{{processItem.customFormCommitId}}">
         <text class='service_name' style='font-weight:bold;font-size:30rpx;'>【客户】</text>
         <text class='service_name' wx:if="{{processItem.belongPlatformUserName}}">{{processItem.belongPlatformUserName}}</text>
         <text class='service_name' wx:else>暂无</text>
@@ -32,23 +32,27 @@
     </view>
     <view class='process_stage_list'>
       <view class='process_stage'>
-        <!-- <view class='process_line'></view> -->
-        <text class='process_stage_name' style='color:#fff;background:{{setting.platformSetting.defaultColor}};border-color:{{setting.platformSetting.defaultColor}}'>开始</text>
+        <text class='process_stage_name' style='color:#fff;background:{{setting.platformSetting.defaultColor}};border-color:{{setting.platformSetting.defaultColor}}'>订单开始</text>
         <view class='process_line'></view>
-        <!-- <view class='process_stage_dot'></view> -->
       </view>
       <view class='process_stage' wx:for="{{processItem.process.stages}}" wx:for-item="stage" wx:key='{{index}}'>
-        <view class='process_line'></view>
         <text class='process_stage_name active' wx:if="{{index+1>processItem.currentStageSequence}}">{{stage.name}}</text>
+        <text class='process_stage_name' wx:elif="{{index+1==processItem.currentStageSequence}}" style='color:#fff;background:{{setting.platformSetting.secondColor}};border-color:{{setting.platformSetting.secondColor}}'>{{stage.name}}</text>
         <text class='process_stage_name' wx:else style='color:#fff;background:{{setting.platformSetting.defaultColor}};border-color:{{setting.platformSetting.defaultColor}}'>{{stage.name}}</text>
+        <view class='process_line' wx:if="{{index+1!=2}}"></view>
+      </view>
+      <view class='process_stage'>
+        <text class='process_stage_name active' wx:if="{{processItem.currentStageSequence<9999&&processItem.payStatus!=1}}">扫码支付</text>
+        <text class='process_stage_name'  wx:elif="{{processItem.currentStageSequence>=9999&&processItem.payStatus!=1}}" style='color:#fff;background:#ddd;border-color:#ddd'>还未付款</text>
+        <text class='process_stage_name' wx:else style='color:#fff;background:{{setting.platformSetting.defaultColor}};border-color:{{setting.platformSetting.defaultColor}}'>扫码支付</text>
         <view class='process_line'></view>
       </view>
       <view class='process_stage'>
-        <view class='process_line'></view>
-        <text class='process_stage_name' style='color:#fff;background:{{setting.platformSetting.defaultColor}};border-color:{{setting.platformSetting.defaultColor}};' wx:if="{{processItem.currentStageSequence==9999}}">结束</text>
-        <text class='process_stage_name' style='color:#fff;background:red;border-color:red;' wx:if="{{processItem.currentStageSequence==10000}}">异常</text>
-        <text class='process_stage_name' style='color:#fff;background:#888;border-color:#888;' wx:if="{{processItem.currentStageSequence==10001}}">作废</text>
-        <text class='process_stage_name' style='border-color:#888;' wx:if="{{processItem.currentStageSequence<9999}}">结束</text>
+        <text class='process_stage_name' style='color:#fff;background:{{setting.platformSetting.defaultColor}};border-color:{{setting.platformSetting.defaultColor}};' wx:if="{{processItem.currentStageSequence==9999&&processItem.payStatus==1}}">平台回访</text>
+        <text class='process_stage_name' style='color:#fff;background:red;border-color:red;' wx:if="{{processItem.currentStageSequence==10000}}">异常结束</text>
+        <text class='process_stage_name' style='color:#fff;background:#888;border-color:#888;' wx:if="{{processItem.currentStageSequence==10001}}">订单作废</text>
+        <text class='process_stage_name' style='border-color:#888;' wx:if="{{processItem.currentStageSequence<9999&&processItem.payStatus!=1}}">平台回访</text>
+        <text class='process_stage_name' style='border-color:#888;' wx:if="{{processItem.currentStageSequence>=9999&&processItem.payStatus!=1}}">平台回访</text>
       </view>
     </view>
   </view>

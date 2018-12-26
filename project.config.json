@@ -9,7 +9,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.2",
-	"appid": "wx2cc8f5b014d768e4",
+	"appid": "wx37b3f495891dd60c",
 	"projectname": "qiche",
 	"isGameTourist": false,
 	"condition": {
@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 19,
 			"list": [
 				{
 					"id": 0,
@@ -71,7 +71,7 @@
 					"id": 5,
 					"name": "会员中心",
 					"pathName": "pages/user_level/index",
-					"query": "APPLY_SERVER_CHANNEL_CODE=LIN456",
+					"query": "",
 					"scene": "1011"
 				},
 				{
@@ -167,7 +167,7 @@
 					"id": 19,
 					"name": "表单",
 					"pathName": "pages/form_detail/index",
-					"query": "customFormId=1",
+					"query": "customFormId=22",
 					"scene": "1001"
 				},
 				{

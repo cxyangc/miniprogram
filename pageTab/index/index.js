@@ -146,12 +146,19 @@ Page({
     }
 
     if (options.APPLY_SERVER_CHANNEL_CODE && options.APPLY_SERVER_CHANNEL_CODE != "") {
-      console.log("进服务商页面", options.APPLY_SERVER_CHANNEL_CODE)
-
+      console.log("进服务商申请页面", options.APPLY_SERVER_CHANNEL_CODE)
+      let url="";
+      if(app.clientNo=="tunzai"){
+        url ="/pageTab/tunzai/preApplyMendian/index"
+      } else if (app.clientNo == "yunjishi"){
+        url = "/pageTab/yunjishi/preApplyMendian/index"
+      }else{
+        url = "/pageTab/yunjishi/preApplyMendian/index"
+      }
       //       applyMendian
       setTimeout(function () {
         wx.navigateTo({
-          url: '/pageTab/tunzai/preApplyMendian/index?code=' + options.APPLY_SERVER_CHANNEL_CODE,
+          url: url+'?code=' + options.APPLY_SERVER_CHANNEL_CODE,
           success: function () {
             app.shareSubPage = true;
           }

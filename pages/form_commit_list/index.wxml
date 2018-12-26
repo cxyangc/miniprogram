@@ -1,7 +1,7 @@
 <view class='container'>
   <view class='form_commit_list'>
     <block wx:if="{{formCommitList.length!=0}}">
-    <view class='form_commit_item' wx:for="{{formCommitList}}" wx:for-item="formCommitItem" wx:key='{{index}}'>
+    <view class='form_commit_item' wx:for="{{formCommitList}}" wx:for-item="formCommitItem" wx:key='{{index}}' bindtap='checkFormDetail' data-id="{{formCommitItem.id}}" >
       <view class='form_title'>
         <view class='form_title_left'>
           <image class='user_icon' src='{{formCommitItem.commitPlatformUserIcon}}'></image>

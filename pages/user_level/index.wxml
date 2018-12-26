@@ -1,19 +1,19 @@
 <view class='container'>
-  <view class='my_members'>
+  <view class='my_members' wx:if="{{myMembers.userLevel!=0}}">
     <!-- 会员标题 -->
     <view class='my_members_title'>
       <view class='my_members_title_base'>
-        <image class='my_members_img' src='http://image1.sansancloud.com/xianhua/2018_12/21/15/54/9_339.jpg'></image>
+        <image class='my_members_img' src='http://image1.sansancloud.com/xianhua/2018_12/26/11/16/58_107.jpg'></image>
         <text class='title_name'>我的会员</text>
       </view>
-      <view class='more_members'>
+      <!-- <view class='more_members'>
         <view class='more_text'><text>查看详情</text></view>
         <image class='more_img' src='http://image1.sansancloud.com/jianzhan/2018_9/11/13/41/53_722.jpg'></image>
-      </view>
+      </view> -->
     </view>
     <!-- 会员具体内容 -->
     <view class='my_members_detail'>
-      <view class='my_members_style' style='background:{{myMembers.cardBanner?"url(myMembers.cardBanner) no-repeat center":myMembers.backgroundColor}}'>
+      <view class='my_members_style' style='background:{{myMembers.cardBanner&&myMembers.cardBanner!="undefined"?"url("+myMembers.cardBanner+") no-repeat center":myMembers.backgroundColor}}'>
         <view class='my_members_logo_bg'>
           <image class='my_members_logo' src="{{myMembers.cardIcon?myMembers.cardIcon:'http://image1.sansancloud.com/xianhua/2018_12/21/17/44/1_472.jpg'}}"></image>
         </view>
@@ -29,13 +29,13 @@
     <!-- 会员列表标题 -->
     <view class='my_members_title'>
       <view class='my_members_title_base'>
-        <image class='my_members_img' src='http://image1.sansancloud.com/xianhua/2018_12/21/16/30/37_313.jpg'></image>
+        <image class='my_members_img' src='http://image1.sansancloud.com/xianhua/2018_12/26/11/19/57_786.jpg'></image>
         <text class='title_name'>会员类别</text>
       </view>
     </view>
     <!-- 会员具体内容 -->
     <view class='my_members_detail'>
-      <view class='my_members_style' wx:for="{{membersList}}" wx:for-item="membersItem" wx:key="{{index}}" style='background:{{membersItem.cardBanner?"url(membersItem.cardBanner) no-repeat center":membersItem.backgroundColor}}'>
+      <view class='my_members_style' wx:for="{{membersList}}" wx:for-item="membersItem" wx:key="{{index}}" style='background:{{membersItem.cardBanner&&membersItem.cardBanner!="undefined"?"url("+membersItem.cardBanner+") no-repeat center":membersItem.backgroundColor}}'>
         <view class='my_members_logo_bg'>
           <image class='my_members_logo' src="{{membersItem.cardIcon?membersItem.cardIcon:'http://image1.sansancloud.com/xianhua/2018_12/21/17/44/1_472.jpg'}}"></image>
         </view>
@@ -44,7 +44,7 @@
           <text class='my_members_describe'>充值{{membersItem.needPayAmount}}元升级为{{membersItem.levelName}}</text>
         </view>
         <!-- 充值按钮 -->
-        <view class='recharge_btn' bindtap='tolinkUrl' style='color:{{membersItem.backgroundColor?membersItem.backgroundColor:setting.platformSetting.secondColor}}' data-link="user_recharge.html?money={{membersItem.needPayAmount}}" wx:if="{{membersItem.levelValue>myMembers.levelValue}}">
+        <view class='recharge_btn' bindtap='tolinkUrl' style='color:{{membersItem.backgroundColor?membersItem.backgroundColor:setting.platformSetting.secondColor}}' data-link="user_recharge.html?money={{membersItem.needPayAmount}}" wx:if="{{membersItem.levelValue>myMembers.levelValue||myMembers.userLevel==0}}">
           <text>充值</text>
         </view>
       </view>

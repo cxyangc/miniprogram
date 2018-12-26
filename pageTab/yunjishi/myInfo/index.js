@@ -43,6 +43,8 @@ Page({
         console.log(res.data)
         if (res.data.errcode == '0') {
           let myData = res.data.relateObj
+          let code = { code: myData.id }
+          that.getEwmCode(code)
           myData = that.dellMoneyServant(myData)
           //account 账户余额
           that.setData({
@@ -54,8 +56,18 @@ Page({
             title: '失败了',
             content: '请求失败了，请下拉刷新！',
           })
-
         }
+      },
+      fail: function (res) {
+        console.log(res.data)
+        wx.showModal({
+          title: '失败了',
+          content: res.data.errMsg ,
+        })
+        wx.hideLoading()
+      },
+      complete: function (res) {
+        wx.hideLoading()
       }
     })
   },
@@ -88,11 +100,16 @@ Page({
         }
       },
       fail: function (res) {
-
         console.log(res.data)
+        wx.showToast({
+          title: res.data.errMsg,
+          image: '/images/icons/tip.png',
+          duration: 1000
+        })
+        wx.hideLoading()
       },
       complete: function (res) {
-        wx.stopPullDownRefresh()
+        wx.hideLoading()
       }
     })
   },
@@ -124,6 +141,7 @@ Page({
         console.log(res.data)
         if (res.data.errcode == '0') {
           let myData = res.data.relateObj
+          that.get_qrcode()
           myData = that.dellMoneyMendian(myData)
           //account 账户余额
           that.setData({
@@ -147,9 +165,9 @@ Page({
     })
   },
   dellMoneyServant: function (myData) {
-    myData.account.account = app.toFix(myData.account.account)
-    myData.unrealizedParentServiceProfit = app.toFix(myData.unrealizedParentServiceProfit)
-    myData.unrealizedServiceProfit = app.toFix(myData.unrealizedServiceProfit)
+    myData.totalEarningAmount = app.toFix(myData.realizedParentServiceProfit + myData.realizedServiceProfit)
+    myData.realizedParentServiceProfit = app.toFix(myData.realizedParentServiceProfit)
+    myData.realizedServiceProfit = app.toFix(myData.realizedServiceProfit)
     return myData
   },
   dellMoneyMendian: function (myData) {
@@ -169,10 +187,52 @@ Page({
       })
     }
   },
+  getEwmCode: function (code) {
+    let userId = "";
+    if (app.loginUser && app.loginUser.platformUser) {
+      userId = 'MINI_PLATFORM_USER_ID_' + app.loginUser.platformUser.id
+    }
+    let getUrl = app.AddClientUrl("/super_shop_manager_get_mini_code.html");
+    this.setData({ ewmCode: getUrl.url + '?path=pageTab%2findex%2findex%3fAPPLY_SERVANT_CODE%3d' + code.code + "%26scene%3d" + userId })
+    console.log("ewmCode", this.data.ewmCode)
+  },
+  get_qrcode: function () {
+    console.log('-------获取推广二维码信息--------')
+    var customIndex = app.AddClientUrl("/get_qrcode.html")
+    var that = this
+    wx.showLoading({
+      title: 'loading'
+    })
+    wx.request({
+      url: customIndex.url,
+      header: app.header,
+      success: function (res) {
+        if (res.data.errcode == '0') {
+          that.setData({
+            ewmCode: res.data.relateObj
+          })
+        }
+        else {
+          wx.showToast({
+            title: res.data.errMsg,
+            icon: '/images/icons/tip.png',
+            duration: 1500
+          })
+        }
+        console.log(res.data)
+        wx.hideLoading()
+      },
+      fail: function (res) {
+        wx.hideLoading()
+        app.loadFail()
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log("==options===", options)
     console.log('======app.loginUser======', app.setting)
     this.setData({
       setting: app.setting,
@@ -188,6 +248,38 @@ Page({
       }
   },
 
+  lookBigImage: function (e) {
+    let imgSrc = e.currentTarget.dataset.imageurl
+    console.log(imgSrc)
+    let PostImageSrc = imgSrc.replace(/http/, "https")
+    // let PostImageSrc = imgSrc
+    console.log(PostImageSrc)
+    if (!imgSrc) {
+      return
+    }
+    let urls = []
+    urls.push(imgSrc)
+    wx.previewImage({
+      current: imgSrc, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    })
+  },
+  saveImageToLocal: function (e) {
+    let imgSrc = e.currentTarget.dataset.imageurl
+    console.log(imgSrc)
+    let PostImageSrc = imgSrc.replace(/http/, "https")
+    // let PostImageSrc = imgSrc
+    console.log(PostImageSrc)
+    if (!imgSrc) {
+      return
+    }
+    let urls = []
+    urls.push(imgSrc)
+    wx.previewImage({
+      current: imgSrc, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -108,6 +108,14 @@
         </view> -->
         <!--  -->
         </view>
+         <!-- 回复 -->
+        <view class='inputString common' wx:if='{{customForm.reply}}' style='align-items:flex-start;padding:10px;flex-direction:column;'>
+          <view class='inputName'>
+            <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
+            <text>平台回复</text>
+          </view>
+          <textarea auto-height="" value='{{customForm.reply}}' />
+        </view>
         <!-- 保存 -->
         <view class='saveData'>
           <button class='saveBtn' bindtap="back" style='background:{{setting.platformSetting.defaultColor}};color:#fff'>返回</button>

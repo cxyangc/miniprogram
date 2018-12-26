@@ -43,6 +43,7 @@ Page({
     })
   },
   getSearchservantName: function (data) {
+    this.params.page = 1;
     console.log("getSearchservantName", data);
     var servant = data.detail.value
     console.log(servant)
@@ -50,6 +51,7 @@ Page({
       this.params.servantName = servant
     }else{
       this.params.servantName = ""
+      this.setData({ searchServantName: ""})
     }
     this.getServantData();
   },

@@ -71,8 +71,8 @@ Page({
       }else{
         servant.account = { account:app.toFix(0)} 
       }
-      servant.unrealizedParentServiceProfit = app.toFix(servant.unrealizedParentServiceProfit)
-      servant.unrealizedServiceProfit = app.toFix(servant.unrealizedServiceProfit)
+      servant.realizedParentServiceProfit = app.toFix(servant.realizedParentServiceProfit)
+      servant.realizedServiceProfit = app.toFix(servant.realizedServiceProfit)
         return servant
     },
     setNavColor:function(){

@@ -1,58 +1,68 @@
-/* pages/my_pages/user_recharge/index.wxss */
-.chongzhijine{
-  margin: 1em 0;
-  padding:10px 0;
+.container{
+  background: #f2f2f2;
   width: 100%;
+  overflow: hidden;
+}
+.tixian_top{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  border-bottom: 1rpx solid #aaa;
+  background: #f5f4f4;
+  height: 100rpx;
+  padding:0 30rpx;
+  margin: 20rpx 20rpx 0 20rpx;
 }
-.chongzhijine text{
-  
-  padding:0px 10px;
-  
+.tixian_text{
+  font-size: 24rpx;
 }
-.chongzhijine input{
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding:10px 10px;
+.tixian_limit{
+  color: #ff4242;
+  font-size: 20rpx;
+  margin-left: 20rpx;
 }
-
-.way{
+.tixian_box{
+  margin: 0 20rpx 20rpx 20rpx;
+  background: #fff;
+  padding:20rpx 30rpx;
   display: flex;
   flex-direction: column;
 }
-
-/* 支付方式 */
-.payName{
-  padding: 10px;
+.tixian_account{
+  font-size: 26rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+.tixian_input{
+  font-size: 68rpx;
   display: flex;
-  background: #f2f2f2;
-  color: #aaa;
   flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
-  border-bottom: 1px solid #dddddd;
+  padding-top: 20rpx;
+  box-sizing: border-box
 }
-.payWay{
-  padding: 15px 10px;
+.tixian_input_font{
+  font-size: 68rpx;
+  height: 68rpx;
+  border-bottom: 2rpx solid #eee
+}
+.tixian_item{
   display: flex;
-  background: #fff;
-  color: #333;
   flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
-  border-bottom: 1px solid #dddddd;
-  
+  font-size: 26rpx;
+  margin: 20rpx 0;
 }
-.payWay text{
-  margin-left: 3em;
+.tixian_item_input{
+  border-bottom: 2rpx solid #eee
 }
-
-.subMitButn{
-  background: #8B572A;
+.tixian_btn{
+  height: 80rpx;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: row;
+  font-size: 28rpx;
   color: #fff;
-  margin-top: 2em;
+  align-items: center;
+  justify-content: center;
+  margin: 20rpx 0;
 }

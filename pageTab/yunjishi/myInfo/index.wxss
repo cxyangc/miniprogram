@@ -382,3 +382,14 @@
   top :-15rpx;
   min-width: 20rpx
 }
+.ewmCode{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 30rpx;
+}
+.ewmCodeImg{
+  width: 300rpx;
+  height: 300rpx
+}

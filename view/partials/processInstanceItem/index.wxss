@@ -128,7 +128,7 @@
 .process_line{
    height: 2rpx;
    background: #888;
-   width: 15rpx;
+   width: 40rpx;
 }
 .process_stage_dot{
   width: 4rpx;
@@ -144,6 +144,7 @@
    align-items: center;
    justify-content: center;
    font-weight:bold;
+   width:166rpx;
 }
 .process_stage_name .active{
    border: 2rpx solid #888;

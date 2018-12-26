@@ -3,8 +3,8 @@ import { clientInterface } from "/public/clientInterface.js";
 import { dellUrl } from "/public/requestUrl.js";
 const Promise = require('/promise/promise.js');
 App({
-     clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
-     //clientUrl: 'https://mini.sansancloud.com/chainalliance/',//一定加https
+     //clientUrl: 'http://127.0.0.1:3000/chainalliance/',  // 本地链接地址
+     clientUrl: 'https://mini.sansancloud.com/chainalliance/',//一定加https
      //clientUrl: 'https://mini.tunzai.vip/chainalliance/',//106.14.213.48 mini.tunzai.vip
 
     /**
@@ -418,6 +418,22 @@ App({
 
 
     //link事件   绑定导向对应的控件上
+  lookBigImage: function (e) {
+    let imgSrc = e.currentTarget.dataset.imageurl
+    console.log(imgSrc)
+    let PostImageSrc = imgSrc.replace(/http/, "https")
+    // let PostImageSrc = imgSrc
+    console.log(PostImageSrc)
+    if (!imgSrc) {
+      return
+    }
+    let urls = []
+    urls.push(imgSrc)
+    wx.previewImage({
+      current: imgSrc, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    })
+  },
     linkEvent: function (linkUrl) {
       console.log('====linkUrl======', linkUrl)
         if (!linkUrl) {
@@ -434,8 +450,9 @@ App({
             wx.navigateTo({
                 url: '/pages/custom_page_contact/index',
             })
-        }
-        else if (linkUrl.substr(0, 12) == 'custom_page_') {
+        } else if (linkUrl.substr(0, 4) == 'http') {
+          this.lookBigImage(linkUrl)
+        }else if (linkUrl.substr(0, 12) == 'custom_page_') {
             var resultUrl = linkUrl.substring(12, linkUrl.length - 5)
             if (urlData.param == '') {
                 urlData.param = '?'
@@ -1107,6 +1124,11 @@ App({
       console.log(data.type)
       str = 'SHARE_NEWS_DETAIL_PAGE'
       str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_NEWS_DETAIL_PAGE%3d'
+      postParam[str] = data.id;
+    } else if (data.type == 'form_detail') {
+      console.log(data.type)
+      str = 'SHARE_FORM_DETAIL_PAGE'
+      str2 = '/super_shop_manager_get_mini_code.html?path=pageTab%2findex%2findex%3fSHARE_FORM_DETAIL_PAGE%3d'
       postParam[str] = data.id;
     }else {
       str = 'SHARE_PRODUCT_DETAIL_PAGE'
