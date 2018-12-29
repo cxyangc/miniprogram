@@ -59,6 +59,20 @@ Page({
     app.toIndex()
   },
   tolinkUrl: function (e) {
+    if(!app.loginUser){
+      wx.showModal({
+        title: '提示',
+        content: '主人~您还在登陆哦!稍等片刻',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return
+    }
     let linkUrl = e.currentTarget.dataset.link
     app.linkEvent(linkUrl)
   },
@@ -179,21 +193,10 @@ Page({
           that.data.servantData=[];
         }
         dataArr = that.data.servantData.concat(dataArr.result)
-        if (dataArr.length!=0) {
-          for (let i = 0; i < dataArr.length; i++) {
-            // 添加状态图片
-            if (dataArr[i].status == 1) {
-              dataArr[i].statusIcon = 'http://image1.sansancloud.com/xianhua/2018_11/26/15/17/59_727.jpg'
-            } else if (dataArr[i].status == 3) {
-              dataArr[i].statusIcon = 'http://image1.sansancloud.com/xianhua/2018_11/26/15/17/59_724.jpg'
-            } else if (dataArr[i].status == 2) {
-              dataArr[i].statusIcon = 'http://image1.sansancloud.com/xianhua/2018_11/26/15/17/59_716.jpg'
-            } else {
-              dataArr[i].statusIcon = 'http://image1.sansancloud.com/xianhua/2018_11/26/15/17/59_727.jpg'
-            }
-          }
+        for (let i = 0; i < dataArr.length;i++){
+          dataArr[i].surname = dataArr[i].name.slice(0,1)
         }
-        that.setData({ servantData: dataArr})
+        that.setData({ servantData: dataArr })
         console.log('==that.data.servantData===', that.data.servantData);
       },
       fail: function (res) {

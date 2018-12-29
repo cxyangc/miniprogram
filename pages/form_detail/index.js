@@ -8,7 +8,7 @@ Page({
   data: {
     formData:null,
     sexArray:['男','女'],
-    pickerIndex:0,
+    pickerIndex:{},
     upLoadImageList:{},
     dataAndTime:{},
     processType:false,
@@ -79,8 +79,11 @@ Page({
   },
   bindPickerChange:function(event){
     console.log('====index', event)
-    let index = event.detail.value
-    this.setData({ pickerIndex: index})
+    let that=this;
+    let index = event.target.dataset.index
+    let value = event.detail.value
+    that.data.pickerIndex["picker_"+index] = value
+    that.setData({ pickerIndex: that.data.pickerIndex})
   },
   params:{
     formJson:'',
@@ -273,7 +276,10 @@ Page({
     }else{
       that.data.processType = false;
     }
-    let formDetailData = app.AddClientUrl("/wx_get_custom_form.html", { customFormId: options.customFormId}, 'get')
+    if (options.servantId){
+      that.params.servantId = options.servantId 
+    }
+    let formDetailData = app.AddClientUrl("/wx_get_custom_form.html", { customFormId: options.customFormId }, 'get')
     console.log('==formDetailData===', formDetailData)
     wx.request({
       url: formDetailData.url,

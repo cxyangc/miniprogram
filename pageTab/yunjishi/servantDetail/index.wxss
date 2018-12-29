@@ -73,3 +73,17 @@
 .servantrichText{
   padding: 0 20rpx 10rpx 20rpx;
 }
+.orderServant{
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center;
+  font-size: 34rpx;
+  height: 80rpx;
+  color: #fff;
+  border-radius: 80rpx;
+  margin: 20rpx;
+  position: fixed;
+  bottom: 10rpx;
+  width:95%;
+}

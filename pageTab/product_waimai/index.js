@@ -18,11 +18,8 @@ Page({
     topName: {
       SearchProductName: "",//头部搜索的
     },
-
-
     focusTypeItem: null,
     bindProductTypeIndex: null,
-
     ProductshowWay: 1, // ProductshowWay列表显示方法 
 
     typeSearch: '', // typeSearch的字体 
@@ -32,8 +29,6 @@ Page({
     pushItem: [],
     countGood: 0,
     countPrice: 0,
-
-
     //规格
     showGuigeType:false,
     checkedMeasureItem: 0,
@@ -643,9 +638,6 @@ Page({
       this.setData({ setting: app.setting })
       console.log(this.data.setting)
     }
-
-
-
     if (!!options.productTypeId) {
       options.categoryId = options.productTypeId
     }

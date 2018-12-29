@@ -4,10 +4,7 @@
   <!-- 左边的导航 -->   
   <scroll-view scroll-y class='leftScrollType'>
      <!-- <view class='TypeItem' data-type="all" bindtap='bindTypeItem'>全部</view>  -->
-     <view
-        wx:for="{{setting.platformSetting.categories}}"
-        wx:for-item="type" wx:key="{{index}}" data-type="{{type}}"
-        bindtap='bindTypeItem' class='{{type.active?"activeTypeItem":"TypeItem"}}'>
+     <view wx:for="{{setting.platformSetting.categories}}" wx:for-item="type" wx:key="{{index}}" data-type="{{type}}" bindtap='bindTypeItem' class='{{type.active?"activeTypeItem":"TypeItem"}}'>
         <block wx:if='{{!!type.iconImage}}'>
           <image class='TypeItem_iamge' mode='aspectFit' src='{{type.iconImage}}'></image>
         </block>

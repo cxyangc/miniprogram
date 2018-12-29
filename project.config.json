@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
@@ -50,7 +50,7 @@
 					"id": 2,
 					"name": "扫码进来携带MendianID",
 					"pathName": "pageTab/index/index",
-					"query": "ENTER_MENDIAN=235",
+					"query": "SHARE_FORM_DETAIL_PAGE=18",
 					"scene": "1011"
 				},
 				{

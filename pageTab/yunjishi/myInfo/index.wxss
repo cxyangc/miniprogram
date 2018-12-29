@@ -51,13 +51,14 @@
 }
 .data_column{
   margin:0 28rpx; 
-  height: 326rpx;
+  height: 260rpx;
   display: flex;
   flex-direction:column;
   align-items:center;
   position: relative;
   z-index: 2;
   border-radius: 20rpx;
+  padding:20rpx;
 }
 .fws_bg{
   position: absolute;
@@ -97,7 +98,7 @@
   display: flex;
   flex-direction:row;
   align-items:center;
-  justify-content:space-between;
+  justify-content:center;
   height: 126rpx;
   width: 100%;
 }
@@ -149,7 +150,7 @@
   align-items:center;
   justify-content:center;
   flex-wrap:wrap;
-  height: 200rpx;
+  height: 126rpx;
   width: 100%;
 }
 .data_bottom_items{

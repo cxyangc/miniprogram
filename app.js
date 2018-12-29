@@ -10,8 +10,6 @@ App({
     /**
      *   切换项目的开关 ↓↓↓↓↓
      */
-          
-
     clientNo: 'jianzhan',   //自定义的项目的名称。
     preCallbackObj:{key:{callback:''}},
     clientName: '',
@@ -502,13 +500,14 @@ App({
               })
             }
         }
-        else if (linkUrl.substr(0, 4) == 'news') {
+        /*
+        else if (linkUrl.substr(0, 10) == 'news_list') {
         console.log("======newsList=======")
       
           wx.navigateTo({
             url: '/pages/news_list/index' + urlData.param,
           })
-        }
+        }*/
         else if (urlData.url == 'shop_map') {
             this.openLocation()
         } else if (urlData.url == 'location'){
@@ -533,7 +532,14 @@ App({
          // promotion_products.html   form_detail.html?customFormId=12
           console.log("9999999999999999" + linkUrl.substr(0, 14))
             wx.navigateTo({
-                url: "/pages/" + urlData.url + "/index" + urlData.param,
+              url: "/pages/" + urlData.url + "/index" + urlData.param,
+              fail: function () {
+                //pages里不存在该页面
+                console.log("pages里不存在该页面,跳转pageTab目录下的页面")
+                wx.navigateTo({
+                  url: "/pageTab/" + urlData.url + "/index" + urlData.param,
+                })
+              }
             })
         }
     },

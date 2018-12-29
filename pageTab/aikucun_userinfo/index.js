@@ -11,7 +11,7 @@ Page({
     PaiXuPartials: null,
 
     loginUser: null,
-    componentData: {}, //组件的data
+    componentState:false, //组件的data
 
     // headData:null,
     blankData: null,
@@ -20,7 +20,41 @@ Page({
     serverData: null,
     servantData:null,
   },
+  getParac: function () {
+    var that = this
+    var customIndex = app.AddClientUrl("/custom_page_userinfo.html", {}, 'get', '1')
+    //拿custom_page
+    wx.request({
+      url: customIndex.url,
+      header: app.header,
+      success: function (res) {
+        console.log("====== res.data=========", res.data)
+        wx.hideLoading()
+        if (!res.data.errcode || res.data.errcode == '0') {
+          that.setData({ componentState:true})
+        } else {
+          console.log('加载失败')
+          that.setData({ componentState: false })
+        }
+      },
+      fail: function (res) {
+        console.log(res)
+        wx.hideLoading()
+        wx.showModal({
+          title: '提示',
+          content: '加载失败，点击【确定】重新加载',
+          success: function (res) {
 
+            if (res.confirm) {
+              that.getParac()
+            } else if (res.cancel) {
+              app.toIndex()
+            }
+          }
+        })
+      }
+    })
+  },
   loginOut: function () {
     wx.navigateTo({
       url: '/pages/pre_change_user_info/index',
@@ -196,7 +230,8 @@ Page({
    */
   onLoad: function (options) {
     this.dellSData()
-    this.getSessionUserInfo()
+    this.getSessionUserInfo();
+    this.getParac()
     this.setData({
       loginUser: app.loginUser,
       userInfo: app.globalData.userInfo,
@@ -244,6 +279,7 @@ Page({
    */
   onPullDownRefresh: function () {
     this.getSessionUserInfo();
+    this.getParac()
     console.log(this.data.setting)
     
   },

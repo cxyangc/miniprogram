@@ -29,8 +29,8 @@
             <text wx:if="{{items.mustInput==1}}" style='color:red;margin-right:4rpx;width:18rpx'>*</text>
             <text>{{items.title}}</text>
           </view>
-          <picker class='picker' style='' bindchange="bindPickerChange" name='{{items.name}}' value="{{items.defaultValue}}" range="{{items.listValues}}">
-            <view class="pickerValue"><text>{{items.listValues[pickerIndex]}}</text></view>
+          <picker class='picker' data-index="{{index}}" bindchange="bindPickerChange" name='{{items.name}}' value="{{items.defaultValue}}" range="{{items.listValues}}">
+            <view class="pickerValue"><text>{{items.listValues[pickerIndex["picker_"+index]]}}</text></view>
             <view class='pickerRight'>
               <image class='pickerImg' src='http://image1.sansancloud.com/jianzhan/2018_9/11/13/41/53_722.jpg?x-oss-process=style/preview_120'></image>
             </view>

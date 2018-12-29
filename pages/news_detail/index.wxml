@@ -25,5 +25,5 @@
     <text>生成海报</text>
   </view>
 </view>
-<news-posters newsId="{{params.id}}" ewmImgUrl='{{ewmImgUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></news-posters> 
+<news-posters newsId="{{params.id||params.newsId}}" ewmImgUrl='{{ewmImgUrl}}'  wx:if='{{posterState}}' bind:closePoaster="getChilrenPoster"></news-posters> 
 

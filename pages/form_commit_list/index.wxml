@@ -13,11 +13,14 @@
         </view>
       </view>
       <view class='form_description'>
-        <!-- <text class='form_description_text'>{{formCommitItem.rewardRemark}}</text>-->
         <image class='form_state_icon' wx:if="{{formCommitItem.recordStatus==1}}" src='http://image1.sansancloud.com/xianhua/2018_11/14/21/20/50_605.jpg?x-oss-process=style/preview_120'></image>
         <image class='form_state_icon' wx:if="{{formCommitItem.recordStatus==0}}" src=' http://image1.sansancloud.com/xianhua/2018_11/14/21/24/17_402.jpg?x-oss-process=style/preview_120'></image>
         <text style='color:#4bb3ff' wx:if="{{formCommitItem.recordStatus==1}}">表单有效</text>
         <text style='color:#888' wx:if="{{formCommitItem.recordStatus==0}}">表单未审核...</text>
+      </view>
+      <view class='reply' wx:if="{{formCommitItem.reply}}">
+        <text class='replyTitle'>平台回复：</text>
+        <text class='form_description_text'>{{formCommitItem.reply}}</text>
       </view>
       <view class='form_commit_bottom'>
         <view class='form_commit_bottom_left'>

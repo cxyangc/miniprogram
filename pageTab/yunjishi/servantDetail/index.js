@@ -9,6 +9,10 @@ Page({
   data: {
   servantDetail:{},
   },
+  orderServant:function(e){
+    let linkUrl = e.currentTarget.dataset.link
+    app.linkEvent(linkUrl)
+  },
   getServantDetail: function (params) {
     var customIndex = app.AddClientUrl("/wx_get_servant_detail.html", params, 'post')
     var that = this
@@ -29,6 +33,7 @@ Page({
             WxParse.wxParse('article', 'html', servantDetail.richText, that, 10);
             console.log('====article====', that.data.article)
           }
+          servantDetail.surname = servantDetail.name.slice(0, 1)
           that.setData({
             servantDetail: servantDetail
           })
@@ -48,6 +53,10 @@ Page({
    */
   onLoad: function (options) {
     console.log("======servantDetail=====",options);
+    if (app.setting.platformSetting.id) {
+      this.setData({ platformSetting: app.setting.platformSetting })
+      console.log("======platformSetting=====", this.data.platformSetting);
+    }
     this.getServantDetail(options);
   },
   /**

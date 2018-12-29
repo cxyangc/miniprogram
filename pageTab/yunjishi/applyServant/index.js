@@ -412,7 +412,6 @@ Page({
            header: app.headerPost,
            method: 'POST',
            success: function (res) {
-
              console.log("数据", res)
              if (res.data.errcode == '0') {
                setTimeout(function () {

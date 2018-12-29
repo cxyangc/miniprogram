@@ -22,9 +22,6 @@ Page({
 
     focusTypeItem: null,
     bindProductTypeIndex: null,
-
-    ProductshowWay: 1, // ProductshowWay列表显示方法 
-
     typeSearch: '', // typeSearch的字体 
     canRefresh:true,
     /* 购物车 */
@@ -277,16 +274,12 @@ Page({
   /* 获取数据 */
   getData: function (param, ifAdd) {
     //根据把param变成&a=1&b=2的模式
-    if (!ifAdd) {
-      ifAdd = 1
-    }
+    if (!ifAdd) {ifAdd = 1}
     var customIndex = app.AddClientUrl("/more_product_list.html", param)
     wx.showLoading({
       title: 'loading'
     })
     var that = this
-
-
     wx.request({
       url: customIndex.url,
       header: app.header,
@@ -344,10 +337,6 @@ Page({
     let resule = app.AddClientUrl("/more_product_list.html", params)
     return resule;
   },
-
-
-  
-
 
   toProductDetail: function (event) {
     console.log("--------toProductDetail------")
@@ -643,16 +632,8 @@ Page({
       this.setData({ setting: app.setting })
       console.log(this.data.setting)
     }
-
-
-
     if (!!options.productTypeId) {
       options.categoryId = options.productTypeId
-    }
-    if (!!options.forceSearch && options.forceSearch == 2) {
-      this.setData({ ProductshowWay: 2 })
-    } else {
-      this.setData({ ProductshowWay: 1 })
     }
     for (let i in options) {
       for (let j in this.params) {
@@ -660,12 +641,7 @@ Page({
       }
     }
     console.log(this.params)
-    this.getData(this.params, 2);
-
-    this.setData({
-      sysWidth: app.globalData.sysWidth
-    });
-    
+    this.getData(this.params, 2)
   },
 
   /**

@@ -5,31 +5,11 @@ const app = getApp()
 Page({
 
   data: {
-
     setting: null, // setting   
     productData: [], // 商品数据 
     sysWidth: 320,//图片大小
     positionTab:'',
-    /* 显示或影藏 */
-    showType: false,
-    show0: false,
-    show1: false,
-    show2: false,
-    topName: {
-    SearchProductName: "",//头部搜索的
-    },
-    focusTypeItem: null,
-    bindProductTypeIndex: null,
-
     ProductshowWay: 1, // ProductshowWay列表显示方法 (默认显示地图)
-
-    typeSearch: '', // typeSearch的字体 
-    colorAtive: '#888',
-
-    s_price: {  // 查询的价格 
-      startPrice: "",
-      endPrice: ""
-    },
     localPoint: { longitude: '0', latitude:'0'},
     productDetail:null,
     markers: [{
@@ -41,16 +21,39 @@ Page({
       longitude: 119.30130341796878,
     }]
   },
-  checkCor: function () {
-    if (this.data.currentTab > 4) {
-      this.setData({
-        scrollLeft: 300
-      })
-    } else {
-      this.setData({
-        scrollLeft: 0
-      })
-    }
+  //获取产品分类
+  getProductType: function (parentCategoryId,categoryId,callback){
+    var customIndex = app.AddClientUrl("/wx_get_categories_only_by_parent.html", { categoryId: parentCategoryId})
+    wx.showLoading({
+      title: 'loading'
+    })
+    var that = this
+    wx.request({
+      url: customIndex.url,
+      header: app.header,
+      success: function (res) {
+        wx.hideLoading()
+        console.log("getProductType",res.data)
+        if (res.data.errcode==0){
+          that.setData({ productType: res.data.relateObj })
+        }else{
+          that.setData({ productType: that.data.productType })
+        }
+        that.data.productType.unshift({ id: categoryId || parentCategoryId,name:"全部"})
+        for (let i = 0; i < that.data.productType.length; i++) {
+          that.data.productType[i].colorAtive = '#888';
+        }
+        that.data.productType[0].colorAtive = that.data.setting.platformSetting.defaultColor;
+        that.data.productType[0].active = true;
+        that.setData({ productType: that.data.productType })
+        wx.hideLoading()
+      },
+      fail: function (res) {
+        console.log("fail")
+        wx.hideLoading()
+        app.loadFail()
+      }
+    })
   },
   toIndex(){
     app.toIndex()
@@ -102,55 +105,6 @@ Page({
     console.log(e)
     this.setData({productDetail:null})
   },
-  /* 点击分类 */
-  bindProductType: function (e) {
-    console.log(e)
-    var index = e.currentTarget.dataset.index;
-    if (index == this.data.bindProductTypeIndex) {
-      this.data.showType = false;
-
-      this.setData({
-        showType: this.data.showType,
-        bindProductTypeIndex: null
-      })
-    }
-    else {
-      this.data.showType = true;
-      this.data.bindProductTypeIndex = index;
-      if (index == 0) {
-        this.data.show0 = true;
-        this.data.show1 = false;
-        this.data.show2 = false;
-      }
-      else if (index == 1) {
-        this.data.show0 = false;
-        this.data.show1 = true;
-        this.data.show2 = false;
-      }
-      else if (index == 2) {
-        this.data.show0 = false;
-        this.data.show1 = false;
-        this.data.show2 = true;
-      }
-
-      this.setData({
-        show0: this.data.show0,
-        show1: this.data.show1,
-        show2: this.data.show2,
-        showType: this.data.showType,
-        bindProductTypeIndex: this.data.bindProductTypeIndex
-      })
-
-    }
-
-  },
-
-  /* 点击遮罩层 */
-  closeZhezhao: function () {
-    this.data.showType = false;
-    this.setData({ showType: false, bindProductTypeIndex: null })
-  },
-
   /* 点击分类大项 */
   bindTypeItem: function (event) {
     let onId;
@@ -185,19 +139,10 @@ Page({
 
       this.params.categoryId = ''
       this.getData(this.params, 2)
-      this.setData({ showType: false, bindProductTypeIndex: null })
     } else {
       this.params.categoryId = onId
       this.getData(this.params, 2)
     }
-  },
-  ChangeParam: function (params) {
-    var returnParam = ""
-    for (let i in params) {
-      returnParam += "&" + i + "=" + params[i]
-    }
-    console.log(returnParam)
-    return returnParam
   },
   /* 获取数据 */
   getData: function (param, ifAdd) {
@@ -205,12 +150,10 @@ Page({
     if (!ifAdd) {
       ifAdd = 1
     }
-    //var postParam = this.ChangeParam(param)
-    //param.page = this.listPage.page
     var customIndex = app.AddClientUrl("/more_product_list.html", param)
-    // wx.showLoading({
-    //   title: 'loading'
-    // })
+    wx.showLoading({
+      title: 'loading'
+    })
     var that = this
     wx.request({
       url: customIndex.url,
@@ -267,11 +210,11 @@ Page({
             
           }
         }
-        // wx.hideLoading()
+        wx.hideLoading()
       },
       fail: function (res) {
         console.log("fail")
-        // wx.hideLoading()
+        wx.hideLoading()
         app.loadFail()
       }
     })
@@ -299,13 +242,8 @@ Page({
     categoryId: "",
     platformNo: "",
     belongShop: "",
-    typeBelongShop: "",
     page: 1,
-    showType: "",
-    showColumn: "",
     productName: "",
-    startPrice: "",
-    endPrice: "",
     orderType: "",
     saleTypeId: "",
     promotionId: "",
@@ -347,95 +285,34 @@ Page({
           that.setData({ productData: res.data.result })
         }
 
-      },
-      fail: function () {
-        wx.hideLoading()
-        app.loadFail()
-      }
-    })
-  },
-
-  /* 分类查询 */
-  searchProduct: function (event) {
-    var that = this;
-    this.setData({ showType: false, bindProductTypeIndex: null })
-    console.log(event.currentTarget.dataset)
-    var focusKey = event.currentTarget.dataset;
-    console.log(this.params)
-    for (let i in focusKey) {
-      for (let j in this.params) {
-        if (i.toLowerCase() == j.toLowerCase()) { this.params[j] = focusKey[i] }
-      }
-    }
-    switch (this.params.orderType) {
-      case '0': {
-        this.setData({ typeSearch: '默认排序' }); break;
-      };
-      case '102': {
-        this.setData({ typeSearch: '价格升序' }); break;
-      };
-      case '2': {
-        this.setData({ typeSearch: '价格降序' }); break;
-      };
-      case '104': {
-        this.setData({ typeSearch: '上架日期升' }); break;
-      };
-      case '4': {
-        this.setData({ typeSearch: '上架日期降' }); break;
-      };
-      case '101': {
-        this.setData({ typeSearch: '销量升' }); break;
-      };
-      case '1': {
-        this.setData({ typeSearch: '销量降' }); break;
-      };
-    }
-
-    console.log(this.params)
-    this.params.page = 1
-    var customIndex = this.more_product_list_URL(this.params);
-    console.log(customIndex)
-    wx.showLoading({
-      title: 'loading'
-    })
-    that.listPage.page = 1
-    that.params.page = 1
-    wx.request({
-      url: customIndex.url,
-      header: app.header,
-      success: function (res) {
-
-        that.listPage.pageSize = res.data.pageSize
-        that.listPage.curPage = res.data.curPage
-        that.listPage.totalSize = res.data.totalSize
-
-        console.log(res.data)
-
-        wx.hideLoading()
-
-        if (!res.data.result || res.data.result.length == 0) {
-          that.setData({ productData: null })
-          that.setData({ markers:null })
-        } else {
-          let dataArr = []
-          dataArr = dataArr.concat(res.data.result)
-          that.setData({ productData: dataArr })
-          that.setData({ markers: that.data.productData })
-          if (that.data.markers) {
-            for (let i = 0; i < that.data.markers.length; i++) {
-              that.data.markers[i].iconPath = '../../images/icon/mapItem.png'
+        that.setData({ markers: that.data.productData })
+        let conut = 0;
+        if (that.data.markers) {
+          for (let i = 0; i < that.data.markers.length; i++) {
+            if (that.data.markers[i].categoryIcon) {
+              that.downProIcon(that.data.markers[i].categoryIcon, function (url) {
+                conut++;
+                that.data.markers[i].iconPath = url;
+                that.data.markers[i].width = 32;
+                that.data.markers[i].height = 32;
+                if (conut == that.data.markers.length) {
+                  that.setData({ markers: that.data.markers })
+                  console.log('==that.data.markersHave===', that.data.markers);
+                }
+              })
+            } else {
+              conut++;
+              that.data.markers[i].iconPath = '../../images/icon/mapItem.png';
+              that.data.markers[i].width = 32;
+              that.data.markers[i].height = 32;
+              if (conut == that.data.markers.length) {
+                that.setData({ markers: that.data.markers })
+                console.log('==that.data.markers===', that.data.markers);
+              }
             }
-            that.setData({ markers: that.data.markers })
+
           }
-          console.log('==that.data.markers===', that.data.markers);
         }
-
-        /* if (!res.data.result || res.data.result.length == 0) {
-          that.setData({ productData: null })
-        } else {
-          that.setData({ productData: res.data.result })
-        } */
-
       },
       fail: function () {
         wx.hideLoading()
@@ -443,49 +320,9 @@ Page({
       }
     })
   },
-
   more_product_list_URL: function (params) {
     let resule = app.AddClientUrl("/more_product_list.html", params)
     return resule;
-  },
-
-
-  /* 价格排序 */
-  getStartValue: function (e) {
-    this.data.s_price.startPrice = e.detail.value
-  },
-  getEndValue: function (e) {
-    this.data.s_price.endPrice = e.detail.value
-  },
-  searchProductbyPrice: function () {
-    var that = this;
-    this.setData({ showType: false, bindProductTypeIndex: null })
-
-    var focusKey = this.data.s_price
-
-    console.log(this.params)
-    for (let i in focusKey) {
-      for (let j in this.params) {
-        if (i.toLowerCase() == j.toLowerCase()) { this.params[j] = focusKey[i] }
-      }
-    }
-    console.log(this.params)
-
-    var customIndex = this.more_product_list_URL(this.params);
-    console.log(customIndex)
-    wx.request({
-      url: customIndex.url,
-      header: app.header,
-      success: function (res) {
-        console.log(res.data)
-        if (!res.data.result || res.data.result.length == 0) {
-          that.setData({ productData: null })
-        } else {
-          that.setData({ productData: res.data.result })
-        }
-        that.setData({ s_price: that.data.s_price })
-      }
-    })
   },
   /* 商品显示方法 */
 
@@ -494,12 +331,9 @@ Page({
       this.setData({ ProductshowWay: 2 })
     } else{
       this.setData({ ProductshowWay: 1 })
-      
     }
 
   },
-
-
   toProductDetail: function (event) {
     console.log("--------toProductDetail------", event)
     console.log(event.currentTarget.dataset.info)
@@ -564,6 +398,11 @@ Page({
         that.params.latitude = res.latitude
         that.params.longitude = res.longitude
         console.log("options", options)
+        // that.setData({ positionTab: options.productTypeId})
+        // options.categoryId = options.productTypeId;//当前类目Id
+        // let parentCategoryId = options.parentCategoryId||0;//父级类目Id
+        // that.getProductType(parentCategoryId, options.categoryId, that.bindTypeItem)
+        // that.bindTypeItem(options.productTypeId)
         if (options.productTypeId) {
           that.setData({ positionTab: options.productTypeId })
           options.categoryId = options.productTypeId

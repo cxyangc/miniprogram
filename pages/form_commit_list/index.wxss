@@ -116,3 +116,20 @@
   color: #888;
   padding:20rpx;
 }
+.replyTitle{
+  width: 20%;
+}
+.form_description_text{
+  width: 80%;
+}
+.reply{
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font-size: 26rpx;
+  color:#999;
+  border:1rpx solid #ddd;
+  border-radius:10rpx;
+  padding:16rpx 20rpx;
+}

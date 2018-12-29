@@ -151,9 +151,9 @@ Page({
       if(app.clientNo=="tunzai"){
         url ="/pageTab/tunzai/preApplyMendian/index"
       } else if (app.clientNo == "yunjishi"){
-        url = "/pageTab/yunjishi/preApplyMendian/index"
+        url = "/pageTab/yunjishi/applyMendian/index?code=" + options.APPLY_SERVER_CHANNEL_CODE;
       }else{
-        url = "/pageTab/yunjishi/preApplyMendian/index"
+        url = "/pageTab/yunjishi/applyMendian/index?code=" + options.APPLY_SERVER_CHANNEL_CODE;
       }
       //       applyMendian
       setTimeout(function () {
@@ -201,6 +201,20 @@ Page({
       setTimeout(function () {
         wx.navigateTo({
           url: '/pages/news_detail/index?id=' + options.SHARE_NEWS_DETAIL_PAGE,
+          success: function () {
+            app.shareSubPage = true;
+          }
+        })
+
+      }, 200)
+      return;
+    }
+    // 分享出来带分享SHARE_FORM_DETAIL_PAGE跳到表单详情页
+    if (options.SHARE_FORM_DETAIL_PAGE && options.SHARE_FORM_DETAIL_PAGE != "") {
+      console.log("进入表单详情页面", options.SHARE_FORM_DETAIL_PAGE)
+      setTimeout(function () {
+        wx.navigateTo({
+          url: '/pages/form_detail/index?customFormId=' + options.SHARE_FORM_DETAIL_PAGE,
           success: function () {
             app.shareSubPage = true;
           }

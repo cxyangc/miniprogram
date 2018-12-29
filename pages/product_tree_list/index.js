@@ -43,7 +43,46 @@ Page({
     },  //规格价格
   },
 
+  getProductType: function (categoryId) {
+    //根据把param变成&a=1&b=2的模式
+    var customIndex = app.AddClientUrl("/wx_get_categories_only_by_parent.html", { categoryId: categoryId||0})
+    wx.showLoading({
+      title: 'loading'
+    })
+    var that = this
+    wx.request({
+      url: customIndex.url,
+      header: app.header,
+      success: function (res) {
+        console.log(res.data)
+        that.listPage.pageSize = res.data.pageSize
+        that.listPage.curPage = res.data.curPage
+        that.listPage.totalSize = res.data.totalSize
+        let dataArr = that.data.productData
 
+        if (ifAdd == 2) {
+          dataArr = []
+        }
+        if (!res.data.result || res.data.result.length == 0) {
+          that.setData({ productData: null })
+        } else {
+          if (dataArr == null) { dataArr = [] }
+          dataArr = dataArr.concat(res.data.result)
+          that.setData({ productData: dataArr })
+        }
+
+        wx.hideLoading()
+      },
+      fail: function (res) {
+        console.log("fail")
+        wx.hideLoading()
+        app.loadFail()
+      },
+      complete: function () {
+        that.setData({ canRefresh: true })
+      },
+    })
+  },
   /* 点击遮罩层 */
   closeZhezhao: function () {
     this.getData(this.params, 2)

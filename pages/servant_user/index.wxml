@@ -12,10 +12,10 @@
         <view>共{{count}}人</view>
       </view>
       <view class='flx_user_item' wx:for='{{List}}' wx:key='{{index}}'>
-        <image  src='{{item.headimgurl ? item.headimgurl : "/images/icons/me1.png"}}'></image>
+        <image  src='{{item.icon ? item.icon : "/images/icons/me1.png"}}'></image>
         <view class='flx_user_item_info'>
-          <text>{{item.nickname ? item.nickname : "无昵称"}}</text>
-          <view>直接推广人数: {{item.levelOneFxUserCount}}</view>
+          <text>{{item.name ? item.name : "无昵称"}}</text>
+          <view>上级推荐人: {{item.parentServantName?item.parentServantName:"无"}}</view>
           <view class='time'>{{item.addTime}}</view>
         </view>
       </view>

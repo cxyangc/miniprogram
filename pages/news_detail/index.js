@@ -22,7 +22,7 @@ Page({
   showPoster: function () {
     let that = this;
     console.log('===showPoster====', that.onloadOpt.id)
-    let ewmImgUrl = app.getQrCode({ type: "news_detail", id: that.onloadOpt.id })
+    let ewmImgUrl = app.getQrCode({ type: "news_detail", id: that.onloadOpt.id || that.onloadOpt.newsId})
     that.setData({
       posterState: true,
       ewmImgUrl: ewmImgUrl,
@@ -31,7 +31,7 @@ Page({
   getData:function(e){
     var that = this
     var getParams = {}
-    getParams.newsId = e.id
+    getParams.newsId = e.id||e.newsId
     var customIndex = app.AddClientUrl("/get_news_bbs_detail.html", getParams)
    
     wx.showLoading({

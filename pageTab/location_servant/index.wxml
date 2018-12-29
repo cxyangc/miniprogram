@@ -25,7 +25,7 @@
             <view class='servantImg'><image mode="aspectFill" src='{{result.icon}}?x-oss-process=style/preview'></image></view>
             <view class='servant_items2_view1'>
               <view class='name_and_address'>
-                <text class='servant_name'>{{result.name}}</text>
+                <text class='servant_name'>{{result.surname}}师傅</text>
                 <text class='location_name'>{{result.province}}</text>
                 <text class='location_name'>{{result.city}}</text>
               </view>

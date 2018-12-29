@@ -16,7 +16,7 @@
        <scroll-view scroll-x class="tab-h" scroll-into-view="{{'tab_'+positionTab}}" scroll-with-animation='true'>
          <view  wx:for="{{setting.platformSetting.categories}}"
           wx:for-item="type" wx:key="{{index}}" data-type="{{type}}"
-          bindtap='bindTypeItem' id="{{'tab_'+type.id}}" class='tab-item {{type.active?"active":""}}' style='color:{{type.colorAtive}}'>{{type.name}}</view>
+          bindtap='bindTypeItem' id="{{'tab_'+type.id}}" class='tab-item' style='color:{{type.colorAtive}};border-bottom:{{type.active?"2rpx solid "+type.colorAtive:""}}'>{{type.name}}</view>
        </scroll-view>
      </view>
     
